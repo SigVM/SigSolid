@@ -262,6 +262,14 @@ struct FunctionCall
 	DisplayMode displayMode = DisplayMode::SingleLine;
 	/// Marks this function call as the constructor.
 	bool isConstructor = false;
+	/// Marks this function as one that is supposed to send ether. It's set
+	/// to true if an ether value is defined explicitly.
+	bool hasValueSet = false;
+	/// If this function has no name and no arguments, calldata
+	/// is empty. This results in the `fallback {}` function being
+	/// called if no ether was send and the `ether {}` function being
+	/// called otherwise.
+	bool hasCalldata = true;
 	/// Marks this function call as "short-handed", meaning
 	/// no `->` declared.
 	bool omitsArrow = true;

@@ -98,11 +98,18 @@ TestCase::TestResult SemanticTest::run(ostream& _stream, string const& _linePref
 			}
 			else
 			{
-				bytes output = callContractFunctionWithValueNoEncoding(
-					test.call().signature,
-					test.call().value,
-					test.call().arguments.rawBytes()
-				);
+				bytes output;
+				if (!test.call().hasCalldata)
+					if (test.call().hasValueSet)
+						output = callFallbackWithValue(test.call().value);
+					else
+						output = callFallback();
+				else
+					output = callContractFunctionWithValueNoEncoding(
+						test.call().signature,
+						test.call().value,
+						test.call().arguments.rawBytes()
+					);
 
 				if ((m_transactionSuccessful == test.call().expectations.failure) || (output != test.call().expectations.rawBytes()))
 					success = false;
