@@ -139,8 +139,29 @@ in addition to those found in ``soltest``.
 The CI runs additional tests (including ``solc-js`` and testing third party Solidity frameworks) that require compiling the Emscripten target.
 
 
-Writing and running syntax tests
---------------------------------
+Writing and running tests
+-------------------------
+
+The ``isoltest`` tool is used for these tests and you can find it under ``./build/test/tools/``. It is an interactive tool which allows
+editing of failing contracts using your preferred text editor.
+
+::
+    isoltest --help
+
+``isoltest`` prints the expected result next to the obtained result, and also
+provides a way to edit, update or skip the current contract file, or quit the application.
+
+It offers several options for failing tests:
+
+- ``edit``: ``isoltest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command line (as ``isoltest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
+- ``update``: Updates the expectations for contract under test. This updates the annotations by removing unmet expectations and adding missing expectations. The test is then run again.
+- ``skip``: Skips the execution of this particular test.
+- ``quit``: Quits ``isoltest``.
+
+All of these options apply to the current contract, expect ``quit`` which stops the entire testing process.
+
+Syntax tests
+------------
 
 Syntax tests check that the compiler generates the correct error messages for invalid code
 and properly accepts valid code.
@@ -166,8 +187,7 @@ out the separator and the comments that follow it.
 
 In the above example, the state variable ``variable`` was declared twice, which is not allowed. This results in a ``DeclarationError`` stating that the identifier was already declared.
 
-The ``isoltest`` tool is used for these tests and you can find it under ``./build/test/tools/``. It is an interactive tool which allows
-editing of failing contracts using your preferred text editor. Let's try to break this test by removing the second declaration of ``variable``:
+Let's try to break this test by removing the second declaration of ``variable``:
 
 ::
 
@@ -192,19 +212,6 @@ Running ``./build/test/isoltest`` again results in a test failure:
         Obtained result:
             Success
 
-
-``isoltest`` prints the expected result next to the obtained result, and also
-provides a way to edit, update or skip the current contract file, or quit the application.
-
-It offers several options for failing tests:
-
-- ``edit``: ``isoltest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command line (as ``isoltest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
-- ``update``: Updates the expectations for contract under test. This updates the annotations by removing unmet expectations and adding missing expectations. The test is then run again.
-- ``skip``: Skips the execution of this particular test.
-- ``quit``: Quits ``isoltest``.
-
-All of these options apply to the current contract, expect ``quit`` which stops the entire testing process.
-
 Automatically updating the test above changes it to
 
 ::
@@ -227,6 +234,31 @@ and re-run the test. It now passes again:
     Choose a name for the contract file that explains what it tests, e.g. ``double_variable_declaration.sol``.
     Do not put more than one contract into a single file, unless you are testing inheritance or cross-contract calls.
     Each file should test one aspect of your new feature.
+
+
+Semantic tests
+--------------
+
+Similar to syntax tests, ``isoltest`` also supports defining and running semantic tests.
+
+::
+
+    contract test {
+        function f() public {
+        }
+        
+        function g() public returns (uint) {
+            return 1;
+        }
+
+        function h(uint256 _value) public returns (uint) {
+            return _value;
+        }
+    }
+    // ----
+    // f()
+    // g() -> 1
+    // h(uint256): 1 -> 1
 
 
 Running the Fuzzer via AFL
