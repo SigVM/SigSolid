@@ -186,7 +186,7 @@ string solidity::util::formatAsStringOrNumber(string const& _value)
 
 	for (auto const& c: _value)
 		if (c <= 0x1f || c >= 0x7f || c == '"')
-			return "0x" + h256(_value, h256::AlignLeft).hex();
+			return "0x" + h256(_value, h256::FromBinary, h256::AlignLeft).hex();
 
 	return "\"" + _value + "\"";
 }
