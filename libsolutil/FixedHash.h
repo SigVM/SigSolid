@@ -109,6 +109,7 @@ private:
 };
 
 /// Stream I/O for the FixedHash class.
+/*
 template <unsigned N>
 inline std::ostream& operator<<(std::ostream& _out, FixedHash<N> const& _h)
 {
@@ -118,6 +119,20 @@ inline std::ostream& operator<<(std::ostream& _out, FixedHash<N> const& _h)
 		_out << std::setw(2) << (int)_h[i];
 	_out << std::dec;
 	return _out;
+}
+*/
+
+template <unsigned N>
+inline std::ostream& operator<<(std::ostream& _out, FixedHash<N> const& _h)
+{
+	_out << toHex(_h.asBytes());
+	return _out;
+}
+
+template <unsigned N>
+std::string toString(FixedHash<N> const& _h)
+{
+	return toHex(_h.asBytes());
 }
 
 // Common types of FixedHash.
