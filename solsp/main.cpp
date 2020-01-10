@@ -15,21 +15,14 @@
 
 using namespace std;
 
-void handleRequest(lsp::protocol::RequestMessage const& _request, ostream& _logger)
-{
-	solidity::LanguageServer lsp{cout, _logger};
-
-	visit(solidity::util::GenericVisitor{
-		[&](lsp::protocol::InitializeRequest const& _initialize) { lsp(_initialize, *_request.id); },
-		// TODO: more request methods implemented here ...
-	}, *_request.params);
-}
-
 int main(int argc, char* argv[])
 {
 	// Tiny facility for debug-printing to log file instead of stderr when attached to IDE
 	unique_ptr<ostream> ownedLogger = argc == 2 ? make_unique<ofstream>(argv[1], ios::trunc | ios::ate) : nullptr;
 	ostream& logger = ownedLogger ? *ownedLogger : cerr;
+
+	solidity::LanguageServer lsp{cout, logger};
+	using Id = solidity::LanguageServer::Id;
 
 	while (cin.good())
 	{
@@ -37,10 +30,16 @@ int main(int argc, char* argv[])
 		if (holds_alternative<Json::Value>(message))
 		{
 			auto const& json = get<Json::Value>(message);
-			if (auto const requestMessage = lsp::protocol::fromJsonRpc(json); requestMessage.params.has_value())
-				handleRequest(requestMessage, logger);
-			else
-				logger << "Could not parse RPC?" << solidity::util::jsonCompactPrint(json) << endl;
+
+			string const methodName = json["method"].asString();
+			Id const id = json["id"].isInt()
+				? Id{json["id"].asInt()}
+				: json["id"].isString()
+					? Id{json["id"].asString()}
+					: Id{};
+			Json::Value const& args = json["params"];
+
+			lsp.handleRequest(id, methodName, args);
 		}
 		else
 			logger << "Message Error:\n" << (int)get<lsp::ErrorCode>(message) << endl;

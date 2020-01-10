@@ -1,10 +1,9 @@
 #include "LanguageServer.h"
-#include <lsp/protocol.h>
+#include <libsolutil/Visitor.h>
 #include <libsolutil/JSON.h>
 #include <ostream>
 
 using namespace std;
-using namespace lsp::protocol;
 
 namespace solidity {
 
@@ -14,10 +13,32 @@ LanguageServer::LanguageServer(ostream& _client, ostream& _logger):
 {
 }
 
-void LanguageServer::reply(Response const& _response, optional<Id> _requestId)
+void LanguageServer::handleRequest(Id _requestId, std::string const& _method, Json::Value const& _args)
 {
-	Json::Value json = lsp::protocol::toJsonRpc(_response, _requestId);
-	string jsonString = util::jsonCompactPrint(json);
+	if (_method == "initialize")
+		initialize(_args);
+	else if (_method == "initialized")
+		initialized();
+	else if (_method == "textDocument/didOpen")
+		textDocument_didOpen(_requestId, _args);
+	else if (_method == "textDocument/didClose")
+		textDocument_didClose(_requestId, _args);
+	else
+		m_logger << "Could not parse RPC? " << solidity::util::jsonCompactPrint(_args) << endl;
+}
+
+void LanguageServer::sendReply(Json::Value const& _response, optional<Id> _requestId)
+{
+	Json::Value json;
+	json["jsonrpc"] = "2.0";
+	json["result"] = _response;
+	visit(util::GenericVisitor{
+		[&](int _id) { json["id"] = _id; },
+		[&](string const& _id) { json["id"] = _id; },
+		[&](monostate) {}
+	}, *_requestId);
+
+	string const jsonString = util::jsonCompactPrint(json);
 	m_client << "Content-Length: " << jsonString.size() << "\r\n\r\n" << jsonString;
 
 	// for logging only
@@ -25,17 +46,35 @@ void LanguageServer::reply(Response const& _response, optional<Id> _requestId)
 	m_logger << "Content-Length: " << jsonString.size() << "\r\n\r\n" << jsonString;
 }
 
-void LanguageServer::operator()(InitializeRequest const& _initialize, Id _requestId)
+void LanguageServer::initialize(Json::Value const& _args)
 {
-	m_logger << "Initializing, PID=" << _initialize.processId.value_or(-1) << endl;
-	for (auto const& workspace: _initialize.workspaceFolders)
-		m_logger << "workspace folder: " << workspace.name << "; " << workspace.uri << endl;
+	(void) _args;
+
+	m_logger << "Initializing, PID=" << _args["processId"].asInt() << endl;
+	for (auto const& workspace: _args["workspaceFolders"])
+		m_logger << "workspace folder: " << workspace["name"].asString() << "; " << workspace["uri"].asString() << endl;
 
 	// Respond with a InitializeResult{}
-	InitializeResult result;
-	result.capabilities.hoverProvider = true;
-	result.capabilities.textDocumentSync = true;
-	reply(result, _requestId);
+	Json::Value reply;
+	reply["capabilities"]["hoverProvider"] = true;
+	reply["capabilities"]["textDocumentSync"] = true;
+	sendReply(reply);
+}
+
+void LanguageServer::initialized()
+{
+}
+
+void LanguageServer::textDocument_didOpen(Id _id, Json::Value const& _args)
+{
+	(void) _id;
+	(void) _args;
+}
+
+void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)
+{
+	(void) _id;
+	(void) _args;
 }
 
 } // namespace solidity
