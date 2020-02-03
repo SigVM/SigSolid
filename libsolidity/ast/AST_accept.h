@@ -67,6 +67,18 @@ void ImportDirective::accept(ASTConstVisitor& _visitor) const
 	_visitor.endVisit(*this);
 }
 
+void DocTag::accept(ASTVisitor& _visitor)
+{
+	_visitor.visit(*this);
+	_visitor.endVisit(*this);
+}
+
+void DocTag::accept(ASTConstVisitor& _visitor) const
+{
+	_visitor.visit(*this);
+	_visitor.endVisit(*this);
+}
+
 void StructuredDocumentation::accept(ASTVisitor& _visitor)
 {
 	_visitor.visit(*this);

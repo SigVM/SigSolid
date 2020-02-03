@@ -117,7 +117,7 @@ Json::Value Natspec::devDocumentation(ContractDefinition const& _contractDef)
 	return doc;
 }
 
-Json::Value Natspec::extractReturnParameterDocs(std::multimap<std::string, DocTag> const& _tags, FunctionDefinition const& _functionDef)
+Json::Value Natspec::extractReturnParameterDocs(std::multimap<std::string, ASTPointer<DocTag>> const& _tags, FunctionDefinition const& _functionDef)
 {
 	Json::Value jsonReturn{Json::objectValue};
 	auto returnDocs = _tags.equal_range("return");
@@ -128,7 +128,7 @@ Json::Value Natspec::extractReturnParameterDocs(std::multimap<std::string, DocTa
 		for (auto i = returnDocs.first; i != returnDocs.second; i++)
 		{
 			string paramName = _functionDef.returnParameters().at(n)->name();
-			string content = i->second.content;
+			string content = *i->second->content();
 
 			if (paramName.empty())
 				paramName = "_" + std::to_string(n);
@@ -148,16 +148,16 @@ Json::Value Natspec::extractReturnParameterDocs(std::multimap<std::string, DocTa
 	return jsonReturn;
 }
 
-string Natspec::extractDoc(multimap<string, DocTag> const& _tags, string const& _name)
+string Natspec::extractDoc(multimap<string, ASTPointer<DocTag>> const& _tags, string const& _name)
 {
 	string value;
 	auto range = _tags.equal_range(_name);
 	for (auto i = range.first; i != range.second; i++)
-		value += i->second.content;
+		value += *i->second->content();
 	return value;
 }
 
-Json::Value Natspec::devDocumentation(std::multimap<std::string, DocTag> const& _tags)
+Json::Value Natspec::devDocumentation(std::multimap<std::string, ASTPointer<DocTag>> const& _tags)
 {
 	Json::Value json(Json::objectValue);
 	auto dev = extractDoc(_tags, "dev");
@@ -171,7 +171,7 @@ Json::Value Natspec::devDocumentation(std::multimap<std::string, DocTag> const& 
 	Json::Value params(Json::objectValue);
 	auto paramRange = _tags.equal_range("param");
 	for (auto i = paramRange.first; i != paramRange.second; ++i)
-		params[i->second.paramName] = Json::Value(i->second.content);
+		params[*i->second->name()] = Json::Value(*i->second->content());
 
 	if (!params.empty())
 		json["params"] = params;

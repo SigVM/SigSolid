@@ -93,6 +93,7 @@ class PrimaryExpression;
 class Identifier;
 class ElementaryTypeNameExpression;
 class Literal;
+class DocTag;
 class StructuredDocumentation;
 
 class VariableScope;

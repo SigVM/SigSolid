@@ -126,11 +126,15 @@ DocStringParser::iter DocStringParser::parseDocTagLine(iter _pos, iter _end, boo
 {
 	solAssert(!!m_lastTag, "");
 	auto nlPos = find(_pos, _end, '\n');
+	// TODO Reimplement?
 	if (_appending && _pos < _end && *_pos != ' ' && *_pos != '\t')
-		m_lastTag->content += " ";
+		m_lastTag->appendContent(" ");
 	else if (!_appending)
 		_pos = skipWhitespace(_pos, _end);
-	copy(_pos, nlPos, back_inserter(m_lastTag->content));
+
+	string content;
+	copy(_pos, nlPos, back_inserter(content));
+	m_lastTag->appendContent(content);
 	return skipLineOrEOS(nlPos, _end);
 }
 
@@ -157,8 +161,8 @@ DocStringParser::iter DocStringParser::parseDocTagParam(iter _pos, iter _end)
 
 	auto paramDesc = string(descStartPos, nlPos);
 	newTag("param");
-	m_lastTag->paramName = paramName;
-	m_lastTag->content = paramDesc;
+	m_lastTag->setName(paramName);
+	m_lastTag->appendContent(paramDesc);
 
 	return skipLineOrEOS(nlPos, _end);
 }
@@ -189,7 +193,14 @@ DocStringParser::iter DocStringParser::appendDocTag(iter _pos, iter _end)
 
 void DocStringParser::newTag(string const& _tagName)
 {
-	m_lastTag = &m_docTags.insert(make_pair(_tagName, DocTag()))->second;
+	// TODO move to solidity parser and initialize correctly.
+	auto node = make_shared<DocTag>(
+		0,
+		SourceLocation{},
+		make_shared<ASTString>(""),
+		make_shared<ASTString>("")
+	);
+	m_lastTag = m_docTags.insert(make_pair(_tagName, node))->second;
 }
 
 void DocStringParser::appendError(string const& _description)

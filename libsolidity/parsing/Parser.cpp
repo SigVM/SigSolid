@@ -142,7 +142,8 @@ ASTPointer<StructuredDocumentation> Parser::parseStructuredDocumentation()
 		ASTNodeFactory nodeFactory{*this};
 		nodeFactory.setLocation(m_scanner->currentCommentLocation());
 		return nodeFactory.createNode<StructuredDocumentation>(
-			make_shared<ASTString>(m_scanner->currentCommentLiteral())
+			make_shared<ASTString>(m_scanner->currentCommentLiteral()),
+			vector<ASTPointer<DocTag>>{}
 		);
 	}
 	return nullptr;

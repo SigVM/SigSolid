@@ -852,7 +852,8 @@ ASTPointer<StructuredDocumentation> ASTJsonImporter::createDocumentation(Json::V
 
 	return createASTNode<StructuredDocumentation>(
 		_node,
-		make_shared<ASTString>(_node[textString].asString())
+		make_shared<ASTString>(_node[textString].asString()),
+		vector<ASTPointer<DocTag>>{}
 	);
 }
 

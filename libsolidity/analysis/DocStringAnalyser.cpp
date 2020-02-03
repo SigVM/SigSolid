@@ -84,10 +84,10 @@ void DocStringAnalyser::checkParameters(
 			validParams.insert(p->name());
 	auto paramRange = _annotation.docTags.equal_range("param");
 	for (auto i = paramRange.first; i != paramRange.second; ++i)
-		if (!validParams.count(i->second.paramName))
+		if (!validParams.count(*i->second->name()))
 			appendError(
 				"Documented parameter \"" +
-				i->second.paramName +
+				*i->second->name() +
 				"\" not found in the parameter list of the function."
 			);
 
@@ -141,18 +141,18 @@ void DocStringAnalyser::parseDocStrings(
 				returnTagsVisited++;
 				if (auto* function = dynamic_cast<FunctionDefinition const*>(&_node))
 				{
-					string content = docTag.second.content;
+					string content = *docTag.second->content();
 					string firstWord = content.substr(0, content.find_first_of(" \t"));
 
 					if (returnTagsVisited > function->returnParameters().size())
-						appendError("Documentation tag \"@" + docTag.first + " " + docTag.second.content + "\"" +
+						appendError("Documentation tag \"@" + docTag.first + " " + *docTag.second->content() + "\"" +
 							" exceedes the number of return parameters."
 						);
 					else
 					{
 						auto parameter = function->returnParameters().at(returnTagsVisited - 1);
 						if (!parameter->name().empty() && parameter->name() != firstWord)
-							appendError("Documentation tag \"@" + docTag.first + " " + docTag.second.content + "\"" +
+							appendError("Documentation tag \"@" + docTag.first + " " + *docTag.second->content() + "\"" +
 								" does not contain the name of its return parameter."
 							);
 					}

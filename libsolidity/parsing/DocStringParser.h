@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <libsolidity/ast/AST.h>
 #include <libsolidity/ast/ASTAnnotations.h>
 #include <string>
 
@@ -40,7 +41,7 @@ public:
 	/// @returns false on error and appends the error to @a _errors.
 	bool parse(std::string const& _docString, langutil::ErrorReporter& _errorReporter);
 
-	std::multimap<std::string, DocTag> const& tags() const { return m_docTags; }
+	std::multimap<std::string, ASTPointer<DocTag>> const& tags() const { return m_docTags; }
 
 private:
 	using iter = std::string::const_iterator;
@@ -62,8 +63,8 @@ private:
 	void appendError(std::string const& _description);
 
 	/// Mapping tag name -> content.
-	std::multimap<std::string, DocTag> m_docTags;
-	DocTag* m_lastTag = nullptr;
+	std::multimap<std::string, ASTPointer<DocTag>> m_docTags;
+	ASTPointer<DocTag> m_lastTag;
 	langutil::ErrorReporter* m_errorReporter = nullptr;
 	bool m_errorsOccurred = false;
 };

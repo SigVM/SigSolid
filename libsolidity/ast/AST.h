@@ -345,6 +345,34 @@ private:
 	std::vector<VariableDeclaration const*> m_localVariables;
 };
 
+class DocTag: public ASTNode
+{
+public:
+	DocTag(
+		int64_t _id,
+		SourceLocation const& _location,
+		ASTPointer<ASTString> const& _name,
+		ASTPointer<ASTString> const& _content
+	): ASTNode(_id, _location), m_name(_name), m_content(_content)
+	{}
+
+	void accept(ASTVisitor& _visitor) override;
+	void accept(ASTConstVisitor& _visitor) const override;
+
+	ASTPointer<ASTString> const& name() const { return m_name; }
+	ASTPointer<ASTString> const& content() const { return m_content; }
+
+	// TODO Remove!
+	void setName(std::string const& _name) { m_name = std::make_shared<ASTString>(_name); }
+	void appendContent(std::string const& _content) { *m_content += _content; }
+
+private:
+	/// Only used for @param, stores the parameter name.
+	ASTPointer<ASTString> m_name;
+	/// The text content of the tag.
+	ASTPointer<ASTString> m_content;
+};
+
 /**
  * The doxygen-style, structured documentation class that represents an AST node.
  */
@@ -354,19 +382,23 @@ public:
 	StructuredDocumentation(
 		int64_t _id,
 		SourceLocation const& _location,
-		ASTPointer<ASTString> const& _text
-	): ASTNode(_id, _location), m_text(_text)
+		ASTPointer<ASTString> const& _text,
+		std::vector<ASTPointer<DocTag>> const& _tags
+	): ASTNode(_id, _location), m_text(_text), m_tags(_tags)
 	{}
 
 	void accept(ASTVisitor& _visitor) override;
 	void accept(ASTConstVisitor& _visitor) const override;
 
 	/// @return A shared pointer of an ASTString.
-	/// Contains doxygen-style, structured documentation that is parsed later on.
+	/// Contains doxygen-style, structured documentation that is parsed and stored locally.
 	ASTPointer<ASTString> const& text() const { return m_text; }
+	/// @return The list of all parsed doc tags.
+	std::vector<ASTPointer<DocTag>> const& tags() const { return m_tags; }
 
 private:
 	ASTPointer<ASTString> m_text;
+	std::vector<ASTPointer<DocTag>> m_tags;
 };
 
 /**

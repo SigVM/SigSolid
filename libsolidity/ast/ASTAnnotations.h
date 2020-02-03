@@ -50,17 +50,11 @@ struct ASTAnnotation
 	virtual ~ASTAnnotation() = default;
 };
 
-struct DocTag
-{
-	std::string content;	///< The text content of the tag.
-	std::string paramName;	///< Only used for @param, stores the parameter name.
-};
-
 struct StructurallyDocumentedAnnotation
 {
 	virtual ~StructurallyDocumentedAnnotation() = default;
 	/// Mapping docstring tag name -> content.
-	std::multimap<std::string, DocTag> docTags;
+	std::multimap<std::string, ASTPointer<DocTag>> docTags;
 };
 
 struct SourceUnitAnnotation: ASTAnnotation
