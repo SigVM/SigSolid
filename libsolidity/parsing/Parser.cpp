@@ -1840,6 +1840,7 @@ ASTPointer<Expression> Parser::parsePrimaryExpression()
 		}
 		break;
 	case Token::StringLiteral:
+	case Token::UnicodeStringLiteral:
 	case Token::HexStringLiteral:
 	{
 		string literal = m_scanner->currentLiteral();

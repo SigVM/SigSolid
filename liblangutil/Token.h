@@ -188,6 +188,7 @@ namespace solidity::langutil
 	K(Struct, "struct", 0)                                             \
 	K(Throw, "throw", 0)                                               \
 	K(Type, "type", 0)                                                 \
+	K(Unicode, "unicode", 0)                                           \
 	K(Using, "using", 0)                                               \
 	K(Var, "var", 0)                                                   \
 	K(View, "view", 0)                                                 \
@@ -226,6 +227,7 @@ namespace solidity::langutil
 	K(FalseLiteral, "false", 0)                                        \
 	T(Number, nullptr, 0)                                              \
 	T(StringLiteral, nullptr, 0)                                       \
+	T(UnicodeStringLiteral, nullptr, 0)                                \
 	T(HexStringLiteral, nullptr, 0)                                    \
 	T(CommentLiteral, nullptr, 0)                                      \
 	\
@@ -265,7 +267,6 @@ namespace solidity::langutil
 	K(Typedef, "typedef", 0)                                           \
 	K(TypeOf, "typeof", 0)                                             \
 	K(Unchecked, "unchecked", 0)                                       \
-	K(Unicode, "unicode", 0)                                           \
 	\
 	/* Illegal token - not able to scan. */                            \
 	T(Illegal, "ILLEGAL", 0)                                           \

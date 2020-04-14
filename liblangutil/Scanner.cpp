@@ -508,7 +508,7 @@ void Scanner::scanToken()
 		{
 		case '"':
 		case '\'':
-			token = scanString();
+			token = scanString(false);
 			break;
 		case '<':
 			// < <= << <<=
@@ -683,6 +683,14 @@ void Scanner::scanToken()
 					else
 						token = setError(ScannerError::IllegalToken);
 				}
+				else if (token == Token::Unicode)
+				{
+					// Special quoted hex string must follow
+					if (m_char == '"' || m_char == '\'')
+						token = scanString(true);
+					else
+						token = setError(ScannerError::IllegalToken);
+				}
 			}
 			else if (isDecimalDigit(m_char))
 				token = scanNumber();
@@ -774,7 +782,7 @@ bool Scanner::isUnicodeLinebreak()
 	return false;
 }
 
-Token Scanner::scanString()
+Token Scanner::scanString(bool const isUnicode)
 {
 	char const quote = m_char;
 	advance();  // consume quote
@@ -795,7 +803,7 @@ Token Scanner::scanString()
 		return setError(ScannerError::IllegalStringEndQuote);
 	literal.complete();
 	advance();  // consume quote
-	return Token::StringLiteral;
+	return isUnicode ? Token::UnicodeStringLiteral : Token::StringLiteral;
 }
 
 Token Scanner::scanHexString()
