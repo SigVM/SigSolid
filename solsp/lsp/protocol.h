@@ -357,7 +357,7 @@ struct TextDocumentIdentifier {
 	DocumentUri uri;
 };
 
-struct VersionedTextDocumentIdentifier : public TextDocumentIdentifier {
+struct VersionedTextDocumentIdentifier : TextDocumentIdentifier {
 	/**
 	 * The version number of this document. If a versioned text document identifier
 	 * is sent from the server to the client and the file is not open in the editor

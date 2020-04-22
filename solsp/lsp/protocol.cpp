@@ -46,7 +46,7 @@ Request makeInitializeReq(Json::Value const& params)
 		}
 	}
 	return req;
-};
+}
 
 } // end unnamed private namespace
 
