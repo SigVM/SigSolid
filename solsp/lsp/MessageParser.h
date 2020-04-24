@@ -14,6 +14,7 @@ enum class ErrorCode
 };
 
 /// Synchronously parses a single JSON-RPC message from input stream.
-std::variant<Json::Value, ErrorCode> parseMessage(std::istream& _source);
+std::variant<Json::Value, ErrorCode> parseMessage(std::istream& _inputStream,
+												  std::ostream* _logger = nullptr);
 
 } // namespace lsp

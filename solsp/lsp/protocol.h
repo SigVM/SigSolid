@@ -94,6 +94,17 @@ struct SaveOptions {
 	bool includeText;
 };
 
+/// Defines how the host (editor) should sync document changes to the language server.
+enum class TextDocumentSyncKind {
+	/// Documents should not be synced at all.
+	None = 0,
+	/// Documents are synced by always sending the full content of the document.
+	Full = 1,
+	/// Documents are synced by sending the full content on open.
+	/// After that only incremental updates to the document are send.
+	Incremental = 2
+};
+
 struct TextDocumentSyncOptions {
 	/**
 	 * Open and close notifications are sent to the server. If omitted open close notification should not
@@ -105,41 +116,78 @@ struct TextDocumentSyncOptions {
 	 * Change notifications are sent to the server. See TextDocumentSyncKind.None, TextDocumentSyncKind.Full
 	 * and TextDocumentSyncKind.Incremental. If omitted it defaults to TextDocumentSyncKind.None.
 	 */
-	int change;
+	TextDocumentSyncKind change;
+};
+
+struct TextDocumentSyncClientCapabilities {
+	std::optional<bool> dynamicRegistration;
 
 	/**
 	 * If present will save notifications are sent to the server. If omitted the notification should not be
 	 * sent.
 	 */
-
-	bool willSave;
+	std::optional<bool> willSave;
 
 	/**
 	 * If present will save wait until requests are sent to the server. If omitted the request should not be
 	 * sent.
 	 */
-	bool willSaveWaitUntil;
+	std::optional<bool> willSaveWaitUntil;
 
 	/**
 	 * If present save notifications are sent to the server. If omitted the notification should not be
 	 * sent.
 	 */
-	std::optional<SaveOptions> save;
+	std::optional<bool> didSave;
+};
+
+struct WorkspaceFoldersServerCapabilities {
+	/**
+	 * The server has support for workspace folders
+	 */
+	bool supported = false;
+
+	/**
+	 * Whether the server wants to receive workspace folder
+	 * change notifications.
+	 *
+	 * If a string is provided, the string is treated as an ID
+	 * under which the notification is registered on the client
+	 * side. The ID can be used to unregister for these events
+	 * using the `client/unregisterCapability` request.
+	 */
+	std::variant<std::string, bool> changeNotifications;
+};
+
+struct WorkspaceCapabilities {
+	std::optional<WorkspaceFoldersServerCapabilities> workspaceFolders;
 };
 
 struct ServerCapabilities {
 	/**
-	 * Defines how text documents are synced. Is either a detailed structure defining each notification or
-	 * for backwards compatibility the TextDocumentSyncKind number. If omitted it defaults to `TextDocumentSyncKind.None`.
+	 * Defines how text documents are synced.
+	 *
+	 * Is either a detailed structure defining each notification or
+	 * for backwards compatibility the TextDocumentSyncKind number.
+	 * If omitted it defaults to `TextDocumentSyncKind.None`.
 	 */
-	std::variant<int, TextDocumentSyncOptions, std::monostate> textDocumentSync;
+	TextDocumentSyncOptions textDocumentSync;
 
 	bool hoverProvider = false;
-	// TODO
+
+	// TODO ...
+
+	WorkspaceCapabilities workspace;
+};
+
+struct ServerInfo {
+	std::string name;
+	std::optional<std::string> version;
 };
 
 struct InitializeResult {
 	ServerCapabilities capabilities;
+	std::optional<ServerInfo> serverInfo;
 };
 
 /**
@@ -651,15 +699,32 @@ struct MarkupContent {
 
 // -----------------------------------------------------------------------------------------------
 
+struct DidOpenTextDocumentParams {
+	/**
+	 * The document that was opened.
+	 */
+	TextDocumentItem textDocument;
+};
+
+// -----------------------------------------------------------------------------------------------
+
+using Id = std::variant<int, std::string>;
+
+/// Message for cancelling a request. This can be sent in both directions.
+struct CancelRequest {
+	Id id;
+};
+
 using Request = std::variant<
+	CancelRequest,
+	DidOpenTextDocumentParams,
 	InitializeRequest
 >;
 
 using Response = std::variant<
+	CancelRequest,
 	InitializeResult
 >;
-
-using Id = std::variant<int, std::string>;
 
 struct RequestMessage {
 	std::optional<Id> id;

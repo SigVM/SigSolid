@@ -22,25 +22,12 @@ int main(int argc, char* argv[])
 	ostream& logger = ownedLogger ? *ownedLogger : cerr;
 
 	solidity::LanguageServer lsp{cout, logger};
-	using Id = solidity::LanguageServer::Id;
 
 	while (cin.good())
 	{
-		auto const message = lsp::parseMessage(cin);
+		auto const message = lsp::parseMessage(cin, &logger);
 		if (holds_alternative<Json::Value>(message))
-		{
-			auto const& json = get<Json::Value>(message);
-
-			string const methodName = json["method"].asString();
-			Id const id = json["id"].isInt()
-				? Id{json["id"].asInt()}
-				: json["id"].isString()
-					? Id{json["id"].asString()}
-					: Id{};
-			Json::Value const& args = json["params"];
-
-			lsp.handleRequest(id, methodName, args);
-		}
+			lsp.handleRequest(get<Json::Value>(message));
 		else
 			logger << "Message Error:\n" << (int)get<lsp::ErrorCode>(message) << endl;
 	}
