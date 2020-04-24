@@ -793,7 +793,8 @@ using Request = std::variant<
 	CancelRequest,
 	InitializeRequest,
 	InitializedNotification,
-	DidOpenTextDocumentParams
+	DidOpenTextDocumentParams,
+	DidChangeTextDocumentParams
 >;
 
 using Response = std::variant< // TODO: do I actually need/want you?

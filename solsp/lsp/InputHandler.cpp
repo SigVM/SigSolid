@@ -31,10 +31,10 @@ optional<Request> InputHandler::handleRequest(Json::Value const& _jsonRequest)
 		return initialized(id, jsonArgs);
 	if (methodName == "textDocument/didOpen")
 		return textDocument_didOpen(id, jsonArgs);
-	// if (methodName == "textDocument/didChance")
-	// 	textDocument_didChange(id, jsonArgs);
-	// if (methodName == "textDocument/didClose")
-	// 	textDocument_didClose(id, jsonArgs);
+	if (methodName == "textDocument/didChange")
+		return textDocument_didChange(id, jsonArgs);
+	// if (methodName == "textDocument/didClose") TODO
+	// 	return textDocument_didClose(id, jsonArgs);
 
 	m_logger << "Unsupported RPC: " << methodName << endl;
 	return nullopt;
@@ -92,7 +92,7 @@ optional<InitializeRequest> InputHandler::initializeRequest(Id const& _id, Json:
 	return request;
 }
 
-std::optional<protocol::InitializedNotification> InputHandler::initialized(Id const&, Json::Value const&)
+optional<protocol::InitializedNotification> InputHandler::initialized(Id const&, Json::Value const&)
 {
 	// TODO: error checking?
 	return InitializedNotification{};
@@ -111,6 +111,37 @@ optional<DidOpenTextDocumentParams> InputHandler::textDocument_didOpen(Id const&
 	args.textDocument.text = _args["text"].asString();
 
 	return args;
+}
+
+optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didChange(Id const& _id, Json::Value const& _json)
+{
+	DidChangeTextDocumentParams didChange{};
+	didChange.requestId = _id;
+	didChange.textDocument.version = _json["textDocument"]["version"].asInt();
+	didChange.textDocument.uri = _json["textDocument"]["uri"].asString();
+
+	for (Json::Value jsonContentChange : _json["contentChanges"])
+	{
+		if (jsonContentChange.isObject() && jsonContentChange["range"])
+		{
+			m_logger << "TODO! TextDocumentRangedContentChangeEvent!\n";
+			Json::Value jsonRange = jsonContentChange["range"];
+			TextDocumentRangedContentChangeEvent rangedChange;
+			rangedChange.text = jsonRange["text"].asString();
+			rangedChange.range.start.line = jsonRange["range"]["start"]["line"].asInt();
+			rangedChange.range.start.character = jsonRange["range"]["start"]["character"].asInt();
+			rangedChange.range.end.line = jsonRange["range"]["end"]["line"].asInt();
+			rangedChange.range.end.character = jsonRange["range"]["end"]["character"].asInt();
+			didChange.contentChanges.emplace_back(move(rangedChange));
+		}
+		else
+		{
+			// TODO: TextDocumentFullContentChangeEvent fullChange;
+			m_logger << "TODO! TextDocumentFullContentChangeEvent!\n";
+		}
+	}
+
+	return didChange;
 }
 
 } // end namespace

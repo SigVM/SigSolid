@@ -25,11 +25,17 @@ int main(int argc, char* argv[])
 
 	while (cin.good())
 	{
-		auto const message = lsp::parseMessage(cin, &logger);
-		if (holds_alternative<Json::Value>(message))
-			lsp.handleRequest(get<Json::Value>(message));
-		else
-			logger << "Message Error:\n" << (int)get<lsp::ErrorCode>(message) << endl;
+		visit(
+			solidity::util::GenericVisitor{
+				[&](Json::Value const& json) {
+					lsp.handleRequest(json);
+				},
+				[&](lsp::ErrorCode ec) {
+					logger << "Message Error:\n" << int(ec) << endl;
+				}
+			},
+			lsp::parseMessage(cin, &logger)
+		);
 	}
 
 	return EXIT_SUCCESS;

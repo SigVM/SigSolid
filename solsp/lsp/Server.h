@@ -22,15 +22,14 @@ public:
 	virtual ~Server() = default;
 
 	void handleRequest(Json::Value _request);
-	//void handleRequest(Id _requestId, std::string const& _method, Json::Value const& _params);
 
 	// Client-to-Server messages
-	virtual void operator()(protocol::CancelRequest const& _request) = 0;
-	virtual void operator()(protocol::InitializeRequest const& _request) = 0;
+	virtual void operator()(protocol::CancelRequest const&) = 0;
+	virtual void operator()(protocol::InitializeRequest const&) = 0;
 	virtual void operator()(protocol::InitializedNotification const&) {};
-	virtual void operator()(protocol::DidOpenTextDocumentParams const& /*_request*/) {}
-	virtual void textDocument_didChange(Json::Value const& /*_params*/) {}
-	//virtual void textDocument_didClose(Json::Value const& /*_params*/) {}
+	virtual void operator()(protocol::DidOpenTextDocumentParams const&) {}
+	virtual void operator()(protocol::DidChangeTextDocumentParams const&) {}
+	//virtual void textDocument_didClose(Json::Value const&) {}
 
 protected:
 	void sendReply(lsp::protocol::CancelRequest const& _message);

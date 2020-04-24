@@ -3,6 +3,7 @@ add_library(lsp
 	MessageParser.cpp MessageParser.h
 	OutputGenerator.cpp OutputGenerator.h
 	Server.cpp Server.h
+	VFS.cpp VFS.h
 	protocol.cpp protocol.h
 )
 target_link_libraries(lsp PUBLIC jsoncpp solutil)

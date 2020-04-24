@@ -25,6 +25,7 @@ public:
 	std::optional<protocol::InitializeRequest> initializeRequest(Id const& _id, Json::Value const& _args);
 	std::optional<protocol::InitializedNotification> initialized(Id const& _id, Json::Value const&);
 	std::optional<protocol::DidOpenTextDocumentParams> textDocument_didOpen(Id const& _id, Json::Value const& _args);
+	std::optional<protocol::DidChangeTextDocumentParams> textDocument_didChange(Id const& _id, Json::Value const&);
 
 private:
 	std::ostream& m_logger;

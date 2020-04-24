@@ -47,8 +47,17 @@ void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 
 void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
 {
-	(void) _args;
-	// TODO
+	m_vfs.insert(_args.textDocument.uri, lsp::vfs::File{
+		_args.textDocument.uri,
+		_args.textDocument.languageId,
+		_args.textDocument.version,
+		_args.textDocument.text,
+	});
+}
+
+void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const& _didChange)
+{
+	logger() << "didChange: " << _didChange.textDocument.uri << endl;
 }
 
 // void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)
