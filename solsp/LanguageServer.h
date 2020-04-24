@@ -18,9 +18,11 @@ public:
 	LanguageServer(std::ostream& _client, std::ostream& _logger);
 
 	// Client-to-Server messages
-	void initialize(Id _id, lsp::protocol::InitializeRequest const&) override;
-	void textDocument_didOpen(Id _id, lsp::protocol::DidOpenTextDocumentParams const&) override;
-	void textDocument_didClose(Id _id, Json::Value const& _params) override;
+	void operator()(lsp::protocol::CancelRequest const&) override;
+	void operator()(lsp::protocol::InitializeRequest const&) override;
+	void operator()(lsp::protocol::InitializedNotification const&) override;
+	void operator()(lsp::protocol::DidOpenTextDocumentParams const&) override;
+	//void textDocument_didClose(Id _id, Json::Value const& _params) override;
 	// more to come :-)
 };
 

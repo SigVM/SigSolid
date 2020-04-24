@@ -14,6 +14,8 @@
 
 namespace lsp::protocol {
 
+using Id = std::variant<int, std::string>;
+
 using DocumentUri = std::string; // such as "file:///path/to"
 
 enum class Trace { Off, Messages, Verbose };
@@ -54,6 +56,8 @@ struct WorkspaceFolder {
 
 /// The initialize request is sent as the first request from the client to the server.
 struct InitializeRequest {
+	Id requestId;
+
 	std::optional<int> processId;
 	std::optional<std::string> rootPath;
 	std::optional<DocumentUri> rootUri;
@@ -83,6 +87,11 @@ struct InitializeRequest {
 	 */
 	std::vector<WorkspaceFolder> workspaceFolders;
 };
+
+/// Notification being sent when the client has finished initializing.
+///
+/// @see https://github.githubassets.com/images/icons/emoji/unicode/27a1.png
+struct InitializedNotification {};
 
 /**
  * Save options.
@@ -697,18 +706,83 @@ struct MarkupContent {
 	std::string value;
 };
 
+/**
+ * An event describing a change to a text document. If range and rangeLength are omitted
+ * the new text is considered to be the full content of the document.
+ */
+struct TextDocumentRangedContentChangeEvent {
+	Id requestId;
+
+	/**
+	 * The range of the document that changed.
+	 */
+	Range range;
+
+	/**
+	 * The optional length of the range that got replaced.
+	 *
+	 * @deprecated use range instead.
+	 */
+	std::optional<int> rangeLength;
+
+	/**
+	 * The new text for the provided range.
+	 */
+	std::string text;
+};
+
+struct TextDocumentFullContentChangeEvent {
+	Id requestId;
+
+	/**
+	 * The new text of the whole document.
+	 */
+	std::string text;
+};
+
+using TextDocumentContentChangeEvent = std::variant<
+	TextDocumentRangedContentChangeEvent,
+	TextDocumentFullContentChangeEvent
+>;
+
 // -----------------------------------------------------------------------------------------------
 
 struct DidOpenTextDocumentParams {
+	Id requestId;
+
 	/**
 	 * The document that was opened.
 	 */
 	TextDocumentItem textDocument;
 };
 
-// -----------------------------------------------------------------------------------------------
+struct DidChangeTextDocumentParams {
+	Id requestId;
 
-using Id = std::variant<int, std::string>;
+	/**
+	 * The document that did change. The version number points
+	 * to the version after all provided content changes have
+	 * been applied.
+	 */
+	VersionedTextDocumentIdentifier textDocument;
+
+	/**
+	 * The actual content changes. The content changes describe single state changes
+	 * to the document. So if there are two content changes c1 (at array index 0) and
+	 * c2 (at array index 1) for a document in state S then c1 moves the document from
+	 * S to S' and c2 from S' to S''. So c1 is computed on the state S and c2 is computed
+	 * on the state S'.
+	 *
+	 * To mirror the content of a document using change events use the following approach:
+	 * - start with the same initial content
+	 * - apply the 'textDocument/didChange' notifications in the order you recevie them.
+	 * - apply the `TextDocumentContentChangeEvent`s in a single notification in the order
+	 *   you receive them.
+	 */
+	std::vector<TextDocumentContentChangeEvent> contentChanges;
+};
+
+// -----------------------------------------------------------------------------------------------
 
 /// Message for cancelling a request. This can be sent in both directions.
 struct CancelRequest {
@@ -717,11 +791,12 @@ struct CancelRequest {
 
 using Request = std::variant<
 	CancelRequest,
-	DidOpenTextDocumentParams,
-	InitializeRequest
+	InitializeRequest,
+	InitializedNotification,
+	DidOpenTextDocumentParams
 >;
 
-using Response = std::variant<
+using Response = std::variant< // TODO: do I actually need/want you?
 	CancelRequest,
 	InitializeResult
 >;

@@ -16,7 +16,12 @@ LanguageServer::LanguageServer(ostream& _client, ostream& _logger):
 {
 }
 
-void LanguageServer::initialize(Id _requestId, lsp::protocol::InitializeRequest const& _args)
+void LanguageServer::operator()(lsp::protocol::CancelRequest const& _args)
+{
+	(void) _args; // TODO
+}
+
+void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 {
 	using namespace lsp::protocol;
 
@@ -31,19 +36,25 @@ void LanguageServer::initialize(Id _requestId, lsp::protocol::InitializeRequest 
 	result.capabilities.textDocumentSync.openClose = true;
 	result.capabilities.textDocumentSync.change = TextDocumentSyncKind::Incremental;
 
-	sendReply(lsp::OutputGenerator{}(result), _requestId);
+	sendReply(lsp::OutputGenerator{}(result), _args.requestId);
 }
 
-void LanguageServer::textDocument_didOpen(Id _id, lsp::protocol::DidOpenTextDocumentParams const& _args)
+void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 {
-	(void) _id;
-	(void) _args;
+	// NB: this means the client has finished initializing. Now we could maybe start sending
+	// events to the client.
 }
 
-void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)
+void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
 {
-	(void) _id;
 	(void) _args;
+	// TODO
 }
+
+// void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)
+// {
+// 	(void) _id;
+// 	(void) _args;
+// }
 
 } // namespace solidity
