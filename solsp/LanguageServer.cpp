@@ -47,17 +47,36 @@ void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 
 void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
 {
-	m_vfs.insert(_args.textDocument.uri, lsp::vfs::File{
+	m_vfs.insert(
 		_args.textDocument.uri,
 		_args.textDocument.languageId,
 		_args.textDocument.version,
-		_args.textDocument.text,
-	});
+		_args.textDocument.text
+	);
 }
 
 void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const& _didChange)
 {
+	using namespace lsp;
+
 	logger() << "didChange: " << _didChange.textDocument.uri << endl;
+	if (vfs::File* file = m_vfs.find(_didChange.textDocument.uri); file != nullptr)
+	{
+		if (_didChange.textDocument.version.has_value())
+			file->setVersion(_didChange.textDocument.version.value());
+
+		for (protocol::TextDocumentContentChangeEvent const& contentChange: _didChange.contentChanges)
+		{
+			visit(util::GenericVisitor{
+				[&](protocol::TextDocumentRangedContentChangeEvent const& change) {
+					file->modify(change.range, change.text);
+				},
+				[&](protocol::TextDocumentFullContentChangeEvent const& change) {
+					file->replace(change.text);
+				}
+			}, contentChange);
+		}
+	}
 }
 
 // void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)

@@ -129,9 +129,9 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 			TextDocumentRangedContentChangeEvent rangedChange;
 			rangedChange.text = jsonRange["text"].asString();
 			rangedChange.range.start.line = jsonRange["range"]["start"]["line"].asInt();
-			rangedChange.range.start.character = jsonRange["range"]["start"]["character"].asInt();
+			rangedChange.range.start.column = jsonRange["range"]["start"]["character"].asInt();
 			rangedChange.range.end.line = jsonRange["range"]["end"]["line"].asInt();
-			rangedChange.range.end.character = jsonRange["range"]["end"]["character"].asInt();
+			rangedChange.range.end.column = jsonRange["range"]["end"]["character"].asInt();
 			didChange.contentChanges.emplace_back(move(rangedChange));
 		}
 		else

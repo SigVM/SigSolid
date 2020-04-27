@@ -29,7 +29,7 @@ public:
 	virtual void operator()(protocol::InitializedNotification const&) {};
 	virtual void operator()(protocol::DidOpenTextDocumentParams const&) {}
 	virtual void operator()(protocol::DidChangeTextDocumentParams const&) {}
-	//virtual void textDocument_didClose(Json::Value const&) {}
+	virtual void operator()(protocol::DidCloseTextDocumentParams const&) {}
 
 protected:
 	void sendReply(lsp::protocol::CancelRequest const& _message);
