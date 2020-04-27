@@ -1,4 +1,4 @@
-#include "LanguageServer.h"
+#include <solls/LanguageServer.h>
 #include <lsp/OutputGenerator.h>
 #include <libsolutil/Visitor.h>
 #include <libsolutil/JSON.h>

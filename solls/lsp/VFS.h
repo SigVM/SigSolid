@@ -5,13 +5,14 @@
 #include <deque>
 #include <map>
 #include <string>
+#include <ostream>
 #include <vector>
 
-namespace lsp::vfs {
+namespace lsp::vfs
+{
 
 using TextLines = std::deque<std::string>;
 
-// TODO: Unit-test me fore sure!
 class File
 {
 public:
@@ -51,20 +52,31 @@ class VFS
 public:
 	VFS() = default;
 
+	// accessors
+	//
+	size_t size() const noexcept { return m_files.size(); }
+	File const* find(std::string const& _uri) const noexcept;
+	File* find(std::string const& _uri) noexcept;
+
+	// modifiers
+	//
 	File& insert(std::string _uri, std::string _languageId, int _version, TextLines _text);
 	File& insert(std::string _uri, std::string _languageId, int _version, std::string _text);
-
 	void remove(std::string const& _uri);
 
 	/// Modifies given VFS file by deleting the @p _range and replace it with the @p _replacementText.
 	void modify(std::string const& _uri, Range const& _range, std::string const& _replacementText);
 
-	File const* find(std::string const& _uri) const noexcept;
-	File* find(std::string const& _uri) noexcept;
-
 private:
 	std::map<std::string, File> m_files;
 };
 
-
 } // end namespace
+
+namespace std
+{
+
+ostream& operator<<(ostream& _os, lsp::vfs::File const& _file);
+ostream& operator<<(ostream& _os, lsp::vfs::VFS const& _vfs);
+
+} // end namespace std

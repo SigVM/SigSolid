@@ -22,7 +22,7 @@ if (IS_BIG_ENDIAN)
 endif()
 
 option(SOLC_LINK_STATIC "Link solc executable statically on supported platforms" OFF)
-option(SOLIDITY_LSP "Build Solidity LSP" OFF) # Default to OFF for now!
+option(SOLIDITY_LANGUAGE_SERVER "Build Solidity Language Server" OFF)
 
 # Setup cccache.
 include(EthCcache)
@@ -64,8 +64,8 @@ if (NOT EMSCRIPTEN)
 	add_subdirectory(solc)
 endif()
 
-if(SOLIDITY_LSP)
-	add_subdirectory(solsp)
+if(SOLIDITY_LANGUAGE_SERVER)
+	add_subdirectory(solls)
 endif()
 
 if (TESTS AND NOT EMSCRIPTEN)

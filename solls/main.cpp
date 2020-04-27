@@ -1,4 +1,4 @@
-#include "LanguageServer.h"
+#include <solls/LanguageServer.h>
 #include <lsp/MessageParser.h>
 #include <lsp/protocol.h>
 

@@ -43,6 +43,34 @@ namespace lsp::test
 
 BOOST_AUTO_TEST_SUITE(LSP)
 
+BOOST_AUTO_TEST_CASE(vfs_File_splitLines)
+{
+	string const multiLine1 = "Hello";
+	vfs::TextLines lines1 = vfs::File::splitLines(multiLine1);
+	BOOST_CHECK_EQUAL(lines1.size(), 1);
+	BOOST_CHECK_EQUAL(lines1.front(), "Hello");
+
+	string const multiLine2 = "Hello\nWorld";
+	vfs::TextLines const lines2 = vfs::File::splitLines(multiLine2);
+	BOOST_CHECK_EQUAL(lines2.size(), 2);
+	BOOST_CHECK_EQUAL(lines2.front(), "Hello"sv);
+	BOOST_CHECK_EQUAL(lines2.back(), "World"sv);
+
+	string const multiLine3 = "Hello\nWorld\n";
+	vfs::TextLines lines3 = vfs::File::splitLines(multiLine3);
+	BOOST_CHECK_EQUAL(lines3.size(), 3);
+	BOOST_CHECK_EQUAL(lines3[0], "Hello");
+	BOOST_CHECK_EQUAL(lines3[1], "World");
+	BOOST_CHECK_EQUAL(lines3[2], "");
+
+	string const emptyLinesStr = "\n\n";
+	vfs::TextLines emptyLines = vfs::File::splitLines(emptyLinesStr);
+	BOOST_CHECK_EQUAL(emptyLines.size(), 3);
+	BOOST_CHECK_EQUAL(emptyLines[0], "");
+	BOOST_CHECK_EQUAL(emptyLines[1], "");
+	BOOST_CHECK_EQUAL(emptyLines[2], "");
+}
+
 BOOST_AUTO_TEST_CASE(VFS_create)
 {
 	vfs::VFS vfs;

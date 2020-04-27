@@ -1,12 +1,44 @@
 #include <lsp/VFS.h>
-#include <libsolutil/StringUtils.h>
-#include <deque>
+
 #include <algorithm>
+#include <deque>
 #include <sstream>
 
 using namespace std;
-using namespace solidity::util;
 
+namespace std {
+	ostream& operator<<(ostream& _os, lsp::vfs::File const& _file)
+	{
+		_os << '"' << _file.uri() << "\": {languageId: " << _file.languageId();
+		_os << ", version: " << _file.version();
+		_os << ", text: \"";
+		for (auto const ch : _file.str())
+		{
+			if (ch == '\n')
+				_os << "\\n";
+			else if (ch == '\t')
+				_os << "\\t";
+			else if (ch == '\r')
+				_os << "\\r";
+			else if (ch >= 0x20 && std::isprint(ch))
+				_os << ch;
+			else
+			{
+				char buf[5];
+				snprintf(buf, sizeof(buf), "\\x%02x", ch);
+				_os << buf;
+			}
+		}
+		_os << "\"}";
+		return _os;
+	}
+
+	ostream& operator<<(ostream& _os, lsp::vfs::VFS const& _vfs)
+	{
+		_os << "{size: " << _vfs.size() << "}";
+		return _os;
+	}
+}
 namespace lsp::vfs {
 
 File::File(string _uri, string _languageId, int _version, string const& _text):
@@ -16,9 +48,24 @@ File::File(string _uri, string _languageId, int _version, string const& _text):
 
 TextLines File::splitLines(string const& _text)
 {
-	TextLines lines;
-	solidity::util::splitLines(_text, lines);
-	return lines;
+	TextLines result;
+
+	size_t last = 0;
+	size_t next = _text.find('\n');
+
+	while (next != _text.npos) // string::npos
+	{
+		result.push_back(_text.substr(last, next - last));
+		last = next + 1;
+		next = _text.find('\n', last);
+	}
+
+	if (last != 0)
+		result.push_back(_text.substr(last));
+	else
+		result.push_back(_text);
+
+	return result;
 }
 
 string File::str() const

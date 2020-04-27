@@ -4,7 +4,7 @@ add_library(lsp
 	OutputGenerator.cpp OutputGenerator.h
 	Server.cpp Server.h
 	VFS.cpp VFS.h
-	protocol.cpp protocol.h
+	protocol.h
 )
 target_link_libraries(lsp PUBLIC jsoncpp solutil)
 target_include_directories(lsp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
