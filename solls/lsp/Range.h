@@ -16,6 +16,16 @@ struct Position
 	unsigned column;  // zero-based index to the column
 };
 
+constexpr bool operator==(Position const& a, Position const& b) noexcept
+{
+	return a.line == b.line && a.column == b.column;
+}
+
+constexpr bool operator!=(Position const& a, Position const& b) noexcept
+{
+	return !(a == b);
+}
+
 /**
  * A range in a text document expressed as (zero-based) start and end positions.
  *

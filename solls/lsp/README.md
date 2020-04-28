@@ -3,7 +3,7 @@
 This small library is meant to be general purpose, i.e. not specifically bound to be exclusively
 used by Solidity, but certainly created to provide a language server for Solidity & Yul.
 
-Therefore It should only depend on the standard C++ library.
+Therefore It should only depend on the standard C++ library, well, and a JSON library :-).
 
 ## The life of a message
 

@@ -14,6 +14,8 @@ public:
 
 	// response messages
 	Json::Value operator()(protocol::InitializeResult const& _response);
+
+	// Obviousely, here's more to come...
 };
 
 } // end namespace

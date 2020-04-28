@@ -6,7 +6,8 @@
 
 using namespace std;
 
-namespace std {
+namespace std
+{
 	ostream& operator<<(ostream& _os, lsp::vfs::File const& _file)
 	{
 		_os << '"' << _file.uri() << "\": {languageId: " << _file.languageId();
@@ -39,10 +40,15 @@ namespace std {
 		return _os;
 	}
 }
-namespace lsp::vfs {
 
-File::File(string _uri, string _languageId, int _version, string const& _text):
-	File(_uri, _languageId, _version, splitLines(_text))
+namespace lsp::vfs
+{
+
+File::File(string _uri, string _languageId, int _version, string _text):
+	m_uri{ move(_uri) },
+	m_languageId{ move(_languageId) },
+	m_version{ _version },
+	m_buffer{ move(_text) }
 {
 }
 
@@ -68,56 +74,45 @@ TextLines File::splitLines(string const& _text)
 	return result;
 }
 
-string File::str() const
-{
-	ostringstream sstr;
-
-	for (string const& line: m_text)
-		sstr << line << '\n';
-
-	return sstr.str();
-}
-
 void File::erase(Range const& _range)
 {
-	auto firstLine = next(begin(m_text), _range.start.line);
-	auto lastLine = next(begin(m_text), _range.end.line);
-
-	m_version++;
-
-	if (firstLine == lastLine)
-	{
-		firstLine->erase(
-			_range.start.column,
-			_range.end.column - _range.start.column
-		);
-	}
-	else
-	{
-		// erase first line fragment
-		bool const firstLineFullyReplaced = _range.start.column == 0;
-		if (!firstLineFullyReplaced)
-			firstLine->erase(_range.start.column);
-		else
-			firstLine = m_text.erase(firstLine);
-
-		// erase last line fragment
-		bool const lastLineFullyReplaced = lastLine->size() == _range.end.column + 1;
-		if (!lastLineFullyReplaced)
-			lastLine->erase(0, _range.end.column);
-		else
-			lastLine = m_text.erase(lastLine);
-
-		// erase inner lines
-		m_text.erase(++firstLine, lastLine);
-
-		// maybe merge first/last lines
-		if (!firstLineFullyReplaced && !lastLineFullyReplaced)
-		{
-			firstLine->append(*lastLine);
-			m_text.erase(lastLine);
-		}
-	}
+	m_buffer.replace(_range, "");
+	// auto firstLine = next(begin(m_text), _range.start.line);
+	// auto lastLine = next(begin(m_text), _range.end.line);
+    //
+	// if (firstLine == lastLine)
+	// {
+	// 	firstLine->erase(
+	// 		_range.start.column,
+	// 		_range.end.column - _range.start.column
+	// 	);
+	// }
+	// else
+	// {
+	// 	// erase first line fragment
+	// 	bool const firstLineFullyReplaced = _range.start.column == 0;
+	// 	if (!firstLineFullyReplaced)
+	// 		firstLine->erase(_range.start.column);
+	// 	else
+	// 		firstLine = m_text.erase(firstLine);
+    //
+	// 	// erase last line fragment
+	// 	bool const lastLineFullyReplaced = _range.end.column == 0;
+	// 	if (!lastLineFullyReplaced)
+	// 		lastLine->erase(0, _range.end.column);
+	// 	else
+	// 		lastLine = m_text.erase(prev(lastLine));
+    //
+	// 	// erase inner lines
+	// 	m_text.erase(++firstLine, lastLine);
+    //
+	// 	// maybe merge first/last lines
+	// 	if (!firstLineFullyReplaced && !lastLineFullyReplaced)
+	// 	{
+	// 		firstLine->append(*lastLine);
+	// 		m_text.erase(lastLine);
+	// 	}
+	// }
 }
 
 void File::modify(Range const& _range, std::string const& _replacementText)
@@ -178,6 +173,12 @@ void File::modify(Range const& _range, std::string const& _replacementText)
 void File::replace(std::string const& _replacementText)
 {
 	m_text = splitLines(_replacementText);
+}
+
+VFS::VFS(std::ostream* _logger):
+	m_files{},
+	m_logger{_logger}
+{
 }
 
 File& VFS::insert(std::string _uri, std::string _languageId, int _version, TextLines _text)

@@ -13,7 +13,7 @@ using namespace std;
 
 namespace lsp {
 
-variant<Json::Value, ErrorCode> parseMessage(istream& _input, ostream* _logger)
+variant<std::string, ErrorCode> parseMessage(istream& _input)
 {
 	// Parses a single text line ending with CRLF (or just LF).
 	auto const readLine = [&]() -> string {
@@ -60,27 +60,7 @@ variant<Json::Value, ErrorCode> parseMessage(istream& _input, ostream* _logger)
 	size_t const contentLength = stoi(get<HeaderMap>(headers).at("content-length"));
 	string const data = readBytes(contentLength);
 
-	Json::Value jsonMessage;
-	string errs;
-	solidity::util::jsonParseStrict(data, jsonMessage, &errs);
-	if (!errs.empty())
-	{
-		if (_logger)
-			*_logger << errs << endl;
-		return {ErrorCode::JsonParseError};
-	}
-
-	if (_logger)
-	{
-		auto const prettyPrinted = solidity::util::jsonPrettyPrint(jsonMessage);
-		*_logger << "parsed message:\n" << prettyPrinted << endl;
-	}
-
-	if (jsonMessage["id"].isInt() && jsonMessage["method"].isString())
-	{
-	}
-
-	return {jsonMessage};
+	return {data};
 }
 
 } // namespace lsp

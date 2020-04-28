@@ -16,7 +16,8 @@ public:
 
 	/// Transforms JSON RPC request message into a higher level LSP request message.
 	/// It will return std::nullopt in case of protocol errors.
-	std::optional<protocol::Request> handleRequest(Json::Value const& _request);
+	std::optional<protocol::Request> handleRequest(std::string const& _message);
+	std::optional<protocol::Request> handleRequest(Json::Value const& _message);
 
 	// <->
 	std::optional<protocol::CancelRequest> cancelRequest(Json::Value const& _message);

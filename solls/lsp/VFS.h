@@ -1,6 +1,7 @@
 #pragma once
 
 #include <lsp/Range.h>
+#include <lsp/TextBuffer.h>
 
 #include <deque>
 #include <map>
@@ -16,21 +17,13 @@ using TextLines = std::deque<std::string>;
 class File
 {
 public:
-	File(std::string _uri, std::string _languageId, int _version, TextLines _text):
-		m_uri{ std::move(_uri) },
-		m_languageId{ std::move(_languageId) },
-		m_version{ _version },
-		m_text{ std::move(_text) }
-	{}
-
-	File(std::string _uri, std::string _languageId, int _version, std::string const& _text);
+	File(std::string _uri, std::string _languageId, int _version, std::string _text);
 
 	// readers
 	std::string const& uri() const noexcept { return m_uri; }
 	std::string const& languageId() const noexcept { return m_languageId; }
 	constexpr int version() const noexcept { return m_version; }
-	TextLines const& text() const noexcept { return m_text; }
-	std::string str() const;
+	std::string const& str() const { return m_buffer.data(); }
 
 	// modifiers
 	constexpr void setVersion(int _version) noexcept { m_version = _version; }
@@ -44,13 +37,13 @@ private:
 	std::string m_uri;
 	std::string m_languageId;
 	int m_version;
-	TextLines m_text;
+	TextBuffer m_buffer;
 };
 
 class VFS
 {
 public:
-	VFS() = default;
+	explicit VFS(std::ostream* _logger = nullptr);
 
 	// accessors
 	//
@@ -69,6 +62,7 @@ public:
 
 private:
 	std::map<std::string, File> m_files;
+	std::ostream* m_logger;
 };
 
 } // end namespace

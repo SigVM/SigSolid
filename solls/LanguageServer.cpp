@@ -6,35 +6,40 @@
 #include "helper.h"
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 namespace solidity {
 
 LanguageServer::LanguageServer(ostream& _client, ostream& _logger):
-	lsp::Server(_client, _logger)
+	lsp::Server(_client, _logger),
+	m_vfs(&_logger)
 {
 }
 
 void LanguageServer::operator()(lsp::protocol::CancelRequest const& _args)
 {
-	(void) _args; // TODO
+	auto const id = visit(util::GenericVisitor{
+		[](string const& _id) -> string { return _id; },
+		[](int _id) -> string { return to_string(_id); }
+	}, _args.id);
+
+	logger() << "Request " << id << " cancelled.\n";
 }
 
 void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 {
-	using namespace lsp::protocol;
-
 	logger() << "Initializing, PID :" << _args.processId.value_or(-1) << endl;
 	logger() << "rootUri           : " << _args.rootUri.value_or("NULL") << endl;
 	logger() << "rootPath          : " << _args.rootPath.value_or("NULL") << endl;
 	for (auto const& workspace: _args.workspaceFolders)
 		logger() << "workspace folder: " << workspace.name << "; " << workspace.uri << endl;
 
-	InitializeResult result;
+	lsp::protocol::InitializeResult result;
 	result.capabilities.hoverProvider = true;
 	result.capabilities.textDocumentSync.openClose = true;
-	result.capabilities.textDocumentSync.change = TextDocumentSyncKind::Incremental;
+	result.capabilities.textDocumentSync.change = lsp::protocol::TextDocumentSyncKind::Incremental;
 
 	sendReply(lsp::OutputGenerator{}(result), _args.requestId);
 }
@@ -43,6 +48,7 @@ void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 {
 	// NB: this means the client has finished initializing. Now we could maybe start sending
 	// events to the client.
+	logger() << "Client initialized\n";
 }
 
 void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
@@ -57,26 +63,29 @@ void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& 
 
 void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const& _didChange)
 {
-	using namespace lsp;
-
-	logger() << "didChange: " << _didChange.textDocument.uri << endl;
-	if (vfs::File* file = m_vfs.find(_didChange.textDocument.uri); file != nullptr)
+	logger() << "DidChangeTextDocumentParams!\n";
+	if (lsp::vfs::File* file = m_vfs.find(_didChange.textDocument.uri); file != nullptr)
 	{
 		if (_didChange.textDocument.version.has_value())
 			file->setVersion(_didChange.textDocument.version.value());
 
-		for (protocol::TextDocumentContentChangeEvent const& contentChange: _didChange.contentChanges)
+		logger() << "didChange: " << _didChange.textDocument.uri << endl;
+		for (lsp::protocol::TextDocumentContentChangeEvent const& contentChange: _didChange.contentChanges)
 		{
 			visit(util::GenericVisitor{
-				[&](protocol::TextDocumentRangedContentChangeEvent const& change) {
+				[&](lsp::protocol::TextDocumentRangedContentChangeEvent const& change) {
+					logger() << "didChange: " << change.range << " with: \"" << change.text << '"' << endl;
 					file->modify(change.range, change.text);
 				},
-				[&](protocol::TextDocumentFullContentChangeEvent const& change) {
+				[&](lsp::protocol::TextDocumentFullContentChangeEvent const& change) {
 					file->replace(change.text);
 				}
 			}, contentChange);
 		}
+		logger() << "file: " << *file << endl;
 	}
+	else
+		logger() << "file: " << _didChange.textDocument.uri << " NOT FOUND\n";
 }
 
 // void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)

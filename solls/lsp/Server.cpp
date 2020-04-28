@@ -19,11 +19,20 @@ Server::Server(ostream& _client, ostream& _logger):
 {
 }
 
-void Server::handleRequest(Json::Value _request)
+void Server::handleMessage(string const& _message)
 {
-	optional<protocol::Request> const request = m_inputHandler.handleRequest(_request);
-	if (request.has_value())
-		visit(*this, request.value());
+	optional<protocol::Request> const message = m_inputHandler.handleRequest(_message);
+	if (message.has_value())
+		visit(*this, message.value());
+	else
+		logger() << "Could not analyze RPC request.\n";
+}
+
+void Server::handleMessage(Json::Value _message)
+{
+	optional<protocol::Request> const message = m_inputHandler.handleRequest(_message);
+	if (message.has_value())
+		visit(*this, message.value());
 	else
 		logger() << "Could not analyze RPC request.\n";
 }

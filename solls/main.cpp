@@ -21,20 +21,20 @@ int main(int argc, char* argv[])
 	unique_ptr<ostream> ownedLogger = argc == 2 ? make_unique<ofstream>(argv[1], ios::trunc | ios::ate) : nullptr;
 	ostream& logger = ownedLogger ? *ownedLogger : cerr;
 
-	solidity::LanguageServer lsp{cout, logger};
+	solidity::LanguageServer ls{cout, logger};
 
 	while (cin.good())
 	{
 		visit(
 			solidity::util::GenericVisitor{
-				[&](Json::Value const& json) {
-					lsp.handleRequest(json);
+				[&](string const& message) {
+					ls.handleMessage(message);
 				},
 				[&](lsp::ErrorCode ec) {
-					logger << "Message Error:\n" << int(ec) << endl;
+					logger << "Transport error: " << int(ec) << endl;
 				}
 			},
-			lsp::parseMessage(cin, &logger)
+			lsp::parseMessage(cin)
 		);
 	}
 

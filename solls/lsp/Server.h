@@ -21,7 +21,8 @@ public:
 	Server(std::ostream& _client, std::ostream& _logger);
 	virtual ~Server() = default;
 
-	void handleRequest(Json::Value _request);
+	void handleMessage(std::string const& _message);
+	void handleMessage(Json::Value _message);
 
 	// Client-to-Server messages
 	virtual void operator()(protocol::CancelRequest const&) = 0;
@@ -39,9 +40,6 @@ protected:
 	std::ostream& client() noexcept { return m_client; }
 
 private:
-	// using Handler = std::function<void(std::optional<Id>, Json::Value const&)>;
-	// std::unordered_map<std::string, Handler> m_handler;
-
 	std::ostream& m_client;
 	std::ostream& m_logger;
 	InputHandler m_inputHandler;

@@ -1,5 +1,5 @@
-
 #include <lsp/InputHandler.h>
+#include <libsolutil/JSON.h>
 
 using namespace lsp::protocol;
 using namespace std;
@@ -11,17 +11,33 @@ InputHandler::InputHandler(ostream& _logger):
 {
 }
 
-optional<Request> InputHandler::handleRequest(Json::Value const& _jsonRequest)
+optional<Request> InputHandler::handleRequest(std::string const& _message)
 {
-	string const methodName = _jsonRequest["method"].asString();
+	Json::Value jsonMessage;
+	string errs;
+	solidity::util::jsonParseStrict(_message, jsonMessage, &errs);
+	if (!errs.empty())
+	{
+		m_logger << errs << endl;
+		return nullopt; // JsonParseError
+	}
 
-	Id const id = _jsonRequest["id"].isInt()
-		? Id{_jsonRequest["id"].asInt()}
-		: _jsonRequest["id"].isString()
-			? Id{_jsonRequest["id"].asString()}
+	return handleRequest(jsonMessage);
+}
+
+optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
+{
+	m_logger << "handle message:\n" << solidity::util::jsonPrettyPrint(_jsonMessage) << endl;
+
+	string const methodName = _jsonMessage["method"].asString();
+
+	Id const id = _jsonMessage["id"].isInt()
+		? Id{_jsonMessage["id"].asInt()}
+		: _jsonMessage["id"].isString()
+			? Id{_jsonMessage["id"].asString()}
 			: Id{};
 
-	Json::Value const& jsonArgs = _jsonRequest["params"];
+	Json::Value const& jsonArgs = _jsonMessage["params"];
 
 	if (methodName == "cancelRequest")
 		return cancelRequest(jsonArgs);
@@ -105,10 +121,10 @@ optional<DidOpenTextDocumentParams> InputHandler::textDocument_didOpen(Id const&
 
 	DidOpenTextDocumentParams args{};
 	args.requestId = _id;
-	args.textDocument.uri = _args["uri"].asString();
-	args.textDocument.languageId = _args["languageId"].asString();
-	args.textDocument.version = _args["version"].asInt();
-	args.textDocument.text = _args["text"].asString();
+	args.textDocument.uri = _args["textDocument"]["uri"].asString();
+	args.textDocument.languageId = _args["textDocument"]["languageId"].asString();
+	args.textDocument.version = _args["textDocument"]["version"].asInt();
+	args.textDocument.text = _args["textDocument"]["text"].asString();
 
 	return args;
 }
@@ -124,14 +140,13 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 	{
 		if (jsonContentChange.isObject() && jsonContentChange["range"])
 		{
-			m_logger << "TODO! TextDocumentRangedContentChangeEvent!\n";
 			Json::Value jsonRange = jsonContentChange["range"];
 			TextDocumentRangedContentChangeEvent rangedChange;
 			rangedChange.text = jsonRange["text"].asString();
-			rangedChange.range.start.line = jsonRange["range"]["start"]["line"].asInt();
-			rangedChange.range.start.column = jsonRange["range"]["start"]["character"].asInt();
-			rangedChange.range.end.line = jsonRange["range"]["end"]["line"].asInt();
-			rangedChange.range.end.column = jsonRange["range"]["end"]["character"].asInt();
+			rangedChange.range.start.line = jsonRange["start"]["line"].asInt();
+			rangedChange.range.start.column = jsonRange["start"]["character"].asInt();
+			rangedChange.range.end.line = jsonRange["end"]["line"].asInt();
+			rangedChange.range.end.column = jsonRange["end"]["character"].asInt();
 			didChange.contentChanges.emplace_back(move(rangedChange));
 		}
 		else
