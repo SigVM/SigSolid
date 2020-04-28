@@ -3,6 +3,7 @@ add_library(lsp
 	MessageParser.cpp MessageParser.h
 	OutputGenerator.cpp OutputGenerator.h
 	Server.cpp Server.h
+	TextBuffer.h
 	VFS.cpp VFS.h
 	protocol.h
 )
