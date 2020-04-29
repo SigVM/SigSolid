@@ -22,7 +22,6 @@ public:
 	virtual ~Server() = default;
 
 	void handleMessage(std::string const& _message);
-	void handleMessage(Json::Value _message);
 
 	// Client-to-Server messages
 	virtual void operator()(protocol::CancelRequest const&) = 0;

@@ -24,8 +24,8 @@ public:
 	void operator()(lsp::protocol::InitializedNotification const&) override;
 	void operator()(lsp::protocol::DidOpenTextDocumentParams const&) override;
 	void operator()(lsp::protocol::DidChangeTextDocumentParams const&) override;
-	//void textDocument_didClose(Id _id, Json::Value const& _params) override;
-	// more to come :-)
+	void operator()(lsp::protocol::DidCloseTextDocumentParams const&) override;
+	// TODO more to come :-)
 
 private:
 	lsp::vfs::VFS m_vfs;

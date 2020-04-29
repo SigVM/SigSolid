@@ -4,7 +4,8 @@
 
 #include <boost/algorithm/string.hpp>
 
-#include <iostream>
+#include <istream>
+#include <ostream>
 #include <string>
 #include <unordered_map>
 #include <variant>

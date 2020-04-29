@@ -1,13 +1,24 @@
 #include <lsp/InputHandler.h>
 #include <libsolutil/JSON.h>
 
+#include <array>
+
 using namespace lsp::protocol;
 using namespace std;
+using namespace std::placeholders;
 
 namespace lsp {
 
 InputHandler::InputHandler(ostream& _logger):
-	m_logger{_logger}
+	m_logger{_logger},
+	m_handlers{
+		{"cancelRequest", bind(&InputHandler::cancelRequest, this, _1, _2)},
+		{"initialize", bind(&InputHandler::initializeRequest, this, _1, _2)},
+		{"initialized", bind(&InputHandler::initialized, this, _1, _2)},
+		{"textDocument/didOpen", bind(&InputHandler::textDocument_didOpen, this, _1, _2)},
+		{"textDocument/didChange", bind(&InputHandler::textDocument_didChange, this, _1, _2)},
+		{"textDocument/didClose", bind(&InputHandler::textDocument_didClose, this, _1, _2)},
+	}
 {
 }
 
@@ -18,7 +29,7 @@ optional<Request> InputHandler::handleRequest(std::string const& _message)
 	solidity::util::jsonParseStrict(_message, jsonMessage, &errs);
 	if (!errs.empty())
 	{
-		m_logger << errs << endl;
+		m_logger << "InputHandler: JSON parser error. " << errs << endl;
 		return nullopt; // JsonParseError
 	}
 
@@ -27,8 +38,6 @@ optional<Request> InputHandler::handleRequest(std::string const& _message)
 
 optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
 {
-	m_logger << "handle message:\n" << solidity::util::jsonPrettyPrint(_jsonMessage) << endl;
-
 	string const methodName = _jsonMessage["method"].asString();
 
 	Id const id = _jsonMessage["id"].isInt()
@@ -39,24 +48,15 @@ optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
 
 	Json::Value const& jsonArgs = _jsonMessage["params"];
 
-	if (methodName == "cancelRequest")
-		return cancelRequest(jsonArgs);
-	if (methodName == "initialize")
-		return initializeRequest(id, jsonArgs);
-	if (methodName == "initialized")
-		return initialized(id, jsonArgs);
-	if (methodName == "textDocument/didOpen")
-		return textDocument_didOpen(id, jsonArgs);
-	if (methodName == "textDocument/didChange")
-		return textDocument_didChange(id, jsonArgs);
-	// if (methodName == "textDocument/didClose") TODO
-	// 	return textDocument_didClose(id, jsonArgs);
+	if (auto const handlerIter = m_handlers.find(methodName); handlerIter != m_handlers.end())
+		return handlerIter->second(id, jsonArgs);
+	else
+		m_logger << "InputHandler: Unsupported method: \"" << methodName << '"' << endl;
 
-	m_logger << "Unsupported RPC: " << methodName << endl;
 	return nullopt;
 }
 
-optional<CancelRequest> InputHandler::cancelRequest(Json::Value const& _message)
+optional<CancelRequest> InputHandler::cancelRequest(Id const&, Json::Value const& _message)
 {
 	if (Json::Value id = _message["id"]; id.isInt())
 		return CancelRequest{id.asInt()};
@@ -140,9 +140,11 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 	{
 		if (jsonContentChange.isObject() && jsonContentChange["range"])
 		{
-			Json::Value jsonRange = jsonContentChange["range"];
 			TextDocumentRangedContentChangeEvent rangedChange;
-			rangedChange.text = jsonRange["text"].asString();
+			rangedChange.text = jsonContentChange["text"].asString();
+
+			Json::Value jsonRange = jsonContentChange["range"];
+
 			rangedChange.range.start.line = jsonRange["start"]["line"].asInt();
 			rangedChange.range.start.column = jsonRange["start"]["character"].asInt();
 			rangedChange.range.end.line = jsonRange["end"]["line"].asInt();
@@ -152,11 +154,19 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 		else
 		{
 			// TODO: TextDocumentFullContentChangeEvent fullChange;
-			m_logger << "TODO! TextDocumentFullContentChangeEvent!\n";
+			m_logger << "InputHandler: TODO! TextDocumentFullContentChangeEvent!" << endl;
 		}
 	}
 
 	return didChange;
+}
+
+optional<protocol::DidCloseTextDocumentParams> InputHandler::textDocument_didClose(Id const& _id, Json::Value const& _json)
+{
+	protocol::DidCloseTextDocumentParams didClose;
+	didClose.requestId = _id;
+	didClose.textDocument.uri = _json["textDocument"]["uri"].asString();
+	return didClose;
 }
 
 } // end namespace

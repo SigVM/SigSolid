@@ -23,7 +23,7 @@ public:
 	std::string const& uri() const noexcept { return m_uri; }
 	std::string const& languageId() const noexcept { return m_languageId; }
 	constexpr int version() const noexcept { return m_version; }
-	std::string const& str() const { return m_buffer.data(); }
+	std::string const& str() const { return m_buffer.str(); }
 
 	// modifiers
 	constexpr void setVersion(int _version) noexcept { m_version = _version; }

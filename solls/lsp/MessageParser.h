@@ -1,6 +1,6 @@
 #include <json/json.h>
 
-#include <istream>
+#include <iosfwd>
 #include <string>
 #include <variant>
 

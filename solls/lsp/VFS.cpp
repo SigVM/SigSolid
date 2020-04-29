@@ -98,15 +98,9 @@ VFS::VFS(std::ostream* _logger):
 File& VFS::insert(std::string _uri, std::string _languageId, int _version, string _text)
 {
 	if (auto i = m_files.find(_uri); i != end(m_files))
-	{
-		i->second = vfs::File(move(_uri), move(_languageId), _version, move(_text));
-		return i->second;
-	}
+		return i->second = vfs::File(move(_uri), move(_languageId), _version, move(_text));
 	else
-	{
-		File file{_uri, move(_languageId), _version, move(_text)};
-		return m_files.emplace( pair{_uri, move(file)}).first->second;
-	}
+		return m_files.emplace(pair{_uri, File{_uri, move(_languageId), _version, move(_text)}}).first->second;
 }
 
 File const* VFS::find(std::string const& _uri) const noexcept

@@ -28,15 +28,6 @@ void Server::handleMessage(string const& _message)
 		logger() << "Could not analyze RPC request.\n";
 }
 
-void Server::handleMessage(Json::Value _message)
-{
-	optional<protocol::Request> const message = m_inputHandler.handleRequest(_message);
-	if (message.has_value())
-		visit(*this, message.value());
-	else
-		logger() << "Could not analyze RPC request.\n";
-}
-
 void Server::sendReply(lsp::protocol::CancelRequest const& _message)
 {
 	sendReply(OutputGenerator{}(_message), _message.id);
@@ -56,9 +47,9 @@ void Server::sendReply(Json::Value const& _response, optional<Id> _requestId)
 	string const jsonString = solidity::util::jsonCompactPrint(json);
 	m_client << "Content-Length: " << jsonString.size() << "\r\n\r\n" << jsonString;
 
-	// for logging only
-	auto const prettyPrinted = solidity::util::jsonPrettyPrint(json);
-	m_logger << "Reply: " << jsonString.size() << " bytes\n" << prettyPrinted << endl;
+	// XXX for logging only
+	// auto const prettyPrinted = solidity::util::jsonPrettyPrint(json);
+	// m_logger << "Reply: " << jsonString.size() << " bytes\n" << prettyPrinted << endl;
 }
 
 } // end namespace

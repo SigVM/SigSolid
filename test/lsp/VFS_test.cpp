@@ -19,6 +19,7 @@
  */
 
 #include <lsp/VFS.h>
+#include <lsp/TextBuffer.h>
 #include <libsolutil/Exceptions.h>
 
 #include <test/Common.h>
@@ -150,18 +151,17 @@ BOOST_AUTO_TEST_CASE(VFS_modify_change_single_to_multi_line3_last_empty)
 
 BOOST_AUTO_TEST_CASE(VFS_modify_insert_at_the_beginning)
 {
-	vfs::VFS vfs;
-	vfs::File& file = vfs.insert("file:///project/test.txt", "text", 1, "Hello, World\n");
+	TextBuffer text{"Hello, World\n"};
 
-	file.modify(Range{{0, 0}, {0, 0}}, "[");
-	BOOST_CHECK_EQUAL(file.str(), "[Hello, World\n");
+	text.replace(Range{{0, 0}, {0, 0}}, "[");
+	BOOST_CHECK_EQUAL(text.str(), "[Hello, World\n");
 
-	vfs::File& file2 = vfs.insert("file:///project/test.txt", "text", 1, "Hello,\nWorld\n");
-	file2.modify(Range{{1, 0}, {1, 0}}, "[");
-	BOOST_CHECK_EQUAL(file2.str(), "Hello,\n[World\n");
+	TextBuffer text2{"Hello,\nWorld\n"};
+	text2.replace(Range{{1, 0}, {1, 0}}, "[");
+	BOOST_CHECK_EQUAL(text2.str(), "Hello,\n[World\n");
 
-	file2.modify(Range{{2, 0}, {2, 0}}, "[");
-	BOOST_CHECK_EQUAL(file2.str(), "Hello,\n[World\n[");
+	text2[Range{{2, 0}, {2, 0}}] = "[";
+	BOOST_CHECK_EQUAL(text2.str(), "Hello,\n[World\n[");
 }
 
 BOOST_AUTO_TEST_CASE(VFS_modify_insert)

@@ -729,6 +729,7 @@ struct DidCloseTextDocumentParams {
 	 */
 	TextDocumentIdentifier textDocument;
 };
+
 struct DidChangeTextDocumentParams {
 	Id requestId;
 
@@ -767,7 +768,8 @@ using Request = std::variant<
 	InitializeRequest,
 	InitializedNotification,
 	DidOpenTextDocumentParams,
-	DidChangeTextDocumentParams
+	DidChangeTextDocumentParams,
+	DidCloseTextDocumentParams
 >;
 
 using Response = std::variant< // TODO: do I actually need/want you?

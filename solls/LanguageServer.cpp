@@ -25,16 +25,16 @@ void LanguageServer::operator()(lsp::protocol::CancelRequest const& _args)
 		[](int _id) -> string { return to_string(_id); }
 	}, _args.id);
 
-	logger() << "Request " << id << " cancelled.\n";
+	logger() << "LanguageServer: Request " << id << " cancelled." << endl;
 }
 
 void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 {
-	logger() << "Initializing, PID :" << _args.processId.value_or(-1) << endl;
-	logger() << "rootUri           : " << _args.rootUri.value_or("NULL") << endl;
-	logger() << "rootPath          : " << _args.rootPath.value_or("NULL") << endl;
+	logger() << "LanguageServer: Initializing, PID :" << _args.processId.value_or(-1) << endl;
+	logger() << "                rootUri           : " << _args.rootUri.value_or("NULL") << endl;
+	logger() << "                rootPath          : " << _args.rootPath.value_or("NULL") << endl;
 	for (auto const& workspace: _args.workspaceFolders)
-		logger() << "workspace folder: " << workspace.name << "; " << workspace.uri << endl;
+		logger() << "                workspace folder: " << workspace.name << "; " << workspace.uri << endl;
 
 	lsp::protocol::InitializeResult result;
 	result.capabilities.hoverProvider = true;
@@ -48,11 +48,12 @@ void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 {
 	// NB: this means the client has finished initializing. Now we could maybe start sending
 	// events to the client.
-	logger() << "Client initialized\n";
+	logger() << "LanguageServer: Client initialized" << endl;
 }
 
 void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
 {
+	logger() << "LanguageServer: " << "Opening document: " << _args.textDocument.uri << endl;
 	m_vfs.insert(
 		_args.textDocument.uri,
 		_args.textDocument.languageId,
@@ -63,18 +64,18 @@ void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& 
 
 void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const& _didChange)
 {
-	logger() << "DidChangeTextDocumentParams!\n";
+	logger() << "LanguageServer: DidChangeTextDocumentParams!" << endl;
 	if (lsp::vfs::File* file = m_vfs.find(_didChange.textDocument.uri); file != nullptr)
 	{
 		if (_didChange.textDocument.version.has_value())
 			file->setVersion(_didChange.textDocument.version.value());
 
-		logger() << "didChange: " << _didChange.textDocument.uri << endl;
+		logger() << "  didChange: " << _didChange.textDocument.uri << endl;
 		for (lsp::protocol::TextDocumentContentChangeEvent const& contentChange: _didChange.contentChanges)
 		{
 			visit(util::GenericVisitor{
 				[&](lsp::protocol::TextDocumentRangedContentChangeEvent const& change) {
-					logger() << "didChange: " << change.range << " with: \"" << change.text << '"' << endl;
+					logger() << "    range: " << change.range << " text: \"" << change.text << '"' << endl;
 					file->modify(change.range, change.text);
 				},
 				[&](lsp::protocol::TextDocumentFullContentChangeEvent const& change) {
@@ -82,16 +83,14 @@ void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const
 				}
 			}, contentChange);
 		}
-		logger() << "file: " << *file << endl;
 	}
 	else
-		logger() << "file: " << _didChange.textDocument.uri << " NOT FOUND\n";
+		logger() << "LanguageServer: File to be modified not opened \"" << _didChange.textDocument.uri << "\"" << endl;
 }
 
-// void LanguageServer::textDocument_didClose(Id _id, Json::Value const& _args)
-// {
-// 	(void) _id;
-// 	(void) _args;
-// }
+void LanguageServer::operator()(lsp::protocol::DidCloseTextDocumentParams const& _didClose)
+{
+	logger() << "LanguageServer: didClose: " << _didClose.textDocument.uri << endl;
+}
 
 } // namespace solidity
