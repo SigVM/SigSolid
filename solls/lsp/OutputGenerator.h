@@ -3,19 +3,23 @@
 #include <libsolutil/JSON.h>
 #include <lsp/protocol.h>
 
+#include <tuple>
+
 namespace lsp {
 
-class OutputGenerator {
-public:
-	Json::Value generate(protocol::Response const& _response);
+struct OutputGenerator
+{
+	// notifications
+	struct NotificationInfo { std::string method; Json::Value params; };
+	NotificationInfo operator()(protocol::CancelRequest const&);
+	NotificationInfo operator()(protocol::Notification const&);
+	NotificationInfo operator()(protocol::PublishDiagnosticsParams const&);
 
-	// bi-directional messages
-	Json::Value operator()(protocol::CancelRequest const& _message);
+	// replies
+	Json::Value operator()(protocol::InitializeResult const&);
+	Json::Value operator()(protocol::Response const&);
 
-	// response messages
-	Json::Value operator()(protocol::InitializeResult const& _response);
-
-	// Obviousely, here's more to come...
+	// TODO: Obviousely, here's more to come...
 };
 
 } // end namespace

@@ -197,6 +197,7 @@ struct ServerInfo {
 };
 
 struct InitializeResult {
+	Id requestId;
 	ServerCapabilities capabilities;
 	std::optional<ServerInfo> serverInfo;
 };
@@ -290,7 +291,7 @@ struct Diagnostic {
 	 * The diagnostic's severity. Can be omitted. If omitted it is up to the
 	 * client to interpret diagnostics as error, warning, info or hint.
 	 */
-	std::optional<DiagnosticSeverity> severity;
+	std::optional<DiagnosticSeverity> severity; // TODO: make it non-optional, as it's client-to-server only, and we're in control of that.
 
 	/**
 	 * The diagnostic's code, which might appear in the user interface.
@@ -313,6 +314,73 @@ struct Diagnostic {
 	 * a scope collide all definitions can be marked via this property.
 	 */
 	std::vector<DiagnosticRelatedInformation> relatedInformation;
+};
+
+enum class DiagnosticTag {
+	/**
+     * Unused or unnecessary code.
+     *
+     * Clients are allowed to render diagnostics with this tag faded out instead of having
+     * an error squiggle.
+     */
+    Unnecessary = 1,
+
+    /**
+     * Deprecated or obsolete code.
+     *
+     * Clients are allowed to rendered diagnostics with this tag strike through.
+     */
+    Deprecated = 2
+};
+
+struct PublishDiagnosticsClientCapabilities
+{
+	/**
+	 * Whether the clients accepts diagnostics with related information.
+	 */
+	bool relatedInformation;
+
+	struct TagSupport {
+		/**
+		 * The tags supported by the client.
+		 */
+		std::vector<DiagnosticTag> valueSet;
+	};
+
+	/**
+	 * Client supports the tag property to provide meta data about a diagnostic.
+	 * Clients supporting tags have to handle unknown tags gracefully.
+	 *
+	 * @since 3.15.0
+	 */
+	std::optional<TagSupport> tagSupport;
+
+	/**
+	 * Whether the client interprets the version property of the
+	 * `textDocument/publishDiagnostics` notification's parameter.
+	 *
+	 * @since 3.15.0
+	 */
+	std::optional<bool> versionSupport;
+};
+
+struct PublishDiagnosticsParams {
+	/**
+	 * The URI for which diagnostic information is reported.
+	 */
+	DocumentUri uri;
+
+	/**
+	 * Optional the version number of the document the diagnostics are published for.
+	 *
+	 * @since 3.15.0
+	 */
+	std::optional<int> version = std::nullopt;
+
+	/**
+	 * An array of diagnostic information items.
+	 */
+	std::vector<Diagnostic> diagnostics = {};
 };
 
 /**
@@ -770,25 +838,18 @@ using Request = std::variant<
 	DidOpenTextDocumentParams,
 	DidChangeTextDocumentParams,
 	DidCloseTextDocumentParams
+	// TODO ...
 >;
 
-using Response = std::variant< // TODO: do I actually need/want you?
-	CancelRequest,
+using Response = std::variant<
+	// TODO ...
 	InitializeResult
 >;
 
-struct RequestMessage {
-	std::optional<Id> id;
-	std::string method;
-	std::optional<Request> params;
-};
-
-// -----------------------------------------------------------------------------------------------
-
-/// Transforms an LSP request message from JSON-RPC to C++ highlevel struct.
-RequestMessage fromJsonRpc(Json::Value const& _request);
-
-/// Transforms a LSP response message into a JSON-RPC response message.
-Json::Value toJsonRpc(Response const& _response, std::optional<Id> _requestId = std::nullopt);
+using Notification = std::variant<
+	// TODO ...
+	CancelRequest,
+	PublishDiagnosticsParams
+>;
 
 } // end namespace

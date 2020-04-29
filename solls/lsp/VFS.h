@@ -60,6 +60,16 @@ public:
 	/// Modifies given VFS file by deleting the @p _range and replace it with the @p _replacementText.
 	void modify(std::string const& _uri, Range const& _range, std::string const& _replacementText);
 
+	/// Retrieves a read-only list of all files available in this VFS.
+	std::vector<std::reference_wrapper<File const>> files() const
+	{
+		std::vector<std::reference_wrapper<File const>> result;
+		result.reserve(m_files.size());
+		for (auto const& file: m_files)
+			result.emplace_back(file.second);
+		return result;
+	}
+
 private:
 	std::map<std::string, File> m_files;
 	std::ostream* m_logger;

@@ -6,12 +6,12 @@ namespace lsp {
 
 using namespace std;
 
-Json::Value OutputGenerator::generate(protocol::Response const& _response)
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::Notification const& _message)
 {
-	return visit(*this, _response);
+	return visit(*this, _message);
 }
 
-Json::Value OutputGenerator::operator()(protocol::CancelRequest const& _message)
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::CancelRequest const& _message)
 {
 	Json::Value reply;
 
@@ -27,7 +27,21 @@ Json::Value OutputGenerator::operator()(protocol::CancelRequest const& _message)
 		_message.id
 	);
 
-	return reply;
+	return {"$/cancelRequest", reply};
+}
+
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishDiagnosticsParams const&)
+{
+	Json::Value reply;
+
+	// TODO
+
+	return {"textDocument/publishDiagnostics", reply};
+}
+
+Json::Value OutputGenerator::operator()(protocol::Response const& _response)
+{
+	return visit(*this, _response);
 }
 
 Json::Value OutputGenerator::operator()(protocol::InitializeResult const& _response)

@@ -2,6 +2,8 @@
 
 #include <lsp/protocol.h>
 #include <lsp/InputHandler.h>
+#include <lsp/OutputGenerator.h>
+
 #include <json/value.h>
 
 #include <functional>
@@ -12,15 +14,35 @@
 
 namespace lsp {
 
+class Transport;
+
 /// Solidity Language Server, managing one LSP client.
 class Server
 {
+private:
+	Server(Server const&) = delete;
+	Server& operator=(Server const&) = delete;
+
 public:
 	using Id = protocol::Id;
 
-	Server(std::ostream& _client, std::ostream& _logger);
+	/// Constructs a Language Server that is communicating over stdio via JSON-RPC.
+	///
+	/// @param _client the transport layer to the connected client
+	/// @param _logger a logging stream, used internally for logging debug/warning/error messages.
+	explicit Server(Transport& _client);
+
 	virtual ~Server() = default;
 
+	/// Loops over incoming messages via the transport layer until shutdown condition is meat.
+	///
+	/// The standard shutdown condition is when the maximum number of consecutive failures
+	/// has been exceeded.
+	///
+	/// @return an error code suitable to return in standard main().
+	int run();
+
+	/// Handles a raw client message
 	void handleMessage(std::string const& _message);
 
 	// Client-to-Server messages
@@ -31,17 +53,25 @@ public:
 	virtual void operator()(protocol::DidChangeTextDocumentParams const&) {}
 	virtual void operator()(protocol::DidCloseTextDocumentParams const&) {}
 
-protected:
-	void sendReply(lsp::protocol::CancelRequest const& _message);
-	void sendReply(Json::Value const& _response, std::optional<Id> _requestId = std::nullopt);
+	/// Sends a message to the client.
+	///
+	/// @param _id an optional request ID that this response relates to
+	/// @param _message the message to send to the client
+	void reply(lsp::protocol::Id const& _id, lsp::protocol::Response const& _message);
+	void error(lsp::protocol::Id const& _id, std::string const& _message);
+	void notify(lsp::protocol::Notification const& _message);
 
-	std::ostream& logger() noexcept { return m_logger; }
-	std::ostream& client() noexcept { return m_client; }
+protected:
+	[[deprecated]] void sendReply(Json::Value const& _response, std::optional<Id> _requestId = std::nullopt);
+
+	Transport& client() noexcept { return m_client; }
+
+	void log(std::string const& _message);
 
 private:
-	std::ostream& m_client;
-	std::ostream& m_logger;
+	Transport& m_client;
 	InputHandler m_inputHandler;
+	OutputGenerator m_outputGenerator;
 };
 
 } // namespace solidity

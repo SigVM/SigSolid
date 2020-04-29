@@ -17,7 +17,7 @@ class InputHandler
 public:
 	using Id = protocol::Id; // TODO: move me to lsp namespace instead?
 
-	explicit InputHandler(std::ostream& _logger);
+	explicit InputHandler(std::function<void(std::string const&)> _logger);
 
 	/// Transforms JSON RPC request message into a higher level LSP request message.
 	/// It will return std::nullopt in case of protocol errors.
@@ -38,7 +38,7 @@ private:
 	using Handler = std::function<std::optional<protocol::Request>(Id const&, Json::Value const&)>;
 	using HandlerMap = std::unordered_map<std::string, Handler>;
 
-	std::ostream& m_logger;
+	std::function<void(std::string const&)> m_logger;
 	HandlerMap m_handlers;
 };
 

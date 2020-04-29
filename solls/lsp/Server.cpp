@@ -1,5 +1,6 @@
 #include <lsp/Server.h>
 #include <lsp/OutputGenerator.h>
+#include <lsp/Transport.h>
 #include <libsolutil/Visitor.h>
 #include <libsolutil/JSON.h>
 #include <ostream>
@@ -12,11 +13,46 @@ using namespace std;
 
 namespace lsp {
 
-Server::Server(ostream& _client, ostream& _logger):
+Server::Server(Transport& _client):
 	m_client{_client},
-	m_logger{_logger},
-	m_inputHandler{_logger}
+	m_inputHandler{_client.logger()},
+	m_outputGenerator{}
 {
+}
+
+int Server::run()
+{
+	constexpr unsigned maxConsecutiveFailures = 10;
+	unsigned failureCount = 0;
+
+	while (failureCount <= maxConsecutiveFailures)
+	{
+		optional<Json::Value> const jsonMessage = client().receive();
+		if (jsonMessage.has_value())
+		{
+			optional<protocol::Request> const message = m_inputHandler.handleRequest(*jsonMessage);
+			if (message.has_value())
+			{
+				visit(*this, message.value());
+				failureCount = 0;
+			}
+			else
+			{
+				m_client.log("Could not analyze RPC request.");
+				failureCount++;
+			}
+		}
+		else
+		{
+			m_client.log("Could not read RPC request.");
+			failureCount++;
+		}
+	}
+
+	if (failureCount < maxConsecutiveFailures)
+		return EXIT_SUCCESS;
+	else
+		return EXIT_FAILURE;
 }
 
 void Server::handleMessage(string const& _message)
@@ -25,31 +61,24 @@ void Server::handleMessage(string const& _message)
 	if (message.has_value())
 		visit(*this, message.value());
 	else
-		logger() << "Could not analyze RPC request.\n";
+		m_client.log("Could not analyze RPC request.");
 }
 
-void Server::sendReply(lsp::protocol::CancelRequest const& _message)
+void Server::reply(lsp::protocol::Id const& _id, lsp::protocol::Response const& _message)
 {
-	sendReply(OutputGenerator{}(_message), _message.id);
+	auto const json = m_outputGenerator(_message);
+	m_client.reply(_id, json);
 }
 
-void Server::sendReply(Json::Value const& _response, optional<Id> _requestId)
+void Server::notify(lsp::protocol::Notification const& _message)
 {
-	Json::Value json;
-	json["jsonrpc"] = "2.0";
-	json["result"] = _response;
-	visit(solidity::util::GenericVisitor{
-		[&](int _id) { json["id"] = _id; },
-		[&](string const& _id) { json["id"] = _id; },
-		[&](monostate) {}
-	}, *_requestId);
+	auto const [method, json] = m_outputGenerator(_message);
+	m_client.notify(method, json);
+}
 
-	string const jsonString = solidity::util::jsonCompactPrint(json);
-	m_client << "Content-Length: " << jsonString.size() << "\r\n\r\n" << jsonString;
-
-	// XXX for logging only
-	// auto const prettyPrinted = solidity::util::jsonPrettyPrint(json);
-	// m_logger << "Reply: " << jsonString.size() << " bytes\n" << prettyPrinted << endl;
+void Server::log(std::string const& _message)
+{
+	m_client.log(_message);
 }
 
 } // end namespace

@@ -9,8 +9,8 @@ using namespace std::placeholders;
 
 namespace lsp {
 
-InputHandler::InputHandler(ostream& _logger):
-	m_logger{_logger},
+InputHandler::InputHandler(std::function<void(std::string const&)> _logger):
+	m_logger{ move(_logger) },
 	m_handlers{
 		{"cancelRequest", bind(&InputHandler::cancelRequest, this, _1, _2)},
 		{"initialize", bind(&InputHandler::initializeRequest, this, _1, _2)},
@@ -29,7 +29,7 @@ optional<Request> InputHandler::handleRequest(std::string const& _message)
 	solidity::util::jsonParseStrict(_message, jsonMessage, &errs);
 	if (!errs.empty())
 	{
-		m_logger << "InputHandler: JSON parser error. " << errs << endl;
+		m_logger("InputHandler: JSON parser error. " + errs);
 		return nullopt; // JsonParseError
 	}
 
@@ -51,7 +51,7 @@ optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
 	if (auto const handlerIter = m_handlers.find(methodName); handlerIter != m_handlers.end())
 		return handlerIter->second(id, jsonArgs);
 	else
-		m_logger << "InputHandler: Unsupported method: \"" << methodName << '"' << endl;
+		m_logger("InputHandler: Unsupported method: \"" + methodName +"\"");
 
 	return nullopt;
 }
@@ -154,7 +154,7 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 		else
 		{
 			// TODO: TextDocumentFullContentChangeEvent fullChange;
-			m_logger << "InputHandler: TODO! TextDocumentFullContentChangeEvent!" << endl;
+			m_logger("InputHandler: TODO! TextDocumentFullContentChangeEvent!");
 		}
 	}
 
