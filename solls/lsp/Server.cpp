@@ -31,6 +31,11 @@ int Server::run()
 
 	while (failureCount <= maxConsecutiveFailures)
 	{
+		// TODO: receive() must return a variant<> to also return on <Transport::TimeoutEvent>,
+		// so that we can perform some idle tasks in the meantime, such as
+		// - lazy validation runs
+		// - check for results of asynchronous runs (in case we want to support threaded background jobs)
+		// Also, EOF should be noted properly as a <Transport::ClosedEvent>.
 		optional<Json::Value> const jsonMessage = client().receive();
 		if (jsonMessage.has_value())
 		{

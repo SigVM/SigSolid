@@ -20,26 +20,28 @@ The following features could be implemented (incomplete list of ideas):
 - also support Yul
 
 ### Questions:
- - what clients would you guys like us to support? Remix, VS, VIM, ...?
- - could this be wanted by by Remix?
- - what would be most/least important to you to have in general (and in the initial release)
-   - compiler diagnostics
-   - auto completion
-   - goto definition / implementation
-   - find all references
-   - text folding
-   - symbol rename
-   - semantic highlight
-   - (on-type) text formatting
-   - ... fast responding high performant LS
- - how do clients want to push their build configuration to the server?
-   - C++ LS uses a `compile_commands.json` for the flags
- - LSIF: is there interest in "Language Server Index Format"?
-   - pronounced "else-if"
-   - Ref: https://code.visualstudio.com/blogs/2019/02/19/lsif
-   - this is an indexing file format that the LS can produce for offline usage
-   - example use: platforms (such as GitHub!) could provide goto definition (etc) features
 
+- what clients would you guys like us to support? Remix, VS, VIM, ...?
+- could this be wanted by by Remix?
+- what would be most/least important to you to have in general (and in the initial release)
+  - compiler diagnostics
+  - auto completion
+  - goto definition / implementation
+  - find all references
+  - text folding
+  - symbol rename
+  - semantic highlight
+  - (on-type) text formatting
+  - ... fast responding high performant LS
+- how do clients want to push their build configuration to the server?
+  - C++ LS uses a `compile_commands.json` for the flags
+- Since the LS is internally compiling the code, it might as well extend the API by
+  also responding to compilation results (on successful builds).
+- LSIF: is there interest in "Language Server Index Format"?
+  - pronounced "else-if"
+  - Ref: https://code.visualstudio.com/blogs/2019/02/19/lsif
+  - this is an indexing file format that the LS can produce for offline usage
+  - example use: platforms (such as GitHub!) could provide goto definition (etc) features
 
 ## What an initial release could look like
 
