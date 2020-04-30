@@ -1,15 +1,23 @@
 #include <solls/LanguageServer.h>
+
 #include <lsp/OutputGenerator.h>
+#include <lsp/protocol.h>
+
+#include <liblangutil/SourceReferenceExtractor.h>
+
 #include <libsolutil/Visitor.h>
 #include <libsolutil/JSON.h>
+
 #include <ostream>
-#include "helper.h"
 
 #include <iostream>
 #include <string>
 
 using namespace std;
 using namespace std::placeholders;
+
+using namespace solidity::langutil;
+using namespace solidity::frontend;
 
 namespace solidity {
 
@@ -126,6 +134,60 @@ void LanguageServer::validate(lsp::vfs::File const& _file)
 		notify(diag);
 }
 
+frontend::ReadCallback::Result LanguageServer::readFile(string const& _kind, string const& _path)
+{
+	using namespace frontend;
+
+	// TODO: do we need this translation?
+	string localPath = _path;
+	if (localPath.find("file://") == 0)
+		localPath.erase(0, 7);
+
+	try
+	{
+		if (_kind != ReadCallback::kindString(ReadCallback::Kind::ReadFile))
+			return ReadCallback::Result{false, "Invalid readFile callback kind " + _kind};
+
+		// TODO: do we want to make use of m_allowedDirectories?
+		// TODO: what iff file does not exist physically on disk? (Web clients? Remix?)
+		// TODO: fix ReadCallback::Result to be be either file contents OR an error of given type (std::variant? solidity::Result?)
+
+		if (auto file = m_vfs.find(_path); file != nullptr)
+		{
+			auto const& contents = file->str();
+			m_sourceCodes[localPath] = contents;
+			return ReadCallback::Result{true, contents};
+		}
+		else if (auto i = m_sourceCodes.find(_path); i != end(m_sourceCodes))
+			return ReadCallback::Result{true, i->second};
+		else
+			return ReadCallback::Result{false, "File not found."};
+
+		return frontend::ReadCallback::Result{}; // TODO
+	}
+	catch (...)
+	{
+		return ReadCallback::Result{false, "Unahdneld exception caught in readFile callback."};
+	}
+}
+
+constexpr lsp::protocol::DiagnosticSeverity toDiagnosticSeverity(Error::Type _errorType)
+{
+	switch (_errorType)
+	{
+		case Error::Type::DeclarationError:
+		case Error::Type::DocstringParsingError:
+		case Error::Type::ParserError:
+		case Error::Type::TypeError:
+		case Error::Type::SyntaxError:
+			return lsp::protocol::DiagnosticSeverity::Error;
+		case Error::Type::Warning:
+			return lsp::protocol::DiagnosticSeverity::Warning;
+	}
+	// Should never be reached.
+	return lsp::protocol::DiagnosticSeverity::Error;
+}
+
 void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsList& _result)
 {
 	// TODO
@@ -138,17 +200,73 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 	lsp::protocol::PublishDiagnosticsParams params{};
 	params.uri = _file.uri();
 
+	m_sourceCodes.clear();
+	m_sourceCodes[_file.uri().substr(7)] = _file.str();
+
+	auto compiler = make_unique<CompilerStack>(bind(&LanguageServer::readFile, this, _1, _2));
+	// TODO: configure all compiler flags like in CommandLineInterface (TODO: refactor to share logic!)
+
+	OptimiserSettings settings = OptimiserSettings::standard(); // TODO: or OptimiserSettings::minimal(); // configurable
+	compiler->setOptimiserSettings(settings);
+	compiler->setParserErrorRecovery(true);
+	compiler->setEVMVersion(EVMVersion::constantinople()); // TODO: configurable
+	compiler->setRevertStringBehaviour(RevertStrings::Default); // TODO configurable
+	compiler->setSources(m_sourceCodes);
+	compiler->compile();
+
+	for (shared_ptr<Error const> const& error: compiler->errors())
+	{
+		auto const message = SourceReferenceExtractor::extract(
+			*error,
+			(error->type() == Error::Type::Warning) ? "Warning" : "Error"
+		);
+
+		auto const severity = toDiagnosticSeverity(error->type());
+
+		// global warnings don't have positions in the source code - TODO: default them to top of file?
+		auto const position = LineColumn{{
+			max(message.primary.position.line, 0),
+			max(message.primary.position.column, 0)
+		}};
+
+		lsp::protocol::Diagnostic diag{};
+
+		diag.range.start.line = position.line;
+		diag.range.start.column = position.column;
+		diag.range.end.line = position.line;
+		diag.range.end.column = position.column + 1;
+		diag.message = message.primary.message;
+		diag.source = "solc";
+		diag.severity = severity;
+		//diag.code = "42"; // TODO (another PR?)
+
+		params.diagnostics.emplace_back(move(diag));
+	}
+
+	// some additional analysis (as proof of concept)
+#if 1
 	for (size_t pos = _file.str().find("FIXME", 0); pos != string::npos; pos = _file.str().find("FIXME", pos + 1))
 	{
 		lsp::protocol::Diagnostic diag{};
-		diag.message = "Hello, FIXME should be fixed.";
+		diag.message = "Hello, FIXME's should be fixed.";
 		diag.range.start = _file.buffer().positionOf(pos);
 		diag.range.end = {diag.range.start.line, diag.range.start.column + 5};
 		diag.severity = lsp::protocol::DiagnosticSeverity::Error;
 		diag.source = "solc";
 		params.diagnostics.emplace_back(diag);
 	}
-	// TODO
+
+	for (size_t pos = _file.str().find("TODO", 0); pos != string::npos; pos = _file.str().find("FIXME", pos + 1))
+	{
+		lsp::protocol::Diagnostic diag{};
+		diag.message = "Please remember to create a ticket on GitHub for that.";
+		diag.range.start = _file.buffer().positionOf(pos);
+		diag.range.end = {diag.range.start.line, diag.range.start.column + 5};
+		diag.severity = lsp::protocol::DiagnosticSeverity::Hint;
+		diag.source = "solc";
+		params.diagnostics.emplace_back(diag);
+	}
+#endif
 
 	_result.emplace_back(params);
 }

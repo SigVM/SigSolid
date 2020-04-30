@@ -279,6 +279,24 @@ enum class DiagnosticSeverity {
 	Hint = 4,
 };
 
+inline std::string to_string(DiagnosticSeverity _value)
+{
+	switch (_value)
+	{
+		case DiagnosticSeverity::Error:
+			return "Error";
+		case DiagnosticSeverity::Warning:
+			return "Warning";
+		case DiagnosticSeverity::Information:
+			return "Info";
+		case DiagnosticSeverity::Hint:
+			return "Hint";
+	}
+	char buf[64];
+	snprintf(buf, sizeof(buf), "DiagnosticSeverity<%d>", static_cast<int>(_value));
+	return buf;
+}
+
 /**
  * Represents a related message and source code location for a diagnostic. This should be
  * used to point to code locations that cause or related to a diagnostics, e.g when duplicating

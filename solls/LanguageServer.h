@@ -6,12 +6,15 @@
 #include <lsp/protocol.h>
 
 #include <libsolidity/interface/CompilerStack.h>
+#include <libsolidity/interface/ReadFile.h>
 
 #include <json/value.h>
 
 #include <functional>
+#include <map>
 #include <optional>
 #include <ostream>
+#include <string>
 #include <unordered_map>
 #include <variant>
 
@@ -45,10 +48,16 @@ public:
 	void validate(lsp::vfs::File const& _file);
 
 private:
+	frontend::ReadCallback::Result readFile(std::string const&, std::string const&);
+
+private:
 	/// In-memory filesystem for each opened file.
 	///
 	/// Closed files will not be removed as they may be needed for compiling.
 	lsp::vfs::VFS m_vfs;
+
+	/// map of input files to source code strings
+	std::map<std::string, std::string> m_sourceCodes;
 
 	/// Mapping between VFS file and its diagnostics.
 	std::map<std::string /*URI*/, PublishDiagnosticsList> m_diagnostics;

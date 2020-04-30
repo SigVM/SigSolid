@@ -25,7 +25,7 @@ The following features could be implemented (incomplete list of ideas):
 - could this be wanted by by Remix?
 - what would be most/least important to you to have in general (and in the initial release)
   - compiler diagnostics
-  - auto completion
+  - auto completion (requires some compiler stack refactoring to allow invalid ASTs)
   - goto definition / implementation
   - find all references
   - text folding
