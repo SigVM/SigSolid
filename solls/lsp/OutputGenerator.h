@@ -19,6 +19,9 @@ struct OutputGenerator
 	Json::Value operator()(protocol::InitializeResult const&);
 	Json::Value operator()(protocol::Response const&);
 
+	// helpers
+	Json::Value toJson(Range const& _range);
+
 	// TODO: Obviousely, here's more to come...
 };
 

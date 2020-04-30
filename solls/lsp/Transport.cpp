@@ -48,7 +48,7 @@ void JSONTransport::notify(std::string const& _method, Json::Value const& _messa
 	Json::Value json;
 	json["jsonrpc"] = "2.0";
 	json["method"] = _method;
-	json["result"] = _message;
+	json["params"] = _message;
 	send(json);
 }
 

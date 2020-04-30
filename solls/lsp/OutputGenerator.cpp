@@ -30,11 +30,66 @@ OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::CancelRe
 	return {"$/cancelRequest", reply};
 }
 
-OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishDiagnosticsParams const&)
+Json::Value OutputGenerator::toJson(Range const& _range)
+{
+	Json::Value json;
+	json["start"]["line"] = _range.start.line;
+	json["start"]["character"] = _range.start.column;
+	json["end"]["line"] = _range.end.line;
+	json["end"]["character"] = _range.end.column;
+	return json;
+}
+
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishDiagnosticsParams const& _response)
 {
 	Json::Value reply;
 
-	// TODO
+	reply["uri"] = _response.uri;
+
+	if (_response.version)
+		reply["version"] = _response.version.value();
+
+	for (protocol::Diagnostic const& diag: _response.diagnostics)
+	{
+		Json::Value jsonDiag;
+
+		jsonDiag["range"] = toJson(diag.range);
+
+		if (diag.severity.has_value())
+			jsonDiag["severity"] = static_cast<int>(diag.severity.value());
+
+		visit(
+			solidity::util::GenericVisitor{
+				[&](int _code) { jsonDiag["code"] = _code; },
+				[&](string const& _code) { jsonDiag["code"] = _code; },
+				[&](monostate) { }
+			},
+			diag.code
+		);
+
+		if (diag.source.has_value())
+			jsonDiag["source"] = diag.source.value();
+
+		jsonDiag["message"] = diag.message;
+
+		if (!diag.diagnosticTag.empty())
+			for (protocol::DiagnosticTag tag: diag.diagnosticTag)
+				jsonDiag["diagnosticTag"].append(static_cast<int>(tag));
+
+		if (!diag.relatedInformation.empty())
+		{
+			for (protocol::DiagnosticRelatedInformation const& related: diag.relatedInformation)
+			{
+				Json::Value json;
+				json["message"] = related.message;
+				json["location"]["uri"] = related.location.uri;
+				json["location"]["range"] = toJson(related.location.range);
+				jsonDiag["relatedInformation"].append(json);
+			}
+		}
+
+		reply["diagnostics"].append(jsonDiag);
+	}
 
 	return {"textDocument/publishDiagnostics", reply};
 }

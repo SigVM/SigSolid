@@ -39,7 +39,7 @@ public:
 		return std::string_view(&*std::next(std::begin(m_buffer), start), end - start);
 	}
 
-	Position possitionOf(size_t _offset) const noexcept;
+	Position positionOf(size_t _offset) const noexcept;
 	size_t offsetOf(Position const& _position) const noexcept;
 	std::pair<size_t, size_t> offsetsOf(Range const& _range) const noexcept;
 
@@ -105,7 +105,7 @@ namespace lsp
 		return offset;
 	}
 
-	inline Position TextBuffer::possitionOf(size_t _offset) const noexcept
+	inline Position TextBuffer::positionOf(size_t _offset) const noexcept
 	{
 		// TODO: take care of Unicode.
 		Position position = {};

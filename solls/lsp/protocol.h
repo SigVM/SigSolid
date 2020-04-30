@@ -278,6 +278,28 @@ struct DiagnosticRelatedInformation {
 };
 
 /**
+ * The diagnostic tags.
+ *
+ * @since 3.15.0
+ */
+enum class DiagnosticTag {
+    /**
+     * Unused or unnecessary code.
+     *
+     * Clients are allowed to render diagnostics with this tag faded out instead of having
+     * an error squiggle.
+     */
+    Unnecessary = 1,
+
+    /**
+     * Deprecated or obsolete code.
+     *
+     * Clients are allowed to rendered diagnostics with this tag strike through.
+     */
+    Deprecated = 2
+};
+
+/**
  * Represents a diagnostic, such as a compiler error or warning.
  * Diagnostic objects are only valid in the scope of a resource.
  */
@@ -291,7 +313,7 @@ struct Diagnostic {
 	 * The diagnostic's severity. Can be omitted. If omitted it is up to the
 	 * client to interpret diagnostics as error, warning, info or hint.
 	 */
-	std::optional<DiagnosticSeverity> severity; // TODO: make it non-optional, as it's client-to-server only, and we're in control of that.
+	std::optional<DiagnosticSeverity> severity;
 
 	/**
 	 * The diagnostic's code, which might appear in the user interface.
@@ -310,27 +332,17 @@ struct Diagnostic {
 	std::string message;
 
 	/**
+	 * Additional metadata about the diagnostic.
+	 *
+	 * @since 3.15.0
+	 */
+	std::vector<DiagnosticTag> diagnosticTag;
+
+	/**
 	 * An array of related diagnostic information, e.g. when symbol-names within
 	 * a scope collide all definitions can be marked via this property.
 	 */
 	std::vector<DiagnosticRelatedInformation> relatedInformation;
-};
-
-enum class DiagnosticTag {
-	/**
-     * Unused or unnecessary code.
-     *
-     * Clients are allowed to render diagnostics with this tag faded out instead of having
-     * an error squiggle.
-     */
-    Unnecessary = 1,
-
-    /**
-     * Deprecated or obsolete code.
-     *
-     * Clients are allowed to rendered diagnostics with this tag strike through.
-     */
-    Deprecated = 2
 };
 
 struct PublishDiagnosticsClientCapabilities

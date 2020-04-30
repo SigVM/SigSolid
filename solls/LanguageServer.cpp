@@ -95,6 +95,8 @@ void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const
 				}
 			}, contentChange);
 		}
+
+		validate(*file);
 	}
 	else
 		log("LanguageServer: File to be modified not opened \"" + _didChange.textDocument.uri + "\"");
@@ -132,14 +134,17 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 	lsp::protocol::PublishDiagnosticsParams params{};
 	params.uri = _file.uri();
 
+	for (size_t pos = _file.str().find("FIXME", 0); pos != string::npos; pos = _file.str().find("FIXME", pos + 1))
+	{
+		lsp::protocol::Diagnostic diag{};
+		diag.message = "Hello, FIXME should be fixed.";
+		diag.range.start = _file.buffer().positionOf(pos);
+		diag.range.end = {diag.range.start.line, diag.range.start.column + 5};
+		diag.severity = lsp::protocol::DiagnosticSeverity::Error;
+		diag.source = "solc";
+		params.diagnostics.emplace_back(diag);
+	}
 	// TODO
-	lsp::protocol::Diagnostic diag{};
-	diag.message = "Test message";
-	diag.range.start = {0, 0};
-	diag.range.end = {0, 5};
-	diag.severity = lsp::protocol::DiagnosticSeverity::Error;
-	diag.source = "solc";
-	params.diagnostics.emplace_back(diag);
 
 	_result.emplace_back(params);
 }

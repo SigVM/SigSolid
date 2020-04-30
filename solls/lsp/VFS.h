@@ -24,6 +24,7 @@ public:
 	std::string const& languageId() const noexcept { return m_languageId; }
 	constexpr int version() const noexcept { return m_version; }
 	std::string const& str() const { return m_buffer.str(); }
+	TextBuffer const& buffer() const noexcept { return m_buffer; }
 
 	// modifiers
 	constexpr void setVersion(int _version) noexcept { m_version = _version; }
