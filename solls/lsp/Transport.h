@@ -3,6 +3,7 @@
 #include <lsp/protocol.h>
 #include <lsp/InputHandler.h>
 #include <lsp/OutputGenerator.h>
+#include <lsp/Logger.h>
 
 #include <json/value.h>
 

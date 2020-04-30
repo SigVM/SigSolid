@@ -19,7 +19,7 @@ namespace lsp {
 
 Server::Server(Transport& _client):
 	m_client{_client},
-	m_inputHandler{bind(&Server::log, this, _1, _2)},
+	m_inputHandler{*this},
 	m_outputGenerator{}
 {
 }

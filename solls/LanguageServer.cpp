@@ -47,7 +47,6 @@ void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 	result.capabilities.textDocumentSync.change = lsp::protocol::TextDocumentSyncKind::Incremental;
 	result.requestId = _args.requestId;
 
-	//sendReply(lsp::OutputGenerator{}(result), _args.requestId);
 	reply(_args.requestId, result);
 }
 
@@ -62,7 +61,7 @@ void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& 
 {
 	logMessage("LanguageServer: Opening document: " + _args.textDocument.uri);
 
-	auto& file = m_vfs.insert(
+	lsp::vfs::File const& file = m_vfs.insert(
 		_args.textDocument.uri,
 		_args.textDocument.languageId,
 		_args.textDocument.version,

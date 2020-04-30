@@ -89,12 +89,6 @@ void File::replace(std::string const& _replacementText)
 	m_buffer.assign(_replacementText);
 }
 
-VFS::VFS(std::ostream* _logger):
-	m_files{},
-	m_logger{_logger}
-{
-}
-
 File& VFS::insert(std::string _uri, std::string _languageId, int _version, string _text)
 {
 	if (auto i = m_files.find(_uri); i != end(m_files))

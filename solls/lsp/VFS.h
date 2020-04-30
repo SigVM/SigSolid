@@ -44,8 +44,6 @@ private:
 class VFS
 {
 public:
-	explicit VFS(std::ostream* _logger = nullptr);
-
 	// accessors
 	//
 	size_t size() const noexcept { return m_files.size(); }
@@ -72,8 +70,7 @@ public:
 	}
 
 private:
-	std::map<std::string, File> m_files;
-	std::ostream* m_logger;
+	std::map<std::string, File> m_files = {};
 };
 
 } // end namespace

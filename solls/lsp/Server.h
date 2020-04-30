@@ -3,6 +3,7 @@
 #include <lsp/protocol.h>
 #include <lsp/InputHandler.h>
 #include <lsp/OutputGenerator.h>
+#include <lsp/Logger.h>
 
 #include <json/value.h>
 
@@ -17,7 +18,7 @@ namespace lsp {
 class Transport;
 
 /// Solidity Language Server, managing one LSP client.
-class Server
+class Server: public Logger
 {
 private:
 	Server(Server const&) = delete;
@@ -61,12 +62,7 @@ public:
 	void error(lsp::protocol::Id const& _id, std::string const& _message);
 	void notify(lsp::protocol::Notification const& _message);
 
-	// logging
-	void log(protocol::MessageType _type, std::string const& _message);
-	void logError(std::string const& _msg) { log(protocol::MessageType::Error, _msg); }
-	void logWarning(std::string const& _msg) { log(protocol::MessageType::Warning, _msg); }
-	void logInfo(std::string const& _msg) { log(protocol::MessageType::Info, _msg); }
-	void logMessage(std::string const& _msg) { log(protocol::MessageType::Log, _msg); }
+	void log(protocol::MessageType _type, std::string const& _message) override;
 
 protected:
 	[[deprecated]] void sendReply(Json::Value const& _response, std::optional<Id> _requestId = std::nullopt);
