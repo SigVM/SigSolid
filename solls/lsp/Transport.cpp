@@ -12,10 +12,9 @@ using namespace std;
 
 namespace lsp {
 
-JSONTransport::JSONTransport(istream& _in, ostream& _out, ostream* _log):
+JSONTransport::JSONTransport(istream& _in, ostream& _out):
 	m_input{ _in },
-	m_output{ _out },
-	m_logger{ _log }
+	m_output{ _out }
 {
 }
 
@@ -84,11 +83,6 @@ void JSONTransport::send(Json::Value const& _json)
 	m_output << jsonString;
 
 	m_output.flush();
-
-#if !defined(NDEBUG)
-	if (m_logger)
-		*m_logger << "Transport.send:\n" << solidity::util::jsonPrettyPrint(_json) << endl;
-#endif
 }
 
 string JSONTransport::readLine()

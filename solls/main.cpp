@@ -16,12 +16,9 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
+int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
-	// Tiny facility for debug-printing to log file instead of stderr when attached to an IDE.
-	auto ownedLogger = argc == 2 ? make_unique<ofstream>(argv[1], ios::trunc | ios::ate) : nullptr;
-	auto logger = ownedLogger ? ownedLogger.get() : &cerr;
-	auto transport = lsp::JSONTransport{cin, cout, logger};
+	auto transport = lsp::JSONTransport{cin, cout};
 	auto languageServer = solidity::LanguageServer{transport};
 
 	return languageServer.run();

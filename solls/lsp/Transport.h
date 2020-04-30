@@ -24,7 +24,7 @@ public:
 
 	/// Reveives a message
 	virtual std::optional<Json::Value> receive() = 0;
-	// TODO: ^^ think about variant<Json::Value, error_code> as return type instead
+	// TODO: ^^ think about variant<Json::Value, Timeout, Closed, error_code> as return type instead
 
 	/// Sends a notification message to the other end (client).
 	virtual void notify(std::string const& _method, Json::Value const& _message) = 0;
@@ -44,8 +44,7 @@ public:
 	///
 	/// @param _in for example std::cin (stdin)
 	/// @param _out for example std::cout (stdout)
-	/// @param _log for example std::cerr (stderr) or a regular file.
-	JSONTransport(std::istream& _in, std::ostream& _out, std::ostream* _log);
+	JSONTransport(std::istream& _in, std::ostream& _out);
 
 	std::optional<Json::Value> receive() override;
 	void notify(std::string const& _method, Json::Value const& _message) override;
@@ -55,21 +54,23 @@ public:
 private:
 	using HeaderMap = std::unordered_map<std::string, std::string>;
 
+	/// Sends an arbitrary raw message to the client.
+	///
+	/// Used by the notify/reply/error function family.
 	void send(Json::Value const& _message);
 
-	/// Parses a single text line ending with CRLF (or just LF).
+	/// Parses a single text line from the client ending with CRLF (or just LF).
 	std::string readLine();
 
-	/// Parses header section including message-delimiting empty line.
+	/// Parses header section from the client including message-delimiting empty line.
 	std::optional<HeaderMap> parseHeaders();
 
-	/// Reads given number of bytes from input stream.
+	/// Reads given number of bytes from the client.
 	std::string readBytes(size_t _n);
 
 private:
 	std::istream& m_input;
 	std::ostream& m_output;
-	std::ostream* m_logger;
 };
 
 } // end namespace
