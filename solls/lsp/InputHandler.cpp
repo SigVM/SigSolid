@@ -24,20 +24,6 @@ InputHandler::InputHandler(Logger& _logger):
 {
 }
 
-optional<Request> InputHandler::handleRequest(std::string const& _message)
-{
-	Json::Value jsonMessage;
-	string errs;
-	solidity::util::jsonParseStrict(_message, jsonMessage, &errs);
-	if (!errs.empty())
-	{
-		m_logger.logError("InputHandler: JSON parser error. " + errs);
-		return nullopt; // JsonParseError
-	}
-
-	return handleRequest(jsonMessage);
-}
-
 optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
 {
 	string const methodName = _jsonMessage["method"].asString();
@@ -47,6 +33,15 @@ optional<Request> InputHandler::handleRequest(Json::Value const& _jsonMessage)
 		: _jsonMessage["id"].isString()
 			? Id{_jsonMessage["id"].asString()}
 			: Id{};
+
+	if (m_shutdownRequested && methodName != "exit")
+	{
+		// "If a server receives requests after a shutdown request those requests should error with InvalidRequest"
+		// TODO: return InvalidRequest{}
+		// TODO: then the handler responds with ErrorCodes::InvalidRequest
+		m_logger.logError("Attempting to execute " + methodName + " after shutdown has been requested.");
+		return InvalidRequest{id, methodName};
+	}
 
 	Json::Value const& jsonArgs = _jsonMessage["params"];
 
@@ -66,6 +61,17 @@ optional<CancelRequest> InputHandler::cancelRequest(Id const&, Json::Value const
 		return CancelRequest{id.asString()};
 	else
 		return nullopt;
+}
+
+optional<ShutdownParams> InputHandler::shutdown(Id const&, Json::Value const&)
+{
+	m_shutdownRequested = true;
+	return ShutdownParams{};
+}
+
+optional<ExitParams> InputHandler::exit(Id const&, Json::Value const&)
+{
+	return ExitParams{};
 }
 
 optional<InitializeRequest> InputHandler::initializeRequest(Id const& _id, Json::Value const& _args)

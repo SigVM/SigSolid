@@ -19,17 +19,13 @@ namespace lsp {
 
 Server::Server(Transport& _client):
 	m_client{_client},
-	m_inputHandler{*this},
-	m_outputGenerator{}
+	m_inputHandler{*this}
 {
 }
 
 int Server::run()
 {
-	constexpr unsigned maxConsecutiveFailures = 10;
-	unsigned failureCount = 0;
-
-	while (failureCount <= maxConsecutiveFailures)
+	while (!m_exitRequested)
 	{
 		// TODO: receive() must return a variant<> to also return on <Transport::TimeoutEvent>,
 		// so that we can perform some idle tasks in the meantime, such as
@@ -41,27 +37,36 @@ int Server::run()
 		{
 			optional<protocol::Request> const message = m_inputHandler.handleRequest(*jsonMessage);
 			if (message.has_value())
-			{
 				visit(*this, message.value());
-				failureCount = 0;
-			}
 			else
-			{
 				logError("Could not analyze RPC request.");
-				failureCount++;
-			}
 		}
 		else
-		{
 			logError("Could not read RPC request.");
-			failureCount++;
-		}
 	}
 
-	if (failureCount < maxConsecutiveFailures)
+	if (m_shutdownRequested)
 		return EXIT_SUCCESS;
 	else
 		return EXIT_FAILURE;
+}
+
+void Server::operator()(protocol::InvalidRequest const& _invalid)
+{
+	// The LSP specification requires an invalid request to be respond with an InvalidRequest error response.
+	error(_invalid.requestId, protocol::ErrorCode::InvalidRequest, "Invalid request " + _invalid.methodName);
+}
+
+void Server::operator()(protocol::ShutdownParams const&)
+{
+	logInfo("Shutdown requested");
+	m_shutdownRequested = true;
+}
+
+void Server::operator()(protocol::ExitParams const&)
+{
+	logInfo("Exit requested");
+	m_exitRequested = true;
 }
 
 void Server::handleMessage(string const& _message)
@@ -77,6 +82,11 @@ void Server::reply(lsp::protocol::Id const& _id, lsp::protocol::Response const& 
 {
 	auto const json = m_outputGenerator(_message);
 	m_client.reply(_id, json);
+}
+
+void Server::error(lsp::protocol::Id const& _id, lsp::protocol::ErrorCode _code, string  const& _message)
+{
+	m_client.error(_id, _code, _message);
 }
 
 void Server::notify(lsp::protocol::Notification const& _message)

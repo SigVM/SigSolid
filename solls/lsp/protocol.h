@@ -867,6 +867,41 @@ struct LogMessageParams {
 	std::string message;
 };
 
+/// The client requested a shutdown (without terminating).
+///
+/// When this event has been received, only an Exit may follow.
+struct ShutdownParams {};
+
+/// The client requested the server to terminate.
+struct ExitParams {};
+
+/// Artificial request that is being received upon an invalid request.
+///
+/// The server MUST respond with an ErrorCode::InvalidRequest.
+struct InvalidRequest
+{
+	Id requestId;
+	std::string methodName;
+};
+
+enum class ErrorCode
+{
+	// Defined by JSON RPC
+	ParseError = -32700,
+	InvalidRequest = -32600,
+	MethodNotFound = -32601,
+	InvalidParams = -32602,
+	InternalError = -32603,
+	serverErrorStart = -32099,
+	serverErrorEnd = -32000,
+	ServerNotInitialized = -32002,
+	UnknownErrorCode = -32001,
+
+	// Defined by the protocol.
+	RequestCancelled = -32800,
+	ContentModified = -32801,
+};
+
 // -----------------------------------------------------------------------------------------------
 
 /// Message for cancelling a request. This can be sent in both directions.
@@ -876,11 +911,12 @@ struct CancelRequest {
 
 using Request = std::variant<
 	CancelRequest,
+	DidChangeTextDocumentParams,
+	DidCloseTextDocumentParams,
+	DidOpenTextDocumentParams,
 	InitializeRequest,
 	InitializedNotification,
-	DidOpenTextDocumentParams,
-	DidChangeTextDocumentParams,
-	DidCloseTextDocumentParams
+	InvalidRequest
 	// TODO ...
 >;
 
@@ -892,8 +928,10 @@ using Response = std::variant<
 using Notification = std::variant<
 	// TODO ...
 	CancelRequest,
+	ExitParams,
 	LogMessageParams,
-	PublishDiagnosticsParams
+	PublishDiagnosticsParams,
+	ShutdownParams
 >;
 
 } // end namespace

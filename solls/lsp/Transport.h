@@ -27,13 +27,13 @@ public:
 	// TODO: ^^ think about variant<Json::Value, Timeout, Closed, error_code> as return type instead
 
 	/// Sends a notification message to the other end (client).
-	virtual void notify(std::string const& _method, Json::Value const& _message) = 0;
+	virtual void notify(std::string const& _method, Json::Value const& _params) = 0;
 
 	/// Sends a reply message, optionally with a given ID to corelate this message to another from the other end.
-	virtual void reply(protocol::Id const& _id, Json::Value const& _message) = 0;
+	virtual void reply(protocol::Id const& _id, Json::Value const& _result) = 0;
 
 	/// Sends an error reply with regards to the given request ID.
-	virtual void error(protocol::Id const& _id, std::string const& _message) = 0;
+	virtual void error(protocol::Id const& _id, protocol::ErrorCode _code, std::string const& _message) = 0;
 };
 
 /// Standard stdio style JSON-RPC stream transport.
@@ -47,9 +47,9 @@ public:
 	JSONTransport(std::istream& _in, std::ostream& _out);
 
 	std::optional<Json::Value> receive() override;
-	void notify(std::string const& _method, Json::Value const& _message) override;
-	void reply(protocol::Id const& _id, Json::Value const& _message) override;
-	void error(protocol::Id const& _id, std::string const& _message) override;
+	void notify(std::string const& _method, Json::Value const& _params) override;
+	void reply(protocol::Id const& _id, Json::Value const& _result) override;
+	void error(protocol::Id const& _id, protocol::ErrorCode _code, std::string const& _message) override;
 
 private:
 	using HeaderMap = std::unordered_map<std::string, std::string>;

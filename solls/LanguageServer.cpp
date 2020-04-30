@@ -29,6 +29,11 @@ void LanguageServer::operator()(lsp::protocol::CancelRequest const& _args)
 	logInfo("LanguageServer: Request " + id + " cancelled.");
 }
 
+void LanguageServer::operator()(lsp::protocol::ShutdownParams const&)
+{
+	logInfo("LanguageServer: shutdown requested");
+}
+
 void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 {
 #if !defined(NDEBUG)

@@ -61,16 +61,17 @@ void JSONTransport::reply(protocol::Id const& _id, Json::Value const& _message)
 	send(json);
 }
 
-void JSONTransport::error(protocol::Id const& _id, string const& _message)
+void JSONTransport::error(protocol::Id const& _id, protocol::ErrorCode _code, string const& _message)
 {
 	Json::Value json;
 	json["jsonrpc"] = "2.0";
-	json["error"] = _message;
 	visit(solidity::util::GenericVisitor{
 		[&](int _id) { json["id"] = _id; },
 		[&](string const& _id) { json["id"] = _id; },
 		[&](monostate) {}
 	}, _id);
+	json["error"]["code"] = static_cast<int>(_code);
+	json["error"]["message"] = _message;
 	send(json);
 }
 

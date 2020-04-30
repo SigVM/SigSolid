@@ -23,7 +23,6 @@ public:
 
 	/// Transforms JSON RPC request message into a higher level LSP request message.
 	/// It will return std::nullopt in case of protocol errors.
-	std::optional<protocol::Request> handleRequest(std::string const& _message);
 	std::optional<protocol::Request> handleRequest(Json::Value const& _message);
 
 	// <->
@@ -35,6 +34,8 @@ public:
 	std::optional<protocol::DidOpenTextDocumentParams> textDocument_didOpen(Id const&, Json::Value const&);
 	std::optional<protocol::DidChangeTextDocumentParams> textDocument_didChange(Id const&, Json::Value const&);
 	std::optional<protocol::DidCloseTextDocumentParams> textDocument_didClose(Id const&, Json::Value const&);
+	std::optional<protocol::ShutdownParams> shutdown(Id const&, Json::Value const&);
+	std::optional<protocol::ExitParams> exit(Id const&, Json::Value const&);
 
 private:
 	using Handler = std::function<std::optional<protocol::Request>(Id const&, Json::Value const&)>;
@@ -42,6 +43,7 @@ private:
 
 	Logger& m_logger;
 	HandlerMap m_handlers;
+	bool m_shutdownRequested = false;
 };
 
 }

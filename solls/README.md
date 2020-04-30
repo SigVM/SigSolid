@@ -77,10 +77,10 @@ The following features could be implemented (incomplete list of ideas):
 - [ ] codeLens/resolve
 - [ ] completionItem/resolve (-> method)
 - [ ] documentLink/resolve
-- [ ] exit (-> notification)
+- [x] exit (-> notification)
 - [x] initialize (-> method)
 - [x] initialized (-> notification)
-- [ ] shutdown (-> notification)
+- [x] shutdown (-> notification)
 - [ ] telemetry/event
 - [ ] textDocument/codeAction
 - [ ] textDocument/codeLens
@@ -111,7 +111,7 @@ The following features could be implemented (incomplete list of ideas):
 - [ ] textDocument/typeDefinition (-> method) XXX
 - [ ] textDocument/willSave (-> notification)
 - [ ] textDocument/willSaveWaitUntil (-> method)
-- [ ] window/logMessage (<- notification)
+- [x] window/logMessage (<- notification)
 - [ ] window/showMessage
 - [ ] window/showMessageRequest
 - [ ] window/workDoneProgress/cancel

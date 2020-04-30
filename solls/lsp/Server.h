@@ -47,19 +47,22 @@ public:
 	void handleMessage(std::string const& _message);
 
 	// Client-to-Server messages
-	virtual void operator()(protocol::CancelRequest const&) = 0;
-	virtual void operator()(protocol::InitializeRequest const&) = 0;
-	virtual void operator()(protocol::InitializedNotification const&) {};
-	virtual void operator()(protocol::DidOpenTextDocumentParams const&) {}
+	virtual void operator()(protocol::CancelRequest const&) {};
 	virtual void operator()(protocol::DidChangeTextDocumentParams const&) {}
 	virtual void operator()(protocol::DidCloseTextDocumentParams const&) {}
+	virtual void operator()(protocol::DidOpenTextDocumentParams const&) {}
+	virtual void operator()(protocol::ExitParams const&);
+	virtual void operator()(protocol::InitializeRequest const&) = 0;
+	virtual void operator()(protocol::InitializedNotification const&) {};
+	virtual void operator()(protocol::InvalidRequest const&);
+	virtual void operator()(protocol::ShutdownParams const&) = 0;
 
 	/// Sends a message to the client.
 	///
 	/// @param _id an optional request ID that this response relates to
 	/// @param _message the message to send to the client
 	void reply(lsp::protocol::Id const& _id, lsp::protocol::Response const& _message);
-	void error(lsp::protocol::Id const& _id, std::string const& _message);
+	void error(lsp::protocol::Id const& _id, lsp::protocol::ErrorCode, std::string const& _message);
 	void notify(lsp::protocol::Notification const& _message);
 
 	void log(protocol::MessageType _type, std::string const& _message) override;
@@ -72,7 +75,9 @@ protected:
 private:
 	Transport& m_client;
 	InputHandler m_inputHandler;
-	OutputGenerator m_outputGenerator;
+	OutputGenerator m_outputGenerator = {};
+	bool m_shutdownRequested = false;
+	bool m_exitRequested = false;
 };
 
 } // namespace solidity
