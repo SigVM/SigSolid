@@ -61,12 +61,17 @@ public:
 	void error(lsp::protocol::Id const& _id, std::string const& _message);
 	void notify(lsp::protocol::Notification const& _message);
 
+	// logging
+	void log(protocol::MessageType _type, std::string const& _message);
+	void logError(std::string const& _msg) { log(protocol::MessageType::Error, _msg); }
+	void logWarning(std::string const& _msg) { log(protocol::MessageType::Warning, _msg); }
+	void logInfo(std::string const& _msg) { log(protocol::MessageType::Info, _msg); }
+	void logMessage(std::string const& _msg) { log(protocol::MessageType::Log, _msg); }
+
 protected:
 	[[deprecated]] void sendReply(Json::Value const& _response, std::optional<Id> _requestId = std::nullopt);
 
 	Transport& client() noexcept { return m_client; }
-
-	void log(std::string const& _message);
 
 private:
 	Transport& m_client;

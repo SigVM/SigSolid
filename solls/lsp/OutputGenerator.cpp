@@ -13,21 +13,21 @@ OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::Notifica
 
 OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::CancelRequest const& _message)
 {
-	Json::Value reply;
+	Json::Value params;
 
 	visit(
 		solidity::util::GenericVisitor{
 			[&](int _id) {
-				reply["id"] = _id;
+				params["id"] = _id;
 			},
 			[&](string const& _id) {
-				reply["id"] = _id;
+				params["id"] = _id;
 			}
 		},
 		_message.id
 	);
 
-	return {"$/cancelRequest", reply};
+	return {"$/cancelRequest", params};
 }
 
 Json::Value OutputGenerator::toJson(Range const& _range)
@@ -40,16 +40,17 @@ Json::Value OutputGenerator::toJson(Range const& _range)
 	return json;
 }
 
-OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishDiagnosticsParams const& _response)
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishDiagnosticsParams const& _params)
 {
-	Json::Value reply;
+	Json::Value params;
 
-	reply["uri"] = _response.uri;
+	params["uri"] = _params.uri;
 
-	if (_response.version)
-		reply["version"] = _response.version.value();
+	if (_params.version)
+		params["version"] = _params.version.value();
 
-	for (protocol::Diagnostic const& diag: _response.diagnostics)
+	params["diagnostics"] = Json::arrayValue;
+	for (protocol::Diagnostic const& diag: _params.diagnostics)
 	{
 		Json::Value jsonDiag;
 
@@ -88,10 +89,19 @@ OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::PublishD
 			}
 		}
 
-		reply["diagnostics"].append(jsonDiag);
+		params["diagnostics"].append(jsonDiag);
 	}
 
-	return {"textDocument/publishDiagnostics", reply};
+	return {"textDocument/publishDiagnostics", params};
+}
+
+OutputGenerator::NotificationInfo OutputGenerator::operator()(protocol::LogMessageParams const& _params)
+{
+	Json::Value params = Json::objectValue;
+	params["type"] = static_cast<int>(_params.type);
+	params["message"] = _params.message;
+
+	return {"window/logMessage", params};
 }
 
 Json::Value OutputGenerator::operator()(protocol::Response const& _response)

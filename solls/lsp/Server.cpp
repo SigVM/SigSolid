@@ -1,8 +1,11 @@
 #include <lsp/Server.h>
 #include <lsp/OutputGenerator.h>
 #include <lsp/Transport.h>
+
 #include <libsolutil/Visitor.h>
 #include <libsolutil/JSON.h>
+
+#include <functional>
 #include <ostream>
 
 #include "helper.h"
@@ -10,12 +13,13 @@
 #include <iostream>
 
 using namespace std;
+using namespace std::placeholders;
 
 namespace lsp {
 
 Server::Server(Transport& _client):
 	m_client{_client},
-	m_inputHandler{_client.logger()},
+	m_inputHandler{bind(&Server::log, this, _1, _2)},
 	m_outputGenerator{}
 {
 }
@@ -38,13 +42,13 @@ int Server::run()
 			}
 			else
 			{
-				m_client.log("Could not analyze RPC request.");
+				logError("Could not analyze RPC request.");
 				failureCount++;
 			}
 		}
 		else
 		{
-			m_client.log("Could not read RPC request.");
+			logError("Could not read RPC request.");
 			failureCount++;
 		}
 	}
@@ -61,7 +65,7 @@ void Server::handleMessage(string const& _message)
 	if (message.has_value())
 		visit(*this, message.value());
 	else
-		m_client.log("Could not analyze RPC request.");
+		logError("Could not analyze RPC request.");
 }
 
 void Server::reply(lsp::protocol::Id const& _id, lsp::protocol::Response const& _message)
@@ -76,9 +80,10 @@ void Server::notify(lsp::protocol::Notification const& _message)
 	m_client.notify(method, json);
 }
 
-void Server::log(std::string const& _message)
+void Server::log(protocol::MessageType _type, string const& _message)
 {
-	m_client.log(_message);
+	auto const [method, json] = m_outputGenerator(protocol::LogMessageParams{_type, _message});
+	m_client.notify(method, json);
 }
 
 } // end namespace

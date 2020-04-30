@@ -22,6 +22,25 @@ using DocumentUri = std::string; // such as "file:///path/to"
 
 enum class Trace { Off, Messages, Verbose };
 
+enum class MessageType {
+	/**
+	 * An error message.
+	 */
+	Error = 1,
+	/**
+	 * A warning message.
+	 */
+	Warning = 2,
+	/**
+	 * An information message.
+	 */
+	Info = 3,
+	/**
+	 * A log message.
+	 */
+	Log = 4,
+};
+
 /// Known error codes for an `InitializeError`
 struct InitializeError {
 	enum Code {
@@ -836,6 +855,18 @@ struct DidChangeTextDocumentParams {
 	std::vector<TextDocumentContentChangeEvent> contentChanges;
 };
 
+struct LogMessageParams {
+	/**
+	 * The message type. See {@link MessageType}
+	 */
+	MessageType type;
+
+	/**
+	 * The actual message
+	 */
+	std::string message;
+};
+
 // -----------------------------------------------------------------------------------------------
 
 /// Message for cancelling a request. This can be sent in both directions.
@@ -861,6 +892,7 @@ using Response = std::variant<
 using Notification = std::variant<
 	// TODO ...
 	CancelRequest,
+	LogMessageParams,
 	PublishDiagnosticsParams
 >;
 

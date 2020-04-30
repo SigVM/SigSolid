@@ -26,19 +26,19 @@ void LanguageServer::operator()(lsp::protocol::CancelRequest const& _args)
 		[](int _id) -> string { return to_string(_id); }
 	}, _args.id);
 
-	log("LanguageServer: Request " + id + " cancelled.");
+	logInfo("LanguageServer: Request " + id + " cancelled.");
 }
 
 void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 {
 #if !defined(NDEBUG)
-	ostringstream logMessage;
-	logMessage << "LanguageServer: Initializing, PID :" << _args.processId.value_or(-1) << endl;
-	logMessage << "                rootUri           : " << _args.rootUri.value_or("NULL") << endl;
-	logMessage << "                rootPath          : " << _args.rootPath.value_or("NULL") << endl;
+	ostringstream msg;
+	msg << "LanguageServer: Initializing, PID :" << _args.processId.value_or(-1) << endl;
+	msg << "                rootUri           : " << _args.rootUri.value_or("NULL") << endl;
+	msg << "                rootPath          : " << _args.rootPath.value_or("NULL") << endl;
 	for (auto const& workspace: _args.workspaceFolders)
-		logMessage << "                workspace folder: " << workspace.name << "; " << workspace.uri << endl;
-	log(logMessage.str());
+		msg << "                workspace folder: " << workspace.name << "; " << workspace.uri << endl;
+	logMessage(msg.str());
 #endif
 
 	lsp::protocol::InitializeResult result;
@@ -55,12 +55,12 @@ void LanguageServer::operator()(lsp::protocol::InitializedNotification const&)
 {
 	// NB: this means the client has finished initializing. Now we could maybe start sending
 	// events to the client.
-	log("LanguageServer: Client initialized");
+	logMessage("LanguageServer: Client initialized");
 }
 
 void LanguageServer::operator()(lsp::protocol::DidOpenTextDocumentParams const& _args)
 {
-	log("LanguageServer: Opening document: " + _args.textDocument.uri);
+	logMessage("LanguageServer: Opening document: " + _args.textDocument.uri);
 
 	auto& file = m_vfs.insert(
 		_args.textDocument.uri,
@@ -86,7 +86,7 @@ void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const
 #if !defined(NDEBUG)
 					ostringstream str;
 					str << "did change: " << change.range << " for '" << change.text << "'";
-					log(str.str());
+					logMessage(str.str());
 #endif
 					file->modify(change.range, change.text);
 				},
@@ -99,12 +99,12 @@ void LanguageServer::operator()(lsp::protocol::DidChangeTextDocumentParams const
 		validate(*file);
 	}
 	else
-		log("LanguageServer: File to be modified not opened \"" + _didChange.textDocument.uri + "\"");
+		logError("LanguageServer: File to be modified not opened \"" + _didChange.textDocument.uri + "\"");
 }
 
 void LanguageServer::operator()(lsp::protocol::DidCloseTextDocumentParams const& _didClose)
 {
-	log("LanguageServer: didClose: " + _didClose.textDocument.uri);
+	logMessage("LanguageServer: didClose: " + _didClose.textDocument.uri);
 }
 
 void LanguageServer::validateAll()

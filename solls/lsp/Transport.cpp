@@ -12,7 +12,7 @@ using namespace std;
 
 namespace lsp {
 
-JSONTransport::JSONTransport(std::istream& _in, std::ostream& _out, std::ostream* _log):
+JSONTransport::JSONTransport(istream& _in, ostream& _out, ostream* _log):
 	m_input{ _in },
 	m_output{ _out },
 	m_logger{ _log }
@@ -35,15 +35,12 @@ optional<Json::Value> JSONTransport::receive()
 	string errs;
 	solidity::util::jsonParseStrict(data, jsonMessage, &errs);
 	if (!errs.empty())
-	{
-		log("Transport.receive: JSON parser error. " + errs);
 		return nullopt; // JsonParseError
-	}
 
 	return {jsonMessage};
 }
 
-void JSONTransport::notify(std::string const& _method, Json::Value const& _message)
+void JSONTransport::notify(string const& _method, Json::Value const& _message)
 {
 	Json::Value json;
 	json["jsonrpc"] = "2.0";
@@ -65,7 +62,7 @@ void JSONTransport::reply(protocol::Id const& _id, Json::Value const& _message)
 	send(json);
 }
 
-void JSONTransport::error(protocol::Id const& _id, std::string const& _message)
+void JSONTransport::error(protocol::Id const& _id, string const& _message)
 {
 	Json::Value json;
 	json["jsonrpc"] = "2.0";
@@ -89,14 +86,9 @@ void JSONTransport::send(Json::Value const& _json)
 	m_output.flush();
 
 #if !defined(NDEBUG)
-	log("Transport.send:\n" + solidity::util::jsonPrettyPrint(_json));
-#endif
-}
-
-void JSONTransport::log(std::string const& _message)
-{
 	if (m_logger)
-		*m_logger << _message << endl;
+		*m_logger << "Transport.send:\n" << solidity::util::jsonPrettyPrint(_json) << endl;
+#endif
 }
 
 string JSONTransport::readLine()

@@ -14,6 +14,7 @@ struct OutputGenerator
 	NotificationInfo operator()(protocol::CancelRequest const&);
 	NotificationInfo operator()(protocol::Notification const&);
 	NotificationInfo operator()(protocol::PublishDiagnosticsParams const&);
+	NotificationInfo operator()(protocol::LogMessageParams const&);
 
 	// replies
 	Json::Value operator()(protocol::InitializeResult const&);

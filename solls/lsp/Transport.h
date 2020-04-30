@@ -23,6 +23,7 @@ public:
 
 	/// Reveives a message
 	virtual std::optional<Json::Value> receive() = 0;
+	// TODO: ^^ think about variant<Json::Value, error_code> as return type instead
 
 	/// Sends a notification message to the other end (client).
 	virtual void notify(std::string const& _method, Json::Value const& _message) = 0;
@@ -32,13 +33,6 @@ public:
 
 	/// Sends an error reply with regards to the given request ID.
 	virtual void error(protocol::Id const& _id, std::string const& _message) = 0;
-
-	/// Logs given message to the transport related logging sink.
-	virtual void log(std::string const& _message) = 0;
-
-	using Logger = std::function<void(std::string const)>;
-
-	Logger logger() { return [this](std::string const& _message) { log(_message); }; }
 };
 
 /// Standard stdio style JSON-RPC stream transport.
@@ -56,7 +50,6 @@ public:
 	void notify(std::string const& _method, Json::Value const& _message) override;
 	void reply(protocol::Id const& _id, Json::Value const& _message) override;
 	void error(protocol::Id const& _id, std::string const& _message) override;
-	void log(std::string const& _message) override;
 
 private:
 	using HeaderMap = std::unordered_map<std::string, std::string>;
