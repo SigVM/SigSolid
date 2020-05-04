@@ -401,6 +401,7 @@ ASTPointer<FunctionDefinition> ASTJsonImporter::createFunctionDefinition(Json::V
 		memberAsASTString(_node, "name"),
 		visibility(_node),
 		stateMutability(_node),
+		_node.isMember("freeFunction") ? _node["freeFunction"].asBool() : false,
 		kind,
 		memberAsBool(_node, "virtual"),
 		_node["overrides"].isNull() ? nullptr : createOverrideSpecifier(member(_node, "overrides")),

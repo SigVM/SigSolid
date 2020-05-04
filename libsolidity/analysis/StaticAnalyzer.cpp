@@ -310,6 +310,7 @@ bool StaticAnalyzer::visit(FunctionCall const& _functionCall)
 						);
 		}
 		if (
+			m_currentContract &&
 			m_currentContract->isLibrary() &&
 			functionType->kind() == FunctionType::Kind::DelegateCall &&
 			functionType->declaration().scope() == m_currentContract

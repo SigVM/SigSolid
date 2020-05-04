@@ -411,6 +411,7 @@ TypePointer Type::commonType(Type const* _a, Type const* _b)
 
 MemberList const& Type::members(ASTNode const* _currentScope) const
 {
+	// TODO _currentScope can be nullptr!
 	if (!m_members[_currentScope])
 	{
 		solAssert(
@@ -3118,10 +3119,8 @@ string FunctionType::toString(bool _short) const
 	{
 		auto const* functionDefinition = dynamic_cast<FunctionDefinition const*>(m_declaration);
 		solAssert(functionDefinition, "");
-		auto const* contract = dynamic_cast<ContractDefinition const*>(functionDefinition->scope());
-		solAssert(contract, "");
-		name += contract->annotation().canonicalName;
-		name += '.';
+		if (auto const* contract = dynamic_cast<ContractDefinition const*>(functionDefinition->scope()))
+			name += contract->annotation().canonicalName + ".";
 		name += functionDefinition->name();
 	}
 	name += '(';
@@ -3242,7 +3241,10 @@ FunctionTypePointer FunctionType::interfaceFunctionType() const
 {
 	// Note that m_declaration might also be a state variable!
 	solAssert(m_declaration, "Declaration needed to determine interface function type.");
-	bool isLibraryFunction = kind() != Kind::Event && dynamic_cast<ContractDefinition const&>(*m_declaration->scope()).isLibrary();
+	bool isLibraryFunction = false;
+	if (kind() != Kind::Event)
+		if (auto const* contract = dynamic_cast<ContractDefinition const*>(m_declaration->scope()))
+			isLibraryFunction = contract->isLibrary();
 
 	util::Result<TypePointers> paramTypes =
 		transformParametersToExternal(m_parameterTypes, isLibraryFunction);
@@ -3514,7 +3516,10 @@ string FunctionType::externalSignature() const
 	}
 
 	// "inLibrary" is only relevant if this is not an event.
-	bool const inLibrary = kind() != Kind::Event && dynamic_cast<ContractDefinition const&>(*m_declaration->scope()).isLibrary();
+	bool inLibrary = false;
+	if (kind() != Kind::Event)
+		if (auto const* contract = dynamic_cast<ContractDefinition const*>(m_declaration->scope()))
+			inLibrary = contract->isLibrary();
 
 	auto extParams = transformParametersToExternal(m_parameterTypes, inLibrary);
 
