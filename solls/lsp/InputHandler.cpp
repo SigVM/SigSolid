@@ -101,7 +101,7 @@ optional<InitializeRequest> InputHandler::initializeRequest(Id const& _id, Json:
 
 	if (Json::Value folders = _args["workspaceFolders"]; folders)
 	{
-		for (Json::Value folder : folders)
+		for (Json::Value folder: folders)
 		{
 			lsp::protocol::WorkspaceFolder wsFolder{};
 			wsFolder.name = folder["name"].asString();
@@ -144,7 +144,7 @@ optional<protocol::DidChangeTextDocumentParams> InputHandler::textDocument_didCh
 	didChange.textDocument.version = _json["textDocument"]["version"].asInt();
 	didChange.textDocument.uri = _json["textDocument"]["uri"].asString();
 
-	for (Json::Value jsonContentChange : _json["contentChanges"])
+	for (Json::Value jsonContentChange: _json["contentChanges"])
 	{
 		if (jsonContentChange.isObject() && jsonContentChange["range"])
 		{

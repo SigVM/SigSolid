@@ -13,7 +13,7 @@ namespace std
 		_os << '"' << _file.uri() << "\": {languageId: " << _file.languageId();
 		_os << ", version: " << _file.version();
 		_os << ", text: \"";
-		for (auto const ch : _file.str())
+		for (auto const ch: _file.str())
 		{
 			if (ch == '\n')
 				_os << "\\n";

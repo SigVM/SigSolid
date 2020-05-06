@@ -36,7 +36,7 @@ public:
 	std::optional<protocol::DidCloseTextDocumentParams> textDocument_didClose(Id const&, Json::Value const&);
 	std::optional<protocol::ShutdownParams> shutdown(Id const&, Json::Value const&);
 	std::optional<protocol::ExitParams> exit(Id const&, Json::Value const&);
-	std::optional<protocol::DefinitionParams> definition(Id const&, Json::Value const&);
+	//std::optional<protocol::DefinitionParams> definition(Id const&, Json::Value const&);
 
 private:
 	using Handler = std::function<std::optional<protocol::Request>(Id const&, Json::Value const&)>;

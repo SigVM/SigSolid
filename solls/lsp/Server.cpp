@@ -8,8 +8,6 @@
 #include <functional>
 #include <ostream>
 
-#include "helper.h"
-
 #include <iostream>
 
 using namespace std;
