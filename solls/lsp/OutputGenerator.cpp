@@ -126,8 +126,25 @@ Json::Value OutputGenerator::operator()(protocol::InitializeResult const& _respo
 	reply["capabilities"]["hoverProvider"] = _response.capabilities.hoverProvider;
 	reply["capabilities"]["textDocumentSync"]["openClose"] = _response.capabilities.textDocumentSync.openClose;
 	reply["capabilities"]["textDocumentSync"]["change"] = static_cast<int>(_response.capabilities.textDocumentSync.change);
+	reply["capabilities"]["definitionProvider"] = static_cast<int>(_response.capabilities.definitionProvider);
 
 	return reply;
+}
+
+OutputGenerator::MethodInfo OutputGenerator::operator()(protocol::RegistrationParams const& _params)
+{
+	Json::Value regs = Json::arrayValue;
+	for (protocol::Registration const& registration: _params.registrations)
+	{
+		Json::Value reg;
+		reg["id"] = registration.id;
+		reg["method"] = registration.method;
+		regs.append(reg);
+	}
+
+	Json::Value method;
+	method["registrations"] = regs;
+	return {"client/registerCapability", method};
 }
 
 } // end namespace

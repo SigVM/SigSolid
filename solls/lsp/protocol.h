@@ -203,7 +203,15 @@ struct ServerCapabilities {
 	 */
 	TextDocumentSyncOptions textDocumentSync;
 
+	/**
+	 * The server provides hover support.
+	 */
 	bool hoverProvider = false;
+
+	/**
+	 * The server provides goto definition support.
+	 */
+	bool definitionProvider; // ?: boolean | DefinitionOptions;
 
 	// TODO ...
 
@@ -919,6 +927,29 @@ enum class ErrorCode
 	RequestCancelled = -32800,
 	ContentModified = -32801,
 };
+
+struct Registration {
+	/**
+	 * The id used to register the request. The id can be used to deregister
+	 * the request again.
+	 */
+	std::string id;
+
+	/**
+	 * The method / capability to register for.
+	 */
+	std::string method;
+
+	// /**
+	//  * Options necessary for the registration.
+	//  */
+	//registerOptions?: any;
+};
+
+struct RegistrationParams {
+	std::vector<Registration> registrations;
+};
+
 
 // -----------------------------------------------------------------------------------------------
 

@@ -55,10 +55,11 @@ void LanguageServer::operator()(lsp::protocol::InitializeRequest const& _args)
 #endif
 
 	lsp::protocol::InitializeResult result;
+	result.requestId = _args.requestId;
 	result.capabilities.hoverProvider = true;
 	result.capabilities.textDocumentSync.openClose = true;
 	result.capabilities.textDocumentSync.change = lsp::protocol::TextDocumentSyncKind::Incremental;
-	result.requestId = _args.requestId;
+	result.capabilities.definitionProvider = true; // go-to-definition feature
 
 	reply(_args.requestId, result);
 }

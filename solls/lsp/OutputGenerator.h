@@ -20,7 +20,10 @@ struct OutputGenerator
 	Json::Value operator()(protocol::InitializeResult const&);
 	Json::Value operator()(protocol::Response const&);
 
-	// helpers
+	// methods from server-to-client
+	struct MethodInfo { std::string method; Json::Value params; };
+	MethodInfo operator()(protocol::RegistrationParams const&);
+
 	Json::Value toJson(Range const& _range);
 
 	// TODO: Obviousely, here's more to come...
