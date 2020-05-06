@@ -29,7 +29,7 @@ public:
 	/// Sends a notification message to the other end (client).
 	virtual void notify(std::string const& _method, Json::Value const& _params) = 0;
 
-	/// Sends a reply message, optionally with a given ID to corelate this message to another from the other end.
+	/// Sends a reply message, optionally with a given ID to correlate this message to another from the other end.
 	virtual void reply(protocol::Id const& _id, Json::Value const& _result) = 0;
 
 	/// Sends an error reply with regards to the given request ID.

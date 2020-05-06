@@ -39,8 +39,8 @@ public:
 		return std::string_view(&*std::next(std::begin(m_buffer), start), end - start);
 	}
 
-	Position positionOf(size_t _offset) const noexcept;
-	size_t offsetOf(Position const& _position) const noexcept;
+	Position toPosition(size_t _offset) const noexcept;
+	size_t toOffset(Position const& _position) const noexcept;
 	std::pair<size_t, size_t> offsetsOf(Range const& _range) const noexcept;
 
 	void replace(Range const& _range, std::string const& _replacementText);
@@ -84,7 +84,7 @@ namespace std
 
 namespace lsp
 {
-	inline size_t TextBuffer::offsetOf(Position const& _position) const noexcept
+	inline size_t TextBuffer::toOffset(Position const& _position) const noexcept
 	{
 		// TODO: take care of Unicode.
 		size_t offset = 0;
@@ -105,7 +105,7 @@ namespace lsp
 		return offset;
 	}
 
-	inline Position TextBuffer::positionOf(size_t _offset) const noexcept
+	inline Position TextBuffer::toPosition(size_t _offset) const noexcept
 	{
 		// TODO: take care of Unicode.
 		Position position = {};
@@ -127,8 +127,8 @@ namespace lsp
 	inline std::pair<size_t, size_t> TextBuffer::offsetsOf(Range const& _range) const noexcept
 	{
 		return std::pair{
-			offsetOf(_range.start),
-			offsetOf(_range.end)
+			toOffset(_range.start),
+			toOffset(_range.end)
 		};
 	}
 

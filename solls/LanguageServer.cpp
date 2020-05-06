@@ -250,7 +250,7 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 	{
 		lsp::protocol::Diagnostic diag{};
 		diag.message = "Hello, FIXME's should be fixed.";
-		diag.range.start = _file.buffer().positionOf(pos);
+		diag.range.start = _file.buffer().toPosition(pos);
 		diag.range.end = {diag.range.start.line, diag.range.start.column + 5};
 		diag.severity = lsp::protocol::DiagnosticSeverity::Error;
 		diag.source = "solc";
@@ -261,7 +261,7 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 	{
 		lsp::protocol::Diagnostic diag{};
 		diag.message = "Please remember to create a ticket on GitHub for that.";
-		diag.range.start = _file.buffer().positionOf(pos);
+		diag.range.start = _file.buffer().toPosition(pos);
 		diag.range.end = {diag.range.start.line, diag.range.start.column + 5};
 		diag.severity = lsp::protocol::DiagnosticSeverity::Hint;
 		diag.source = "solc";
