@@ -299,6 +299,9 @@ public:
 	/// Prerequisite: Successful call to parse or compile.
 	Json::Value const& storageLayout(std::string const& _contractName) const;
 
+	Json::Value const& functionDebugData(std::string const& _contractName) const;
+	Json::Value const& runtimeFunctionDebugData(std::string const& _contractName) const;
+
 	/// @returns a JSON representing the contract's user documentation.
 	/// Prerequisite: Successful call to parse or compile.
 	Json::Value const& natspecUser(std::string const& _contractName) const;
@@ -351,6 +354,8 @@ private:
 		util::LazyInit<Json::Value const> devDocumentation;
 		mutable std::optional<std::string const> sourceMapping;
 		mutable std::optional<std::string const> runtimeSourceMapping;
+		util::LazyInit<Json::Value const> functionDebugData;
+		util::LazyInit<Json::Value const> runtimeFunctionDebugData;
 	};
 
 	/// Loads the missing sources from @a _ast (named @a _path) using the callback
@@ -410,6 +415,9 @@ private:
 	/// @returns the storage layout of the contract as a JSON object.
 	/// This will generate the JSON object and store it in the Contract object if it is not present yet.
 	Json::Value const& storageLayout(Contract const&) const;
+
+	/// @returns debugging data concerning the functions in the linker object.
+	Json::Value computeFunctionDebugData(Contract const& _contract, bool _runtime) const;
 
 	/// @returns the Natspec User documentation as a JSON object.
 	/// This will generate the JSON object and store it in the Contract object if it is not present yet.

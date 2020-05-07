@@ -146,7 +146,7 @@ void CompilerContext::callYulFunction(
 	m_externallyUsedYulFunctions.insert(_name);
 	auto const retTag = pushNewTag();
 	CompilerUtils(*this).moveIntoStack(_inArgs);
-	appendJumpTo(namedTag(_name));
+	appendJumpTo(namedTag(_name, _inArgs, _outArgs));
 	adjustStackOffset(static_cast<int>(_outArgs) - 1 - static_cast<int>(_inArgs));
 	*this << retTag.tag();
 }
@@ -257,6 +257,11 @@ shared_ptr<evmasm::Assembly> CompilerContext::compiledContractRuntime(ContractDe
 bool CompilerContext::isLocalVariable(Declaration const* _declaration) const
 {
 	return !!m_localVariables.count(_declaration);
+}
+
+Declaration const* CompilerContext::declarationByNamedLabel(string const& _labelName) const
+{
+	return m_functionCompilationQueue.declarationByEntryLabelName(_labelName);
 }
 
 evmasm::AssemblyItem CompilerContext::functionEntryLabel(Declaration const& _declaration)
@@ -559,7 +564,15 @@ evmasm::AssemblyItem CompilerContext::FunctionCompilationQueue::entryLabel(
 	auto res = m_entryLabels.find(&_declaration);
 	if (res == m_entryLabels.end())
 	{
-		evmasm::AssemblyItem tag(_context.newTag());
+		FunctionType const* functionType = _declaration.functionType(false);
+		// some name that cannot clash with yul function names.
+		string labelName = "@" + _declaration.name() + "_" + to_string(_declaration.id());
+		evmasm::AssemblyItem tag = _context.namedTag(
+			labelName,
+			CompilerUtils::sizeOnStack(functionType->parameterTypes()),
+			CompilerUtils::sizeOnStack(functionType->returnParameterTypes())
+		);
+		m_declarationByLabelName[labelName] = &_declaration;
 		m_entryLabels.insert(make_pair(&_declaration, tag));
 		m_functionsToCompile.push(&_declaration);
 		return tag.tag();
@@ -573,6 +586,15 @@ evmasm::AssemblyItem CompilerContext::FunctionCompilationQueue::entryLabelIfExis
 {
 	auto res = m_entryLabels.find(&_declaration);
 	return res == m_entryLabels.end() ? evmasm::AssemblyItem(evmasm::UndefinedItem) : res->second.tag();
+}
+
+Declaration const* CompilerContext::FunctionCompilationQueue::declarationByEntryLabelName(string const& _labelName) const
+{
+	auto it = m_declarationByLabelName.find(_labelName);
+	if (it == m_declarationByLabelName.end())
+		return nullptr;
+	else
+		return it->second;
 }
 
 Declaration const* CompilerContext::FunctionCompilationQueue::nextFunctionToCompile() const

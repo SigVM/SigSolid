@@ -28,6 +28,7 @@
 #include <libsolutil/Common.h>
 #include <libsolutil/Assertions.h>
 #include <libsolutil/Keccak256.h>
+#include <libsolutil/InvertibleMap.h>
 
 #include <json/json.h>
 
@@ -46,7 +47,7 @@ public:
 	AssemblyItem newTag() { assertThrow(m_usedTags < 0xffffffff, AssemblyException, ""); return AssemblyItem(Tag, m_usedTags++); }
 	AssemblyItem newPushTag() { assertThrow(m_usedTags < 0xffffffff, AssemblyException, ""); return AssemblyItem(PushTag, m_usedTags++); }
 	/// Returns a tag identified by the given name. Creates it if it does not yet exist.
-	AssemblyItem namedTag(std::string const& _name);
+	AssemblyItem namedTag(std::string const& _name, size_t _params, size_t _returns);
 	AssemblyItem newData(bytes const& _data) { util::h256 h(util::keccak256(util::asString(_data))); m_data[h] = _data; return AssemblyItem(PushData, h); }
 	bytes const& data(util::h256 const& _i) const { return m_data.at(_i); }
 	AssemblyItem newSub(AssemblyPointer const& _sub) { m_subs.push_back(_sub); return AssemblyItem(PushSub, m_subs.size() - 1); }
@@ -164,7 +165,15 @@ private:
 protected:
 	/// 0 is reserved for exception
 	unsigned m_usedTags = 1;
-	std::map<std::string, size_t> m_namedTags;
+
+	struct NamedLabelInfo
+	{
+		size_t params;
+		size_t returns;
+	};
+
+	InvertibleMap<std::string, size_t> m_namedTags;
+	std::map<std::string, NamedLabelInfo> m_namedLabelInfo;
 	AssemblyItems m_items;
 	std::map<util::h256, bytes> m_data;
 	/// Data that is appended to the very end of the contract.

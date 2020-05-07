@@ -235,6 +235,8 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 	if (!_outputSelection.isObject())
 		return false;
 
+	// TODO add function debug data here
+
 	// This does not include "evm.methodIdentifiers" on purpose!
 	static vector<string> const outputsThatRequireBinaries{
 		"*",

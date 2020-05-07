@@ -453,6 +453,9 @@ void CommandLineInterface::handleStorageLayout(string const& _contract)
 	if (!m_args.count(g_argStorageLayout))
 		return;
 
+	// TODO remove after testing
+	sout() << "Function debug data: " << endl << jsonPrettyPrint(m_compiler->runtimeFunctionDebugData(_contract)) << endl;
+
 	string data = jsonCompactPrint(m_compiler->storageLayout(_contract));
 	if (m_args.count(g_argOutputDir))
 		createFile(m_compiler->filesystemFriendlyName(_contract) + "_storage.json", data);

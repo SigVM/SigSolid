@@ -44,6 +44,16 @@ struct LinkerObject
 	/// to a list of offsets into the bytecode that refer to their values.
 	std::map<u256, std::pair<std::string, std::vector<size_t>>> immutableReferences;
 
+	struct FunctionEntryPointInfo
+	{
+		size_t bytecodeOffset;
+		size_t params;
+		size_t returns;
+	};
+
+	/// Bytecode offsets of named tags like function entry points.
+	std::map<std::string, FunctionEntryPointInfo> functionEntryPointInfo;
+
 	/// Appends the bytecode of @a _other and incorporates its link references.
 	void append(LinkerObject const& _other);
 

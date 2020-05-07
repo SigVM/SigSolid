@@ -741,6 +741,24 @@ Json::Value const& CompilerStack::storageLayout(string const& _contractName) con
 	return storageLayout(contract(_contractName));
 }
 
+Json::Value const& CompilerStack::functionDebugData(string const& _contractName) const
+{
+	if (m_stackState < CompilationSuccessful)
+		BOOST_THROW_EXCEPTION(CompilerError() << errinfo_comment("Compilation was not successful."));
+
+	Contract const& c = contract(_contractName);
+	return c.functionDebugData.init([&] { return computeFunctionDebugData(c, false); });
+}
+
+Json::Value const& CompilerStack::runtimeFunctionDebugData(string const& _contractName) const
+{
+	if (m_stackState < CompilationSuccessful)
+		BOOST_THROW_EXCEPTION(CompilerError() << errinfo_comment("Compilation was not successful."));
+
+	Contract const& c = contract(_contractName);
+	return c.runtimeFunctionDebugData.init([&] { return computeFunctionDebugData(c, true); });
+}
+
 Json::Value const& CompilerStack::storageLayout(Contract const& _contract) const
 {
 	if (m_stackState < AnalysisPerformed)
@@ -749,6 +767,26 @@ Json::Value const& CompilerStack::storageLayout(Contract const& _contract) const
 	solAssert(_contract.contract, "");
 
 	return _contract.storageLayout.init([&]{ return StorageLayout().generate(*_contract.contract); });
+}
+
+Json::Value CompilerStack::computeFunctionDebugData(Contract const& _contract, bool _runtime) const
+{
+	evmasm::LinkerObject const& object = _runtime ? _contract.runtimeObject : _contract.object;
+	solAssert(_contract.compiler, "");
+	Json::Value data = Json::arrayValue;
+	for (auto const& [name, info]: object.functionEntryPointInfo)
+	{
+		Json::Value item = Json::objectValue;
+		if (Declaration const* declaration = _contract.compiler->declarationOfFunctionEntryLabel(name, _runtime))
+			item["id"] = declaration->id();
+		else
+			item["internal_name"] = name;
+		item["entryPoint"] = info.bytecodeOffset;
+		item["paramStackSlots"] = info.params;
+		item["returnStackSlots"] = info.returns;
+		data.append(std::move(item));
+	}
+	return data;
 }
 
 Json::Value const& CompilerStack::natspecUser(string const& _contractName) const

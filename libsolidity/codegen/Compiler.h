@@ -77,6 +77,10 @@ public:
 	/// UndefinedItem if it does not exist yet.
 	evmasm::AssemblyItem functionEntryLabel(FunctionDefinition const& _function) const;
 
+	/// @returns the declaration corresponding to the given function entry point label.
+	/// Used to compute debugging information.
+	Declaration const* declarationOfFunctionEntryLabel(std::string const& _labelName, bool _runtime) const;
+
 private:
 	OptimiserSettings const m_optimiserSettings;
 	CompilerContext m_runtimeContext;

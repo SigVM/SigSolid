@@ -64,3 +64,11 @@ evmasm::AssemblyItem Compiler::functionEntryLabel(FunctionDefinition const& _fun
 {
 	return m_runtimeContext.functionEntryLabelIfExists(_function);
 }
+
+Declaration const* Compiler::declarationOfFunctionEntryLabel(string const& _labelName, bool _runtime) const
+{
+	if (_runtime)
+		return m_runtimeContext.declarationByNamedLabel(_labelName);
+	else
+		return m_context.declarationByNamedLabel(_labelName);
+}

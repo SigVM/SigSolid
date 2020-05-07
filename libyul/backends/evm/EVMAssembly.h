@@ -57,7 +57,7 @@ public:
 	/// Generate a new unique label.
 	LabelID newLabelId() override;
 	/// Returns a label identified by the given name. Creates it if it does not yet exist.
-	LabelID namedLabel(std::string const& _name) override;
+	LabelID namedLabel(std::string const& _name, size_t _params, size_t _returns) override;
 	/// Append a reference to a to-be-linked symbol.
 	/// Currently, we assume that the value is always a 20 byte number.
 	void appendLinkerSymbol(std::string const& _name) override;
