@@ -147,4 +147,17 @@ OutputGenerator::MethodInfo OutputGenerator::operator()(protocol::RegistrationPa
 	return {"client/registerCapability", method};
 }
 
+Json::Value OutputGenerator::operator()(protocol::DefinitionReplyParams const& _params)
+{
+	Json::Value json = Json::objectValue;
+
+	json["range"]["start"]["line"] = _params.range.start.line;
+	json["range"]["start"]["character"] = _params.range.start.column;
+	json["range"]["end"]["line"] = _params.range.end.line;
+	json["range"]["end"]["character"] = _params.range.end.column;
+	json["uri"] = _params.uri;
+
+	return json;
+}
+
 } // end namespace

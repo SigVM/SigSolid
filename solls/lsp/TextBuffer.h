@@ -13,6 +13,8 @@ namespace lsp
 /// Manages a text buffer.
 ///
 /// See https://en.wikipedia.org/wiki/Rope_(data_structure) for future improvements.
+//
+/// TODO: remove, use std::string bare with free functions for helpers
 class TextBuffer
 {
 public:

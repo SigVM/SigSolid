@@ -17,6 +17,7 @@ struct OutputGenerator
 	NotificationInfo operator()(protocol::LogMessageParams const&);
 
 	// replies
+	Json::Value operator()(protocol::DefinitionReplyParams const&);
 	Json::Value operator()(protocol::InitializeResult const&);
 	Json::Value operator()(protocol::Response const&);
 

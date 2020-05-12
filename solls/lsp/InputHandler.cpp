@@ -20,6 +20,7 @@ InputHandler::InputHandler(Logger& _logger):
 		{"textDocument/didOpen", bind(&InputHandler::textDocument_didOpen, this, _1, _2)},
 		{"textDocument/didChange", bind(&InputHandler::textDocument_didChange, this, _1, _2)},
 		{"textDocument/didClose", bind(&InputHandler::textDocument_didClose, this, _1, _2)},
+		{"textDocument/definition", bind(&InputHandler::textDocument_definition, this, _1, _2)},
 	}
 {
 }
@@ -175,6 +176,16 @@ optional<protocol::DidCloseTextDocumentParams> InputHandler::textDocument_didClo
 	didClose.requestId = _id;
 	didClose.textDocument.uri = _json["textDocument"]["uri"].asString();
 	return didClose;
+}
+
+std::optional<protocol::DefinitionParams> InputHandler::textDocument_definition(Id const& _id, Json::Value const& _json)
+{
+	protocol::DefinitionParams params;
+	params.requestId = _id;
+	params.textDocument.uri = _json["textDocument"]["uri"].asString();
+	params.position.line = _json["position"]["line"].asInt();
+	params.position.column = _json["position"]["character"].asInt();
+	return params;
 }
 
 } // end namespace

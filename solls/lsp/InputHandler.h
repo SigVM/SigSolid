@@ -31,12 +31,12 @@ public:
 	// client to server
 	std::optional<protocol::InitializeRequest> initializeRequest(Id const&, Json::Value const&);
 	std::optional<protocol::InitializedNotification> initialized(Id const&, Json::Value const&);
+	std::optional<protocol::ShutdownParams> shutdown(Id const&, Json::Value const&);
+	std::optional<protocol::ExitParams> exit(Id const&, Json::Value const&);
 	std::optional<protocol::DidOpenTextDocumentParams> textDocument_didOpen(Id const&, Json::Value const&);
 	std::optional<protocol::DidChangeTextDocumentParams> textDocument_didChange(Id const&, Json::Value const&);
 	std::optional<protocol::DidCloseTextDocumentParams> textDocument_didClose(Id const&, Json::Value const&);
-	std::optional<protocol::ShutdownParams> shutdown(Id const&, Json::Value const&);
-	std::optional<protocol::ExitParams> exit(Id const&, Json::Value const&);
-	//std::optional<protocol::DefinitionParams> definition(Id const&, Json::Value const&);
+	std::optional<protocol::DefinitionParams> textDocument_definition(Id const&, Json::Value const&);
 
 private:
 	using Handler = std::function<std::optional<protocol::Request>(Id const&, Json::Value const&)>;

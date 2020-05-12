@@ -952,6 +952,16 @@ struct RegistrationParams {
 };
 
 
+// used for request and response
+struct DefinitionParams : TextDocumentPositionParams {
+	Id requestId;
+};
+
+struct DefinitionReplyParams {
+	DocumentUri uri;
+	Range range;
+};
+
 // -----------------------------------------------------------------------------------------------
 
 /// Message for cancelling a request. This can be sent in both directions.
@@ -961,6 +971,7 @@ struct CancelRequest {
 
 using Request = std::variant<
 	CancelRequest,
+	DefinitionParams,
 	DidChangeTextDocumentParams,
 	DidCloseTextDocumentParams,
 	DidOpenTextDocumentParams,
@@ -972,6 +983,7 @@ using Request = std::variant<
 
 using Response = std::variant<
 	// TODO ...
+	DefinitionReplyParams,
 	InitializeResult
 >;
 

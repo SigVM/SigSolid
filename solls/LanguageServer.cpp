@@ -3,6 +3,9 @@
 #include <lsp/OutputGenerator.h>
 #include <lsp/protocol.h>
 
+#include <libsolidity/ast/AST.h>
+#include <libsolidity/ast/ASTVisitor.h>
+
 #include <liblangutil/SourceReferenceExtractor.h>
 
 #include <libsolutil/Visitor.h>
@@ -204,18 +207,18 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 	m_sourceCodes.clear();
 	m_sourceCodes[_file.uri().substr(7)] = _file.str();
 
-	auto compiler = make_unique<CompilerStack>(bind(&LanguageServer::readFile, this, _1, _2));
+	m_compilerStack = make_unique<CompilerStack>(bind(&LanguageServer::readFile, this, _1, _2));
 	// TODO: configure all compiler flags like in CommandLineInterface (TODO: refactor to share logic!)
 
 	OptimiserSettings settings = OptimiserSettings::standard(); // TODO: or OptimiserSettings::minimal(); // configurable
-	compiler->setOptimiserSettings(settings);
-	compiler->setParserErrorRecovery(true);
-	compiler->setEVMVersion(EVMVersion::constantinople()); // TODO: configurable
-	compiler->setRevertStringBehaviour(RevertStrings::Default); // TODO configurable
-	compiler->setSources(m_sourceCodes);
-	compiler->compile();
+	m_compilerStack->setOptimiserSettings(settings);
+	m_compilerStack->setParserErrorRecovery(true);
+	m_compilerStack->setEVMVersion(EVMVersion::constantinople()); // TODO: configurable
+	m_compilerStack->setRevertStringBehaviour(RevertStrings::Default); // TODO configurable
+	m_compilerStack->setSources(m_sourceCodes);
+	m_compilerStack->compile();
 
-	for (shared_ptr<Error const> const& error: compiler->errors())
+	for (shared_ptr<Error const> const& error: m_compilerStack->errors())
 	{
 		auto const message = SourceReferenceExtractor::extract(
 			*error,
@@ -270,6 +273,50 @@ void LanguageServer::validate(lsp::vfs::File const& _file, PublishDiagnosticsLis
 #endif
 
 	_result.emplace_back(params);
+}
+
+class ASTNodeLocator : public ASTConstVisitor
+{
+public:
+	ASTNodeLocator(lsp::Position const& _pos)
+	{
+		(void) _pos;
+	}
+
+	bool visit(Identifier const& _node) override
+	{
+		return visitNode(_node);
+	}
+};
+
+frontend::ASTNode const* LanguageServer::findASTNode(lsp::Position const& _position, std::string const& _fileName)
+{
+	(void) _position;
+	(void) _fileName;
+
+	if (!m_compilerStack)
+		return nullptr;
+
+	m_compilerStack->ast(_fileName);
+	frontend::ASTNode const& sourceUnit = m_compilerStack->ast(_fileName);
+	ASTNodeLocator m{_position};
+	m.visit(sourceUnit);
+
+	return nullptr;
+}
+
+void LanguageServer::operator()(lsp::protocol::DefinitionParams const& _params)
+{
+	lsp::protocol::DefinitionReplyParams params{};
+
+
+	params.uri = _params.textDocument.uri;
+	params.range.start.line = _params.position.line + 1;
+	params.range.start.column = _params.position.column + 1;
+	params.range.end.line = _params.position.line + 1;
+	params.range.end.column = _params.position.column + 5;
+
+	reply(_params.requestId, params);
 }
 
 } // namespace solidity

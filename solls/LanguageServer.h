@@ -38,6 +38,7 @@ public:
 	void operator()(lsp::protocol::InitializeRequest const&) override;
 	void operator()(lsp::protocol::InitializedNotification const&) override;
 	void operator()(lsp::protocol::ShutdownParams const&) override;
+	void operator()(lsp::protocol::DefinitionParams const&) override;
 	// TODO more to come :-)
 
 	/// performs a validation run.
@@ -50,6 +51,8 @@ public:
 private:
 	frontend::ReadCallback::Result readFile(std::string const&, std::string const&);
 
+	frontend::ASTNode const* findASTNode(lsp::Position const& _position, std::string const& _fileName);
+
 private:
 	/// In-memory filesystem for each opened file.
 	///
@@ -61,6 +64,8 @@ private:
 
 	/// Mapping between VFS file and its diagnostics.
 	std::map<std::string /*URI*/, PublishDiagnosticsList> m_diagnostics;
+
+	std::unique_ptr<frontend::CompilerStack> m_compilerStack;
 };
 
 } // namespace solidity
