@@ -238,7 +238,7 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 		"evm.deployedBytecode.object", "evm.deployedBytecode.opcodes",
 		"evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences",
 		"evm.deployedBytecode.immutableReferences",
-		"evm.bytecode", "evm.deployedBytecode.generatedSources",
+		"evm.bytecode", "evm.bytecode.generatedSources",
 		"evm.bytecode.object", "evm.bytecode.opcodes", "evm.bytecode.sourceMap",
 		"evm.bytecode.linkReferences",
 		"evm.gasEstimates", "evm.legacyAssembly", "evm.assembly"
@@ -1065,7 +1065,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			_inputsAndSettings.outputSelection,
 			file,
 			name,
-			{ "evm.deployedBytecode", "evm.deployedBytecode.object", "evm.deployedBytecode.opcodes", "evm.bytecode.generatedSources", "evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences", "evm.deployedBytecode.immutableReferences" },
+			{ "evm.deployedBytecode", "evm.deployedBytecode.object", "evm.deployedBytecode.opcodes", "evm.deployedBytecode.generatedSources", "evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences", "evm.deployedBytecode.immutableReferences" },
 			wildcardMatchesExperimental
 		))
 			evmData["deployedBytecode"] = collectEVMObject(

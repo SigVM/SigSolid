@@ -1,85 +1,75 @@
-{"contracts":{"A":{"C":{"ir":"/*******************************************************
- *                       WARNING                       *
- *  Solidity to Yul compilation is still EXPERIMENTAL  *
- *       It can result in LOSS OF FUNDS or worse       *
- *                !USE AT YOUR OWN RISK!               *
- *******************************************************/
+{"contracts":{"A":{"C":{"abi":[{"inputs":[],"name":"f","outputs":[],"stateMutability":"pure","type":"function"}],"devdoc":{"methods":{}},"evm":{"assembly":"    /* \"A\":59:101  contract C { function f() public pure {} } */
+  mstore(0x40, 0x80)
+  callvalue
+    /* \"--CODEGEN--\":5:14   */
+  dup1
+    /* \"--CODEGEN--\":2:4   */
+  iszero
+  tag_1
+  jumpi
+    /* \"--CODEGEN--\":27:28   */
+  0x00
+    /* \"--CODEGEN--\":24:25   */
+  dup1
+    /* \"--CODEGEN--\":17:29   */
+  revert
+    /* \"--CODEGEN--\":2:4   */
+tag_1:
+    /* \"A\":59:101  contract C { function f() public pure {} } */
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
 
+sub_0: assembly {
+        /* \"A\":59:101  contract C { function f() public pure {} } */
+      mstore(0x40, 0x80)
+      callvalue
+        /* \"--CODEGEN--\":5:14   */
+      dup1
+        /* \"--CODEGEN--\":2:4   */
+      iszero
+      tag_1
+      jumpi
+        /* \"--CODEGEN--\":27:28   */
+      0x00
+        /* \"--CODEGEN--\":24:25   */
+      dup1
+        /* \"--CODEGEN--\":17:29   */
+      revert
+        /* \"--CODEGEN--\":2:4   */
+    tag_1:
+        /* \"A\":59:101  contract C { function f() public pure {} } */
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x26121ff0
+      eq
+      tag_3
+      jumpi
+    tag_2:
+        /* \"--CODEGEN--\":12:13   */
+      0x00
+        /* \"--CODEGEN--\":9:10   */
+      dup1
+        /* \"--CODEGEN--\":2:14   */
+      revert
+        /* \"A\":72:99  function f() public pure {} */
+    tag_3:
+      tag_4
+      tag_5
+      jump\t// in
+    tag_4:
+      stop
+    tag_5:
+      jump\t// out
 
-object \"C_6\" {
-    code {
-        mstore(64, 128)
-        if callvalue() { revert(0, 0) }
-
-        constructor_C_6()
-
-        codecopy(0, dataoffset(\"C_6_deployed\"), datasize(\"C_6_deployed\"))
-
-        return(0, datasize(\"C_6_deployed\"))
-
-        function constructor_C_6() {
-
-        }
-
-    }
-    object \"C_6_deployed\" {
-        code {
-            mstore(64, 128)
-
-            if iszero(lt(calldatasize(), 4))
-            {
-                let selector := shift_right_224_unsigned(calldataload(0))
-                switch selector
-
-                case 0x26121ff0
-                {
-                    // f()
-                    if callvalue() { revert(0, 0) }
-                    abi_decode_tuple_(4, calldatasize())
-                    fun_f_5()
-                    let memPos := allocateMemory(0)
-                    let memEnd := abi_encode_tuple__to__fromStack(memPos  )
-                    return(memPos, sub(memEnd, memPos))
-                }
-
-                default {}
-            }
-            if iszero(calldatasize()) {  }
-            revert(0, 0)
-
-            function abi_decode_tuple_(headStart, dataEnd)   {
-                if slt(sub(dataEnd, headStart), 0) { revert(0, 0) }
-
-            }
-
-            function abi_encode_tuple__to__fromStack(headStart ) -> tail {
-                tail := add(headStart, 0)
-
-            }
-
-            function allocateMemory(size) -> memPtr {
-                memPtr := mload(64)
-                let newFreePtr := add(memPtr, size)
-                // protect against overflow
-                if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { revert(0, 0) }
-                mstore(64, newFreePtr)
-            }
-
-            function fun_f_5() {
-
-            }
-
-            function shift_right_224_unsigned(value) -> newValue {
-                newValue :=
-
-                shr(224, value)
-
-            }
-
-        }
-
-    }
-
+    auxdata: 0xa26469706673582212207c89525eebd62b93cc02da9a22d327bca20e9ffd94ad54a03aa1f416a16fc09464736f6c63430006090033
 }
-
-"}}},"sources":{"A":{"id":0}}}
+","bytecode":{"generatedSources":[],"linkReferences":{},"object":"bytecode removed","opcodes":"opcodes removed","sourceMap":"sourceMap removed"},"deployedBytecode":{"generatedSources":[],"immutableReferences":{},"linkReferences":{},"object":"bytecode removed","opcodes":"opcodes removed","sourceMap":"59:42:0:-:0;;;;5:9:-1;2:2;;;27:1;24;17:12;2:2;59:42:0;;;;;;;;;;;;;;;;12:1:-1;9;2:12;72:27:0;;;:::i;:::-;;;:::o"},"gasEstimates":{"creation":{"codeDepositCost":"21800","executionCost":"75","totalCost":"21875"},"external":{"f()":"122"}},"legacyAssembly":{".code":[{"begin":59,"end":101,"name":"PUSH","source":0,"value":"80"},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"40"},{"begin":59,"end":101,"name":"MSTORE","source":0},{"begin":59,"end":101,"name":"CALLVALUE","source":0},{"begin":5,"end":14,"name":"DUP1","source":-1},{"begin":2,"end":4,"name":"ISZERO","source":-1},{"begin":2,"end":4,"name":"PUSH [tag]","source":-1,"value":"1"},{"begin":2,"end":4,"name":"JUMPI","source":-1},{"begin":27,"end":28,"name":"PUSH","source":-1,"value":"0"},{"begin":24,"end":25,"name":"DUP1","source":-1},{"begin":17,"end":29,"name":"REVERT","source":-1},{"begin":2,"end":4,"name":"tag","source":-1,"value":"1"},{"begin":2,"end":4,"name":"JUMPDEST","source":-1},{"begin":59,"end":101,"name":"POP","source":0},{"begin":59,"end":101,"name":"PUSH #[$]","source":0,"value":"0000000000000000000000000000000000000000000000000000000000000000"},{"begin":59,"end":101,"name":"DUP1","source":0},{"begin":59,"end":101,"name":"PUSH [$]","source":0,"value":"0000000000000000000000000000000000000000000000000000000000000000"},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"0"},{"begin":59,"end":101,"name":"CODECOPY","source":0},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"0"},{"begin":59,"end":101,"name":"RETURN","source":0}],".data":{"0":{".auxdata":"a26469706673582212207c89525eebd62b93cc02da9a22d327bca20e9ffd94ad54a03aa1f416a16fc09464736f6c63430006090033",".code":[{"begin":59,"end":101,"name":"PUSH","source":0,"value":"80"},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"40"},{"begin":59,"end":101,"name":"MSTORE","source":0},{"begin":59,"end":101,"name":"CALLVALUE","source":0},{"begin":5,"end":14,"name":"DUP1","source":-1},{"begin":2,"end":4,"name":"ISZERO","source":-1},{"begin":2,"end":4,"name":"PUSH [tag]","source":-1,"value":"1"},{"begin":2,"end":4,"name":"JUMPI","source":-1},{"begin":27,"end":28,"name":"PUSH","source":-1,"value":"0"},{"begin":24,"end":25,"name":"DUP1","source":-1},{"begin":17,"end":29,"name":"REVERT","source":-1},{"begin":2,"end":4,"name":"tag","source":-1,"value":"1"},{"begin":2,"end":4,"name":"JUMPDEST","source":-1},{"begin":59,"end":101,"name":"POP","source":0},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"4"},{"begin":59,"end":101,"name":"CALLDATASIZE","source":0},{"begin":59,"end":101,"name":"LT","source":0},{"begin":59,"end":101,"name":"PUSH [tag]","source":0,"value":"2"},{"begin":59,"end":101,"name":"JUMPI","source":0},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"0"},{"begin":59,"end":101,"name":"CALLDATALOAD","source":0},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"E0"},{"begin":59,"end":101,"name":"SHR","source":0},{"begin":59,"end":101,"name":"DUP1","source":0},{"begin":59,"end":101,"name":"PUSH","source":0,"value":"26121FF0"},{"begin":59,"end":101,"name":"EQ","source":0},{"begin":59,"end":101,"name":"PUSH [tag]","source":0,"value":"3"},{"begin":59,"end":101,"name":"JUMPI","source":0},{"begin":59,"end":101,"name":"tag","source":0,"value":"2"},{"begin":59,"end":101,"name":"JUMPDEST","source":0},{"begin":12,"end":13,"name":"PUSH","source":-1,"value":"0"},{"begin":9,"end":10,"name":"DUP1","source":-1},{"begin":2,"end":14,"name":"REVERT","source":-1},{"begin":72,"end":99,"name":"tag","source":0,"value":"3"},{"begin":72,"end":99,"name":"JUMPDEST","source":0},{"begin":72,"end":99,"name":"PUSH [tag]","source":0,"value":"4"},{"begin":72,"end":99,"name":"PUSH [tag]","source":0,"value":"5"},{"begin":72,"end":99,"name":"JUMP","source":0,"value":"[in]"},{"begin":72,"end":99,"name":"tag","source":0,"value":"4"},{"begin":72,"end":99,"name":"JUMPDEST","source":0},{"begin":72,"end":99,"name":"STOP","source":0},{"begin":72,"end":99,"name":"tag","source":0,"value":"5"},{"begin":72,"end":99,"name":"JUMPDEST","source":0},{"begin":72,"end":99,"name":"JUMP","source":0,"value":"[out]"}]}}},"methodIdentifiers":{"f()":"26121ff0"}},"ewasm":{"wasm":""},"metadata":"{\"compiler\":{\"version\":\"0.6.9+commit.9857d3d7.mod\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"f\",\"outputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"A\":\"C\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"A\":{\"keccak256\":\"0xf7a46707e95014babc0d0735a214a019df0ee22f8dddddedb2b870576545fde4\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://ff2ee8c5d0e5c9428285a6c252e665260567d98e1ac2c2c83bd31d1128c47cef\",\"dweb:/ipfs/QmY5HU1REKeTtR72xwGWDaJb29MZ285C5SHQtFM9igX25e\"]}},\"version\":1}","storageLayout":{"storage":[],"types":null},"userdoc":{"methods":{}}}}},"sources":{"A":{"id":0}}}
