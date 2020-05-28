@@ -234,10 +234,12 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 		"*",
 		"ir", "irOptimized",
 		"wast", "wasm", "ewasm.wast", "ewasm.wasm",
-		"evm.deployedBytecode", "evm.deployedBytecode.object", "evm.deployedBytecode.opcodes",
+		"evm.deployedBytecode", "evm.deployedBytecode.generatedSources",
+		"evm.deployedBytecode.object", "evm.deployedBytecode.opcodes",
 		"evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences",
 		"evm.deployedBytecode.immutableReferences",
-		"evm.bytecode", "evm.bytecode.object", "evm.bytecode.opcodes", "evm.bytecode.sourceMap",
+		"evm.bytecode", "evm.deployedBytecode.generatedSources",
+		"evm.bytecode.object", "evm.bytecode.opcodes", "evm.bytecode.sourceMap",
 		"evm.bytecode.linkReferences",
 		"evm.gasEstimates", "evm.legacyAssembly", "evm.assembly"
 	};
@@ -333,7 +335,12 @@ Json::Value formatImmutableReferences(map<u256, pair<string, vector<size_t>>> co
 	return ret;
 }
 
-Json::Value collectEVMObject(evmasm::LinkerObject const& _object, string const* _sourceMap, bool _runtimeObject)
+Json::Value collectEVMObject(
+	evmasm::LinkerObject const& _object,
+	string const* _sourceMap,
+	Json::Value _generatedSources,
+	bool _runtimeObject
+)
 {
 	Json::Value output = Json::objectValue;
 	output["object"] = _object.toHex();
@@ -342,6 +349,8 @@ Json::Value collectEVMObject(evmasm::LinkerObject const& _object, string const* 
 	output["linkReferences"] = formatLinkReferences(_object.linkReferences);
 	if (_runtimeObject)
 		output["immutableReferences"] = formatImmutableReferences(_object.immutableReferences);
+	// TOOD only if requested?
+	output["generatedSources"] = std::move(_generatedSources);
 	return output;
 }
 
@@ -1042,12 +1051,13 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			_inputsAndSettings.outputSelection,
 			file,
 			name,
-			{ "evm.bytecode", "evm.bytecode.object", "evm.bytecode.opcodes", "evm.bytecode.sourceMap", "evm.bytecode.linkReferences" },
+			{ "evm.bytecode", "evm.bytecode.object", "evm.bytecode.opcodes", "evm.bytecode.generatedSources", "evm.bytecode.sourceMap", "evm.bytecode.linkReferences" },
 			wildcardMatchesExperimental
 		))
 			evmData["bytecode"] = collectEVMObject(
 				compilerStack.object(contractName),
 				compilerStack.sourceMapping(contractName),
+				compilerStack.generatedSources(contractName),
 				false
 			);
 
@@ -1055,12 +1065,13 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			_inputsAndSettings.outputSelection,
 			file,
 			name,
-			{ "evm.deployedBytecode", "evm.deployedBytecode.object", "evm.deployedBytecode.opcodes", "evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences", "evm.deployedBytecode.immutableReferences" },
+			{ "evm.deployedBytecode", "evm.deployedBytecode.object", "evm.deployedBytecode.opcodes", "evm.bytecode.generatedSources", "evm.deployedBytecode.sourceMap", "evm.deployedBytecode.linkReferences", "evm.deployedBytecode.immutableReferences" },
 			wildcardMatchesExperimental
 		))
 			evmData["deployedBytecode"] = collectEVMObject(
 				compilerStack.runtimeObject(contractName),
 				compilerStack.runtimeSourceMapping(contractName),
+				compilerStack.generatedSources(contractName, true),
 				true
 			);
 
@@ -1146,7 +1157,7 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 	for (string const& objectKind: vector<string>{"bytecode", "deployedBytecode"})
 	{
 		auto artifacts = util::applyMap(
-			vector<string>{"", ".object", ".opcodes", ".sourceMap", ".linkReferences"},
+			vector<string>{"", ".object", ".opcodes", ".sourceMap", ".generatedSources", ".linkReferences"},
 			[&](auto const& _s) { return "evm." + objectKind + _s; }
 		);
 		if (isArtifactRequested(
@@ -1159,7 +1170,8 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 		{
 			MachineAssemblyObject const& o = objectKind == "bytecode" ? object : runtimeObject;
 			if (o.bytecode)
-				output["contracts"][sourceName][contractName]["evm"][objectKind] = collectEVMObject(*o.bytecode, o.sourceMappings.get(), false);
+				output["contracts"][sourceName][contractName]["evm"][objectKind] =
+					collectEVMObject(*o.bytecode, o.sourceMappings.get(), Json::arrayValue, false);
 		}
 	}
 

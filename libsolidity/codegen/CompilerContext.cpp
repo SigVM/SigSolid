@@ -36,6 +36,7 @@
 #include <libyul/optimiser/Suite.h>
 #include <libyul/Object.h>
 #include <libyul/YulString.h>
+#include <libyul/Utilities.h>
 
 #include <libsolutil/Whiskers.h>
 
@@ -190,14 +191,25 @@ void CompilerContext::appendMissingLowLevelFunctions()
 	}
 }
 
-pair<string, set<string>> CompilerContext::requestedYulFunctions()
+void CompilerContext::appendYulUtilityFunctions(OptimiserSettings const& _optimiserSettings)
 {
-	solAssert(!m_requestedYulFunctionsRan, "requestedYulFunctions called more than once.");
-	m_requestedYulFunctionsRan = true;
+	solAssert(!m_appendYulUtilityFunctionsRan, "requestedYulFunctions called more than once.");
+	m_appendYulUtilityFunctionsRan = true;
 
-	set<string> empty;
-	swap(empty, m_externallyUsedYulFunctions);
-	return {m_yulFunctionCollector.requestedFunctions(), std::move(empty)};
+	std::string code = m_yulFunctionCollector.requestedFunctions();
+	if (!code.empty())
+	{
+		m_generatedYulUtilityCode = yul::reindent("{\n" + std::move(code) + "\n}");
+
+		appendInlineAssembly(
+			m_generatedYulUtilityCode,
+			{},
+			m_externallyUsedYulFunctions,
+			true,
+			_optimiserSettings,
+			yulUtilityFileName()
+		);
+	}
 }
 
 void CompilerContext::addVariable(
@@ -368,7 +380,8 @@ void CompilerContext::appendInlineAssembly(
 	vector<string> const& _localVariables,
 	set<string> const& _externallyUsedFunctions,
 	bool _system,
-	OptimiserSettings const& _optimiserSettings
+	OptimiserSettings const& _optimiserSettings,
+	string _sourceName
 )
 {
 	int startStackHeight = stackHeight();
@@ -420,7 +433,7 @@ void CompilerContext::appendInlineAssembly(
 
 	ErrorList errors;
 	ErrorReporter errorReporter(errors);
-	auto scanner = make_shared<langutil::Scanner>(langutil::CharStream(_assembly, "--CODEGEN--"));
+	auto scanner = make_shared<langutil::Scanner>(langutil::CharStream(_assembly, _sourceName));
 	yul::EVMDialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(m_evmVersion);
 	shared_ptr<yul::Block> parserResult = yul::Parser(errorReporter, dialect).parse(scanner, false);
 #ifdef SOL_OUTPUT_ASM

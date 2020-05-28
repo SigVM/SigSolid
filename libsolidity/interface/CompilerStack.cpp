@@ -573,6 +573,30 @@ evmasm::AssemblyItems const* CompilerStack::runtimeAssemblyItems(string const& _
 	return currentContract.compiler ? &contract(_contractName).compiler->runtimeAssemblyItems() : nullptr;
 }
 
+Json::Value CompilerStack::generatedSources(string const& _contractName, bool _runtime) const
+{
+	if (m_stackState != CompilationSuccessful)
+		BOOST_THROW_EXCEPTION(CompilerError() << errinfo_comment("Compilation was not successful."));
+
+	Contract const& c = contract(_contractName);
+	return c.generatedSources.init([&]{
+		solAssert(c.compiler, "");
+		Json::Value sources{Json::arrayValue};
+		std::string source =
+			_runtime ?
+			c.compiler->runtimeGeneratedYulUtilityCode() :
+			c.compiler->generatedYulUtilityCode();
+		if (!source.empty())
+		{
+			sources[0]["name"] = CompilerContext::yulUtilityFileName();
+			sources[0]["id"] = sourceIndices()[CompilerContext::yulUtilityFileName()];
+			sources[0]["language"] = "Yul";
+			sources[0]["contents"] = std::move(source);
+		}
+		return sources;
+	});
+}
+
 string const* CompilerStack::sourceMapping(string const& _contractName) const
 {
 	if (m_stackState != CompilationSuccessful)
@@ -715,6 +739,8 @@ map<string, unsigned> CompilerStack::sourceIndices() const
 	unsigned index = 0;
 	for (auto const& s: m_sources)
 		indices[s.first] = index++;
+	solAssert(!indices.count(CompilerContext::yulUtilityFileName()), "");
+	indices[CompilerContext::yulUtilityFileName()] = index++;
 	return indices;
 }
 
