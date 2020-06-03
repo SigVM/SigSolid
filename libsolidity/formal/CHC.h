@@ -36,6 +36,7 @@
 
 #include <libsmtutil/CHCSolverInterface.h>
 
+#include <map>
 #include <set>
 
 namespace solidity::frontend
@@ -54,7 +55,8 @@ public:
 
 	void analyze(SourceUnit const& _sources);
 
-	std::set<Expression const*> const& safeAssertions() const { return m_safeAssertions; }
+	std::map<ASTNode const*, std::set<VerificationTarget::Type>> const& safeTargets() const { return m_safeTargets; }
+	std::map<ASTNode const*, std::set<VerificationTarget::Type>> const& unsafeTargets() const { return m_unsafeTargets; }
 
 	/// This is used if the Horn solver is not directly linked into this binary.
 	/// @returns a list of inputs to the Horn solver that were not part of the argument to
@@ -80,6 +82,15 @@ private:
 	void externalFunctionCall(FunctionCall const& _funCall);
 	void unknownFunctionCall(FunctionCall const& _funCall);
 	void makeArrayPopVerificationTarget(FunctionCall const& _arrayPop) override;
+	/// Creates underflow/overflow verification targets.
+	std::pair<smtutil::Expression, smtutil::Expression> arithmeticOperation(
+		Token _op,
+		smtutil::Expression const& _left,
+		smtutil::Expression const& _right,
+		TypePointer const& _commonType,
+		Expression const& _expression
+	) override;
+
 	//@}
 
 	struct IdCompare
@@ -189,8 +200,20 @@ private:
 	std::pair<smtutil::CheckResult, std::vector<std::string>> query(smtutil::Expression const& _query, langutil::SourceLocation const& _location);
 
 	void addVerificationTarget(ASTNode const* _scope, VerificationTarget::Type _type, smtutil::Expression _from, smtutil::Expression _constraints, smtutil::Expression _errorId);
+	void addVerificationTarget(VerificationTarget::Type _type, ASTNode const* _scope, smtutil::Expression _errorId);
 	void addAssertVerificationTarget(ASTNode const* _scope, smtutil::Expression _from, smtutil::Expression _constraints, smtutil::Expression _errorId);
-	void addArrayPopVerificationTarget(ASTNode const* _scope, smtutil::Expression _errorId);
+
+	void checkVerificationTargets();
+	// Forward declaration. Definition is below.
+	struct CHCVerificationTarget;
+	void checkAssertTarget(ASTNode const* _scope, CHCVerificationTarget const& _target);
+	void checkAndReportTarget(
+		ASTNode const* _scope,
+		CHCVerificationTarget const& _target,
+		unsigned _errorId,
+		std::string _satMsg,
+		std::string _unknownMsg
+	);
 	//@}
 
 	/// Misc.
@@ -257,10 +280,10 @@ private:
 
 	std::map<ASTNode const*, CHCVerificationTarget, IdCompare> m_verificationTargets;
 
-	/// Assertions proven safe.
-	std::set<Expression const*> m_safeAssertions;
+	/// Targets proven safe.
+	std::map<ASTNode const*, std::set<VerificationTarget::Type>> m_safeTargets;
 	/// Targets proven unsafe.
-	std::set<ASTNode const*> m_unsafeTargets;
+	std::map<ASTNode const*, std::set<VerificationTarget::Type>> m_unsafeTargets;
 	//@}
 
 	/// Control-flow.
@@ -270,6 +293,9 @@ private:
 	std::map<ASTNode const*, std::set<ASTNode const*, IdCompare>, IdCompare> m_callGraph;
 
 	std::map<ASTNode const*, std::set<Expression const*>, IdCompare> m_functionAssertions;
+
+	/// Maps ASTNode ids to error ids.
+	std::multimap<unsigned, unsigned> m_errorIds;
 
 	/// The current block.
 	smtutil::Expression m_currentBlock = smtutil::Expression(true);

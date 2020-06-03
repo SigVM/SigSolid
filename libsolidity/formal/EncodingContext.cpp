@@ -41,7 +41,7 @@ void EncodingContext::reset()
 
 void EncodingContext::resetSlackId()
 {
-	m_nextSlackId = 0;
+	m_nextSlackId = 1;
 }
 
 unsigned EncodingContext::newSlackId()

@@ -15,6 +15,8 @@ contract LoopFor2 {
 	}
 }
 // ----
+// Warning 1218: (232-238): Error trying to invoke SMT solver.
+// Warning 1218: (252-257): Error trying to invoke SMT solver.
 // Warning 4661: (281-301): Assertion violation happens here
 // Warning 4661: (305-324): Assertion violation happens here
 // Warning 4661: (328-347): Assertion violation happens here

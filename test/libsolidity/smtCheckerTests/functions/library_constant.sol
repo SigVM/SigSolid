@@ -19,8 +19,7 @@ contract C {
 	}
 }
 // ----
+// Warning 2529: (229-234): Overflow (resulting value larger than 2**256 - 1) happens here
+// Warning 2529: (327-332): Overflow (resulting value larger than 2**256 - 1) happens here
 // Warning 4661: (136-155): Assertion violation happens here
-// Warning 2661: (229-234): Overflow (resulting value larger than 2**256 - 1) happens here
 // Warning 8364: (300-302): Assertion checker does not yet implement type type(library l1)
-// Warning 2661: (229-234): Overflow (resulting value larger than 2**256 - 1) happens here
-// Warning 2661: (327-332): Overflow (resulting value larger than 2**256 - 1) happens here

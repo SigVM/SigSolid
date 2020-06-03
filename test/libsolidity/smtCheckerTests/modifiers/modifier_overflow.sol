@@ -10,9 +10,7 @@ contract C
 	}
 
 	function f() m public {
-		assert(x > 0);
 		x = x + 1;
 	}
 }
 // ----
-// Warning 2661: (145-150): Overflow (resulting value larger than 2**256 - 1) happens here

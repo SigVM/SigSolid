@@ -96,48 +96,7 @@ void CHC::analyze(SourceUnit const& _source)
 	for (auto const* source: sources)
 		source->accept(*this);
 
-	for (auto const& [scope, target]: m_verificationTargets)
-	{
-		if (target.type == VerificationTarget::Type::Assert)
-		{
-			auto assertions = transactionAssertions(scope);
-			for (auto const* assertion: assertions)
-			{
-				createErrorBlock();
-				connectBlocks(target.value, error(), target.constraints && (target.errorId == static_cast<size_t>(assertion->id())));
-				auto [result, model] = query(error(), assertion->location());
-				// This should be fine but it's a bug in the old compiler
-				(void)model;
-				if (result == smtutil::CheckResult::UNSATISFIABLE)
-					m_safeAssertions.insert(assertion);
-			}
-		}
-		else if (target.type == VerificationTarget::Type::PopEmptyArray)
-		{
-			solAssert(dynamic_cast<FunctionCall const*>(scope), "");
-			createErrorBlock();
-			connectBlocks(target.value, error(), target.constraints && (target.errorId == static_cast<size_t>(scope->id())));
-			auto [result, model] = query(error(), scope->location());
-			// This should be fine but it's a bug in the old compiler
-			(void)model;
-			if (result != smtutil::CheckResult::UNSATISFIABLE)
-			{
-				string msg = "Empty array \"pop\" ";
-				if (result == smtutil::CheckResult::SATISFIABLE)
-					msg += "detected here.";
-				else
-					msg += "might happen here.";
-				m_unsafeTargets.insert(scope);
-				m_outerErrorReporter.warning(
-					2529_error,
-					scope->location(),
-					msg
-				);
-			}
-		}
-		else
-			solAssert(false, "");
-	}
+	checkVerificationTargets();
 }
 
 vector<string> CHC::unhandledQueries() const
@@ -536,12 +495,13 @@ void CHC::visitAssert(FunctionCall const& _funCall)
 	auto previousError = m_error.currentValue();
 	m_error.increaseIndex();
 
+	unsigned errorId = m_context.newSlackId();
+	m_errorIds.emplace(_funCall.id(), errorId);
+
 	connectBlocks(
 		m_currentBlock,
 		m_currentFunction->isConstructor() ? summary(*m_currentContract) : summary(*m_currentFunction),
-		currentPathConditions() && !m_context.expression(*args.front())->currentValue() && (
-			m_error.currentValue() == static_cast<size_t>(_funCall.id())
-		)
+		currentPathConditions() && !m_context.expression(*args.front())->currentValue() && m_error.currentValue() == errorId
 	);
 
 	m_context.addAssertion(m_error.currentValue() == previousError);
@@ -634,22 +594,96 @@ void CHC::makeArrayPopVerificationTarget(FunctionCall const& _arrayPop)
 	auto previousError = m_error.currentValue();
 	m_error.increaseIndex();
 
-	addArrayPopVerificationTarget(&_arrayPop, m_error.currentValue());
+	unsigned errorId = m_context.newSlackId();
+	m_errorIds.emplace(_arrayPop.id(), errorId);
+	addVerificationTarget(VerificationTarget::Type::PopEmptyArray, &_arrayPop, m_error.currentValue());
 	connectBlocks(
 		m_currentBlock,
 		m_currentFunction->isConstructor() ? summary(*m_currentContract) : summary(*m_currentFunction),
-		currentPathConditions() && symbArray->length() <= 0 && m_error.currentValue() == static_cast<size_t>(_arrayPop.id())
+		currentPathConditions() && symbArray->length() <= 0 && m_error.currentValue() == errorId
 	);
 
 	m_context.addAssertion(m_error.currentValue() == previousError);
 }
 
+pair<smtutil::Expression, smtutil::Expression> CHC::arithmeticOperation(
+	Token _op,
+	smtutil::Expression const& _left,
+	smtutil::Expression const& _right,
+	TypePointer const& _commonType,
+	frontend::Expression const& _expression
+)
+{
+	auto values = SMTEncoder::arithmeticOperation(_op, _left, _right, _commonType, _expression);
+
+	IntegerType const* intType = nullptr;
+	if (auto const* type = dynamic_cast<IntegerType const*>(_commonType))
+		intType = type;
+	else
+		intType = TypeProvider::uint256();
+
+	// Mod does not need underflow/overflow checks.
+	// Div only needs overflow check for signed types.
+	if (_op == Token::Mod || (_op == Token::Div && !intType->isSigned()))
+		return values;
+
+	auto previousError = m_error.currentValue();
+	m_error.increaseIndex();
+
+	VerificationTarget::Type targetType;
+	unsigned errorId = m_context.newSlackId();
+	m_errorIds.emplace(_expression.id(), errorId);
+
+	optional<smtutil::Expression> target;
+	if (_op == Token::Div)
+	{
+		targetType = VerificationTarget::Type::Overflow;
+		target = values.second > intType->maxValue() && m_error.currentValue() == errorId;
+	}
+	else if (intType->isSigned())
+	{
+		unsigned secondErrorId = m_context.newSlackId();
+		m_errorIds.emplace(_expression.id(), secondErrorId);
+		targetType = VerificationTarget::Type::UnderOverflow;
+		target = (values.second < intType->minValue() && m_error.currentValue() == errorId) ||
+			(values.second > intType->maxValue() && m_error.currentValue() == secondErrorId);
+	}
+	else if (_op == Token::Sub)
+	{
+		targetType = VerificationTarget::Type::Underflow;
+		target = values.second < intType->minValue() && m_error.currentValue() == errorId;
+	}
+	else if (_op == Token::Add || _op == Token::Mul)
+	{
+		targetType = VerificationTarget::Type::Overflow;
+		target = values.second > intType->maxValue() && m_error.currentValue() == errorId;
+	}
+	else
+		solAssert(false, "");
+
+	addVerificationTarget(
+		targetType,
+		&_expression,
+		m_error.currentValue()
+	);
+	connectBlocks(
+		m_currentBlock,
+		(!m_currentFunction || m_currentFunction->isConstructor()) ? summary(*m_currentContract) : summary(*m_currentFunction),
+		currentPathConditions() && *target
+	);
+
+	m_context.addAssertion(m_error.currentValue() == previousError);
+
+	return values;
+}
+
 void CHC::resetSourceAnalysis()
 {
 	m_verificationTargets.clear();
-	m_safeAssertions.clear();
+	m_safeTargets.clear();
 	m_unsafeTargets.clear();
 	m_functionAssertions.clear();
+	m_errorIds.clear();
 	m_callGraph.clear();
 	m_summaries.clear();
 }
@@ -1152,19 +1186,133 @@ void CHC::addAssertVerificationTarget(ASTNode const* _scope, smtutil::Expression
 	addVerificationTarget(_scope, VerificationTarget::Type::Assert, _from, _constraints, _errorId);
 }
 
-void CHC::addArrayPopVerificationTarget(ASTNode const* _scope, smtutil::Expression _errorId)
+void CHC::addVerificationTarget(VerificationTarget::Type _type, ASTNode const* _scope, smtutil::Expression _errorId)
 {
 	solAssert(m_currentContract, "");
-	solAssert(m_currentFunction, "");
 
-	if (m_currentFunction->isConstructor())
-		addVerificationTarget(_scope, VerificationTarget::Type::PopEmptyArray, summary(*m_currentContract), smtutil::Expression(true), _errorId);
+	if (!m_currentFunction || m_currentFunction->isConstructor())
+		addVerificationTarget(_scope, _type, summary(*m_currentContract), smtutil::Expression(true), _errorId);
 	else
 	{
 		auto iface = (*m_interfaces.at(m_currentContract))(initialStateVariables());
 		auto sum = summary(*m_currentFunction);
-		addVerificationTarget(_scope, VerificationTarget::Type::PopEmptyArray, iface, sum, _errorId);
+		addVerificationTarget(_scope, _type, iface, sum, _errorId);
 	}
+}
+
+void CHC::checkVerificationTargets()
+{
+	for (auto const& [scope, target]: m_verificationTargets)
+	{
+		if (target.type == VerificationTarget::Type::Assert)
+			checkAssertTarget(scope, target);
+		else
+		{
+			string satMsg;
+			string satMsgUnderflow;
+			string satMsgOverflow;
+			string unknownMsg;
+
+			if (target.type == VerificationTarget::Type::PopEmptyArray)
+			{
+				solAssert(dynamic_cast<FunctionCall const*>(scope), "");
+				satMsg = "Empty array \"pop\" detected here.";
+				unknownMsg = "Empty array \"pop\" might happen here.";
+			}
+			else if (
+				target.type == VerificationTarget::Type::Underflow ||
+				target.type == VerificationTarget::Type::Overflow ||
+				target.type == VerificationTarget::Type::UnderOverflow
+			)
+			{
+				auto const* expr = dynamic_cast<Expression const*>(scope);
+				solAssert(expr, "");
+				auto const* intType = dynamic_cast<IntegerType const*>(expr->annotation().type);
+				if (!intType)
+					intType = TypeProvider::uint256();
+
+				satMsgUnderflow = "Underflow (resulting value less than " + formatNumberReadable(intType->minValue()) + ") happens here";
+				satMsgOverflow = "Overflow (resulting value larger than " + formatNumberReadable(intType->maxValue()) + ") happens here";
+				if (target.type == VerificationTarget::Type::Underflow)
+					satMsg = satMsgUnderflow;
+				else if (target.type == VerificationTarget::Type::Overflow)
+					satMsg = satMsgOverflow;
+			}
+			else
+				solAssert(false, "");
+
+			auto it = m_errorIds.find(scope->id());
+			solAssert(it != m_errorIds.end(), "");
+			unsigned errorId = it->second;
+
+			if (target.type != VerificationTarget::Type::UnderOverflow)
+				checkAndReportTarget(scope, target, errorId, satMsg, unknownMsg);
+			else
+			{
+				auto specificTarget = target;
+				specificTarget.type = VerificationTarget::Type::Underflow;
+				checkAndReportTarget(scope, specificTarget, errorId, satMsgUnderflow, unknownMsg);
+
+				++it;
+				solAssert(it != m_errorIds.end(), "");
+				specificTarget.type = VerificationTarget::Type::Overflow;
+				checkAndReportTarget(scope, specificTarget, it->second, satMsgOverflow, unknownMsg);
+			}
+		}
+	}
+}
+
+void CHC::checkAssertTarget(ASTNode const* _scope, CHCVerificationTarget const& _target)
+{
+	solAssert(_target.type == VerificationTarget::Type::Assert, "");
+	auto assertions = transactionAssertions(_scope);
+	for (auto const* assertion: assertions)
+	{
+		auto it = m_errorIds.find(assertion->id());
+		solAssert(it != m_errorIds.end(), "");
+		unsigned errorId = it->second;
+
+		createErrorBlock();
+		connectBlocks(_target.value, error(), _target.constraints && (_target.errorId == errorId));
+		auto [result, model] = query(error(), assertion->location());
+		// This should be fine but it's a bug in the old compiler
+		(void)model;
+		if (result == smtutil::CheckResult::UNSATISFIABLE)
+			m_safeTargets[assertion].insert(_target.type);
+	}
+}
+
+void CHC::checkAndReportTarget(
+	ASTNode const* _scope,
+	CHCVerificationTarget const& _target,
+	unsigned _errorId,
+	string _satMsg,
+	string _unknownMsg
+)
+{
+	createErrorBlock();
+	connectBlocks(_target.value, error(), _target.constraints && (_target.errorId == _errorId));
+	auto [result, model] = query(error(), _scope->location());
+	// This should be fine but it's a bug in the old compiler
+	(void)model;
+	if (result == smtutil::CheckResult::UNSATISFIABLE)
+		m_safeTargets[_scope].insert(_target.type);
+	else if (result == smtutil::CheckResult::SATISFIABLE)
+	{
+		solAssert(!_satMsg.empty(), "");
+		m_unsafeTargets[_scope].insert(_target.type);
+		m_outerErrorReporter.warning(
+			2529_error,
+			_scope->location(),
+			_satMsg
+		);
+	}
+	else if (!_unknownMsg.empty())
+		m_outerErrorReporter.warning(
+			1147_error,
+			_scope->location(),
+			_unknownMsg
+		);
 }
 
 string CHC::uniquePrefix()

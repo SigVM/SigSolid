@@ -9,3 +9,6 @@ contract C {
 		return c;
 	}
 }
+// ====
+// SMTSolvers: cvc4
+// ----

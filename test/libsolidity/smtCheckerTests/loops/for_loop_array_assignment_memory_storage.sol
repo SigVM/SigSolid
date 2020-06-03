@@ -19,5 +19,7 @@ contract LoopFor2 {
 // ====
 // SMTSolvers: z3
 // ----
+// Warning 1218: (225-231): Error trying to invoke SMT solver.
+// Warning 1218: (245-250): Error trying to invoke SMT solver.
 // Warning 4661: (274-294): Assertion violation happens here
 // Warning 4661: (321-340): Assertion violation happens here
