@@ -168,17 +168,17 @@ bool StackCompressor::run(
 	bool allowMSizeOptimzation = !MSizeFinder::containsMSize(_dialect, *_object.code);
 	for (size_t iterations = 0; iterations < _maxIterations; iterations++)
 	{
-		map<YulString, int> stackSurplus = CompilabilityChecker::run(_dialect, _object, _optimizeStackAllocation);
+		auto stackSurplus = CompilabilityChecker::run(_dialect, _object, _optimizeStackAllocation);
 		if (stackSurplus.empty())
 			return true;
 
 		if (stackSurplus.count(YulString{}))
 		{
-			yulAssert(stackSurplus.at({}) > 0, "Invalid surplus value.");
+			yulAssert(stackSurplus.at({}).maxDepth > 0, "Invalid surplus value.");
 			eliminateVariables(
 				_dialect,
 				std::get<Block>(_object.code->statements.at(0)),
-				static_cast<size_t>(stackSurplus.at({})),
+				static_cast<size_t>(stackSurplus.at({}).maxDepth),
 				allowMSizeOptimzation
 			);
 		}
@@ -189,11 +189,11 @@ bool StackCompressor::run(
 			if (!stackSurplus.count(fun.name))
 				continue;
 
-			yulAssert(stackSurplus.at(fun.name) > 0, "Invalid surplus value.");
+			yulAssert(stackSurplus.at(fun.name).maxDepth > 0, "Invalid surplus value.");
 			eliminateVariables(
 				_dialect,
 				fun,
-				static_cast<size_t>(stackSurplus.at(fun.name)),
+				static_cast<size_t>(stackSurplus.at(fun.name).maxDepth),
 				allowMSizeOptimzation
 			);
 		}

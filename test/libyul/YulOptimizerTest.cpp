@@ -45,6 +45,7 @@
 #include <libyul/optimiser/LoadResolver.h>
 #include <libyul/optimiser/LoopInvariantCodeMotion.h>
 #include <libyul/optimiser/MainFunction.h>
+#include <libyul/optimiser/MemoryEscalator.h>
 #include <libyul/optimiser/NameDisplacer.h>
 #include <libyul/optimiser/Rematerialiser.h>
 #include <libyul/optimiser/ExpressionSimplifier.h>
@@ -346,6 +347,14 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		obj.code = m_ast;
 		obj.analysisInfo = m_analysisInfo;
 		OptimiserSuite::run(*m_dialect, &meter, obj, true, solidity::frontend::OptimiserSettings::DefaultYulOptimiserSteps);
+	}
+	else if (m_optimizerStep == "memoryEscalator")
+	{
+		yul::Object obj;
+		obj.code = m_ast;
+		obj.analysisInfo = m_analysisInfo;
+		disambiguate();
+		MemoryEscalator::run(*m_context, obj, true);
 	}
 	else
 	{

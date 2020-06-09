@@ -105,6 +105,8 @@ add_library(yul
 	optimiser/ForLoopInitRewriter.h
 	optimiser/FullInliner.cpp
 	optimiser/FullInliner.h
+	optimiser/FunctionCallFinder.cpp
+	optimiser/FunctionCallFinder.h
 	optimiser/FunctionGrouper.cpp
 	optimiser/FunctionGrouper.h
 	optimiser/FunctionHoister.cpp
@@ -119,6 +121,8 @@ add_library(yul
 	optimiser/LoopInvariantCodeMotion.h
 	optimiser/MainFunction.cpp
 	optimiser/MainFunction.h
+	optimiser/MemoryEscalator.cpp
+	optimiser/MemoryEscalator.h
 	optimiser/Metrics.cpp
 	optimiser/Metrics.h
 	optimiser/NameCollector.cpp
@@ -146,6 +150,8 @@ add_library(yul
 	optimiser/SimplificationRules.h
 	optimiser/StackCompressor.cpp
 	optimiser/StackCompressor.h
+	optimiser/StackToMemoryMover.cpp
+	optimiser/StackToMemoryMover.h
 	optimiser/StructuralSimplifier.cpp
 	optimiser/StructuralSimplifier.h
 	optimiser/Substitution.cpp
