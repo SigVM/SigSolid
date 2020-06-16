@@ -1,6 +1,7 @@
 ### 0.6.12 (unreleased)
 
 Language Features:
+ * Allow function definitions outside of contracts, behaving much like internal library functions.
  * Wasm backend: Add ``i32.ctz``, ``i64.ctz``, ``i32.popcnt``, and ``i64.popcnt``.
 
 Compiler Features:
