@@ -94,7 +94,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "A",
                 "referencedDeclaration": 1,
                 "type": "contract A"
@@ -150,7 +149,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "B",
                 "referencedDeclaration": 4,
                 "type": "contract B"
@@ -208,7 +206,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "C",
                 "referencedDeclaration": 7,
                 "type": "contract C"
@@ -268,7 +265,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "D",
                 "referencedDeclaration": 10,
                 "type": "contract D"

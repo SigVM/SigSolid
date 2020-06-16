@@ -45,6 +45,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "26121ff0",
           "id": 4,
           "implemented": true,
@@ -102,6 +103,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "26121ff0",
           "id": 9,
           "implemented": true,
@@ -142,7 +144,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 11,
             "name": "A",
             "nodeType": "UserDefinedTypeName",
@@ -162,7 +163,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 13,
             "name": "B",
             "nodeType": "UserDefinedTypeName",
@@ -212,6 +212,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "26121ff0",
           "id": 21,
           "implemented": true,
@@ -226,7 +227,6 @@
             "overrides":
             [
               {
-                "contractScope": null,
                 "id": 16,
                 "name": "A",
                 "nodeType": "UserDefinedTypeName",
@@ -239,7 +239,6 @@
                 }
               },
               {
-                "contractScope": null,
                 "id": 17,
                 "name": "B",
                 "nodeType": "UserDefinedTypeName",

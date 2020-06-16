@@ -60,6 +60,7 @@ JSON AST:
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "implemented": true,
             "isConstructor": true,
             "kind": "constructor",
@@ -124,6 +125,7 @@ JSON AST:
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "af11c34c",
             "implemented": true,
             "isConstructor": false,

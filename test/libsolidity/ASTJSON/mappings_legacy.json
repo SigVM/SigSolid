@@ -103,7 +103,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "C",
                     "referencedDeclaration": 17,
                     "type": "contract C"
@@ -211,7 +210,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "E",
                     "referencedDeclaration": 4,
                     "type": "enum C.E"

@@ -37,6 +37,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "d6cd4974",
           "id": 16,
           "implemented": true,

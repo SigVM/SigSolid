@@ -41,6 +41,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "e2179b8e",
             "implemented": true,
             "isConstructor": false,

@@ -102,7 +102,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "S",
                 "referencedDeclaration": 3,
                 "type": "struct C.S"
@@ -120,6 +119,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "ffae15ba",
             "implemented": true,
             "isConstructor": false,

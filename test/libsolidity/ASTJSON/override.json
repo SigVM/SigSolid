@@ -45,6 +45,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "a399b6a2",
           "id": 4,
           "implemented": true,
@@ -85,7 +86,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 6,
             "name": "A",
             "nodeType": "UserDefinedTypeName",
@@ -122,6 +122,7 @@
         {
           "body": null,
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "c2985578",
           "id": 10,
           "implemented": false,
@@ -163,6 +164,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "a399b6a2",
           "id": 15,
           "implemented": true,
@@ -209,7 +211,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 17,
             "name": "B",
             "nodeType": "UserDefinedTypeName",
@@ -258,6 +259,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "c2985578",
           "id": 23,
           "implemented": true,
@@ -305,6 +307,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "a399b6a2",
           "id": 30,
           "implemented": true,
@@ -319,7 +322,6 @@
             "overrides":
             [
               {
-                "contractScope": null,
                 "id": 25,
                 "name": "A",
                 "nodeType": "UserDefinedTypeName",
@@ -332,7 +334,6 @@
                 }
               },
               {
-                "contractScope": null,
                 "id": 26,
                 "name": "B",
                 "nodeType": "UserDefinedTypeName",

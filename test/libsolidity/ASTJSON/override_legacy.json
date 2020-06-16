@@ -49,6 +49,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "a399b6a2",
             "implemented": true,
             "isConstructor": false,
@@ -146,7 +147,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "A",
                 "referencedDeclaration": 5,
                 "type": "contract A"
@@ -165,6 +165,7 @@
           {
             "body": null,
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "c2985578",
             "implemented": false,
             "isConstructor": false,
@@ -221,6 +222,7 @@
               4
             ],
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "a399b6a2",
             "implemented": true,
             "isConstructor": false,
@@ -331,7 +333,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "B",
                 "referencedDeclaration": 16,
                 "type": "contract B"
@@ -353,6 +354,7 @@
               10
             ],
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "c2985578",
             "implemented": true,
             "isConstructor": false,
@@ -433,6 +435,7 @@
               15
             ],
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "a399b6a2",
             "implemented": true,
             "isConstructor": false,
@@ -455,7 +458,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "A",
                     "referencedDeclaration": 5,
                     "type": "contract A"
@@ -467,7 +469,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "B",
                     "referencedDeclaration": 16,
                     "type": "contract B"

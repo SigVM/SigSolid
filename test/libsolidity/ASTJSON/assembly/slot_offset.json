@@ -89,7 +89,6 @@
           },
           "typeName":
           {
-            "contractScope": null,
             "id": 4,
             "name": "S",
             "nodeType": "UserDefinedTypeName",
@@ -204,6 +203,7 @@
             ]
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "ffae15ba",
           "id": 10,
           "implemented": true,

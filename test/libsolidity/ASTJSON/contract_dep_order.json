@@ -54,7 +54,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 2,
             "name": "A",
             "nodeType": "UserDefinedTypeName",
@@ -98,7 +97,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 5,
             "name": "B",
             "nodeType": "UserDefinedTypeName",
@@ -144,7 +142,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 8,
             "name": "C",
             "nodeType": "UserDefinedTypeName",
@@ -192,7 +189,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 11,
             "name": "D",
             "nodeType": "UserDefinedTypeName",

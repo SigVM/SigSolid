@@ -37,6 +37,7 @@
             "statements": []
           },
           "documentation": null,
+          "freeFunction": false,
           "id": 4,
           "implemented": true,
           "kind": "receive",

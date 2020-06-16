@@ -49,6 +49,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "26121ff0",
             "implemented": true,
             "isConstructor": false,
@@ -143,6 +144,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "26121ff0",
             "implemented": true,
             "isConstructor": false,
@@ -242,7 +244,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "A",
                 "referencedDeclaration": 5,
                 "type": "contract A"
@@ -266,7 +267,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "B",
                 "referencedDeclaration": 10,
                 "type": "contract B"
@@ -289,6 +289,7 @@
               9
             ],
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "26121ff0",
             "implemented": true,
             "isConstructor": false,
@@ -311,7 +312,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "A",
                     "referencedDeclaration": 5,
                     "type": "contract A"
@@ -323,7 +323,6 @@
                 {
                   "attributes":
                   {
-                    "contractScope": null,
                     "name": "B",
                     "referencedDeclaration": 10,
                     "type": "contract B"

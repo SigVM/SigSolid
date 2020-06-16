@@ -121,6 +121,7 @@
             ]
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "b8c9d365",
           "id": 5,
           "implemented": true,

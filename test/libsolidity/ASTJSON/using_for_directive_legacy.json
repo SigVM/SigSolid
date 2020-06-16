@@ -77,7 +77,6 @@
             {
               "attributes":
               {
-                "contractScope": null,
                 "name": "L",
                 "referencedDeclaration": 1,
                 "type": "library L"

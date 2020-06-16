@@ -54,7 +54,6 @@
           "id": 4,
           "libraryName":
           {
-            "contractScope": null,
             "id": 2,
             "name": "L",
             "nodeType": "UserDefinedTypeName",

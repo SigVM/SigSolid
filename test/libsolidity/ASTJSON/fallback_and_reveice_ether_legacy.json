@@ -41,6 +41,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "implemented": true,
             "isConstructor": false,
             "kind": "receive",
@@ -105,6 +106,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "implemented": true,
             "isConstructor": false,
             "kind": "fallback",

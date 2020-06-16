@@ -96,6 +96,7 @@
           "attributes":
           {
             "documentation": null,
+            "freeFunction": false,
             "functionSelector": "fc68521a",
             "implemented": true,
             "isConstructor": false,

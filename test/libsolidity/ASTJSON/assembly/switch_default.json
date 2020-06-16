@@ -98,6 +98,7 @@
             ]
           },
           "documentation": null,
+          "freeFunction": false,
           "functionSelector": "e2179b8e",
           "id": 5,
           "implemented": true,

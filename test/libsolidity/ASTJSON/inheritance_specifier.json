@@ -42,7 +42,6 @@
           "arguments": null,
           "baseName":
           {
-            "contractScope": null,
             "id": 2,
             "name": "C1",
             "nodeType": "UserDefinedTypeName",

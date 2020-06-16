@@ -77,7 +77,6 @@
             "id": 7,
             "keyType":
             {
-              "contractScope": null,
               "id": 5,
               "name": "C",
               "nodeType": "UserDefinedTypeName",
@@ -187,7 +186,6 @@
             "id": 15,
             "keyType":
             {
-              "contractScope": null,
               "id": 13,
               "name": "E",
               "nodeType": "UserDefinedTypeName",
