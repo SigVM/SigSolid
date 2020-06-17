@@ -6,7 +6,7 @@ contract counter{
         require(count <= 10,"count already reach ten");
         emit sigl(count);
     }
-    function update() public {
+    function Start_Emit() public {
         count = count + 1;
         emit sigl(count);
     }
