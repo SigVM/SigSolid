@@ -23,9 +23,10 @@
 #include <libyul/AsmPrinter.h>
 #include <libyul/Exceptions.h>
 
-#include <libsolutil/Visitor.h>
 #include <libsolutil/CommonData.h>
 
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
@@ -61,13 +62,49 @@ string Object::toString(Dialect const* _dialect) const
 	return "object \"" + name.str() + "\" {\n" + indent(inner) + "\n}";
 }
 
-set<YulString> Object::dataNames() const
+set<YulString> Object::qualifiedDataNames() const
 {
-	set<YulString> names;
-	names.insert(name);
-	for (auto const& subObject: subIndexByName)
-		names.insert(subObject.first);
-	// The empty name is not valid
-	names.erase(YulString{});
-	return names;
+	set<YulString> qualifiedNames = {name};
+	for (shared_ptr<ObjectNode> const& subObjectNode: subObjects)
+	{
+		yulAssert(qualifiedNames.count(subObjectNode->name) == 0, "");
+		qualifiedNames.insert(subObjectNode->name);
+		if (auto const* subObject = dynamic_cast<Object const*>(subObjectNode.get()))
+			for (YulString const& subSubObj: subObject->qualifiedDataNames())
+				if (subObject->name != subSubObj)
+				{
+					yulAssert(qualifiedNames.count(YulString{subObject->name.str() + "." + subSubObj.str()}) == 0, "");
+					qualifiedNames.insert(YulString{subObject->name.str() + "." + subSubObj.str()});
+				}
+	}
+
+	qualifiedNames.erase(YulString{});
+	return qualifiedNames;
+}
+
+vector<size_t> Object::pathToSubObject(string _qualifiedName) const
+{
+	yulAssert(_qualifiedName != name.str(), "");
+
+	if (boost::algorithm::starts_with(_qualifiedName, name.str() + "."))
+		_qualifiedName = _qualifiedName.substr(name.str().length() + 1);
+
+	vector<string> subObjectPathStr;
+	boost::algorithm::split(subObjectPathStr, _qualifiedName, boost::is_punct());
+
+	vector<size_t> path;
+	Object const* object = this;
+	for (string const& currentSubObjectName: subObjectPathStr)
+	{
+		auto subIndexIt = object->subIndexByName.find(YulString{currentSubObjectName});
+		yulAssert(
+			subIndexIt != object->subIndexByName.end(),
+			"Could not find assembly object <" + _qualifiedName + ">."
+		);
+		object = dynamic_cast<Object const*>(object->subObjects[subIndexIt->second].get());
+		yulAssert(object, "Could not find assembly object <" + _qualifiedName + ">.");
+		path.push_back({object->subId});
+	}
+
+	return path;
 }
