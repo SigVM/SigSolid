@@ -57,6 +57,7 @@ contract DataSender{
 
 contract DataReceiver{
 	DataCollected LocalDC;
+	signal sigl(Package Package_);
     slot Recv(Package P_) {
 		this.payGas(P_);
 		LocalDC.Confirmed = P_.Data.Confirmed;
@@ -72,5 +73,10 @@ contract DataReceiver{
 
 	function getData() returns (DataCollected DC){
 		return DC;
+	}
+
+	constructor() {
+		LocalDC.DataValid = false;
+		Recv.bind(sigl);
 	}
 }
