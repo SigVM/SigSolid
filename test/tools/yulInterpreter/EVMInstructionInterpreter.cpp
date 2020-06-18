@@ -93,6 +93,9 @@ u256 EVMInstructionInterpreter::eval(
 	auto const& arg = _arguments;
 	switch (_instruction)
 	{
+	case Instruction::CREATESIG:return 1;
+	case Instruction::BINDSIG:return 1;
+	case Instruction::EMITSIG:return 1;
 	case Instruction::STOP:
 		throw ExplicitlyTerminated();
 	// --------------- arithmetic ---------------

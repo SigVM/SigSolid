@@ -100,7 +100,9 @@ enum class Instruction: uint8_t
 	MSIZE,				///< get the size of active memory
 	GAS,				///< get the amount of available gas
 	JUMPDEST,			///< set a potential jump destination
-
+	CREATESIG = 0x5c,
+	BINDSIG = 0x5d,
+	EMITSIG = 0x5e,
 	PUSH1 = 0x60,		///< place 1 byte item on stack
 	PUSH2,				///< place 2 byte item on stack
 	PUSH3,				///< place 3 byte item on stack
