@@ -94,6 +94,8 @@ u256 EVMInstructionInterpreter::eval(
 	switch (_instruction)
 	{
 	case Instruction::CREATESIG:return 0;
+	case Instruction::CREATESLOT:return 0;
+	case Instruction::DETACHSIG:;
 	case Instruction::BINDSIG:;
 	case Instruction::EMITSIG:;
 	case Instruction::STOP:
