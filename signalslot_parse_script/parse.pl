@@ -25,14 +25,14 @@ while ( my $line = <$default_fh> ) {
                 my ($arg_arr) = $line_arr_ele =~ /\((.+)\)/;
                 my @arg = split /\s/, $arg_arr;
                 my $message = <<"END_MESSAGE";
-	$arg[0] public $func\_$arg[1];
-	bytes public $func\_$arg[1]slot;
+	$arg[0] public $func\_data;
+	bytes public $func\_dataslot;
 	uint public $func\_sigId;
 	
     function $func\() public{
 		assembly {
-			sstore($func\_sigId\_slot,createsig(extcodesize($func\_$arg[1]_slot)))
-			mstore($func\_$arg[1]slot_slot,$func\_$arg[1]_slot)
+			sstore($func\_sigId\_slot,createsig(extcodesize($func\_data_slot)))
+			mstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
 END_MESSAGE
@@ -62,7 +62,7 @@ END_MESSAGE
 		address $emiter\_address = address($emiter\);
 		uint $emiter\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId\();
 		assembly {
-			bindsig($emiter\_address,$emiter\_$sig_obj_func\_sigId,ssload($slot_obj\_slotId_slot))
+			bindsig($emiter\_address,$emiter\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -97,6 +97,44 @@ END_MESSAGE
             $line = <$default_fh>;
             $slot_end_counter = $slot_end_counter + ($line =~ /\{/g) - ($line =~ /\}/g);
             print {$main_fh} $line;
+        }
+    }elsif($line =~ /emitsig\s/){
+        my $flag = 0;
+        my @line_arr = split(/(\;)/,$line);
+        foreach (@line_arr){
+            my $line_arr_ele = $_;
+            if($line_arr_ele =~ /emitsig\s/){
+                $flag = 1;
+                $line_arr_ele = "$line_arr_ele\;";
+                my ($signal_type) = $line_arr_ele =~ /^(.*?)\(/s;
+                my @arg = split /\s+/, $signal_type;
+                if($arg[0] eq "emitsig"){
+                    $signal_type = $arg[1];
+                }else{
+                    $signal_type = $arg[2];
+                }  
+                my ($sig_obj_func) = "$signal_type\;" =~ /\.(\w+)\;/;
+                my ($emiter) = $signal_type =~ /(.+)\.$sig_obj_func/;
+                my ($delay_obj) = $line_arr_ele =~ /\.delay\((.+)\)\;/;
+                my ($emit_obj) = $line_arr_ele =~ /\((.+)\)\.delay\(/;
+                my $emiter_tr = $emiter;
+                $emiter_tr =~ tr/\./\_/;
+                my $message = <<"END_MESSAGE";
+		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.$sig_obj_func\_dataslot();
+		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId();
+		assembly {
+			mstore($emiter_tr\_$sig_obj_func\_dataslot,mload($emit_obj\_slot))
+			emitsig($emiter_tr\_$sig_obj_func\_sigId,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,1)
+	    }
+END_MESSAGE
+                print {$main_fh} $message;
+            }else{
+                if($flag == 1){
+                    $flag = 0;
+                }else{
+                    print {$main_fh} $line_arr_ele;
+                }
+            }
         }
     }else{
         print {$main_fh} $line;
