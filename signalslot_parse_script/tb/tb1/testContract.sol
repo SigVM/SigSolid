@@ -1,6 +1,7 @@
 pragma solidity ^0.6.9;
 contract newtestContract {
-	signal PriceFeedUpdate(uint data);uint x;uint y;
+	signal PriceFeedUpdate(uint data);
+	uint x;uint y;
 	constructor() public {
 		{PriceFeedUpdate();}
 	}
@@ -20,6 +21,9 @@ contract testContract {
 	}
     function emitfunc() public view{
 		emitsig dut.PriceFeedUpdate(price_xyz).delay(ONE_HOUR);
+    }
+    function detachfunc() public view{
+		what_ever.detach(dut.PriceFeedUpdate);
     }
 }
 

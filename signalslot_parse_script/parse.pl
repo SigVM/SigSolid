@@ -58,11 +58,13 @@ END_MESSAGE
                 if($sig_obj =~ /\./){}else{$sig_obj = "this\.$sig_obj";}
                 my ($sig_obj_func) = "$sig_obj\)" =~ /\.(\w+)\)/;
                 my ($emiter) = $sig_obj =~ /(.+)\.$sig_obj_func/;
+                my $emiter_tr = $emiter;
+                $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
-		address $emiter\_address = address($emiter\);
-		uint $emiter\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId\();
+		address $emiter_tr\_address = address($emiter\);
+		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId\();
 		assembly {
-			bindsig($emiter\_address,$emiter\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
+			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -126,6 +128,37 @@ END_MESSAGE
 			mstore($emiter_tr\_$sig_obj_func\_dataslot,mload($emit_obj\_slot))
 			emitsig($emiter_tr\_$sig_obj_func\_sigId,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,1)
 	    }
+END_MESSAGE
+                print {$main_fh} $message;
+            }else{
+                if($flag == 1){
+                    $flag = 0;
+                }else{
+                    print {$main_fh} $line_arr_ele;
+                }
+            }
+        }
+    }elsif($line =~ /\.detach\(/){
+        my $flag = 0;
+        my @line_arr = split(/(\;)/,$line);
+        foreach (@line_arr){
+            my $line_arr_ele = $_;
+            if($line_arr_ele =~ /\.detach\(/){
+                $flag = 1;
+                $line_arr_ele = "$line_arr_ele\;";
+                my ($slot_obj) = $line_arr_ele =~ /(\w+)\.detach/;
+                my ($sig_obj) = $line_arr_ele =~ /\.detach\((.+)\)\;/;
+                if($sig_obj =~ /\./){}else{$sig_obj = "this\.$sig_obj";}
+                my ($sig_obj_func) = "$sig_obj\)" =~ /\.(\w+)\)/;
+                my ($emiter) = $sig_obj =~ /(.+)\.$sig_obj_func/;
+                my $emiter_tr = $emiter;
+                $emiter_tr =~ tr/\./\_/;
+                my $message = <<"END_MESSAGE";
+		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId();
+		address $emiter_tr\_address = address($emiter\);
+		assembly{
+			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
+		}
 END_MESSAGE
                 print {$main_fh} $message;
             }else{
