@@ -28,10 +28,12 @@ while ( my $line = <$default_fh> ) {
 	$arg[0] public $func\_data;
 	bytes public $func\_dataslot;
 	uint public $func\_sigId;
+    bytes4 public $func\_key;
 	
     function $func\() public{
+        $func\_key = keccak256(\"function $func\(\)\")\[0\];
 		assembly {
-			sstore($func\_sigId\_slot,createsig(extcodesize($func\_data_slot)))
+			sstore($func\_sigId\_slot,createsig(extcodesize($func\_data_slot),sload($func\_key_slot)))
 			mstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
@@ -86,10 +88,11 @@ END_MESSAGE
         my @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_slotId;
+    bytes4 public $slot_name\_codePtr;
     function $slot_name\() public{
-        bytes4 codePtr = keccak256(\"$slot_title\")\[0\];
+        $slot_name\_codePtr = keccak256(\"$slot_title\")\[0\];
         assembly {
-            sstore($slot_name\_slotId_slot,createslot(8,codePtr,1,2))
+            sstore($slot_name\_slotId_slot,createslot(8,sload($slot_name\_codePtr_slot),1,2))
         }		
     }
     function $slot_title public{
