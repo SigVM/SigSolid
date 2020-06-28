@@ -251,7 +251,7 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::CREATESIG,	        { "CREATESIG",		0, 2, 1, false, Tier::Special } },
 	{ Instruction::BINDSIG,	        { "BINDSIG",		0, 3, 0, false, Tier::Special } },
 	{ Instruction::EMITSIG,	        { "EMITSIG",		0, 4, 0, false, Tier::Special } },
-	{ Instruction::CREATESLOT,	        { "CREATESLOT",		0, 4, 1, false, Tier::Special } },
+	{ Instruction::CREATESLOT,	        { "CREATESLOT",		0, 5, 1, false, Tier::Special } },
 	{ Instruction::PUSH1,		{ "PUSH1",			1, 0, 1, false, Tier::VeryLow } },
 	{ Instruction::PUSH2,		{ "PUSH2",			2, 0, 1, false, Tier::VeryLow } },
 	{ Instruction::PUSH3,		{ "PUSH3",			3, 0, 1, false, Tier::VeryLow } },

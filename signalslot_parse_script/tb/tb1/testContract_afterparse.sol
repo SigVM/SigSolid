@@ -8,14 +8,14 @@ contract newtestContract {
     function PriceFeedUpdate() public{
         PriceFeedUpdate_key = keccak256("function PriceFeedUpdate()")[0];
 		assembly {
-			sstore(PriceFeedUpdate_sigId_slot,createsig(extcodesize(PriceFeedUpdate_data_slot),sload(PriceFeedUpdate_key_slot)))
+			sstore(PriceFeedUpdate_sigId_slot,createsig(32, sload(PriceFeedUpdate_key_slot)))
 			mstore(PriceFeedUpdate_dataslot_slot,PriceFeedUpdate_data_slot)
 		}
     }
 
 	uint x;uint y;
 	constructor() public {
-		{PriceFeedUpdate();}
+		PriceFeedUpdate();
 	}
 }
 contract testContract {
@@ -27,7 +27,7 @@ contract testContract {
     function what_ever() public{
         what_ever_codePtr = keccak256("what_ever_func(uint obj)")[0];
         assembly {
-            sstore(what_ever_slotId_slot,createslot(8,sload(what_ever_codePtr_slot),1,2))
+            sstore(what_ever_slotId_slot,createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot)))
         }		
     }
     function what_ever_func(uint obj) public{
@@ -49,7 +49,7 @@ contract testContract {
 		uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId();
 		assembly {
 			mstore(dut_PriceFeedUpdate_dataslot,mload(price_xyz_slot))
-			emitsig(dut_PriceFeedUpdate_sigId,ONE_HOUR,dut_PriceFeedUpdate_dataslot,1)
+			emitsig(dut_PriceFeedUpdate_sigId,ONE_HOUR,dut_PriceFeedUpdate_dataslot,32)
 	    }
 
     }
@@ -61,6 +61,9 @@ contract testContract {
 		}
 
     }
+	constructor() public {
+		what_ever();
+	}
 }
 
 

@@ -2,18 +2,16 @@
 use strict;
 use warnings;
 
-#print "$ARGV[0]+$ARGV[1] is ",$ARGV[0]+$ARGV[1],"\n";
+
 my $defaultfile = $ARGV[0];
 my $mainfile = $ARGV[1];
 
 open( my $default_fh, "<", $defaultfile ) or die $!;
 open( my $main_fh,    ">", $mainfile )    or die $!;
 
-#my $signal_exist;
-# my @signal_func;
-# push(@signal_func, $func);
+
 while ( my $line = <$default_fh> ) {
-    if($line =~ /signal\s/){
+    if($line =~ /signal\s/){#need to parse num of args
         my $flag = 0;
         my @line_arr = split(/(\;)/,$line);
         foreach (@line_arr){
@@ -31,9 +29,9 @@ while ( my $line = <$default_fh> ) {
     bytes4 public $func\_key;
 	
     function $func\() public{
-        $func\_key = keccak256(\"function $func\(\)\")\[0\];
+        $func\_key = keccak256(\"function $func\(\)\")[0];
 		assembly {
-			sstore($func\_sigId\_slot,createsig(extcodesize($func\_data_slot),sload($func\_key_slot)))
+			sstore($func\_sigId\_slot,createsig(32, sload($func\_key_slot)))
 			mstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
@@ -90,9 +88,9 @@ END_MESSAGE
     uint public $slot_name\_slotId;
     bytes4 public $slot_name\_codePtr;
     function $slot_name\() public{
-        $slot_name\_codePtr = keccak256(\"$slot_title\")\[0\];
+        $slot_name\_codePtr = keccak256(\"$slot_title\")[0];
         assembly {
-            sstore($slot_name\_slotId_slot,createslot(8,sload($slot_name\_codePtr_slot),1,2))
+            sstore($slot_name\_slotId_slot,createslot(32,sload($slot_name\_codePtr_slot),1,2,sload($slot_name\_codePtr_slot)))
         }		
     }
     function $slot_title public{
@@ -129,7 +127,7 @@ END_MESSAGE
 		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId();
 		assembly {
 			mstore($emiter_tr\_$sig_obj_func\_dataslot,mload($emit_obj\_slot))
-			emitsig($emiter_tr\_$sig_obj_func\_sigId,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,1)
+			emitsig($emiter_tr\_$sig_obj_func\_sigId,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32)
 	    }
 END_MESSAGE
                 print {$main_fh} $message;

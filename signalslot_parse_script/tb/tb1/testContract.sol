@@ -3,7 +3,7 @@ contract newtestContract {
 	signal PriceFeedUpdate(uint data);
 	uint x;uint y;
 	constructor() public {
-		{PriceFeedUpdate();}
+		PriceFeedUpdate();
 	}
 }
 contract testContract {
@@ -25,6 +25,9 @@ contract testContract {
     function detachfunc() public view{
 		what_ever.detach(dut.PriceFeedUpdate);
     }
+	constructor() public {
+		what_ever();
+	}
 }
 
 
