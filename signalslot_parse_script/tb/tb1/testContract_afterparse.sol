@@ -1,6 +1,6 @@
 pragma solidity ^0.6.9;
 contract newtestContract {
-	uint public PriceFeedUpdate_data;
+	bytes32 public PriceFeedUpdate_data;
 	bytes public PriceFeedUpdate_dataslot;
 	uint public PriceFeedUpdate_sigId;
     bytes4 public PriceFeedUpdate_key;
@@ -20,17 +20,17 @@ contract newtestContract {
 }
 contract testContract {
 	newtestContract dut;
-	uint price_xyz;
+	bytes32 price_xyz;
 	uint public constant ONE_HOUR = 180; // 3600/20
     uint public what_ever_slotId;
     bytes4 public what_ever_codePtr;
     function what_ever() public{
-        what_ever_codePtr = keccak256("what_ever_func(uint obj)")[0];
+        what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0];
         assembly {
             sstore(what_ever_slotId_slot,createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot)))
         }		
     }
-    function what_ever_func(uint obj) public{
+    function what_ever_func(bytes32 obj) public{
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}

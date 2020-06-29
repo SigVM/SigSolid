@@ -11,7 +11,7 @@ open( my $main_fh,    ">", $mainfile )    or die $!;
 
 
 while ( my $line = <$default_fh> ) {
-    if($line =~ /signal\s/){#need to parse num of args
+    if($line =~ /signal\s/){
         my $flag = 0;
         my @line_arr = split(/(\;)/,$line);
         foreach (@line_arr){
@@ -22,6 +22,14 @@ while ( my $line = <$default_fh> ) {
                 $func =~ s/^\s+|\s+$//g;
                 my ($arg_arr) = $line_arr_ele =~ /\((.+)\)/;
                 my @arg = split /\s/, $arg_arr;
+                my $argc = 0;
+                if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
+                    $argc = 32;
+                }elsif($arg[0] eq "byte"){
+                    $argc = 1;
+                }elsif($arg[0] =~ /byte/){
+                    ($argc) = $arg[0] =~ /(\d+)/;
+                }
                 my $message = <<"END_MESSAGE";
 	$arg[0] public $func\_data;
 	bytes public $func\_dataslot;
@@ -31,7 +39,7 @@ while ( my $line = <$default_fh> ) {
     function $func\() public{
         $func\_key = keccak256(\"function $func\(\)\")[0];
 		assembly {
-			sstore($func\_sigId\_slot,createsig(32, sload($func\_key_slot)))
+			sstore($func\_sigId\_slot,createsig($argc, sload($func\_key_slot)))
 			mstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
@@ -84,13 +92,21 @@ END_MESSAGE
         my ($slot_title) = $line =~ /$slot_name(.+)\)/;
         $slot_title = "$slot_name\_func$slot_title\)";
         my @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
+        my $argc = 0;
+        if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
+            $argc = 32;
+        }elsif($arg[0] eq "byte"){
+            $argc = 1;
+        }elsif($arg[0] =~ /byte/){
+            ($argc) = $arg[0] =~ /(\d+)/;
+        }
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_slotId;
     bytes4 public $slot_name\_codePtr;
     function $slot_name\() public{
         $slot_name\_codePtr = keccak256(\"$slot_title\")[0];
         assembly {
-            sstore($slot_name\_slotId_slot,createslot(32,sload($slot_name\_codePtr_slot),1,2,sload($slot_name\_codePtr_slot)))
+            sstore($slot_name\_slotId_slot,createslot($argc,sload($slot_name\_codePtr_slot),1,2,sload($slot_name\_codePtr_slot)))
         }		
     }
     function $slot_title public{
@@ -101,7 +117,7 @@ END_MESSAGE
             $slot_end_counter = $slot_end_counter + ($line =~ /\{/g) - ($line =~ /\}/g);
             print {$main_fh} $line;
         }
-    }elsif($line =~ /emitsig\s/){
+    }elsif($line =~ /emitsig\s/){#TODO: emitsig need num of arg?
         my $flag = 0;
         my @line_arr = split(/(\;)/,$line);
         foreach (@line_arr){

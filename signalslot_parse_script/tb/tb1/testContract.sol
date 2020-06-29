@@ -1,6 +1,6 @@
 pragma solidity ^0.6.9;
 contract newtestContract {
-	signal PriceFeedUpdate(uint data);
+	signal PriceFeedUpdate(bytes32 data);
 	uint x;uint y;
 	constructor() public {
 		PriceFeedUpdate();
@@ -8,9 +8,9 @@ contract newtestContract {
 }
 contract testContract {
 	newtestContract dut;
-	uint price_xyz;
+	bytes32 price_xyz;
 	uint public constant ONE_HOUR = 180; // 3600/20
-	slot what_ever(uint obj){
+	slot what_ever(bytes32 obj){
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}
