@@ -4,6 +4,6 @@
   pop(f())
 }
 // ----
-// :
-// f:
-// g:
+// : movable, movable apart from effects, can be removed, can be removed if no msize, can loop
+// f: movable, movable apart from effects, can be removed, can be removed if no msize, can loop
+// g: movable, movable apart from effects, can be removed, can be removed if no msize, can loop

@@ -24,6 +24,7 @@
 #pragma once
 
 #include <libevmasm/Instruction.h>
+#include <libyul/SideEffects.h>
 
 namespace solidity::evmasm
 {
@@ -56,20 +57,23 @@ struct SemanticInformation
 	/// without altering the semantics. This means it cannot depend on storage or memory,
 	/// cannot have any side-effects, but it can depend on a call-constant state of the blockchain.
 	static bool movable(Instruction _instruction);
+	/// If true, the expressions in this code can be moved or copied (together with their arguments)
+	/// across control flow branches and instructions as long as these instructions's 'effects' does
+	/// not influence the 'effects' of the aforementioned expressions.
+	static bool movableApartFromEffects(Instruction _instruction);
 	/// @returns true if the instruction can be removed without changing the semantics.
 	/// This does not mean that it has to be deterministic or retrieve information from
 	/// somewhere else than purely the values of its arguments.
-	static bool sideEffectFree(Instruction _instruction);
+	static bool canBeRemoved(Instruction _instruction);
 	/// @returns true if the instruction can be removed without changing the semantics.
 	/// This does not mean that it has to be deterministic or retrieve information from
 	/// somewhere else than purely the values of its arguments.
 	/// If true, the instruction is still allowed to influence the value returned by the
 	/// msize instruction.
-	static bool sideEffectFreeIfNoMSize(Instruction _instruction);
-	/// @returns true if the given instruction modifies memory.
-	static bool invalidatesMemory(Instruction _instruction);
-	/// @returns true if the given instruction modifies storage (even indirectly).
-	static bool invalidatesStorage(Instruction _instruction);
+	static bool canBeRemovedIfNoMSize(Instruction _instruction);
+	static yul::SideEffects::Effect memory(Instruction _instruction);
+	static yul::SideEffects::Effect storage(Instruction _instruction);
+	static yul::SideEffects::Effect otherState(Instruction _instruction);
 	static bool invalidInPureFunctions(Instruction _instruction);
 	static bool invalidInViewFunctions(Instruction _instruction);
 };

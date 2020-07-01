@@ -154,8 +154,10 @@ KnownState::StoreOperation KnownState::feedItem(AssemblyItem const& _item, bool 
 				);
 				break;
 			default:
-				bool invMem = SemanticInformation::invalidatesMemory(_item.instruction());
-				bool invStor = SemanticInformation::invalidatesStorage(_item.instruction());
+				bool invMem =
+					SemanticInformation::memory(_item.instruction()) == yul::SideEffects::Write;
+				bool invStor =
+					SemanticInformation::storage(_item.instruction()) == yul::SideEffects::Write;
 				// We could be a bit more fine-grained here (CALL only invalidates part of
 				// memory, etc), but we do not for now.
 				if (invMem)
@@ -419,4 +421,3 @@ KnownState::Id KnownState::tagUnion(set<u256> _tags)
 		return id;
 	}
 }
-

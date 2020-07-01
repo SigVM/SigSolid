@@ -95,19 +95,13 @@ map<YulString, SideEffects> SideEffectsPropagator::sideEffects(
 	CallGraph const& _directCallGraph
 )
 {
-	// Any loop currently makes a function non-movable, because
-	// it could be a non-terminating loop.
-	// The same is true for any function part of a call cycle.
-	// In the future, we should refine that, because the property
-	// is actually a bit different from "not movable".
+	// Any loop or recursion currently sets a function's `cannotLoop` flag to false, and therefore,
+	// non-movable, because it could be a non-terminating loop. The same is true for any function
+	// that is part of a call cycle.
 
 	map<YulString, SideEffects> ret;
 	for (auto const& function: _directCallGraph.functionsWithLoops)
-	{
-		ret[function].movable = false;
-		ret[function].sideEffectFree = false;
-		ret[function].sideEffectFreeIfNoMSize = false;
-	}
+		ret[function].cannotLoop = false;
 
 	// Detect recursive functions.
 	for (auto const& call: _directCallGraph.functionCalls)
@@ -122,11 +116,7 @@ map<YulString, SideEffects> SideEffectsPropagator::sideEffects(
 						return;
 		};
 		if (util::CycleDetector<YulString>(search).run(call.first))
-		{
-			ret[call.first].movable = false;
-			ret[call.first].sideEffectFree = false;
-			ret[call.first].sideEffectFreeIfNoMSize = false;
-		}
+			ret[call.first].cannotLoop = false;
 	}
 
 	for (auto const& call: _directCallGraph.functionCalls)
