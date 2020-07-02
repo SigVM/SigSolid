@@ -656,8 +656,7 @@ string IRGenerator::memoryInit()
 	// and thus can assume all memory to be zero, including the contents of
 	// the "zero memory area" (the position CompilerUtils::zeroPointer points to).
 	return
-		Whiskers{"mstore(<memPtr>, <freeMemoryStart>)"}
-		("memPtr", to_string(CompilerUtils::freeMemoryPointer))
+		Whiskers{"memoryinit(<freeMemoryStart>)"}
 		("freeMemoryStart", to_string(CompilerUtils::generalPurposeMemoryStart + m_context.reservedMemory()))
 		.render();
 }

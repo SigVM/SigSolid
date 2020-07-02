@@ -1215,6 +1215,9 @@ function revert(x1, x2, x3, x4, y1, y2, y3, y4) {
 function invalid() {
 	unreachable()
 }
+function memoryinit(x:i64) {
+	mstore(0:i64, 0:i64, 0:i64, 0x40:i64, 0:i64, 0:i64, 0:i64, x)
+}
 }
 )"};
 
