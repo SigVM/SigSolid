@@ -34,10 +34,10 @@ while ( my $line = <$default_fh> ) {
 	$arg[0] public $func\_data;
 	bytes public $func\_dataslot;
 	uint public $func\_sigId;
-    bytes4 public $func\_key;
+    bytes32 public $func\_key;
 	
     function $func\() public{
-        $func\_key = keccak256(\"function $func\(\)\")[0];
+        $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
 			sstore($func\_sigId\_slot,createsig($argc, sload($func\_key_slot)))
 			mstore($func\_dataslot_slot,$func\_data_slot)
@@ -102,9 +102,9 @@ END_MESSAGE
         }
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_slotId;
-    bytes4 public $slot_name\_codePtr;
+    bytes32 public $slot_name\_codePtr;
     function $slot_name\() public{
-        $slot_name\_codePtr = keccak256(\"$slot_title\")[0];
+        $slot_name\_codePtr = keccak256(\"$slot_title\");
         assembly {
             sstore($slot_name\_slotId_slot,createslot($argc,sload($slot_name\_codePtr_slot),1,2,sload($slot_name\_codePtr_slot)))
         }		

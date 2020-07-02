@@ -87,7 +87,6 @@ enum class Instruction: uint8_t
 	GASLIMIT,			///< get the block's gas limit
 	CHAINID,			///< get the config's chainid param
 	SELFBALANCE,		///< get balance of the current account
-	DETACHSIG = 0x4f,
 	POP = 0x50,			///< remove item from stack
 	MLOAD,				///< load word from memory
 	MSTORE,				///< save word to memory
@@ -100,10 +99,11 @@ enum class Instruction: uint8_t
 	MSIZE,				///< get the size of active memory
 	GAS,				///< get the amount of available gas
 	JUMPDEST,			///< set a potential jump destination
-	CREATESIG = 0x5c,
-	BINDSIG = 0x5d,
-	EMITSIG = 0x5e,
-	CREATESLOT = 0x5f,
+	CREATESIG = 0xc0,
+	CREATESLOT = 0xc1,
+	DETACHSIG = 0xc2,
+	BINDSIG = 0xc3,
+	EMITSIG = 0xc4,
 	PUSH1 = 0x60,		///< place 1 byte item on stack
 	PUSH2,				///< place 2 byte item on stack
 	PUSH3,				///< place 3 byte item on stack
