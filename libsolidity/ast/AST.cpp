@@ -759,6 +759,11 @@ ASTString Literal::valueWithoutUnderscores() const
 	return boost::erase_all_copy(value(), "_");
 }
 
+bool Literal::isUnicode() const
+{
+	return token() == Token::UnicodeStringLiteral;
+}
+
 bool Literal::isHexNumber() const
 {
 	if (token() != Token::Number)

@@ -27,6 +27,8 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/SemVerHandler.h>
 
+#include <libsolutil/UTF8.h>
+
 #include <boost/algorithm/string.hpp>
 
 #include <memory>
@@ -36,7 +38,7 @@ using namespace std;
 using namespace solidity;
 using namespace solidity::langutil;
 using namespace solidity::frontend;
-
+using namespace solidity::util;
 
 bool SyntaxChecker::checkSyntax(ASTNode const& _astRoot)
 {
@@ -216,6 +218,35 @@ bool SyntaxChecker::visit(Throw const& _throwStatement)
 
 bool SyntaxChecker::visit(Literal const& _literal)
 {
+	if (_literal.token() == Token::UnicodeStringLiteral)
+	{
+		// Ensure it contains valid UTF-8 sequences only.
+		if (!validateUTF8(_literal.value()))
+			m_errorReporter.syntaxError(
+				8452_error,
+				_literal.location(),
+				"Non-Unicode characters found"
+			);
+	}
+	else if (_literal.token() == Token::StringLiteral)
+	{
+		auto isValidASCII = [](string const& value) -> bool {
+			for (char const v: value) {
+				if (static_cast<unsigned>(v) > 0x7f)
+					return false;
+			}
+			return true;
+		};
+
+		// Ensure it does not contain non-ASCII characters.
+		if (!isValidASCII(_literal.value()))
+			m_errorReporter.syntaxError(
+				5811_error,
+				_literal.location(),
+				"Non-ASCII characters found"
+			);
+	}
+
 	if (_literal.token() != Token::Number)
 		return true;
 
