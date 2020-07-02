@@ -50,7 +50,14 @@ if (OSSFUZZ)
     )
     set_target_properties(yul_proto_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
 
-    add_executable(yul_proto_diff_ossfuzz yulProto_diff_ossfuzz.cpp yulFuzzerCommon.cpp protoToYul.cpp yulProto.pb.cc)
+    add_executable(
+	    yul_proto_diff_ossfuzz
+	    yulProto_diff_ossfuzz.cpp
+	    yulFuzzerCommon.cpp
+	    protoToYul.cpp
+	    yulProto.pb.cc
+	    YulOptimizerStepTest.cpp
+    )
     target_include_directories(yul_proto_diff_ossfuzz PRIVATE /usr/include/libprotobuf-mutator)
     target_link_libraries(yul_proto_diff_ossfuzz PRIVATE yul
             yulInterpreter
