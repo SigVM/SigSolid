@@ -35,9 +35,9 @@ contract testContract {
 	}
 	function bindfunc() public {
 		address dut_address = address(dut);
-		uint dut_PriceFeedUpdate_status = dut.PriceFeedUpdate_status();
+		bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key();
 		assembly {
-			bindsig(dut_address,dut_PriceFeedUpdate_status,sload(what_ever_status_slot))
+			bindsig(dut_address,dut_PriceFeedUpdate_key,sload(what_ever_codePtr_slot))
 	    }
 	}
     function emitfunc() public {
