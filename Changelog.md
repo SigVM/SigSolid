@@ -5,6 +5,7 @@ Language Features:
 
 Compiler Features:
  * Code Generator: Evaluate ``keccak256`` of string literals at compile-time.
+ * Yul Optimizer: LoopInvariantCodeMotion can move reading operations outside for-loops as long as the affected area is not modified inside the loop.
 
 Bugfixes:
  * Type Checker: Fix overload resolution in combination with ``{value: ...}``.
