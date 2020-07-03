@@ -33,13 +33,13 @@ while ( my $line = <$default_fh> ) {
                 my $message = <<"END_MESSAGE";
 	$arg[0] public $func\_data;
 	bytes public $func\_dataslot;
-	uint public $func\_sigId;
+	uint public $func\_status;
     bytes32 public $func\_key;
 	
     function $func\() public{
         $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
-			sstore($func\_sigId\_slot,createsig($argc, sload($func\_key_slot)))
+			sstore($func\_status\_slot,createsig($argc, sload($func\_key_slot)))
 			mstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
@@ -70,9 +70,9 @@ END_MESSAGE
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
 		address $emiter_tr\_address = address($emiter\);
-		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId\();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key\();
 		assembly {
-			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
+			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_codePtr_slot))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -90,7 +90,7 @@ END_MESSAGE
         my ($slot_name) = $line =~ /([\w,\_]+)\(/;
         my ($slot_obj) = $line =~ /\((.+)\)/;
         my ($slot_title) = $line =~ /$slot_name(.+)\)/;
-        $slot_title = "$slot_name\_func$slot_title\)";
+        $slot_title = "$slot_name\_func$slot_title\, bool initFlag\)";
         my @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
         my $argc = 0;
         if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
@@ -101,20 +101,26 @@ END_MESSAGE
             ($argc) = $arg[0] =~ /(\d+)/;
         }
         my $message = <<"END_MESSAGE";
-    uint public $slot_name\_slotId;
+    uint public $slot_name\_status;
     bytes32 public $slot_name\_codePtr;
     function $slot_name\() public{
-        $slot_name\_codePtr = keccak256(\"$slot_title\");
         assembly {
-            sstore($slot_name\_slotId_slot,createslot($argc,sload($slot_name\_codePtr_slot),1,2,sload($slot_name\_codePtr_slot)))
+            sstore($slot_name\_status_slot,createslot($argc,1,2,0x03,sload($slot_name\_codePtr_slot)))
         }		
     }
     function $slot_title public{
+		assembly{
+			sstore($slot_name\_codePtr_slot,pc())
+		}
+        if (!initFlag) {
 END_MESSAGE
         print {$main_fh} $message;
         while ($slot_end_counter != 0){
             $line = <$default_fh>;
             $slot_end_counter = $slot_end_counter + ($line =~ /\{/g) - ($line =~ /\}/g);
+            if($slot_end_counter == 0){
+                print {$main_fh} "\}\n";
+            }
             print {$main_fh} $line;
         }
     }elsif($line =~ /emitsig\s/){#TODO: emitsig need num of arg?
@@ -140,10 +146,10 @@ END_MESSAGE
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
 		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.$sig_obj_func\_dataslot();
-		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key();
 		assembly {
 			mstore($emiter_tr\_$sig_obj_func\_dataslot,mload($emit_obj\_slot))
-			emitsig($emiter_tr\_$sig_obj_func\_sigId,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32)
+			emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32)
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -171,10 +177,10 @@ END_MESSAGE
                 my $emiter_tr = $emiter;
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
-		uint $emiter_tr\_$sig_obj_func\_sigId = $emiter\.$sig_obj_func\_sigId();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key();
 		address $emiter_tr\_address = address($emiter\);
 		assembly{
-			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_sigId,sload($slot_obj\_slotId_slot))
+			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_codePtr_slot))
 		}
 END_MESSAGE
                 print {$main_fh} $message;
