@@ -46,19 +46,26 @@ public:
 
 private:
 	explicit LoopInvariantCodeMotion(
+		bool _containsMSize,
 		Dialect const& _dialect,
 		std::set<YulString> const& _ssaVariables,
 		std::map<YulString, SideEffects> const& _functionSideEffects
 	):
+		m_containsMSize(_containsMSize),
 		m_dialect(_dialect),
 		m_ssaVariables(_ssaVariables),
 		m_functionSideEffects(_functionSideEffects)
 	{ }
 
 	/// @returns true if the given variable declaration can be moved to in front of the loop.
-	bool canBePromoted(VariableDeclaration const& _varDecl, std::set<YulString> const& _varsDefinedInCurrentScope) const;
+	bool canBePromoted(
+		VariableDeclaration const& _varDecl,
+		std::set<YulString> const& _varsDefinedInCurrentScope,
+		SideEffects const& _forLoopSideEffects
+	) const;
 	std::optional<std::vector<Statement>> rewriteLoop(ForLoop& _for);
 
+	bool m_containsMSize = true;
 	Dialect const& m_dialect;
 	std::set<YulString> const& m_ssaVariables;
 	std::map<YulString, SideEffects> const& m_functionSideEffects;
