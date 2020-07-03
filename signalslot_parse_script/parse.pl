@@ -103,9 +103,11 @@ END_MESSAGE
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_status;
     bytes32 public $slot_name\_codePtr;
+    bytes32 public $slot_name\_key;
     function $slot_name\() public{
+        $slot_name\_key = keccak256(\"function $slot_name\()");
         assembly {
-            sstore($slot_name\_status_slot,createslot($argc,1,2,0x03,sload($slot_name\_codePtr_slot)))
+            sstore($slot_name\_status_slot,createslot($argc,1,2,sload($slot_name\_codePtr_slot),sload($slot_name\_key_slot)))
         }		
     }
     function $slot_title public{
