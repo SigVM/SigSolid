@@ -18,7 +18,6 @@
 #include <libyul/optimiser/VarNameCleaner.h>
 #include <libyul/AsmData.h>
 #include <libyul/Dialect.h>
-#include <libyul/AsmParser.h>
 #include <libyul/backends/evm/EVMDialect.h>
 #include <algorithm>
 #include <cctype>
@@ -112,8 +111,6 @@ bool VarNameCleaner::isUsedName(YulString const& _name) const
 {
 	if (_name.empty() || m_dialect.builtin(_name) || m_usedNames.count(_name))
 		return true;
-	if (dynamic_cast<EVMDialect const*>(&m_dialect))
-		return Parser::instructions().count(_name.str());
 	return false;
 }
 
