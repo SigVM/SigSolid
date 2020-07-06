@@ -27,12 +27,17 @@
 #include <libyul/optimiser/Metrics.h>
 #include <libyul/optimiser/SSAValueTracker.h>
 #include <libyul/optimiser/Semantics.h>
+#include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/Exceptions.h>
 #include <libyul/AsmData.h>
 #include <libyul/Dialect.h>
 
 #include <libsolutil/CommonData.h>
 #include <libsolutil/Visitor.h>
+
+#include <boost/range/algorithm_ext/erase.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/sort.hpp>
 
 using namespace std;
 using namespace solidity;
@@ -73,17 +78,60 @@ FullInliner::FullInliner(Block& _ast, NameDispenser& _dispenser, Dialect const& 
 
 void FullInliner::run()
 {
+	for (FunctionDefinition* fun: sortByDepth(m_functions))
+	{
+		handleBlock(fun->name, fun->body);
+		updateCodeSize(*fun);
+	}
+
 	for (auto& statement: m_ast.statements)
 		if (holds_alternative<Block>(statement))
 			handleBlock({}, std::get<Block>(statement));
+}
 
-	// TODO it might be good to determine a visiting order:
-	// first handle functions that are called from many places.
-	for (auto const& fun: m_functions)
+vector<FunctionDefinition*> FullInliner::sortByDepth(map<YulString, FunctionDefinition*> const& _functions)
+{
+	CallGraph cg = CallGraphGenerator::callGraph(m_ast);
+
+	// Remove calls to builtin functions.
+	for (auto& call: cg.functionCalls)
+		for (auto it = call.second.begin(); it != call.second.end();)
+			if (!_functions.count(*it))
+				it = call.second.erase(it);
+			else
+				++it;
+	cg.functionCalls.erase(""_yulstring);
+
+	vector<FunctionDefinition*> sortedFunctions;
+
+	while (true)
 	{
-		handleBlock(fun.second->name, fun.second->body);
-		updateCodeSize(*fun.second);
+		vector<YulString> removed;
+		for (auto it = cg.functionCalls.begin(); it != cg.functionCalls.end();)
+		{
+			auto const& [fun, callees] = *it;
+			if (callees.empty())
+			{
+				removed.emplace_back(fun);
+				sortedFunctions.emplace_back(_functions.at(fun));
+				it = cg.functionCalls.erase(it);
+			}
+			else
+				++it;
+		}
+
+		for (auto& [fun, callees]: cg.functionCalls)
+			callees -= removed;
+
+		if (removed.empty())
+			break;
 	}
+
+	// Only recursive functions left here.
+	for (auto const& fun: cg.functionCalls)
+		sortedFunctions.emplace_back(_functions.at(fun.first));
+
+	return sortedFunctions;
 }
 
 bool FullInliner::shallInline(FunctionCall const& _funCall, YulString _callSite)

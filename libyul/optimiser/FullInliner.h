@@ -93,6 +93,8 @@ private:
 	FullInliner(Block& _ast, NameDispenser& _dispenser, Dialect const& _dialect);
 	void run();
 
+	std::vector<FunctionDefinition*> sortByDepth(std::map<YulString, FunctionDefinition*> const& _functions);
+
 	void updateCodeSize(FunctionDefinition const& _fun);
 	void handleBlock(YulString _currentFunctionName, Block& _block);
 	bool recursive(FunctionDefinition const& _fun) const;
