@@ -327,6 +327,8 @@ namespace TokenTraits
 	// operators; returns 0 otherwise.
 	int precedence(Token tok);
 
+	Token keywordByName(std::string const& _name);
+
 	std::tuple<Token, unsigned int, unsigned int> fromIdentifierOrKeyword(std::string const& _literal);
 
 	// @returns a string corresponding to the C++ token name

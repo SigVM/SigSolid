@@ -139,7 +139,7 @@ int parseSize(string::const_iterator _begin, string::const_iterator _end)
 	}
 }
 
-static Token keywordByName(string const& _name)
+Token keywordByName(string const& _name)
 {
 	// The following macros are used inside TOKEN_LIST and cause non-keyword tokens to be ignored
 	// and keywords to be put inside the keywords variable.
