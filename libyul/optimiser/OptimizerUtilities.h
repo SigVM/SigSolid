@@ -22,11 +22,15 @@
 
 #include <libsolutil/Common.h>
 #include <libyul/AsmDataForward.h>
+#include <libyul/Dialect.h>
+#include <libyul/YulString.h>
 
 namespace solidity::yul
 {
 
 /// Removes statements that are just empty blocks (non-recursive).
 void removeEmptyBlocks(Block& _block);
+
+bool isRestrictedIdentifier(Dialect const& _dialect, YulString const& _identifier);
 
 }
