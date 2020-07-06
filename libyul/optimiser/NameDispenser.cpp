@@ -27,9 +27,11 @@
 #include <libyul/AsmParser.h>
 
 #include <libevmasm/Instruction.h>
+#include <liblangutil/Token.h>
 
 using namespace std;
 using namespace solidity;
+using namespace solidity::langutil;
 using namespace solidity::yul;
 using namespace solidity::util;
 
@@ -59,6 +61,8 @@ YulString NameDispenser::newName(YulString _nameHint)
 bool NameDispenser::illegalName(YulString _name)
 {
 	if (_name.empty() || m_usedNames.count(_name) || m_dialect.builtin(_name))
+		return true;
+	if (TokenTraits::keywordByName(_name.str()) != Token::Identifier)
 		return true;
 	if (dynamic_cast<EVMDialect const*>(&m_dialect))
 		return Parser::instructions().count(_name.str());
