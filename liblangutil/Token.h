@@ -323,6 +323,12 @@ namespace TokenTraits
 		return static_cast<Token>(static_cast<int>(op) + (static_cast<int>(Token::BitOr) - static_cast<int>(Token::AssignBitOr)));
 	}
 
+	constexpr bool isYulToken(Token tok)
+	{
+		return tok == Token::Function || tok == Token::Let || tok == Token::If || tok == Token::Switch || tok == Token::Case
+			|| tok == Token::Default || tok == Token::For || tok == Token::Break || tok == Token::Continue /*|| tok == Token::Leave*/;
+	}
+
 	// @returns the precedence > 0 for binary and compare
 	// operators; returns 0 otherwise.
 	int precedence(Token tok);

@@ -493,21 +493,9 @@ TypedName Parser::parseTypedName()
 YulString Parser::expectAsmIdentifier()
 {
 	YulString name{currentLiteral()};
-	switch (currentToken())
-	{
-	case Token::Return:
-	case Token::Byte:
-	case Token::Address:
-	case Token::Bool:
-	case Token::Identifier:
-	case Token::Var:
-	case Token::In:
-		break;
-	default:
+	const auto token = currentToken();
+	if (token != Token::Identifier && TokenTraits::isYulToken(token))
 		expectToken(Token::Identifier);
-		break;
-	}
-
 	if (m_dialect.builtin(name))
 		fatalParserError(5568_error, "Cannot use builtin function name \"" + name.str() + "\" as identifier name.");
 	advance();
