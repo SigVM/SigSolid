@@ -82,7 +82,7 @@ void CHCSmtLib2Interface::addRule(Expression const& _expr, std::string const& _n
 	);
 }
 
-pair<CheckResult, vector<string>> CHCSmtLib2Interface::query(Expression const& _block)
+pair<CheckResult, CHCSolverInterface::CexGraph> CHCSmtLib2Interface::query(Expression const& _block)
 {
 	string accumulated{};
 	swap(m_accumulatedOutput, accumulated);
@@ -107,7 +107,7 @@ pair<CheckResult, vector<string>> CHCSmtLib2Interface::query(Expression const& _
 		result = CheckResult::ERROR;
 
 	// TODO collect invariants or counterexamples.
-	return make_pair(result, vector<string>{});
+	return {result, {}};
 }
 
 void CHCSmtLib2Interface::declareVariable(string const& _name, SortPointer const& _sort)
