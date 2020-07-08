@@ -504,15 +504,21 @@ pair<smtutil::Expression, smtutil::Expression> BMC::arithmeticOperation(
 		intType = TypeProvider::uint256();
 
 	// Mod does not need underflow/overflow checks.
-	// Div only needs overflow check for signed types.
-	if (_op == Token::Mod || (_op == Token::Div && !intType->isSigned()))
+	if (_op == Token::Mod)
 		return values;
 
 	VerificationTarget::Type type;
 	// The order matters here:
 	// If _op is Div, intType is signed, but we only care about overflow.
 	if (_op == Token::Div)
-		type = VerificationTarget::Type::Overflow;
+	{
+		if (intType->isSigned())
+			// Signed division can only overflow.
+			type = VerificationTarget::Type::Overflow;
+		else
+			// Unsigned division cannot underflow/overflow.
+			return values;
+	}
 	else if (intType->isSigned())
 		type = VerificationTarget::Type::UnderOverflow;
 	else if (_op == Token::Sub)
