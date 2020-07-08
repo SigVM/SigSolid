@@ -3092,7 +3092,17 @@ string FunctionType::canonicalName() const
 
 string FunctionType::toString(bool _short) const
 {
-	string name = "function ";
+	string name;
+	switch (m_kind)
+	{
+	case Kind::Declaration:
+	case Kind::Internal:
+	case Kind::External:
+		name = "function ";
+		break;
+	default:
+		name = "builtin function ";
+	}
 	if (m_kind == Kind::Declaration)
 	{
 		auto const* functionDefinition = dynamic_cast<FunctionDefinition const*>(m_declaration);
