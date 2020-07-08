@@ -495,13 +495,10 @@ void CHC::visitAssert(FunctionCall const& _funCall)
 	auto previousError = m_error.currentValue();
 	m_error.increaseIndex();
 
-	unsigned errorId = m_context.newSlackId();
-	m_errorIds.emplace(_funCall.id(), errorId);
-
 	connectBlocks(
 		m_currentBlock,
 		m_currentFunction->isConstructor() ? summary(*m_currentContract) : summary(*m_currentFunction),
-		currentPathConditions() && !m_context.expression(*args.front())->currentValue() && m_error.currentValue() == errorId
+		currentPathConditions() && !m_context.expression(*args.front())->currentValue() && m_error.currentValue() == newErrorId(_funCall)
 	);
 
 	m_context.addAssertion(m_error.currentValue() == previousError);
@@ -594,13 +591,11 @@ void CHC::makeArrayPopVerificationTarget(FunctionCall const& _arrayPop)
 	auto previousError = m_error.currentValue();
 	m_error.increaseIndex();
 
-	unsigned errorId = m_context.newSlackId();
-	m_errorIds.emplace(_arrayPop.id(), errorId);
 	addVerificationTarget(VerificationTarget::Type::PopEmptyArray, &_arrayPop, m_error.currentValue());
 	connectBlocks(
 		m_currentBlock,
 		m_currentFunction->isConstructor() ? summary(*m_currentContract) : summary(*m_currentFunction),
-		currentPathConditions() && symbArray->length() <= 0 && m_error.currentValue() == errorId
+		currentPathConditions() && symbArray->length() <= 0 && m_error.currentValue() == newErrorId(_arrayPop)
 	);
 
 	m_context.addAssertion(m_error.currentValue() == previousError);
@@ -631,8 +626,7 @@ pair<smtutil::Expression, smtutil::Expression> CHC::arithmeticOperation(
 	m_error.increaseIndex();
 
 	VerificationTarget::Type targetType;
-	unsigned errorId = m_context.newSlackId();
-	m_errorIds.emplace(_expression.id(), errorId);
+	unsigned errorId = newErrorId(_expression);
 
 	optional<smtutil::Expression> target;
 	if (_op == Token::Div)
@@ -642,8 +636,7 @@ pair<smtutil::Expression, smtutil::Expression> CHC::arithmeticOperation(
 	}
 	else if (intType->isSigned())
 	{
-		unsigned secondErrorId = m_context.newSlackId();
-		m_errorIds.emplace(_expression.id(), secondErrorId);
+		unsigned secondErrorId = newErrorId(_expression);
 		targetType = VerificationTarget::Type::UnderOverflow;
 		target = (values.second < intType->minValue() && m_error.currentValue() == errorId) ||
 			(values.second > intType->maxValue() && m_error.currentValue() == secondErrorId);
@@ -1318,4 +1311,15 @@ void CHC::checkAndReportTarget(
 string CHC::uniquePrefix()
 {
 	return to_string(m_blockCounter++);
+}
+
+unsigned CHC::newErrorId(Expression const& _expr)
+{
+	unsigned errorId = m_context.newUniqueId();
+	// We need to make sure the error id is not zero,
+	// because error id zero actually means no error in the CHC encoding.
+	if (errorId == 0)
+		errorId = m_context.newUniqueId();
+	m_errorIds.emplace(_expr.id(), errorId);
+	return errorId;
 }

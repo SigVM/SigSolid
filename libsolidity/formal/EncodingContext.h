@@ -40,10 +40,10 @@ public:
 	/// alive because of state variables and inlined function calls.
 	/// To be used in the beginning of a root function visit.
 	void reset();
-	/// Resets the fresh id for slack variables.
-	void resetSlackId();
-	/// Returns the current fresh slack id and increments it.
-	unsigned newSlackId();
+	/// Resets the last unique id.
+	void resetUniqueId();
+	/// @returns the current unique id and increments it.
+	unsigned newUniqueId();
 	/// Clears the entire context, erasing everything.
 	/// To be used before a model checking engine starts.
 	void clear();
@@ -173,8 +173,8 @@ private:
 	bool m_accumulateAssertions = true;
 	//@}
 
-	/// Fresh ids for slack variables to be created deterministically.
-	unsigned m_nextSlackId = 0;
+	/// Unique id counter.
+	unsigned m_nextUniqueId = 0;
 };
 
 }

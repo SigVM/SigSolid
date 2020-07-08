@@ -218,9 +218,13 @@ private:
 
 	/// Misc.
 	//@{
-	/// Returns a prefix to be used in a new unique block name
+	/// @returns a prefix to be used in a new unique block name
 	/// and increases the block counter.
 	std::string uniquePrefix();
+
+	/// @returns a new unique error id associated with _expr and stores
+	/// it into m_errorIds.
+	unsigned newErrorId(Expression const& _expr);
 	//@}
 
 	/// Predicates.
