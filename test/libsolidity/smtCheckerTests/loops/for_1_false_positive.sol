@@ -8,8 +8,6 @@ contract C
 			// Overflows due to resetting x.
 			x = x + 1;
 		}
-		// Assertion is safe but current solver version cannot solve it.
-		// Keep test for next solver release.
 		assert(x > 0);
 	}
 }
