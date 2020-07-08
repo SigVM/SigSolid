@@ -303,27 +303,6 @@ Parser::ElementaryOperation Parser::parseElementaryOperation()
 	ElementaryOperation ret;
 	switch (currentToken())
 	{
-	case Token::Identifier:
-	case Token::Return:
-	case Token::Byte:
-	case Token::Bool:
-	case Token::Address:
-	case Token::Var:
-	case Token::In:
-	{
-		YulString literal{currentLiteral()};
-		if (m_dialect.builtin(literal))
-		{
-			Identifier identifier{currentLocation(), literal};
-			advance();
-			expectToken(Token::LParen, false);
-			return FunctionCall{identifier.location, identifier, {}};
-		}
-		else
-			ret = Identifier{currentLocation(), literal};
-		advance();
-		break;
-	}
 	case Token::StringLiteral:
 	case Token::Number:
 	case Token::TrueLiteral:
@@ -366,7 +345,23 @@ Parser::ElementaryOperation Parser::parseElementaryOperation()
 		break;
 	}
 	default:
-		fatalParserError(1856_error, "Literal or identifier expected.");
+	{
+		if (currentToken() != Token::Identifier && TokenTraits::isYulToken(currentToken()))
+			fatalParserError(1856_error, "Literal or identifier expected.");
+
+		YulString literal{currentLiteral()};
+		if (m_dialect.builtin(literal))
+		{
+			Identifier identifier{currentLocation(), literal};
+			advance();
+			expectToken(Token::LParen, false);
+			return FunctionCall{identifier.location, identifier, {}};
+		}
+		else
+			ret = Identifier{currentLocation(), literal};
+		advance();
+		break;
+	}
 	}
 	return ret;
 }
