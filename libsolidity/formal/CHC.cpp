@@ -660,13 +660,8 @@ pair<smtutil::Expression, smtutil::Expression> CHC::arithmeticOperation(
 		&_expression,
 		m_error.currentValue()
 	);
-	connectBlocks(
-		m_currentBlock,
-		(!m_currentFunction || m_currentFunction->isConstructor()) ? summary(*m_currentContract) : summary(*m_currentFunction),
-		currentPathConditions() && *target
-	);
 
-	m_context.addAssertion(m_error.currentValue() == previousError);
+	m_context.addAssertion((m_error.currentValue() == previousError) || *target);
 
 	return values;
 }
