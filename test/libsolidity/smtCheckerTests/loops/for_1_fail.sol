@@ -14,6 +14,4 @@ contract C
 // ====
 // SMTSolvers: z3
 // ----
-// Warning 1218: (176-181): Error trying to invoke SMT solver.
-// Warning 2661: (176-181): Overflow (resulting value larger than 2**256 - 1) happens here
 // Warning 4661: (189-203): Assertion violation happens here

@@ -1309,7 +1309,7 @@ string CHC::uniquePrefix()
 	return to_string(m_blockCounter++);
 }
 
-unsigned CHC::newErrorId(Expression const& _expr)
+unsigned CHC::newErrorId(frontend::Expression const& _expr)
 {
 	unsigned errorId = m_context.newUniqueId();
 	// We need to make sure the error id is not zero,

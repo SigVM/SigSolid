@@ -41,7 +41,7 @@ void EncodingContext::reset()
 
 void EncodingContext::resetUniqueId()
 {
-	m_nextUniqueId = 0;
+	m_nextUniqueId = 1;
 }
 
 unsigned EncodingContext::newUniqueId()
