@@ -58,6 +58,7 @@
 #include <libyul/optimiser/RedundantAssignEliminator.h>
 #include <libyul/optimiser/StructuralSimplifier.h>
 #include <libyul/optimiser/StackCompressor.h>
+#include <libyul/optimiser/StackToMemoryMover.h>
 #include <libyul/optimiser/Suite.h>
 #include <libyul/backends/evm/ConstantOptimiser.h>
 #include <libyul/backends/evm/EVMDialect.h>
@@ -68,6 +69,7 @@
 #include <libyul/AsmParser.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AssemblyStack.h>
+#include <libyul/CompilabilityChecker.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
 #include <liblangutil/ErrorReporter.h>
@@ -355,6 +357,46 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		obj.analysisInfo = m_analysisInfo;
 		disambiguate();
 		MemoryEscalator::run(*m_context, obj, true);
+	}
+	else if (m_optimizerStep == "fakeMemoryEscalator")
+	{
+		yul::Object obj;
+		obj.code = m_ast;
+		obj.analysisInfo = m_analysisInfo;
+		disambiguate();
+		// Mark all variables with a name starting with "$" for escalation to memory.
+		struct FakeStackErrorGenerator: ASTWalker
+		{
+			map<YulString, FunctionStackErrorInfo> fakeStackErrors;
+			using ASTWalker::operator();
+			void operator()(FunctionDefinition const& _function) override
+			{
+				YulString originalFunctionName = m_currentFunction;
+				m_currentFunction = _function.name;
+				ASTWalker::operator()(_function);
+				m_currentFunction = originalFunctionName;
+			}
+			void visitVariableName(YulString _var)
+			{
+				if (!_var.empty() && _var.str().front() == '$')
+					fakeStackErrors[m_currentFunction].variables.insert(_var);
+			}
+			void operator()(VariableDeclaration const& _varDecl) override
+			{
+				for (auto const& var: _varDecl.variables)
+					visitVariableName(var.name);
+				ASTWalker::operator()(_varDecl);
+			}
+			void operator()(Identifier const& _identifier) override
+			{
+				visitVariableName(_identifier.name);
+				ASTWalker::operator()(_identifier);
+			}
+			YulString m_currentFunction = YulString{};
+		};
+		FakeStackErrorGenerator fakeStackErrorGenerator;
+		fakeStackErrorGenerator(*obj.code);
+		MemoryEscalator::run(*m_context, obj, fakeStackErrorGenerator.fakeStackErrors);
 	}
 	else
 	{
