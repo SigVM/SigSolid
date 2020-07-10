@@ -942,6 +942,15 @@ Token Scanner::scanNumber(char _charSeen)
 	return Token::Number;
 }
 
+namespace
+{
+    constexpr bool isYulToken(Token tok)
+    {
+	return tok == Token::Function || tok == Token::Let || tok == Token::If || tok == Token::Switch || tok == Token::Case
+	    || tok == Token::Default || tok == Token::For || tok == Token::Break || tok == Token::Continue /*|| tok == Token::Leave*/;
+    }
+}
+
 tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 {
 	solAssert(isIdentifierStart(m_char), "");
@@ -951,7 +960,12 @@ tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 	while (isIdentifierPart(m_char) || (m_char == '.' && m_supportPeriodInIdentifier))
 		addLiteralCharAndAdvance();
 	literal.complete();
-	return TokenTraits::fromIdentifierOrKeyword(m_tokens[NextNext].literal);
+	auto const token = TokenTraits::fromIdentifierOrKeyword(m_tokens[NextNext].literal);
+	if (m_kind == ScannerKind::Yul) {
+		if (!isYulToken(std::get<0>(token)))
+			return std::make_tuple(Token::Identifier, 0, 0);
+	}
+	return token;
 }
 
 } // namespace solidity::langutil
