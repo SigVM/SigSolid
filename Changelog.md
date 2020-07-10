@@ -7,6 +7,7 @@ Compiler Features:
  * Code Generator: Evaluate ``keccak256`` of string literals at compile-time.
  * Peephole Optimizer: Remove unnecessary masking of tags.
  * Yul EVM Code Transform: Free stack slots directly after visiting the right-hand-side of variable declarations instead of at the end of the statement only.
+ * SMTChecker: Generate multi-transaction couterexamples for violated assertions and empty pops.
 
 Bugfixes:
  * SMTChecker: Fix internal error when using bitwise operators on fixed bytes type.
