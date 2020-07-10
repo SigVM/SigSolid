@@ -48,6 +48,7 @@
 #include <libyul/optimiser/NameDisplacer.h>
 #include <libyul/optimiser/Rematerialiser.h>
 #include <libyul/optimiser/ExpressionSimplifier.h>
+#include <libyul/optimiser/UnusedFunctionParameterPruner.h>
 #include <libyul/optimiser/UnusedPruner.h>
 #include <libyul/optimiser/ExpressionJoiner.h>
 #include <libyul/optimiser/OptimiserStep.h>
@@ -234,6 +235,12 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		DeadCodeEliminator::run(*m_context, *m_ast);
 		ExpressionJoiner::run(*m_context, *m_ast);
 		ExpressionJoiner::run(*m_context, *m_ast);
+	}
+	else if (m_optimizerStep == "unusedFunctionArgumentPruner")
+	{
+		disambiguate();
+		FunctionHoister::run(*m_context, *m_ast);
+		UnusedFunctionParameterPruner::run(*m_context, *m_ast);
 	}
 	else if (m_optimizerStep == "unusedPruner")
 	{
