@@ -41,17 +41,15 @@ unique_ptr<Block> Parser::parse(std::shared_ptr<Scanner> const& _scanner, bool _
 {
 	m_recursionDepth = 0;
 
-	_scanner->supportPeriodInIdentifier(true);
-	ScopeGuard resetScanner([&]{ _scanner->supportPeriodInIdentifier(false); });
+	_scanner->setKind(ScannerKind::Yul);
+	ScopeGuard resetScanner([&]{ _scanner->setKind(ScannerKind::Solidity); });
 
 	try
 	{
-		_scanner->setKind(ScannerKind::Yul);
 		m_scanner = _scanner;
 		auto block = make_unique<Block>(parseBlock());
 		if (!_reuseScanner)
 			expectToken(Token::EOS);
-		_scanner->setKind(ScannerKind::Solidity);
 		return block;
 	}
 	catch (FatalError const&)

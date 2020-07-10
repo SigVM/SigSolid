@@ -122,12 +122,6 @@ public:
 		rescan();
 	}
 
-	/// Enables or disables support for period in identifier.
-	/// This re-scans the current token and comment literal and thus invalidates it.
-	//
-	// TOOD: replace this with setKind
-	void supportPeriodInIdentifier(bool _value);
-
 	/// @returns the next token and advances input
 	Token next();
 
@@ -265,8 +259,6 @@ private:
 	/// Return the current source position.
 	size_t sourcePos() const { return m_source->position(); }
 	bool isSourcePastEndOfInput() const { return m_source->isPastEndOfInput(); }
-
-	bool m_supportPeriodInIdentifier = false;
 
 	enum TokenIndex { Current, Next, NextNext };
 
