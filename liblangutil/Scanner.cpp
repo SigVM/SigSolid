@@ -935,6 +935,7 @@ Token Scanner::scanNumber(char _charSeen)
 	return Token::Number;
 }
 
+#if 0
 namespace
 {
     constexpr bool isYulToken(Token tok)
@@ -943,6 +944,7 @@ namespace
 	    || tok == Token::Default || tok == Token::For || tok == Token::Break || tok == Token::Continue /*|| tok == Token::Leave*/;
     }
 }
+#endif
 
 tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 {
@@ -954,10 +956,10 @@ tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 		addLiteralCharAndAdvance();
 	literal.complete();
 	auto const token = TokenTraits::fromIdentifierOrKeyword(m_tokens[NextNext].literal);
-	if (m_kind == ScannerKind::Yul) {
-		if (!isYulToken(std::get<0>(token)))
-			return std::make_tuple(Token::Identifier, 0, 0);
-	}
+//	if (m_kind == ScannerKind::Yul) {
+//		if (!isYulToken(std::get<0>(token)))
+//			return std::make_tuple(Token::Identifier, 0, 0);
+//	}
 	return token;
 }
 
