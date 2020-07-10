@@ -147,6 +147,7 @@ void Scanner::reset()
 {
 	m_source->reset();
 	m_supportPeriodInIdentifier = false;
+	m_kind = ScannerKind::Solidity;
 	m_char = m_source->get();
 	skipWhitespace();
 	next();

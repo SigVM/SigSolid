@@ -68,6 +68,12 @@ class AstRawString;
 class AstValueFactory;
 class ParserRecorder;
 
+enum class ScannerKind
+{
+	Solidity,
+	Yul
+};
+
 enum class ScannerError
 {
 	NoError,
@@ -106,8 +112,20 @@ public:
 	/// Resets scanner to the start of input.
 	void reset();
 
+	/// Changes the scanner mode.
+	// Should this be named setScannerMode?
+	void setKind(ScannerKind _kind)
+	{
+		m_kind = _kind;
+
+		// Invalidate lookahead buffer.
+		rescan();
+	}
+
 	/// Enables or disables support for period in identifier.
 	/// This re-scans the current token and comment literal and thus invalidates it.
+	//
+	// TOOD: replace this with setKind
 	void supportPeriodInIdentifier(bool _value);
 
 	/// @returns the next token and advances input
@@ -256,6 +274,8 @@ private:
 	TokenDesc m_tokens[3] = {}; // desc for the current, next and nextnext token
 
 	std::shared_ptr<CharStream> m_source;
+
+	ScannerKind m_kind = ScannerKind::Solidity;
 
 	/// one character look-ahead, equals 0 at end of input
 	char m_char;
