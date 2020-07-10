@@ -46,10 +46,12 @@ unique_ptr<Block> Parser::parse(std::shared_ptr<Scanner> const& _scanner, bool _
 
 	try
 	{
+		_scanner->setKind(ScannerKind::Yul);
 		m_scanner = _scanner;
 		auto block = make_unique<Block>(parseBlock());
 		if (!_reuseScanner)
 			expectToken(Token::EOS);
+		_scanner->setKind(ScannerKind::Solidity);
 		return block;
 	}
 	catch (FatalError const&)
