@@ -35,7 +35,15 @@ while ( my $line = <$default_fh> ) {
 	bytes public $func\_dataslot;
 	uint public $func\_status;
     bytes32 public $func\_key;
-	
+	function set\_$func\_data\($arg[0] dataSet) public {
+       $func\_data = dataSet;
+    }
+	function get\_$func\_key\() public view returns (bytes32 key){
+       return $func\_key;
+    }
+    function get\_$func\_dataslot\() public view returns (bytes memory dataslot){
+       return $func\_dataslot;
+    }
     function $func\() public{
         $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
@@ -70,9 +78,9 @@ END_MESSAGE
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
 		address $emiter_tr\_address = address($emiter\);
-		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key\();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key\();
 		assembly {
-			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_codePtr_slot))
+			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -90,7 +98,7 @@ END_MESSAGE
         my ($slot_name) = $line =~ /([\w,\_]+)\(/;
         my ($slot_obj) = $line =~ /\((.+)\)/;
         my ($slot_title) = $line =~ /$slot_name(.+)\)/;
-        $slot_title = "$slot_name\_func$slot_title\, bool initFlag\)";
+        $slot_title = "$slot_name\_func$slot_title\)";
         my @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
         my $argc = 0;
         if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
@@ -102,27 +110,23 @@ END_MESSAGE
         }
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_status;
-    bytes32 public $slot_name\_codePtr;
+    bytes32 public $slot_name\_codePtr;\/\/codePtr is useless now
     bytes32 public $slot_name\_key;
     function $slot_name\() public{
-        $slot_name\_key = keccak256(\"function $slot_name\()");
+        $slot_name\_key = keccak256(\"function $slot_title");
         assembly {
-            sstore($slot_name\_status_slot,createslot($argc,1,2,sload($slot_name\_codePtr_slot),sload($slot_name\_key_slot)))
+            sstore($slot_name\_status_slot,createslot($argc,1,2,sload($slot_name\_key_slot)))
         }		
     }
     function $slot_title public{
-		assembly{
-			sstore($slot_name\_codePtr_slot,pc())
-		}
-        if (!initFlag) {
 END_MESSAGE
         print {$main_fh} $message;
         while ($slot_end_counter != 0){
             $line = <$default_fh>;
             $slot_end_counter = $slot_end_counter + ($line =~ /\{/g) - ($line =~ /\}/g);
-            if($slot_end_counter == 0){
-                print {$main_fh} "\}\n";
-            }
+            # if($slot_end_counter == 0){
+            #     print {$main_fh} "\}\n";
+            # }
             print {$main_fh} $line;
         }
     }elsif($line =~ /emitsig\s/){#TODO: emitsig need num of arg?
@@ -139,7 +143,12 @@ END_MESSAGE
                     $signal_type = $arg[1];
                 }else{
                     $signal_type = $arg[2];
-                }  
+                }
+                if ($signal_type =~ /\./){
+                    #do nothing
+                }else{
+                    $signal_type = "this.$signal_type";
+                }
                 my ($sig_obj_func) = "$signal_type\;" =~ /\.(\w+)\;/;
                 my ($emiter) = $signal_type =~ /(.+)\.$sig_obj_func/;
                 my ($delay_obj) = $line_arr_ele =~ /\.delay\((.+)\)\;/;
@@ -147,10 +156,10 @@ END_MESSAGE
                 my $emiter_tr = $emiter;
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
-		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.$sig_obj_func\_dataslot();
-		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key();
+        $emiter\.set_$sig_obj_func\_data\($emit_obj\);
+		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		assembly {
-			mstore($emiter_tr\_$sig_obj_func\_dataslot,mload($emit_obj\_slot))
 			emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32)
 	    }
 END_MESSAGE
@@ -179,10 +188,10 @@ END_MESSAGE
                 my $emiter_tr = $emiter;
                 $emiter_tr =~ tr/\./\_/;
                 my $message = <<"END_MESSAGE";
-		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.$sig_obj_func\_key();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		address $emiter_tr\_address = address($emiter\);
 		assembly{
-			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_codePtr_slot))
+			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot))
 		}
 END_MESSAGE
                 print {$main_fh} $message;

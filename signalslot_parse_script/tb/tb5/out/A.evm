@@ -1,0 +1,1305 @@
+    /* "signaltest_afterparse.sol":24:1279  contract A {... */
+  mstore(0x40, 0x80)
+    /* "signaltest_afterparse.sol":1231:1277  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "signaltest_afterparse.sol":1256:1273  priceFeedUpdate() */
+  tag_4
+    /* "signaltest_afterparse.sol":1256:1271  priceFeedUpdate */
+  shl(0x20, tag_5)
+    /* "signaltest_afterparse.sol":1256:1273  priceFeedUpdate() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "signaltest_afterparse.sol":24:1279  contract A {... */
+  jump(tag_6)
+    /* "signaltest_afterparse.sol":590:871  function priceFeedUpdate() public{... */
+tag_5:
+    /* "signaltest_afterparse.sol":655:694  keccak256("function priceFeedUpdate()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x66756e6374696f6e207072696365466565645570646174652829000000000000
+  dup2
+  mstore
+  pop
+  0x1a
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "signaltest_afterparse.sol":633:652  priceFeedUpdate_key */
+  0x03
+    /* "signaltest_afterparse.sol":633:694  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "signaltest_afterparse.sol":767:791  priceFeedUpdate_key_slot */
+  0x03
+    /* "signaltest_afterparse.sol":761:792  sload(priceFeedUpdate_key_slot) */
+  sload
+    /* "signaltest_afterparse.sol":757:759  32 */
+  0x20
+    /* "signaltest_afterparse.sol":747:793  createsig(32, sload(priceFeedUpdate_key_slot)) */
+  createsig
+    /* "signaltest_afterparse.sol":719:746  priceFeedUpdate_status_slot */
+  0x02
+    /* "signaltest_afterparse.sol":712:794  sstore(priceFeedUpdate_status_slot,createsig(32, sload(priceFeedUpdate_key_slot))) */
+  sstore
+    /* "signaltest_afterparse.sol":835:860  priceFeedUpdate_data_slot */
+  0x00
+    /* "signaltest_afterparse.sol":805:834  priceFeedUpdate_dataslot_slot */
+  0x01
+    /* "signaltest_afterparse.sol":798:861  mstore(priceFeedUpdate_dataslot_slot,priceFeedUpdate_data_slot) */
+  mstore
+    /* "signaltest_afterparse.sol":707:865  {... */
+  jump	// out
+    /* "signaltest_afterparse.sol":24:1279  contract A {... */
+tag_6:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "signaltest_afterparse.sol":24:1279  contract A {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x6bb97c67
+      gt
+      tag_13
+      jumpi
+      dup1
+      0x6bb97c67
+      eq
+      tag_8
+      jumpi
+      dup1
+      0xbab3affe
+      eq
+      tag_9
+      jumpi
+      dup1
+      0xc260b94c
+      eq
+      tag_10
+      jumpi
+      dup1
+      0xe8e18682
+      eq
+      tag_11
+      jumpi
+      dup1
+      0xfd5e127c
+      eq
+      tag_12
+      jumpi
+      jump(tag_2)
+    tag_13:
+      dup1
+      0x165035e2
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x2c4e57fc
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x459a453a
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x4a2e901c
+      eq
+      tag_6
+      jumpi
+      dup1
+      0x5531ba9c
+      eq
+      tag_7
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
+    tag_3:
+      tag_14
+      tag_15
+      jump	// in
+    tag_14:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":197:231  bytes32 public priceFeedUpdate_key */
+    tag_4:
+      tag_16
+      tag_17
+      jump	// in
+    tag_16:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":157:191  uint public priceFeedUpdate_status */
+    tag_5:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
+    tag_6:
+      tag_20
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_21
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_21:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_22
+      jump	// in
+    tag_20:
+      stop
+        /* "signaltest_afterparse.sol":117:154  bytes public priceFeedUpdate_dataslot */
+    tag_7:
+      tag_23
+      tag_24
+      jump	// in
+    tag_23:
+      mload(0x40)
+      dup1
+      dup1
+      0x20
+      add
+      dup3
+      dup2
+      sub
+      dup3
+      mstore
+      dup4
+      dup2
+      dup2
+      mload
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+      0x00
+    tag_25:
+      dup4
+      dup2
+      lt
+      iszero
+      tag_27
+      jumpi
+      dup1
+      dup3
+      add
+      mload
+      dup2
+      dup5
+      add
+      mstore
+      0x20
+      dup2
+      add
+      swap1
+      pop
+      jump(tag_25)
+    tag_27:
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_28
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_28:
+      pop
+      swap3
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":877:1229  function emitfunc(bytes32 DataSent) public {... */
+    tag_8:
+      tag_29
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_30
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_30:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_31
+      jump	// in
+    tag_29:
+      stop
+        /* "signaltest_afterparse.sol":340:450  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
+    tag_9:
+      tag_32
+      tag_33
+      jump	// in
+    tag_32:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":590:871  function priceFeedUpdate() public{... */
+    tag_10:
+      tag_34
+      tag_35
+      jump	// in
+    tag_34:
+      stop
+        /* "signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
+    tag_11:
+      tag_36
+      tag_37
+      jump	// in
+    tag_36:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":455:585  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
+    tag_12:
+      tag_38
+      tag_39
+      jump	// in
+    tag_38:
+      mload(0x40)
+      dup1
+      dup1
+      0x20
+      add
+      dup3
+      dup2
+      sub
+      dup3
+      mstore
+      dup4
+      dup2
+      dup2
+      mload
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+      0x00
+    tag_40:
+      dup4
+      dup2
+      lt
+      iszero
+      tag_42
+      jumpi
+      dup1
+      dup3
+      add
+      mload
+      dup2
+      dup5
+      add
+      mstore
+      0x20
+      dup2
+      add
+      swap1
+      pop
+      jump(tag_40)
+    tag_42:
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_43
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_43:
+      pop
+      swap3
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
+    tag_15:
+        /* "signaltest_afterparse.sol":73:76  180 */
+      0xb4
+        /* "signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
+      dup2
+      jump	// out
+        /* "signaltest_afterparse.sol":197:231  bytes32 public priceFeedUpdate_key */
+    tag_17:
+      sload(0x03)
+      dup2
+      jump	// out
+        /* "signaltest_afterparse.sol":157:191  uint public priceFeedUpdate_status */
+    tag_19:
+      sload(0x02)
+      dup2
+      jump	// out
+        /* "signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
+    tag_22:
+        /* "signaltest_afterparse.sol":324:331  dataSet */
+      dup1
+        /* "signaltest_afterparse.sol":301:321  priceFeedUpdate_data */
+      0x00
+        /* "signaltest_afterparse.sol":301:331  priceFeedUpdate_data = dataSet */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
+      pop
+      jump	// out
+        /* "signaltest_afterparse.sol":117:154  bytes public priceFeedUpdate_dataslot */
+    tag_24:
+      0x01
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      0x1f
+      add
+      0x20
+      dup1
+      swap2
+      div
+      mul
+      0x20
+      add
+      mload(0x40)
+      swap1
+      dup2
+      add
+      0x40
+      mstore
+      dup1
+      swap3
+      swap2
+      swap1
+      dup2
+      dup2
+      mstore
+      0x20
+      add
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      iszero
+      tag_45
+      jumpi
+      dup1
+      0x1f
+      lt
+      tag_46
+      jumpi
+      0x0100
+      dup1
+      dup4
+      sload
+      div
+      mul
+      dup4
+      mstore
+      swap2
+      0x20
+      add
+      swap2
+      jump(tag_45)
+    tag_46:
+      dup3
+      add
+      swap2
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+    tag_47:
+      dup2
+      sload
+      dup2
+      mstore
+      swap1
+      0x01
+      add
+      swap1
+      0x20
+      add
+      dup1
+      dup4
+      gt
+      tag_47
+      jumpi
+      dup3
+      swap1
+      sub
+      0x1f
+      and
+      dup3
+      add
+      swap2
+    tag_45:
+      pop
+      pop
+      pop
+      pop
+      pop
+      dup2
+      jump	// out
+        /* "signaltest_afterparse.sol":877:1229  function emitfunc(bytes32 DataSent) public {... */
+    tag_31:
+        /* "signaltest_afterparse.sol":930:934  this */
+      address
+        /* "signaltest_afterparse.sol":930:959  this.set_priceFeedUpdate_data */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0x4a2e901c
+        /* "signaltest_afterparse.sol":960:968  DataSent */
+      dup3
+        /* "signaltest_afterparse.sol":930:969  this.set_priceFeedUpdate_data(DataSent) */
+      mload(0x40)
+      dup3
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      0x00
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      0x00
+      dup8
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_49
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_49:
+      pop
+      gas
+      call
+      iszero
+      dup1
+      iszero
+      tag_51
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_51:
+      pop
+      pop
+      pop
+      pop
+        /* "signaltest_afterparse.sol":973:1015  bytes memory this_priceFeedUpdate_dataslot */
+      0x60
+        /* "signaltest_afterparse.sol":1018:1022  this */
+      address
+        /* "signaltest_afterparse.sol":1018:1051  this.get_priceFeedUpdate_dataslot */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0xfd5e127c
+        /* "signaltest_afterparse.sol":1018:1053  this.get_priceFeedUpdate_dataslot() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      0x00
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_52
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_52:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_54
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_54:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      0x00
+      dup3
+      returndatacopy
+      returndatasize
+      not(0x1f)
+      0x1f
+      dup3
+      add
+      and
+      dup3
+      add
+      dup1
+      0x40
+      mstore
+      pop
+      0x20
+      dup2
+      lt
+      iszero
+      tag_55
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_55:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      mload
+      mload(0x40)
+      swap4
+      swap3
+      swap2
+      swap1
+      dup5
+      0x0100000000
+      dup3
+      gt
+      iszero
+      tag_56
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_56:
+      dup4
+      dup3
+      add
+      swap2
+      pop
+      0x20
+      dup3
+      add
+      dup6
+      dup2
+      gt
+      iszero
+      tag_57
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_57:
+      dup3
+      mload
+      dup7
+      0x01
+      dup3
+      mul
+      dup4
+      add
+      gt
+      0x0100000000
+      dup3
+      gt
+      or
+      iszero
+      tag_58
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_58:
+      dup1
+      dup4
+      mstore
+      0x20
+      dup4
+      add
+      swap3
+      pop
+      pop
+      pop
+      swap1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+      0x00
+    tag_59:
+      dup4
+      dup2
+      lt
+      iszero
+      tag_61
+      jumpi
+      dup1
+      dup3
+      add
+      mload
+      dup2
+      dup5
+      add
+      mstore
+      0x20
+      dup2
+      add
+      swap1
+      pop
+      jump(tag_59)
+    tag_61:
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_62
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_62:
+      pop
+      0x40
+      mstore
+      pop
+      pop
+      pop
+        /* "signaltest_afterparse.sol":973:1053  bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot() */
+      swap1
+      pop
+        /* "signaltest_afterparse.sol":1057:1089  bytes32 this_priceFeedUpdate_key */
+      0x00
+        /* "signaltest_afterparse.sol":1092:1096  this */
+      address
+        /* "signaltest_afterparse.sol":1092:1120  this.get_priceFeedUpdate_key */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0xbab3affe
+        /* "signaltest_afterparse.sol":1092:1122  this.get_priceFeedUpdate_key() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_63
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_63:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_65
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_65:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      0x20
+      dup2
+      lt
+      iszero
+      tag_66
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_66:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+        /* "signaltest_afterparse.sol":1057:1122  bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key() */
+      swap1
+      pop
+        /* "signaltest_afterparse.sol":1212:1214  32 */
+      0x20
+        /* "signaltest_afterparse.sol":1182:1211  this_priceFeedUpdate_dataslot */
+      dup3
+        /* "signaltest_afterparse.sol":1173:1181  ONE_HOUR */
+      0xb4
+        /* "signaltest_afterparse.sol":1148:1172  this_priceFeedUpdate_key */
+      dup4
+        /* "signaltest_afterparse.sol":1140:1215  emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,32) */
+      emitsig
+        /* "signaltest_afterparse.sol":1135:1222  {... */
+      pop
+      pop
+      pop
+      jump	// out
+        /* "signaltest_afterparse.sol":340:450  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
+    tag_33:
+        /* "signaltest_afterparse.sol":396:407  bytes32 key */
+      0x00
+        /* "signaltest_afterparse.sol":424:443  priceFeedUpdate_key */
+      sload(0x03)
+        /* "signaltest_afterparse.sol":417:443  return priceFeedUpdate_key */
+      swap1
+      pop
+        /* "signaltest_afterparse.sol":340:450  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
+      swap1
+      jump	// out
+        /* "signaltest_afterparse.sol":590:871  function priceFeedUpdate() public{... */
+    tag_35:
+        /* "signaltest_afterparse.sol":655:694  keccak256("function priceFeedUpdate()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x66756e6374696f6e207072696365466565645570646174652829000000000000
+      dup2
+      mstore
+      pop
+      0x1a
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "signaltest_afterparse.sol":633:652  priceFeedUpdate_key */
+      0x03
+        /* "signaltest_afterparse.sol":633:694  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "signaltest_afterparse.sol":767:791  priceFeedUpdate_key_slot */
+      0x03
+        /* "signaltest_afterparse.sol":761:792  sload(priceFeedUpdate_key_slot) */
+      sload
+        /* "signaltest_afterparse.sol":757:759  32 */
+      0x20
+        /* "signaltest_afterparse.sol":747:793  createsig(32, sload(priceFeedUpdate_key_slot)) */
+      createsig
+        /* "signaltest_afterparse.sol":719:746  priceFeedUpdate_status_slot */
+      0x02
+        /* "signaltest_afterparse.sol":712:794  sstore(priceFeedUpdate_status_slot,createsig(32, sload(priceFeedUpdate_key_slot))) */
+      sstore
+        /* "signaltest_afterparse.sol":835:860  priceFeedUpdate_data_slot */
+      0x00
+        /* "signaltest_afterparse.sol":805:834  priceFeedUpdate_dataslot_slot */
+      0x01
+        /* "signaltest_afterparse.sol":798:861  mstore(priceFeedUpdate_dataslot_slot,priceFeedUpdate_data_slot) */
+      mstore
+        /* "signaltest_afterparse.sol":707:865  {... */
+      jump	// out
+        /* "signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
+    tag_37:
+      sload(0x00)
+      dup2
+      jump	// out
+        /* "signaltest_afterparse.sol":455:585  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
+    tag_39:
+        /* "signaltest_afterparse.sol":516:537  bytes memory dataslot */
+      0x60
+        /* "signaltest_afterparse.sol":554:578  priceFeedUpdate_dataslot */
+      0x01
+        /* "signaltest_afterparse.sol":547:578  return priceFeedUpdate_dataslot */
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      0x1f
+      add
+      0x20
+      dup1
+      swap2
+      div
+      mul
+      0x20
+      add
+      mload(0x40)
+      swap1
+      dup2
+      add
+      0x40
+      mstore
+      dup1
+      swap3
+      swap2
+      swap1
+      dup2
+      dup2
+      mstore
+      0x20
+      add
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      iszero
+      tag_70
+      jumpi
+      dup1
+      0x1f
+      lt
+      tag_71
+      jumpi
+      0x0100
+      dup1
+      dup4
+      sload
+      div
+      mul
+      dup4
+      mstore
+      swap2
+      0x20
+      add
+      swap2
+      jump(tag_70)
+    tag_71:
+      dup3
+      add
+      swap2
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+    tag_72:
+      dup2
+      sload
+      dup2
+      mstore
+      swap1
+      0x01
+      add
+      swap1
+      0x20
+      add
+      dup1
+      dup4
+      gt
+      tag_72
+      jumpi
+      dup3
+      swap1
+      sub
+      0x1f
+      and
+      dup3
+      add
+      swap2
+    tag_70:
+      pop
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+        /* "signaltest_afterparse.sol":455:585  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
+      swap1
+      jump	// out
+
+    auxdata: 0xa26469706673582212201ace34651f49d84a63c02594aa1378e3623aae03dc18ac85eb483918360995ec64736f6c63782c302e362e31312d646576656c6f702e323032302e372e31332b636f6d6d69742e31396533323231312e6d6f64005d
+}
