@@ -26,11 +26,13 @@ solely.
 
 Please don't use "Solidity":
 
-* To refer to any other programming language.
-* In a way that is misleading or may imply association of unrelated 
+- To refer to any other programming language.
+
+- In a way that is misleading or may imply association of unrelated 
 modules, tools, documentation, or other resources with the Solidity 
 programming language.
-* In ways that confuse the community as to whether the Solidity 
+
+- In ways that confuse the community as to whether the Solidity 
 programming language is open-source and free to use.
 
 Solidity Logo License
@@ -47,11 +49,14 @@ This is the most permissive Creative Commons license and allows reuse
 and modifications for any purpose.
 
 You are free to:
+
 - **Share** — Copy and redistribute the material in any medium or format.
+
 - **Adapt** — Remix, transform, and build upon the material for any 
 purpose, even commercially.
 
 Under the following terms:
+
 - **Attribution** — You must give appropriate credit, provide a link to 
 the license, and indicate if changes were made. You may do so in any 
 reasonable manner, but not in any way that suggests the the Solidity 
@@ -67,6 +72,7 @@ You can find the official Solidity logo SVG `here <https://github.com/ethereum/s
 Please do not:
 
 * Change the ratio of the logo (don't stretch it or cut it).
+
 * Change the colors of the logo, unless it is absolutely necessary.
 
 Credits
