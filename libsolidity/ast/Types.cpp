@@ -2960,53 +2960,61 @@ TypePointers FunctionType::parameterTypes() const
 	return TypePointers(m_parameterTypes.cbegin() + 1, m_parameterTypes.cend());
 }
 
+namespace
+{
+string to_string(FunctionType::Kind _kind)
+{
+	switch (_kind)
+	{
+	case FunctionType::Kind::Declaration: return "declaration"; break;
+	case FunctionType::Kind::Internal: return "internal"; break;
+	case FunctionType::Kind::External: return "external"; break;
+	case FunctionType::Kind::DelegateCall: return "delegatecall"; break;
+	case FunctionType::Kind::BareCall: return "barecall"; break;
+	case FunctionType::Kind::BareCallCode: return "barecallcode"; break;
+	case FunctionType::Kind::BareDelegateCall: return "baredelegatecall"; break;
+	case FunctionType::Kind::BareStaticCall: return "barestaticcall"; break;
+	case FunctionType::Kind::Creation: return "creation"; break;
+	case FunctionType::Kind::Send: return "send"; break;
+	case FunctionType::Kind::Transfer: return "transfer"; break;
+	case FunctionType::Kind::KECCAK256: return "keccak256"; break;
+	case FunctionType::Kind::Selfdestruct: return "selfdestruct"; break;
+	case FunctionType::Kind::Revert: return "revert"; break;
+	case FunctionType::Kind::ECRecover: return "ecrecover"; break;
+	case FunctionType::Kind::SHA256: return "sha256"; break;
+	case FunctionType::Kind::RIPEMD160: return "ripemd160"; break;
+	case FunctionType::Kind::Log0: return "log0"; break;
+	case FunctionType::Kind::Log1: return "log1"; break;
+	case FunctionType::Kind::Log2: return "log2"; break;
+	case FunctionType::Kind::Log3: return "log3"; break;
+	case FunctionType::Kind::Log4: return "log4"; break;
+	case FunctionType::Kind::GasLeft: return "gasleft"; break;
+	case FunctionType::Kind::Event: return "event"; break;
+	case FunctionType::Kind::SetGas: return "setgas"; break;
+	case FunctionType::Kind::SetValue: return "setvalue"; break;
+	case FunctionType::Kind::BlockHash: return "blockhash"; break;
+	case FunctionType::Kind::AddMod: return "addmod"; break;
+	case FunctionType::Kind::MulMod: return "mulmod"; break;
+	case FunctionType::Kind::ArrayPush: return "arraypush"; break;
+	case FunctionType::Kind::ArrayPop: return "arraypop"; break;
+	case FunctionType::Kind::ByteArrayPush: return "bytearraypush"; break;
+	case FunctionType::Kind::ObjectCreation: return "objectcreation"; break;
+	case FunctionType::Kind::Assert: return "assert"; break;
+	case FunctionType::Kind::Require: return "require"; break;
+	case FunctionType::Kind::ABIEncode: return "abiencode"; break;
+	case FunctionType::Kind::ABIEncodePacked: return "abiencodepacked"; break;
+	case FunctionType::Kind::ABIEncodeWithSelector: return "abiencodewithselector"; break;
+	case FunctionType::Kind::ABIEncodeWithSignature: return "abiencodewithsignature"; break;
+	case FunctionType::Kind::ABIDecode: return "abidecode"; break;
+	case FunctionType::Kind::MetaType: return "metatype"; break;
+	default: solAssert(false, ""); break;
+	}
+}
+}
+
 string FunctionType::richIdentifier() const
 {
-	string id = "t_function_";
-	switch (m_kind)
-	{
-	case Kind::Declaration: id += "declaration"; break;
-	case Kind::Internal: id += "internal"; break;
-	case Kind::External: id += "external"; break;
-	case Kind::DelegateCall: id += "delegatecall"; break;
-	case Kind::BareCall: id += "barecall"; break;
-	case Kind::BareCallCode: id += "barecallcode"; break;
-	case Kind::BareDelegateCall: id += "baredelegatecall"; break;
-	case Kind::BareStaticCall: id += "barestaticcall"; break;
-	case Kind::Creation: id += "creation"; break;
-	case Kind::Send: id += "send"; break;
-	case Kind::Transfer: id += "transfer"; break;
-	case Kind::KECCAK256: id += "keccak256"; break;
-	case Kind::Selfdestruct: id += "selfdestruct"; break;
-	case Kind::Revert: id += "revert"; break;
-	case Kind::ECRecover: id += "ecrecover"; break;
-	case Kind::SHA256: id += "sha256"; break;
-	case Kind::RIPEMD160: id += "ripemd160"; break;
-	case Kind::Log0: id += "log0"; break;
-	case Kind::Log1: id += "log1"; break;
-	case Kind::Log2: id += "log2"; break;
-	case Kind::Log3: id += "log3"; break;
-	case Kind::Log4: id += "log4"; break;
-	case Kind::GasLeft: id += "gasleft"; break;
-	case Kind::Event: id += "event"; break;
-	case Kind::SetGas: id += "setgas"; break;
-	case Kind::SetValue: id += "setvalue"; break;
-	case Kind::BlockHash: id += "blockhash"; break;
-	case Kind::AddMod: id += "addmod"; break;
-	case Kind::MulMod: id += "mulmod"; break;
-	case Kind::ArrayPush: id += "arraypush"; break;
-	case Kind::ArrayPop: id += "arraypop"; break;
-	case Kind::ByteArrayPush: id += "bytearraypush"; break;
-	case Kind::ObjectCreation: id += "objectcreation"; break;
-	case Kind::Assert: id += "assert"; break;
-	case Kind::Require: id += "require"; break;
-	case Kind::ABIEncode: id += "abiencode"; break;
-	case Kind::ABIEncodePacked: id += "abiencodepacked"; break;
-	case Kind::ABIEncodeWithSelector: id += "abiencodewithselector"; break;
-	case Kind::ABIEncodeWithSignature: id += "abiencodewithsignature"; break;
-	case Kind::ABIDecode: id += "abidecode"; break;
-	case Kind::MetaType: id += "metatype"; break;
-	}
+	string id = "t_function_" + to_string(m_kind);
 	id += "_" + stateMutabilityToString(m_stateMutability);
 	id += identifierList(m_parameterTypes) + "returns" + identifierList(m_returnParameterTypes);
 	if (m_gasSet)
