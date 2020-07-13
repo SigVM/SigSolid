@@ -1,6 +1,6 @@
 contract C {
     function f() public pure returns (string memory) {
-        return "😃, 😭, and 😈";
+        return unicode"😃, 😭, and 😈";
     }
 }
 // ----
