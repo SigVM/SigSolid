@@ -3109,7 +3109,7 @@ string FunctionType::toString(bool _short) const
 		name = "function ";
 		break;
 	default:
-		name = "builtin function ";
+		return "builtin " + to_string(m_kind);
 	}
 	if (m_kind == Kind::Declaration)
 	{

@@ -4,4 +4,4 @@ contract C {
   }
 }
 // ----
-// TypeError 9574: (42-103): Type builtin function (uint256) view returns (bytes32) is not implicitly convertible to expected type function (uint256) view returns (bytes32).
+// TypeError 9574: (42-103): Type builtin blockhash is not implicitly convertible to expected type function (uint256) view returns (bytes32).
