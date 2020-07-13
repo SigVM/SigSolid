@@ -236,7 +236,7 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		ExpressionJoiner::run(*m_context, *m_ast);
 		ExpressionJoiner::run(*m_context, *m_ast);
 	}
-	else if (m_optimizerStep == "unusedFunctionArgumentPruner")
+	else if (m_optimizerStep == "unusedFunctionParameterPruner")
 	{
 		disambiguate();
 		FunctionHoister::run(*m_context, *m_ast);

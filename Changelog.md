@@ -16,6 +16,7 @@ Compiler Features:
  * Build System: Update internal dependency of jsoncpp to 1.9.3.
  * Optimizer: Add rule to remove shifts inside the byte opcode.
  * Peephole Optimizer: Add rule to remove swap after dup.
+ * Yul Optimizer: Prune unused arguments in functions.
 
 
 ### 0.6.11 (2020-07-07)
