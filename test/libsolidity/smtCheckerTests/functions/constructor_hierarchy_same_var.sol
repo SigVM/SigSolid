@@ -13,5 +13,5 @@ contract A is C {
 	}
 }
 // ----
-// Warning 4661: (148-162): Assertion violation happens here
-// Warning 4661: (166-182): Assertion violation happens here
+// Warning 6328: (148-162): Assertion violation happens here
+// Warning 6328: (166-182): Assertion violation happens here

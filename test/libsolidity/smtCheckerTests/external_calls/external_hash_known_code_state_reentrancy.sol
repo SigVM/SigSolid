@@ -29,4 +29,4 @@ contract C {
 	}
 }
 // ----
-// Warning 4661: (306-320): Assertion violation happens here
+// Warning 6328: (306-320): Assertion violation happens here

@@ -28,4 +28,4 @@ contract C {
 	}
 }
 // ----
-// Warning 4661: (438-460): Assertion violation happens here
+// Warning 6328: (438-460): Assertion violation happens here
