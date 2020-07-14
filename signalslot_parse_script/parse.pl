@@ -48,7 +48,7 @@ while ( my $line = <$default_fh> ) {
         $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
 			sstore($func\_status\_slot,createsig($argc, sload($func\_key_slot)))
-			mstore($func\_dataslot_slot,$func\_data_slot)
+			sstore($func\_dataslot_slot,$func\_data_slot)
 		}
     }
 END_MESSAGE
