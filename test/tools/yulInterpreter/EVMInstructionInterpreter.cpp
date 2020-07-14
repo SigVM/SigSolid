@@ -95,9 +95,9 @@ u256 EVMInstructionInterpreter::eval(
 	{
 	case Instruction::CREATESIG:return 0;
 	case Instruction::CREATESLOT:return 0;
-	case Instruction::DETACHSIG:;
-	case Instruction::BINDSIG:;
-	case Instruction::EMITSIG:;
+	case Instruction::DETACHSIG:return 0;
+	case Instruction::BINDSIG:return 0;
+	case Instruction::EMITSIG:return 0;
 	case Instruction::STOP:
 		throw ExplicitlyTerminated();
 	// --------------- arithmetic ---------------

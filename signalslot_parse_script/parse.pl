@@ -80,7 +80,7 @@ END_MESSAGE
 		address $emiter_tr\_address = address($emiter\);
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key\();
 		assembly {
-			bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot))
+			mstore(0x40,bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot)))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -160,7 +160,7 @@ END_MESSAGE
 		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		assembly {
-			emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32)
+			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -191,7 +191,7 @@ END_MESSAGE
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		address $emiter_tr\_address = address($emiter\);
 		assembly{
-			detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot))
+			mstore(0x40,detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot)))
 		}
 END_MESSAGE
                 print {$main_fh} $message;
