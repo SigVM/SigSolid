@@ -16,7 +16,7 @@
 */
 /**
  * Optimisation stage that assigns memory offsets to variables that would become unreachable if
- * assigned a stack slot as usual.
+ * assigned a stack slot as usual and replaces references and assignments to them by mload and mstore calls.
  */
 
 #pragma once
@@ -28,38 +28,6 @@ namespace solidity::yul
 
 struct Object;
 struct FunctionStackErrorInfo;
-
-// Walks the call graph using a Depth-First-Search assigning memory offsets to variables.
-// - The leaves of the call graph will get the lowest offsets, increasing towards the root.
-// - ``m_nextAvailableSlot`` maps a function to the next available slot that can be used by another
-//   function that calls it.
-// - For each function starting from the root of the call graph:
-//   - Visit all children that are not already visited.
-//   - Determe the maximum value ``n`` of the values of ``m_nextAvailableSlot`` among the children.
-//   - If the function itself contains variables that need memory slots, but is contained in a cycle,
-//     abort the process as failure.
-//   - If not, assign each variable its slot starting starting from ``n`` (incrementing it).
-//   - Assign ``m_nextAvailableSlot`` of the function to ``n``.
-class MemoryOffsetAllocator
-{
-public:
-	MemoryOffsetAllocator(
-		std::map<YulString, FunctionStackErrorInfo> const& _functionStackErrorInfo,
-		std::set<YulString> const& _functionsInCycle,
-		std::map<YulString, std::set<YulString>> const& _callGraph
-	);
-	uint64_t run();
-	std::map<YulString, std::map<YulString, uint64_t>> const& slotAllocations() const { return m_slotAllocations; }
-private:
-	uint64_t run(YulString _function);
-	std::map<YulString, FunctionStackErrorInfo> const& m_functionStackErrorInfo;
-	std::set<YulString> const& m_functionsInCycle;
-	std::map<YulString, std::set<YulString>> const& m_callGraph;
-
-	std::map<YulString, std::map<YulString, uint64_t>> m_slotAllocations;
-	std::map<YulString, uint64_t> m_nextAvailableSlot;
-};
-
 
 /**
  * Optimisation stage that assigns memory offsets to variables that would become unreachable if

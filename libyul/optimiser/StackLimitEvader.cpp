@@ -35,49 +35,57 @@ using namespace std;
 using namespace solidity;
 using namespace solidity::yul;
 
-MemoryOffsetAllocator::MemoryOffsetAllocator(
-	map<YulString, FunctionStackErrorInfo> const& _functionStackErrorInfo,
-	set<YulString> const& _functionsInCycle,
-	map<YulString, set<YulString>> const& _callGraph
-): m_functionStackErrorInfo(_functionStackErrorInfo), m_functionsInCycle(_functionsInCycle), m_callGraph(_callGraph)
+namespace
 {
-}
-
-uint64_t MemoryOffsetAllocator::run() { return run({}); }
-
-uint64_t MemoryOffsetAllocator::run(YulString _function)
+// Walks the call graph using a Depth-First-Search assigning memory offsets to variables.
+// - The leaves of the call graph will get the lowest offsets, increasing towards the root.
+// - ``nextAvailableSlot`` maps a function to the next available slot that can be used by another
+//   function that calls it.
+// - For each function starting from the root of the call graph:
+//   - Visit all children that are not already visited.
+//   - Determe the maximum value ``n`` of the values of ``nextAvailableSlot`` among the children.
+//   - If the function itself contains variables that need memory slots, but is contained in a cycle,
+//     abort the process as failure.
+//   - If not, assign each variable its slot starting starting from ``n`` (incrementing it).
+//   - Assign ``nextAvailableSlot`` of the function to ``n``.
+struct MemoryOffsetAllocator
 {
-	if (m_nextAvailableSlot.count(_function))
-		return m_nextAvailableSlot[_function];
+	map<YulString, FunctionStackErrorInfo> const& functionStackErrorInfo;
+	map<YulString, std::set<YulString>> const& callGraph;
 
-	// Assign to zero early to guard against recursive calls.
-	m_nextAvailableSlot[_function] = 0;
-
-	uint64_t nextAvailableSlot = 0;
-	if (m_callGraph.count(_function))
-		for (auto child: m_callGraph.at(_function))
-			nextAvailableSlot = std::max(run(child), nextAvailableSlot);
-
-	if (m_functionStackErrorInfo.count(_function))
+	uint64_t run(YulString _function = YulString{})
 	{
-		assertThrow(
-			!m_functionsInCycle.count(_function),
-			evmasm::StackTooDeepException,
-			"Stack too deep in recursive function."
-		);
-		auto const& stackErrorInfo = m_functionStackErrorInfo.at(_function);
-		yulAssert(!m_slotAllocations.count(_function), "");
-		auto& assignedSlots = m_slotAllocations[_function];
-		for (auto const& variable: stackErrorInfo.variables)
-			if (variable.empty())
-			{
-				// TODO: Too many function arguments or return parameters.
-			}
-			else
-				assignedSlots[variable] = nextAvailableSlot++;
+		if (nextAvailableSlot.count(_function))
+			return nextAvailableSlot[_function];
+
+		// Assign to zero early to guard against recursive calls.
+		nextAvailableSlot[_function] = 0;
+
+		uint64_t nextSlot = 0;
+		if (callGraph.count(_function))
+			for (auto child: callGraph.at(_function))
+				nextSlot = std::max(run(child), nextSlot);
+
+		if (functionStackErrorInfo.count(_function))
+		{
+			auto const& stackErrorInfo = functionStackErrorInfo.at(_function);
+			yulAssert(!slotAllocations.count(_function), "");
+			auto& assignedSlots = slotAllocations[_function];
+			for (auto const& variable: stackErrorInfo.variables)
+				if (variable.empty())
+				{
+					// TODO: Too many function arguments or return parameters.
+				}
+				else
+					assignedSlots[variable] = nextSlot++;
+		}
+
+		return (nextAvailableSlot[_function] = nextSlot);
 	}
 
-	return (m_nextAvailableSlot[_function] = nextAvailableSlot);
+	map<YulString, map<YulString, uint64_t>> slotAllocations{};
+	map<YulString, uint64_t> nextAvailableSlot{};
+};
 }
 
 void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
@@ -141,14 +149,13 @@ void StackLimitEvader::run(
 	};
 	findCycles(YulString{}, findCycles);
 
-	MemoryOffsetAllocator memoryOffsetAllocator{_functionStackErrorInfo, containedInCycle, callGraph};
-	uint64_t requiredSlots = 0;
-	try {
-		requiredSlots = memoryOffsetAllocator.run();
-	} catch (evmasm::StackTooDeepException& _e) {
-		return;
-	}
+	for (YulString function: containedInCycle)
+		if (_functionStackErrorInfo.count(function))
+			return;
 
-	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations()}(*_object.code);
+	MemoryOffsetAllocator memoryOffsetAllocator{_functionStackErrorInfo, callGraph};
+	uint64_t requiredSlots = memoryOffsetAllocator.run();
+
+	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations}(*_object.code);
 	memoryInitLiteral->value = YulString{util::toCompactHexWithPrefix(reservedMemory + 32 * requiredSlots)};
 }
