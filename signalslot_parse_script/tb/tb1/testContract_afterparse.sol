@@ -2,13 +2,13 @@ pragma solidity ^0.6.9;
 contract newtestContract {
 	bytes32 public PriceFeedUpdate_data;
 	bytes public PriceFeedUpdate_dataslot;
-	uint public PriceFeedUpdate_sigId;
-    bytes4 public PriceFeedUpdate_key;
+	uint public PriceFeedUpdate_status;
+    bytes32 public PriceFeedUpdate_key;
 	
     function PriceFeedUpdate() public{
-        PriceFeedUpdate_key = keccak256("function PriceFeedUpdate()")[0];
+        PriceFeedUpdate_key = keccak256("function PriceFeedUpdate()");
 		assembly {
-			sstore(PriceFeedUpdate_sigId_slot,createsig(32, sload(PriceFeedUpdate_key_slot)))
+			sstore(PriceFeedUpdate_status_slot,createsig(32, sload(PriceFeedUpdate_key_slot)))
 			mstore(PriceFeedUpdate_dataslot_slot,PriceFeedUpdate_data_slot)
 		}
     }
@@ -22,42 +22,48 @@ contract testContract {
 	newtestContract dut;
 	bytes32 price_xyz;
 	uint public constant ONE_HOUR = 180; // 3600/20
-    uint public what_ever_slotId;
-    bytes4 public what_ever_codePtr;
+    uint public what_ever_status;
+    bytes32 public what_ever_codePtr;
+    bytes32 public what_ever_key;
     function what_ever() public{
-        what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0];
+        what_ever_key = keccak256("function what_ever()");
         assembly {
-            sstore(what_ever_slotId_slot,createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot)))
+            sstore(what_ever_status_slot,createslot(32,1,2,sload(what_ever_key_slot)))
         }		
     }
-    function what_ever_func(bytes32 obj) public{
+    function what_ever_func(bytes32 obj, bool initFlag) public{
+		assembly{
+			sstore(what_ever_codePtr_slot,pc())
+		}
+        if (!initFlag) {
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}
 		{{}{}{}{price_xyz = obj;}}{
+}
 	}}
 	function bindfunc() public view{
 		address dut_address = address(dut);
-		uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId();
+		bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key();
 		assembly {
-			bindsig(dut_address,dut_PriceFeedUpdate_sigId,sload(what_ever_slotId_slot))
+			bindsig(dut_address,dut_PriceFeedUpdate_key,sload(what_ever_codePtr_slot))
 	    }
 
 	}
     function emitfunc() public view{
 		bytes memory dut_PriceFeedUpdate_dataslot = dut.PriceFeedUpdate_dataslot();
-		uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId();
+		bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key();
 		assembly {
 			mstore(dut_PriceFeedUpdate_dataslot,mload(price_xyz_slot))
-			emitsig(dut_PriceFeedUpdate_sigId,ONE_HOUR,dut_PriceFeedUpdate_dataslot,32)
+			emitsig(dut_PriceFeedUpdate_key,ONE_HOUR,dut_PriceFeedUpdate_dataslot,32)
 	    }
 
     }
     function detachfunc() public view{
-		uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId();
+		bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key();
 		address dut_address = address(dut);
 		assembly{
-			detachsig(dut_address,dut_PriceFeedUpdate_sigId,sload(what_ever_slotId_slot))
+			detachsig(dut_address,dut_PriceFeedUpdate_key,sload(what_ever_codePtr_slot))
 		}
 
     }

@@ -1,0 +1,350 @@
+    /* "exec_test_parsed.sol":24:603  contract B {... */
+  mstore(0x40, 0x80)
+    /* "exec_test_parsed.sol":558:601  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "exec_test_parsed.sol":583:597  priceReceive() */
+  tag_4
+    /* "exec_test_parsed.sol":583:595  priceReceive */
+  shl(0x20, tag_5)
+    /* "exec_test_parsed.sol":583:597  priceReceive() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "exec_test_parsed.sol":24:603  contract B {... */
+  jump(tag_6)
+    /* "exec_test_parsed.sol":211:453  function priceReceive() public{... */
+tag_5:
+    /* "exec_test_parsed.sol":270:322  keccak256("function priceReceive_func(bytes32 obj)") */
+  mload(0x40)
+  dup1
+  dup1
+  data_821ba04f7b83bfd4855974fcce954bcd64f0a479e98836e8fcf4813d9651dc9f
+  0x27
+  swap2
+  codecopy
+  0x27
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "exec_test_parsed.sol":251:267  priceReceive_key */
+  0x03
+    /* "exec_test_parsed.sol":251:322  priceReceive_key = keccak256("function priceReceive_func(bytes32 obj)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "exec_test_parsed.sol":411:432  priceReceive_key_slot */
+  0x03
+    /* "exec_test_parsed.sol":405:433  sload(priceReceive_key_slot) */
+  sload
+    /* "exec_test_parsed.sol":403:404  2 */
+  0x02
+    /* "exec_test_parsed.sol":401:402  1 */
+  0x01
+    /* "exec_test_parsed.sol":398:400  32 */
+  0x20
+    /* "exec_test_parsed.sol":387:434  createslot(32,1,2,sload(priceReceive_key_slot)) */
+  createslot
+    /* "exec_test_parsed.sol":362:386  priceReceive_status_slot */
+  0x01
+    /* "exec_test_parsed.sol":355:435  sstore(priceReceive_status_slot,createslot(32,1,2,sload(priceReceive_key_slot))) */
+  sstore
+    /* "exec_test_parsed.sol":341:445  {... */
+  jump	// out
+    /* "exec_test_parsed.sol":24:603  contract B {... */
+tag_6:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+data_821ba04f7b83bfd4855974fcce954bcd64f0a479e98836e8fcf4813d9651dc9f 66756e6374696f6e207072696365526563656976655f66756e632862797465733332206f626a29
+
+sub_0: assembly {
+        /* "exec_test_parsed.sol":24:603  contract B {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0cd2542e
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x25528630
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x68c0b038
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x81daf21f
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xb6675486
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xfd0bf5a3
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "exec_test_parsed.sol":109:144  bytes32 public priceReceive_codePtr */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":72:103  uint public priceReceive_status */
+    tag_4:
+      tag_11
+      tag_12
+      jump	// in
+    tag_11:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":38:66  bytes32 public LocalPriceSum */
+    tag_5:
+      tag_13
+      tag_14
+      jump	// in
+    tag_13:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":458:556  function priceReceive_func(bytes32 obj) public{... */
+    tag_6:
+      tag_15
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_16
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_16:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_17
+      jump	// in
+    tag_15:
+      stop
+        /* "exec_test_parsed.sol":211:453  function priceReceive() public{... */
+    tag_7:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      stop
+        /* "exec_test_parsed.sol":174:205  bytes32 public priceReceive_key */
+    tag_8:
+      tag_20
+      tag_21
+      jump	// in
+    tag_20:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":109:144  bytes32 public priceReceive_codePtr */
+    tag_10:
+      sload(0x02)
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":72:103  uint public priceReceive_status */
+    tag_12:
+      sload(0x01)
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":38:66  bytes32 public LocalPriceSum */
+    tag_14:
+      sload(0x00)
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":458:556  function priceReceive_func(bytes32 obj) public{... */
+    tag_17:
+        /* "exec_test_parsed.sol":546:549  obj */
+      dup1
+        /* "exec_test_parsed.sol":530:543  LocalPriceSum */
+      sload(0x00)
+        /* "exec_test_parsed.sol":530:549  LocalPriceSum | obj */
+      or
+        /* "exec_test_parsed.sol":514:527  LocalPriceSum */
+      0x00
+        /* "exec_test_parsed.sol":514:549  LocalPriceSum = LocalPriceSum | obj */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "exec_test_parsed.sol":458:556  function priceReceive_func(bytes32 obj) public{... */
+      pop
+      jump	// out
+        /* "exec_test_parsed.sol":211:453  function priceReceive() public{... */
+    tag_19:
+        /* "exec_test_parsed.sol":270:322  keccak256("function priceReceive_func(bytes32 obj)") */
+      mload(0x40)
+      dup1
+      dup1
+      data_821ba04f7b83bfd4855974fcce954bcd64f0a479e98836e8fcf4813d9651dc9f
+      0x27
+      swap2
+      codecopy
+      0x27
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "exec_test_parsed.sol":251:267  priceReceive_key */
+      0x03
+        /* "exec_test_parsed.sol":251:322  priceReceive_key = keccak256("function priceReceive_func(bytes32 obj)") */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "exec_test_parsed.sol":411:432  priceReceive_key_slot */
+      0x03
+        /* "exec_test_parsed.sol":405:433  sload(priceReceive_key_slot) */
+      sload
+        /* "exec_test_parsed.sol":403:404  2 */
+      0x02
+        /* "exec_test_parsed.sol":401:402  1 */
+      0x01
+        /* "exec_test_parsed.sol":398:400  32 */
+      0x20
+        /* "exec_test_parsed.sol":387:434  createslot(32,1,2,sload(priceReceive_key_slot)) */
+      createslot
+        /* "exec_test_parsed.sol":362:386  priceReceive_status_slot */
+      0x01
+        /* "exec_test_parsed.sol":355:435  sstore(priceReceive_status_slot,createslot(32,1,2,sload(priceReceive_key_slot))) */
+      sstore
+        /* "exec_test_parsed.sol":341:445  {... */
+      jump	// out
+        /* "exec_test_parsed.sol":174:205  bytes32 public priceReceive_key */
+    tag_21:
+      sload(0x03)
+      dup2
+      jump	// out
+    stop
+    data_821ba04f7b83bfd4855974fcce954bcd64f0a479e98836e8fcf4813d9651dc9f 66756e6374696f6e207072696365526563656976655f66756e632862797465733332206f626a29
+
+    auxdata: 0xa264697066735822122096bb55ae6a15bc2f3e0d00eaf229d2960fc3a9083da31844f0b7a4b05ebb13f064736f6c63782c302e362e31312d646576656c6f702e323032302e372e31342b636f6d6d69742e63333731353564362e6d6f64005d
+}

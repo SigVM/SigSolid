@@ -1,6 +1,6 @@
-    /* "testContract_afterparse.sol":561:2055  contract testContract {... */
+    /* "testContract_afterparse.sol":561:2132  contract testContract {... */
   mstore(0x40, 0x80)
-    /* "testContract_afterparse.sol":2013:2053  constructor() public {... */
+    /* "testContract_afterparse.sol":2090:2130  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,28 +11,28 @@
   revert
 tag_1:
   pop
-    /* "testContract_afterparse.sol":2038:2049  what_ever() */
+    /* "testContract_afterparse.sol":2115:2126  what_ever() */
   tag_4
-    /* "testContract_afterparse.sol":2038:2047  what_ever */
+    /* "testContract_afterparse.sol":2115:2124  what_ever */
   shl(0x20, tag_5)
-    /* "testContract_afterparse.sol":2038:2049  what_ever() */
+    /* "testContract_afterparse.sol":2115:2126  what_ever() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "testContract_afterparse.sol":561:2055  contract testContract {... */
+    /* "testContract_afterparse.sol":561:2132  contract testContract {... */
   jump(tag_6)
-    /* "testContract_afterparse.sol":751:1010  function what_ever() public{... */
+    /* "testContract_afterparse.sol":786:997  function what_ever() public{... */
 tag_5:
-    /* "testContract_afterparse.sol":808:848  keccak256("what_ever_func(bytes32 obj)") */
+    /* "testContract_afterparse.sol":839:872  keccak256("function what_ever()") */
   mload(0x40)
   dup1
   dup1
-  0x776861745f657665725f66756e632862797465733332206f626a290000000000
+  0x66756e6374696f6e20776861745f657665722829000000000000000000000000
   dup2
   mstore
   pop
-  0x1b
+  0x14
   add
   swap1
   pop
@@ -42,67 +42,32 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "testContract_afterparse.sol":849:850  0 */
-  0x00
-    /* "testContract_afterparse.sol":808:851  keccak256("what_ever_func(bytes32 obj)")[0] */
-  0x20
+    /* "testContract_afterparse.sol":823:836  what_ever_key */
+  0x04
+    /* "testContract_afterparse.sol":823:872  what_ever_key = keccak256("function what_ever()") */
   dup2
-  lt
-  tag_8
-  jumpi
-  invalid
-tag_8:
-  byte
-  0xf8
-  shl
-    /* "testContract_afterparse.sol":788:851  what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0] */
-  not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
-  and
-    /* "testContract_afterparse.sol":788:805  what_ever_codePtr */
-  0x03
-  0x00
-    /* "testContract_afterparse.sol":788:851  what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0] */
-  0x0100
-  exp
-  dup2
-  sload
-  dup2
-  0xffffffff
-  mul
-  not
-  and
-  swap1
-  dup4
-  0xe0
-  shr
-  mul
-  or
   swap1
   sstore
   pop
-    /* "testContract_afterparse.sol":967:989  what_ever_codePtr_slot */
-  0x03
-    /* "testContract_afterparse.sol":961:990  sload(what_ever_codePtr_slot) */
+    /* "testContract_afterparse.sol":958:976  what_ever_key_slot */
+  0x04
+    /* "testContract_afterparse.sol":952:977  sload(what_ever_key_slot) */
   sload
-    /* "testContract_afterparse.sol":959:960  2 */
+    /* "testContract_afterparse.sol":950:951  2 */
   0x02
-    /* "testContract_afterparse.sol":957:958  1 */
+    /* "testContract_afterparse.sol":948:949  1 */
   0x01
-    /* "testContract_afterparse.sol":933:955  what_ever_codePtr_slot */
-  0x03
-    /* "testContract_afterparse.sol":927:956  sload(what_ever_codePtr_slot) */
-  sload
-    /* "testContract_afterparse.sol":924:926  32 */
+    /* "testContract_afterparse.sol":945:947  32 */
   0x20
-    /* "testContract_afterparse.sol":913:991  createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot)) */
+    /* "testContract_afterparse.sol":934:978  createslot(32,1,2,sload(what_ever_key_slot)) */
   createslot
-    /* "testContract_afterparse.sol":891:912  what_ever_slotId_slot */
+    /* "testContract_afterparse.sol":912:933  what_ever_status_slot */
   0x02
-    /* "testContract_afterparse.sol":884:992  sstore(what_ever_slotId_slot,createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot))) */
+    /* "testContract_afterparse.sol":905:979  sstore(what_ever_status_slot,createslot(32,1,2,sload(what_ever_key_slot))) */
   sstore
-    /* "testContract_afterparse.sol":870:1002  {... */
+    /* "testContract_afterparse.sol":891:989  {... */
   jump	// out
-    /* "testContract_afterparse.sol":561:2055  contract testContract {... */
+    /* "testContract_afterparse.sol":561:2132  contract testContract {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -114,7 +79,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "testContract_afterparse.sol":561:2055  contract testContract {... */
+        /* "testContract_afterparse.sol":561:2132  contract testContract {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -131,7 +96,7 @@ sub_0: assembly {
       dup1
       0xa0a25d6b
       gt
-      tag_11
+      tag_12
       jumpi
       dup1
       0xa0a25d6b
@@ -144,17 +109,22 @@ sub_0: assembly {
       tag_8
       jumpi
       dup1
-      0xe0279d08
+      0xd3996f4b
       eq
       tag_9
       jumpi
       dup1
-      0xff44a36c
+      0xe0279d08
       eq
       tag_10
       jumpi
+      dup1
+      0xefeec0f2
+      eq
+      tag_11
+      jumpi
       jump(tag_2)
-    tag_11:
+    tag_12:
       dup1
       0x165035e2
       eq
@@ -166,7 +136,7 @@ sub_0: assembly {
       tag_4
       jumpi
       dup1
-      0x434d081c
+      0x42316932
       eq
       tag_5
       jumpi
@@ -181,89 +151,42 @@ sub_0: assembly {
       revert
         /* "testContract_afterparse.sol":628:663  uint public constant ONE_HOUR = 180 */
     tag_3:
-      tag_12
       tag_13
-      jump	// in
-    tag_12:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "testContract_afterparse.sol":1182:1419  function bindfunc() public view{... */
-    tag_4:
       tag_14
+      jump	// in
+    tag_13:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "testContract_afterparse.sol":1266:1501  function bindfunc() public view{... */
+    tag_4:
       tag_15
-      jump	// in
-    tag_14:
-      stop
-        /* "testContract_afterparse.sol":680:708  uint public what_ever_slotId */
-    tag_5:
       tag_16
+      jump	// in
+    tag_15:
+      stop
+        /* "testContract_afterparse.sol":680:708  uint public what_ever_status */
+    tag_5:
       tag_17
-      jump	// in
-    tag_16:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "testContract_afterparse.sol":1771:2011  function detachfunc() public view{... */
-    tag_6:
       tag_18
-      tag_19
       jump	// in
-    tag_18:
-      stop
-        /* "testContract_afterparse.sol":1424:1766  function emitfunc() public view{... */
-    tag_7:
-      tag_20
-      tag_21
-      jump	// in
-    tag_20:
-      stop
-        /* "testContract_afterparse.sol":751:1010  function what_ever() public{... */
-    tag_8:
-      tag_22
-      tag_23
-      jump	// in
-    tag_22:
-      stop
-        /* "testContract_afterparse.sol":714:745  bytes4 public what_ever_codePtr */
-    tag_9:
-      tag_24
-      tag_25
-      jump	// in
-    tag_24:
+    tag_17:
       mload(0x40)
       dup1
       dup3
-      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
-      and
-      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
-      and
       dup2
       mstore
       0x20
@@ -277,23 +200,44 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "testContract_afterparse.sol":1015:1180  function what_ever_func(bytes32 obj) public{... */
-    tag_10:
-      tag_26
+        /* "testContract_afterparse.sol":1850:2088  function detachfunc() public view{... */
+    tag_6:
+      tag_19
+      tag_20
+      jump	// in
+    tag_19:
+      stop
+        /* "testContract_afterparse.sol":1506:1845  function emitfunc() public view{... */
+    tag_7:
+      tag_21
+      tag_22
+      jump	// in
+    tag_21:
+      stop
+        /* "testContract_afterparse.sol":786:997  function what_ever() public{... */
+    tag_8:
+      tag_23
+      tag_24
+      jump	// in
+    tag_23:
+      stop
+        /* "testContract_afterparse.sol":1002:1264  function what_ever_func(bytes32 obj, bool initFlag) public{... */
+    tag_9:
+      tag_25
       0x04
       dup1
       calldatasize
       sub
-      0x20
+      0x40
       dup2
       lt
       iszero
-      tag_27
+      tag_26
       jumpi
       0x00
       dup1
       revert
-    tag_27:
+    tag_26:
       dup2
       add
       swap1
@@ -307,25 +251,80 @@ sub_0: assembly {
       swap3
       swap2
       swap1
+      dup1
+      calldataload
+      iszero
+      iszero
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
       pop
       pop
       pop
-      tag_28
+      tag_27
       jump	// in
-    tag_26:
+    tag_25:
       stop
+        /* "testContract_afterparse.sol":714:746  bytes32 public what_ever_codePtr */
+    tag_10:
+      tag_28
+      tag_29
+      jump	// in
+    tag_28:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "testContract_afterparse.sol":752:780  bytes32 public what_ever_key */
+    tag_11:
+      tag_30
+      tag_31
+      jump	// in
+    tag_30:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
         /* "testContract_afterparse.sol":628:663  uint public constant ONE_HOUR = 180 */
-    tag_13:
+    tag_14:
         /* "testContract_afterparse.sol":660:663  180 */
       0xb4
         /* "testContract_afterparse.sol":628:663  uint public constant ONE_HOUR = 180 */
       dup2
       jump	// out
-        /* "testContract_afterparse.sol":1182:1419  function bindfunc() public view{... */
-    tag_15:
-        /* "testContract_afterparse.sol":1217:1236  address dut_address */
+        /* "testContract_afterparse.sol":1266:1501  function bindfunc() public view{... */
+    tag_16:
+        /* "testContract_afterparse.sol":1301:1320  address dut_address */
       0x00
-        /* "testContract_afterparse.sol":1247:1250  dut */
+        /* "testContract_afterparse.sol":1331:1334  dut */
       dup1
       0x00
       swap1
@@ -337,12 +336,12 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "testContract_afterparse.sol":1217:1251  address dut_address = address(dut) */
+        /* "testContract_afterparse.sol":1301:1335  address dut_address = address(dut) */
       swap1
       pop
-        /* "testContract_afterparse.sol":1255:1285  uint dut_PriceFeedUpdate_sigId */
+        /* "testContract_afterparse.sol":1339:1370  bytes32 dut_PriceFeedUpdate_key */
       0x00
-        /* "testContract_afterparse.sol":1288:1291  dut */
+        /* "testContract_afterparse.sol":1373:1376  dut */
       dup1
       0x00
       swap1
@@ -354,11 +353,11 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "testContract_afterparse.sol":1288:1313  dut.PriceFeedUpdate_sigId */
+        /* "testContract_afterparse.sol":1373:1396  dut.PriceFeedUpdate_key */
       0xffffffffffffffffffffffffffffffffffffffff
       and
-      0x25e29249
-        /* "testContract_afterparse.sol":1288:1315  dut.PriceFeedUpdate_sigId() */
+      0x329eed9c
+        /* "testContract_afterparse.sol":1373:1398  dut.PriceFeedUpdate_key() */
       mload(0x40)
       dup2
       0xffffffff
@@ -380,36 +379,6 @@ sub_0: assembly {
       extcodesize
       iszero
       dup1
-      iszero
-      tag_30
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_30:
-      pop
-      gas
-      staticcall
-      iszero
-      dup1
-      iszero
-      tag_32
-      jumpi
-      returndatasize
-      0x00
-      dup1
-      returndatacopy
-      revert(0x00, returndatasize)
-    tag_32:
-      pop
-      pop
-      pop
-      pop
-      mload(0x40)
-      returndatasize
-      0x20
-      dup2
-      lt
       iszero
       tag_33
       jumpi
@@ -417,107 +386,20 @@ sub_0: assembly {
       dup1
       revert
     tag_33:
-      dup2
-      add
-      swap1
-      dup1
-      dup1
-      mload
-      swap1
-      0x20
-      add
-      swap1
-      swap3
-      swap2
-      swap1
-      pop
-      pop
-      pop
-        /* "testContract_afterparse.sol":1255:1315  uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId() */
-      swap1
-      pop
-        /* "testContract_afterparse.sol":1385:1406  what_ever_slotId_slot */
-      0x02
-        /* "testContract_afterparse.sol":1379:1407  sload(what_ever_slotId_slot) */
-      sload
-        /* "testContract_afterparse.sol":1353:1378  dut_PriceFeedUpdate_sigId */
-      dup2
-        /* "testContract_afterparse.sol":1341:1352  dut_address */
-      dup4
-        /* "testContract_afterparse.sol":1333:1408  bindsig(dut_address,dut_PriceFeedUpdate_sigId,sload(what_ever_slotId_slot)) */
-      bindsig
-        /* "testContract_afterparse.sol":1328:1415  {... */
-      pop
-      pop
-      jump	// out
-        /* "testContract_afterparse.sol":680:708  uint public what_ever_slotId */
-    tag_17:
-      sload(0x02)
-      dup2
-      jump	// out
-        /* "testContract_afterparse.sol":1771:2011  function detachfunc() public view{... */
-    tag_19:
-        /* "testContract_afterparse.sol":1808:1838  uint dut_PriceFeedUpdate_sigId */
-      0x00
-        /* "testContract_afterparse.sol":1841:1844  dut */
-      dup1
-      0x00
-      swap1
-      sload
-      swap1
-      0x0100
-      exp
-      swap1
-      div
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-        /* "testContract_afterparse.sol":1841:1866  dut.PriceFeedUpdate_sigId */
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-      0x25e29249
-        /* "testContract_afterparse.sol":1841:1868  dut.PriceFeedUpdate_sigId() */
-      mload(0x40)
-      dup2
-      0xffffffff
-      and
-      0xe0
-      shl
-      dup2
-      mstore
-      0x04
-      add
-      0x20
-      mload(0x40)
-      dup1
-      dup4
-      sub
-      dup2
-      dup7
-      dup1
-      extcodesize
-      iszero
-      dup1
-      iszero
-      tag_35
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_35:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_37
+      tag_35
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_37:
+    tag_35:
       pop
       pop
       pop
@@ -528,12 +410,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_38
+      tag_36
       jumpi
       0x00
       dup1
       revert
-    tag_38:
+    tag_36:
       dup2
       add
       swap1
@@ -550,45 +432,162 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "testContract_afterparse.sol":1808:1868  uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId() */
+        /* "testContract_afterparse.sol":1339:1398  bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key() */
       swap1
       pop
-        /* "testContract_afterparse.sol":1872:1891  address dut_address */
-      0x00
-        /* "testContract_afterparse.sol":1902:1905  dut */
-      dup1
-      0x00
-      swap1
+        /* "testContract_afterparse.sol":1466:1488  what_ever_codePtr_slot */
+      0x03
+        /* "testContract_afterparse.sol":1460:1489  sload(what_ever_codePtr_slot) */
       sload
-      swap1
-      0x0100
-      exp
-      swap1
-      div
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-        /* "testContract_afterparse.sol":1872:1906  address dut_address = address(dut) */
-      swap1
-      pop
-        /* "testContract_afterparse.sol":1977:1998  what_ever_slotId_slot */
-      0x02
-        /* "testContract_afterparse.sol":1971:1999  sload(what_ever_slotId_slot) */
-      sload
-        /* "testContract_afterparse.sol":1945:1970  dut_PriceFeedUpdate_sigId */
-      dup3
-        /* "testContract_afterparse.sol":1933:1944  dut_address */
-      dup3
-        /* "testContract_afterparse.sol":1923:2000  detachsig(dut_address,dut_PriceFeedUpdate_sigId,sload(what_ever_slotId_slot)) */
-      detachsig
-        /* "testContract_afterparse.sol":1918:2004  {... */
+        /* "testContract_afterparse.sol":1436:1459  dut_PriceFeedUpdate_key */
+      dup2
+        /* "testContract_afterparse.sol":1424:1435  dut_address */
+      dup4
+        /* "testContract_afterparse.sol":1416:1490  bindsig(dut_address,dut_PriceFeedUpdate_key,sload(what_ever_codePtr_slot)) */
+      bindsig
+        /* "testContract_afterparse.sol":1411:1497  {... */
       pop
       pop
       jump	// out
-        /* "testContract_afterparse.sol":1424:1766  function emitfunc() public view{... */
-    tag_21:
-        /* "testContract_afterparse.sol":1459:1500  bytes memory dut_PriceFeedUpdate_dataslot */
+        /* "testContract_afterparse.sol":680:708  uint public what_ever_status */
+    tag_18:
+      sload(0x02)
+      dup2
+      jump	// out
+        /* "testContract_afterparse.sol":1850:2088  function detachfunc() public view{... */
+    tag_20:
+        /* "testContract_afterparse.sol":1887:1918  bytes32 dut_PriceFeedUpdate_key */
+      0x00
+        /* "testContract_afterparse.sol":1921:1924  dut */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "testContract_afterparse.sol":1921:1944  dut.PriceFeedUpdate_key */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0x329eed9c
+        /* "testContract_afterparse.sol":1921:1946  dut.PriceFeedUpdate_key() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_38
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_38:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_40
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_40:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      0x20
+      dup2
+      lt
+      iszero
+      tag_41
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_41:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+        /* "testContract_afterparse.sol":1887:1946  bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key() */
+      swap1
+      pop
+        /* "testContract_afterparse.sol":1950:1969  address dut_address */
+      0x00
+        /* "testContract_afterparse.sol":1980:1983  dut */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "testContract_afterparse.sol":1950:1984  address dut_address = address(dut) */
+      swap1
+      pop
+        /* "testContract_afterparse.sol":2053:2075  what_ever_codePtr_slot */
+      0x03
+        /* "testContract_afterparse.sol":2047:2076  sload(what_ever_codePtr_slot) */
+      sload
+        /* "testContract_afterparse.sol":2023:2046  dut_PriceFeedUpdate_key */
+      dup3
+        /* "testContract_afterparse.sol":2011:2022  dut_address */
+      dup3
+        /* "testContract_afterparse.sol":2001:2077  detachsig(dut_address,dut_PriceFeedUpdate_key,sload(what_ever_codePtr_slot)) */
+      detachsig
+        /* "testContract_afterparse.sol":1996:2081  {... */
+      pop
+      pop
+      jump	// out
+        /* "testContract_afterparse.sol":1506:1845  function emitfunc() public view{... */
+    tag_22:
+        /* "testContract_afterparse.sol":1541:1582  bytes memory dut_PriceFeedUpdate_dataslot */
       0x60
-        /* "testContract_afterparse.sol":1503:1506  dut */
+        /* "testContract_afterparse.sol":1585:1588  dut */
       0x00
       dup1
       swap1
@@ -600,11 +599,11 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "testContract_afterparse.sol":1503:1531  dut.PriceFeedUpdate_dataslot */
+        /* "testContract_afterparse.sol":1585:1613  dut.PriceFeedUpdate_dataslot */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xf6310288
-        /* "testContract_afterparse.sol":1503:1533  dut.PriceFeedUpdate_dataslot() */
+        /* "testContract_afterparse.sol":1585:1615  dut.PriceFeedUpdate_dataslot() */
       mload(0x40)
       dup2
       0xffffffff
@@ -627,26 +626,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_40
+      tag_43
       jumpi
       0x00
       dup1
       revert
-    tag_40:
+    tag_43:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_42
+      tag_45
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_42:
+    tag_45:
       pop
       pop
       pop
@@ -672,12 +671,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_43
+      tag_46
       jumpi
       0x00
       dup1
       revert
-    tag_43:
+    tag_46:
       dup2
       add
       swap1
@@ -694,12 +693,12 @@ sub_0: assembly {
       dup3
       gt
       iszero
-      tag_44
+      tag_47
       jumpi
       0x00
       dup1
       revert
-    tag_44:
+    tag_47:
       dup4
       dup3
       add
@@ -712,12 +711,12 @@ sub_0: assembly {
       dup2
       gt
       iszero
-      tag_45
+      tag_48
       jumpi
       0x00
       dup1
       revert
-    tag_45:
+    tag_48:
       dup3
       mload
       dup7
@@ -732,12 +731,12 @@ sub_0: assembly {
       gt
       or
       iszero
-      tag_46
+      tag_49
       jumpi
       0x00
       dup1
       revert
-    tag_46:
+    tag_49:
       dup1
       dup4
       mstore
@@ -759,12 +758,12 @@ sub_0: assembly {
       dup4
       dup4
       0x00
-    tag_47:
+    tag_50:
       dup4
       dup2
       lt
       iszero
-      tag_49
+      tag_52
       jumpi
       dup1
       dup3
@@ -779,8 +778,8 @@ sub_0: assembly {
       add
       swap1
       pop
-      jump(tag_47)
-    tag_49:
+      jump(tag_50)
+    tag_52:
       pop
       pop
       pop
@@ -795,7 +794,7 @@ sub_0: assembly {
       and
       dup1
       iszero
-      tag_50
+      tag_53
       jumpi
       dup1
       dup3
@@ -817,19 +816,19 @@ sub_0: assembly {
       add
       swap2
       pop
-    tag_50:
+    tag_53:
       pop
       0x40
       mstore
       pop
       pop
       pop
-        /* "testContract_afterparse.sol":1459:1533  bytes memory dut_PriceFeedUpdate_dataslot = dut.PriceFeedUpdate_dataslot() */
+        /* "testContract_afterparse.sol":1541:1615  bytes memory dut_PriceFeedUpdate_dataslot = dut.PriceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "testContract_afterparse.sol":1537:1567  uint dut_PriceFeedUpdate_sigId */
+        /* "testContract_afterparse.sol":1619:1650  bytes32 dut_PriceFeedUpdate_key */
       0x00
-        /* "testContract_afterparse.sol":1570:1573  dut */
+        /* "testContract_afterparse.sol":1653:1656  dut */
       dup1
       0x00
       swap1
@@ -841,11 +840,11 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "testContract_afterparse.sol":1570:1595  dut.PriceFeedUpdate_sigId */
+        /* "testContract_afterparse.sol":1653:1676  dut.PriceFeedUpdate_key */
       0xffffffffffffffffffffffffffffffffffffffff
       and
-      0x25e29249
-        /* "testContract_afterparse.sol":1570:1597  dut.PriceFeedUpdate_sigId() */
+      0x329eed9c
+        /* "testContract_afterparse.sol":1653:1678  dut.PriceFeedUpdate_key() */
       mload(0x40)
       dup2
       0xffffffff
@@ -868,26 +867,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_51
+      tag_54
       jumpi
       0x00
       dup1
       revert
-    tag_51:
+    tag_54:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_53
+      tag_56
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_53:
+    tag_56:
       pop
       pop
       pop
@@ -898,12 +897,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_54
+      tag_57
       jumpi
       0x00
       dup1
       revert
-    tag_54:
+    tag_57:
       dup2
       add
       swap1
@@ -920,42 +919,42 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "testContract_afterparse.sol":1537:1597  uint dut_PriceFeedUpdate_sigId = dut.PriceFeedUpdate_sigId() */
+        /* "testContract_afterparse.sol":1619:1678  bytes32 dut_PriceFeedUpdate_key = dut.PriceFeedUpdate_key() */
       swap1
       pop
-        /* "testContract_afterparse.sol":1657:1671  price_xyz_slot */
+        /* "testContract_afterparse.sol":1738:1752  price_xyz_slot */
       0x01
-        /* "testContract_afterparse.sol":1651:1672  mload(price_xyz_slot) */
+        /* "testContract_afterparse.sol":1732:1753  mload(price_xyz_slot) */
       mload
-        /* "testContract_afterparse.sol":1622:1650  dut_PriceFeedUpdate_dataslot */
+        /* "testContract_afterparse.sol":1703:1731  dut_PriceFeedUpdate_dataslot */
       dup3
-        /* "testContract_afterparse.sol":1615:1673  mstore(dut_PriceFeedUpdate_dataslot,mload(price_xyz_slot)) */
+        /* "testContract_afterparse.sol":1696:1754  mstore(dut_PriceFeedUpdate_dataslot,mload(price_xyz_slot)) */
       mstore
-        /* "testContract_afterparse.sol":1749:1751  32 */
+        /* "testContract_afterparse.sol":1828:1830  32 */
       0x20
-        /* "testContract_afterparse.sol":1720:1748  dut_PriceFeedUpdate_dataslot */
+        /* "testContract_afterparse.sol":1799:1827  dut_PriceFeedUpdate_dataslot */
       dup3
-        /* "testContract_afterparse.sol":1711:1719  ONE_HOUR */
+        /* "testContract_afterparse.sol":1790:1798  ONE_HOUR */
       0xb4
-        /* "testContract_afterparse.sol":1685:1710  dut_PriceFeedUpdate_sigId */
+        /* "testContract_afterparse.sol":1766:1789  dut_PriceFeedUpdate_key */
       dup4
-        /* "testContract_afterparse.sol":1677:1752  emitsig(dut_PriceFeedUpdate_sigId,ONE_HOUR,dut_PriceFeedUpdate_dataslot,32) */
+        /* "testContract_afterparse.sol":1758:1831  emitsig(dut_PriceFeedUpdate_key,ONE_HOUR,dut_PriceFeedUpdate_dataslot,32) */
       emitsig
-        /* "testContract_afterparse.sol":1610:1759  {... */
+        /* "testContract_afterparse.sol":1691:1838  {... */
       pop
       pop
       jump	// out
-        /* "testContract_afterparse.sol":751:1010  function what_ever() public{... */
-    tag_23:
-        /* "testContract_afterparse.sol":808:848  keccak256("what_ever_func(bytes32 obj)") */
+        /* "testContract_afterparse.sol":786:997  function what_ever() public{... */
+    tag_24:
+        /* "testContract_afterparse.sol":839:872  keccak256("function what_ever()") */
       mload(0x40)
       dup1
       dup1
-      0x776861745f657665725f66756e632862797465733332206f626a290000000000
+      0x66756e6374696f6e20776861745f657665722829000000000000000000000000
       dup2
       mstore
       pop
-      0x1b
+      0x14
       add
       swap1
       pop
@@ -965,122 +964,96 @@ sub_0: assembly {
       sub
       swap1
       keccak256
-        /* "testContract_afterparse.sol":849:850  0 */
-      0x00
-        /* "testContract_afterparse.sol":808:851  keccak256("what_ever_func(bytes32 obj)")[0] */
-      0x20
+        /* "testContract_afterparse.sol":823:836  what_ever_key */
+      0x04
+        /* "testContract_afterparse.sol":823:872  what_ever_key = keccak256("function what_ever()") */
       dup2
-      lt
-      tag_56
-      jumpi
-      invalid
-    tag_56:
-      byte
-      0xf8
-      shl
-        /* "testContract_afterparse.sol":788:851  what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0] */
-      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
-      and
-        /* "testContract_afterparse.sol":788:805  what_ever_codePtr */
-      0x03
-      0x00
-        /* "testContract_afterparse.sol":788:851  what_ever_codePtr = keccak256("what_ever_func(bytes32 obj)")[0] */
-      0x0100
-      exp
-      dup2
-      sload
-      dup2
-      0xffffffff
-      mul
-      not
-      and
-      swap1
-      dup4
-      0xe0
-      shr
-      mul
-      or
       swap1
       sstore
       pop
-        /* "testContract_afterparse.sol":967:989  what_ever_codePtr_slot */
-      0x03
-        /* "testContract_afterparse.sol":961:990  sload(what_ever_codePtr_slot) */
+        /* "testContract_afterparse.sol":958:976  what_ever_key_slot */
+      0x04
+        /* "testContract_afterparse.sol":952:977  sload(what_ever_key_slot) */
       sload
-        /* "testContract_afterparse.sol":959:960  2 */
+        /* "testContract_afterparse.sol":950:951  2 */
       0x02
-        /* "testContract_afterparse.sol":957:958  1 */
+        /* "testContract_afterparse.sol":948:949  1 */
       0x01
-        /* "testContract_afterparse.sol":933:955  what_ever_codePtr_slot */
-      0x03
-        /* "testContract_afterparse.sol":927:956  sload(what_ever_codePtr_slot) */
-      sload
-        /* "testContract_afterparse.sol":924:926  32 */
+        /* "testContract_afterparse.sol":945:947  32 */
       0x20
-        /* "testContract_afterparse.sol":913:991  createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot)) */
+        /* "testContract_afterparse.sol":934:978  createslot(32,1,2,sload(what_ever_key_slot)) */
       createslot
-        /* "testContract_afterparse.sol":891:912  what_ever_slotId_slot */
+        /* "testContract_afterparse.sol":912:933  what_ever_status_slot */
       0x02
-        /* "testContract_afterparse.sol":884:992  sstore(what_ever_slotId_slot,createslot(32,sload(what_ever_codePtr_slot),1,2,sload(what_ever_codePtr_slot))) */
+        /* "testContract_afterparse.sol":905:979  sstore(what_ever_status_slot,createslot(32,1,2,sload(what_ever_key_slot))) */
       sstore
-        /* "testContract_afterparse.sol":870:1002  {... */
+        /* "testContract_afterparse.sol":891:989  {... */
       jump	// out
-        /* "testContract_afterparse.sol":714:745  bytes4 public what_ever_codePtr */
-    tag_25:
+        /* "testContract_afterparse.sol":1002:1264  function what_ever_func(bytes32 obj, bool initFlag) public{... */
+    tag_27:
+        /* "testContract_afterparse.sol":1107:1111  pc() */
+      pc
+        /* "testContract_afterparse.sol":1084:1106  what_ever_codePtr_slot */
       0x03
-      0x00
+        /* "testContract_afterparse.sol":1077:1112  sstore(what_ever_codePtr_slot,pc()) */
+      sstore
+        /* "testContract_afterparse.sol":1130:1138  initFlag */
+      dup1
+        /* "testContract_afterparse.sol":1125:1263  if (!initFlag) {... */
+      tag_60
+      jumpi
+        /* "testContract_afterparse.sol":1164:1167  obj */
+      dup2
+        /* "testContract_afterparse.sol":1152:1161  price_xyz */
+      0x01
+        /* "testContract_afterparse.sol":1152:1167  price_xyz = obj */
+      dup2
       swap1
-      sload
+      sstore
+      pop
+        /* "testContract_afterparse.sol":1193:1196  obj */
+      dup2
+        /* "testContract_afterparse.sol":1181:1190  price_xyz */
+      0x01
+        /* "testContract_afterparse.sol":1181:1196  price_xyz = obj */
+      dup2
       swap1
-      0x0100
-      exp
+      sstore
+      pop
+        /* "testContract_afterparse.sol":1222:1225  obj */
+      dup2
+        /* "testContract_afterparse.sol":1210:1219  price_xyz */
+      0x01
+        /* "testContract_afterparse.sol":1210:1225  price_xyz = obj */
+      dup2
       swap1
-      div
-      0xe0
-      shl
+      sstore
+      pop
+        /* "testContract_afterparse.sol":1251:1254  obj */
+      dup2
+        /* "testContract_afterparse.sol":1239:1248  price_xyz */
+      0x01
+        /* "testContract_afterparse.sol":1239:1254  price_xyz = obj */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "testContract_afterparse.sol":1125:1263  if (!initFlag) {... */
+    tag_60:
+        /* "testContract_afterparse.sol":1002:1264  function what_ever_func(bytes32 obj, bool initFlag) public{... */
+      pop
+      pop
+      jump	// out
+        /* "testContract_afterparse.sol":714:746  bytes32 public what_ever_codePtr */
+    tag_29:
+      sload(0x03)
       dup2
       jump	// out
-        /* "testContract_afterparse.sol":1015:1180  function what_ever_func(bytes32 obj) public{... */
-    tag_28:
-        /* "testContract_afterparse.sol":1082:1085  obj */
-      dup1
-        /* "testContract_afterparse.sol":1070:1079  price_xyz */
-      0x01
-        /* "testContract_afterparse.sol":1070:1085  price_xyz = obj */
+        /* "testContract_afterparse.sol":752:780  bytes32 public what_ever_key */
+    tag_31:
+      sload(0x04)
       dup2
-      swap1
-      sstore
-      pop
-        /* "testContract_afterparse.sol":1111:1114  obj */
-      dup1
-        /* "testContract_afterparse.sol":1099:1108  price_xyz */
-      0x01
-        /* "testContract_afterparse.sol":1099:1114  price_xyz = obj */
-      dup2
-      swap1
-      sstore
-      pop
-        /* "testContract_afterparse.sol":1140:1143  obj */
-      dup1
-        /* "testContract_afterparse.sol":1128:1137  price_xyz */
-      0x01
-        /* "testContract_afterparse.sol":1128:1143  price_xyz = obj */
-      dup2
-      swap1
-      sstore
-      pop
-        /* "testContract_afterparse.sol":1169:1172  obj */
-      dup1
-        /* "testContract_afterparse.sol":1157:1166  price_xyz */
-      0x01
-        /* "testContract_afterparse.sol":1157:1172  price_xyz = obj */
-      dup2
-      swap1
-      sstore
-      pop
-        /* "testContract_afterparse.sol":1015:1180  function what_ever_func(bytes32 obj) public{... */
-      pop
       jump	// out
 
-    auxdata: 0xa2646970667358221220e57e868d66639c579e385d431bcb3b64b0ea65a16eed98f05717cc167b1686d964736f6c63782c302e362e31312d646576656c6f702e323032302e362e32382b636f6d6d69742e63653537373565302e6d6f64005d
+    auxdata: 0xa2646970667358221220f64319574e4b9feed93424c006ee5a548f361fd09b143da6bf24536e89fa454764736f6c63782c302e362e31312d646576656c6f702e323032302e372e31332b636f6d6d69742e31396533323231312e6d6f64005d
 }

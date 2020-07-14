@@ -18,7 +18,7 @@ contract A {
         priceFeedUpdate_key = keccak256("function priceFeedUpdate()");
 		assembly {
 			sstore(priceFeedUpdate_status_slot,createsig(32, sload(priceFeedUpdate_key_slot)))
-			mstore(priceFeedUpdate_dataslot_slot,priceFeedUpdate_data_slot)
+			sstore(priceFeedUpdate_dataslot_slot,priceFeedUpdate_data_slot)
 		}
     }
 
