@@ -365,9 +365,9 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		obj.analysisInfo = m_analysisInfo;
 		disambiguate();
 		// Mark all variables with a name starting with "$" for escalation to memory.
-		struct FakeStackErrorGenerator: ASTWalker
+		struct FakeUnreachableGenerator: ASTWalker
 		{
-			map<YulString, FunctionStackErrorInfo> fakeStackErrors;
+			map<YulString, set<YulString>> fakeUnreachables;
 			using ASTWalker::operator();
 			void operator()(FunctionDefinition const& _function) override
 			{
@@ -379,7 +379,7 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 			void visitVariableName(YulString _var)
 			{
 				if (!_var.empty() && _var.str().front() == '$')
-					fakeStackErrors[m_currentFunction].variables.insert(_var);
+					fakeUnreachables[m_currentFunction].insert(_var);
 			}
 			void operator()(VariableDeclaration const& _varDecl) override
 			{
@@ -394,9 +394,9 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 			}
 			YulString m_currentFunction = YulString{};
 		};
-		FakeStackErrorGenerator fakeStackErrorGenerator;
-		fakeStackErrorGenerator(*obj.code);
-		StackLimitEvader::run(*m_context, obj, fakeStackErrorGenerator.fakeStackErrors);
+		FakeUnreachableGenerator fakeUnreachableGenerator;
+		fakeUnreachableGenerator(*obj.code);
+		StackLimitEvader::run(*m_context, obj, fakeUnreachableGenerator.fakeUnreachables);
 	}
 	else
 	{

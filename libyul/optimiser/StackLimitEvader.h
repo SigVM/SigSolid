@@ -27,7 +27,6 @@ namespace solidity::yul
 {
 
 struct Object;
-struct FunctionStackErrorInfo;
 
 /**
  * Optimisation stage that assigns memory offsets to variables that would become unreachable if
@@ -60,7 +59,7 @@ public:
 	static void run(
 		OptimiserStepContext& _context,
 		Object& _object,
-		std::map<YulString, FunctionStackErrorInfo> const& _functionStackErrorInfo
+		std::map<YulString, std::set<YulString>> const& _unreachableVariables
 	);
 };
 

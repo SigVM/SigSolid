@@ -33,7 +33,7 @@ using namespace solidity;
 using namespace solidity::yul;
 using namespace solidity::util;
 
-map<YulString, FunctionStackErrorInfo> CompilabilityChecker::run(
+CompilabilityChecker::CompilabilityChecker(
 	Dialect const& _dialect,
 	Object const& _object,
 	bool _optimizeStackAllocation
@@ -61,16 +61,11 @@ map<YulString, FunctionStackErrorInfo> CompilabilityChecker::run(
 		);
 		transform(*_object.code);
 
-		std::map<YulString, FunctionStackErrorInfo> functions;
 		for (StackTooDeepError const& error: transform.stackErrors())
 		{
-			auto& functionInfo = functions[error.functionName];
-			functionInfo.maxDepth = max(error.depth, functionInfo.maxDepth);
-			functionInfo.variables.emplace(error.variable);
+			unreachableVariables[error.functionName].emplace(error.variable);
+			auto& deficit = stackDeficit[error.functionName];
+			deficit = std::max(error.depth, deficit);
 		}
-
-		return functions;
 	}
-	else
-		return {};
 }

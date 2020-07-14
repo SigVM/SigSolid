@@ -50,8 +50,8 @@ namespace
 //   - Assign ``nextAvailableSlot`` of the function to ``n``.
 struct MemoryOffsetAllocator
 {
-	map<YulString, FunctionStackErrorInfo> const& functionStackErrorInfo;
-	map<YulString, std::set<YulString>> const& callGraph;
+	map<YulString, set<YulString>> const& unreachableVariables;
+	map<YulString, set<YulString>> const& callGraph;
 
 	uint64_t run(YulString _function = YulString{})
 	{
@@ -66,12 +66,11 @@ struct MemoryOffsetAllocator
 			for (auto child: callGraph.at(_function))
 				nextSlot = std::max(run(child), nextSlot);
 
-		if (functionStackErrorInfo.count(_function))
+		if (unreachableVariables.count(_function))
 		{
-			auto const& stackErrorInfo = functionStackErrorInfo.at(_function);
 			yulAssert(!slotAllocations.count(_function), "");
 			auto& assignedSlots = slotAllocations[_function];
-			for (auto const& variable: stackErrorInfo.variables)
+			for (auto const& variable: unreachableVariables.at(_function))
 				if (variable.empty())
 				{
 					// TODO: Too many function arguments or return parameters.
@@ -90,22 +89,17 @@ struct MemoryOffsetAllocator
 
 void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
 {
-	// Determine which variables need to be moved.
-	map<YulString, FunctionStackErrorInfo> functionStackErrorInfo = CompilabilityChecker::run(
+	run(_context, _object, CompilabilityChecker(
 		_context.dialect,
 		_object,
 		_optimizeStackAllocation
-	);
-	if (functionStackErrorInfo.empty())
-		return;
-
-	run(_context, _object, functionStackErrorInfo);
+	).unreachableVariables);
 }
 
 void StackLimitEvader::run(
 	OptimiserStepContext& _context,
 	Object& _object,
-	std::map<YulString, FunctionStackErrorInfo> const& _functionStackErrorInfo)
+	std::map<YulString, std::set<YulString>> const& _unreachableVariables)
 {
 	yulAssert(_object.code, "");
 	auto const* evmDialect = dynamic_cast<EVMDialect const*>(&_context.dialect);
@@ -149,11 +143,12 @@ void StackLimitEvader::run(
 	};
 	findCycles(YulString{}, findCycles);
 
+	// We cannot move variables in recursive functions to fixed memory offsets.
 	for (YulString function: containedInCycle)
-		if (_functionStackErrorInfo.count(function))
+		if (_unreachableVariables.count(function))
 			return;
 
-	MemoryOffsetAllocator memoryOffsetAllocator{_functionStackErrorInfo, callGraph};
+	MemoryOffsetAllocator memoryOffsetAllocator{_unreachableVariables, callGraph};
 	uint64_t requiredSlots = memoryOffsetAllocator.run();
 
 	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations}(*_object.code);
