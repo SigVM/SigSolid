@@ -21,7 +21,7 @@
 	let x, y := g()
 }
 // ----
-// step: fakeMemoryEscalator
+// step: fakeStackLimitEvader
 //
 // {
 //     memoryinit(0xa0)

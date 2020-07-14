@@ -41,11 +41,14 @@
         sstore(23, h())
     }
     function h() -> v {
+        v := i()
+    }
+    function i() -> v {
         v := h()
     }
 }
 // ----
-// step: memoryEscalator
+// step: stackLimitEvader
 //
 // {
 //     memoryinit(0xa0)
@@ -91,5 +94,7 @@
 //         sstore(23, h())
 //     }
 //     function h() -> v_1
-//     { v_1 := h() }
+//     { v_1 := i() }
+//     function i() -> v_2
+//     { v_2 := h() }
 // }

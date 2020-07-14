@@ -15,7 +15,7 @@
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <libyul/optimiser/MemoryEscalator.h>
+#include <libyul/optimiser/StackLimitEvader.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/optimiser/FunctionCallFinder.h>
 #include <libyul/optimiser/NameDispenser.h>
@@ -80,7 +80,7 @@ uint64_t MemoryOffsetAllocator::run(YulString _function)
 	return (m_nextAvailableSlot[_function] = nextAvailableSlot);
 }
 
-void MemoryEscalator::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
+void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
 {
 	// Determine which variables need to be moved.
 	map<YulString, FunctionStackErrorInfo> functionStackErrorInfo = CompilabilityChecker::run(
@@ -94,7 +94,7 @@ void MemoryEscalator::run(OptimiserStepContext& _context, Object& _object, bool 
 	run(_context, _object, functionStackErrorInfo);
 }
 
-void MemoryEscalator::run(
+void StackLimitEvader::run(
 	OptimiserStepContext& _context,
 	Object& _object,
 	std::map<YulString, FunctionStackErrorInfo> const& _functionStackErrorInfo)

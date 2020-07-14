@@ -165,7 +165,7 @@
     }
 }
 // ----
-// step: memoryEscalator
+// step: stackLimitEvader
 //
 // {
 //     {

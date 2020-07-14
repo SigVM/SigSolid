@@ -1,6 +1,6 @@
 {
     memoryinit(128)
-    sstore(0, g(sload(0)))
+    sstore(0, g(sload(3)))
     function g(x) -> v {
       switch lt(x, 3)
       case 0 {
@@ -47,18 +47,14 @@
         sstore(mul(3,4), a3)
         sstore(mul(2,4), a2)
         sstore(mul(1,4), a1)
-        sstore(23, h())
-    }
-    function h() -> v {
-        v := h()
     }
 }
 // ----
-// step: memoryEscalator
+// step: stackLimitEvader
 //
 // {
 //     memoryinit(0xa0)
-//     sstore(0, g(sload(0)))
+//     sstore(0, g(sload(3)))
 //     function g(x) -> v
 //     {
 //         switch lt(x, 3)
@@ -103,8 +99,5 @@
 //         sstore(mul(3, 4), a3)
 //         sstore(mul(2, 4), a2)
 //         sstore(mul(1, 4), mload(0x80))
-//         sstore(23, h())
 //     }
-//     function h() -> v_2
-//     { v_2 := h() }
 // }

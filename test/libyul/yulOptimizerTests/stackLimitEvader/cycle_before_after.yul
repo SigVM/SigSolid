@@ -1,6 +1,15 @@
 {
     memoryinit(128)
-    sstore(0, f())
+    sstore(0, g(sload(0)))
+    function g(x) -> v {
+      switch lt(x, 3)
+      case 0 {
+          v := f()
+      }
+      case 1 {
+          v := g(sub(x,1))
+      }
+    }
     function f() -> v {
         let a1 := calldataload(mul(1,4))
         let a2 := calldataload(mul(2,4))
@@ -41,19 +50,22 @@
         sstore(23, h())
     }
     function h() -> v {
-        v := i()
-    }
-    function i() -> v {
         v := h()
     }
 }
 // ----
-// step: memoryEscalator
+// step: stackLimitEvader
 //
 // {
 //     memoryinit(0xa0)
-//     sstore(0, f())
-//     function f() -> v
+//     sstore(0, g(sload(0)))
+//     function g(x) -> v
+//     {
+//         switch lt(x, 3)
+//         case 0 { v := f() }
+//         case 1 { v := g(sub(x, 1)) }
+//     }
+//     function f() -> v_1
 //     {
 //         mstore(0x80, calldataload(mul(1, 4)))
 //         let a2 := calldataload(mul(2, 4))
@@ -93,8 +105,6 @@
 //         sstore(mul(1, 4), mload(0x80))
 //         sstore(23, h())
 //     }
-//     function h() -> v_1
-//     { v_1 := i() }
-//     function i() -> v_2
+//     function h() -> v_2
 //     { v_2 := h() }
 // }

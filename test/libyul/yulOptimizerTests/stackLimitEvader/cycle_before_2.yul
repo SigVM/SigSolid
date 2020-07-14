@@ -53,7 +53,7 @@
     }
 }
 // ----
-// step: memoryEscalator
+// step: stackLimitEvader
 //
 // {
 //     memoryinit(0xa0)

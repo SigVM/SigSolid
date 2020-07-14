@@ -121,8 +121,6 @@ add_library(yul
 	optimiser/LoopInvariantCodeMotion.h
 	optimiser/MainFunction.cpp
 	optimiser/MainFunction.h
-	optimiser/MemoryEscalator.cpp
-	optimiser/MemoryEscalator.h
 	optimiser/Metrics.cpp
 	optimiser/Metrics.h
 	optimiser/NameCollector.cpp
@@ -150,6 +148,8 @@ add_library(yul
 	optimiser/SimplificationRules.h
 	optimiser/StackCompressor.cpp
 	optimiser/StackCompressor.h
+	optimiser/StackLimitEvader.cpp
+	optimiser/StackLimitEvader.h
 	optimiser/StackToMemoryMover.cpp
 	optimiser/StackToMemoryMover.h
 	optimiser/StructuralSimplifier.cpp

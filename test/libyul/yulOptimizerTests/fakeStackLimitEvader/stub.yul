@@ -24,7 +24,7 @@
     h(1, 2, 3, 4)
 }
 // ----
-// step: fakeMemoryEscalator
+// step: fakeStackLimitEvader
 //
 // {
 //     memoryinit(0x80)

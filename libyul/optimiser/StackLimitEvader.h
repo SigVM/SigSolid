@@ -81,7 +81,7 @@ private:
  *
  * Prerequisite: Disambiguator, TODO: anything else?
  */
-class MemoryEscalator
+class StackLimitEvader
 {
 public:
 	static void run(
