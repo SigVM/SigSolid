@@ -28,6 +28,7 @@ Compiler Features:
 
 Bugfixes:
  * NatSpec: Constructors and functions have consistent userdoc output.
+ * Inheritance: Disallow public state variables overwriting ``pure`` functions.
 
 
 ### 0.6.12 (unreleased)
