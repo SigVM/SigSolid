@@ -35,6 +35,7 @@ struct CallGraph
 {
 	std::map<YulString, std::set<YulString>> functionCalls;
 	std::set<YulString> functionsWithLoops;
+	std::set<YulString> recursiveFunctions() const;
 };
 
 /**

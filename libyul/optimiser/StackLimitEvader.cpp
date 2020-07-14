@@ -119,36 +119,14 @@ void StackLimitEvader::run(
 		return;
 	u256 reservedMemory = valueOfLiteral(*memoryInitLiteral);
 
-	map<YulString, set<YulString>> callGraph = CallGraphGenerator::callGraph(*_object.code).functionCalls;
-
-	// Collect all names of functions contained in cycles in the callgraph.
-	// TODO: this algorithm is suboptimal and can be improved. It also overlaps with Semantics.cpp.
-	std::set<YulString> containedInCycle;
-	auto findCycles = [
-		&,
-		visited = std::map<YulString, uint64_t>{},
-		currentPath = std::vector<YulString>{}
-	](YulString _node, auto& _recurse) mutable -> void
-	{
-		if (auto it = std::find(currentPath.begin(), currentPath.end(), _node); it != currentPath.end())
-			containedInCycle.insert(it, currentPath.end());
-		else
-		{
-			visited[_node] = currentPath.size();
-			currentPath.emplace_back(_node);
-			for (auto const& child: callGraph[_node])
-				_recurse(child, _recurse);
-			currentPath.pop_back();
-		}
-	};
-	findCycles(YulString{}, findCycles);
+	CallGraph callGraph = CallGraphGenerator::callGraph(*_object.code);
 
 	// We cannot move variables in recursive functions to fixed memory offsets.
-	for (YulString function: containedInCycle)
+	for (YulString function: callGraph.recursiveFunctions())
 		if (_unreachableVariables.count(function))
 			return;
 
-	MemoryOffsetAllocator memoryOffsetAllocator{_unreachableVariables, callGraph};
+	MemoryOffsetAllocator memoryOffsetAllocator{_unreachableVariables, callGraph.functionCalls};
 	uint64_t requiredSlots = memoryOffsetAllocator.run();
 
 	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations}(*_object.code);
