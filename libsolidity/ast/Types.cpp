@@ -1478,15 +1478,6 @@ TypePointer StringLiteralType::mobileType() const
 	return TypeProvider::stringMemory();
 }
 
-bool StringLiteralType::isValidASCII() const
-{
-	for (auto const value: m_value) {
-		if (static_cast<unsigned>(value) > 0x7f)
-			return false;
-	}
-	return true;
-}
-
 FixedBytesType::FixedBytesType(unsigned _bytes): m_bytes(_bytes)
 {
 	solAssert(
