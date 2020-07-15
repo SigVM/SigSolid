@@ -41,7 +41,7 @@ struct Object;
  * Offsets are assigned to the variables, s.t. on every path through the call graph each variable gets a unique offset
  * in memory. However, distinct paths through the call graph can use the same memory offsets for their variables.
  *
- * The current argument to the ``memoryinit`` call is used as base memory offset and then replaced by the offset past
+ * The current argument to the ``initfreemptr`` call is used as base memory offset and then replaced by the offset past
  * the last memory offset used for a variable on any path through the call graph.
  *
  * Finally, the StackToMemoryMover is called to actually move the variables to their offsets in memory.

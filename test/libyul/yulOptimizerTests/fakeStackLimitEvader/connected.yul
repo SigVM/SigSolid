@@ -1,5 +1,5 @@
 {
-	memoryinit(0)
+	initfreemptr(0)
 	function g() -> a, b {
 		a := 21
 		let $c := 1
@@ -24,7 +24,7 @@
 // step: fakeStackLimitEvader
 //
 // {
-//     memoryinit(0xa0)
+//     initfreemptr(0xa0)
 //     function g() -> a, b
 //     {
 //         a := 21

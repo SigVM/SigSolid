@@ -1,5 +1,5 @@
 {
-    memoryinit(128)
+    initfreemptr(128)
     sstore(0, f())
     function f() -> v {
         let a1 := calldataload(mul(1,4))
@@ -51,7 +51,7 @@
 // step: stackLimitEvader
 //
 // {
-//     memoryinit(0xa0)
+//     initfreemptr(0xa0)
 //     sstore(0, f())
 //     function f() -> v
 //     {

@@ -87,17 +87,17 @@ struct MemoryOffsetAllocator
 	map<YulString, uint64_t> nextAvailableSlot{};
 };
 
-/// Checks if @a _memoryInit is effectively the first proper statement in @a _block.
-bool validateMemoryInit(FunctionCall* _memoryInit, Block& _block)
+/// Checks if @a _initFreeMPtr is effectively the first proper statement in @a _block.
+bool validateInitFreeMPtr(FunctionCall* _initFreeMPtr, Block& _block)
 {
 	for (Statement& statement: _block.statements)
 		if (std::optional<bool> result = std::visit(util::GenericVisitor{
 			[&](Block& _subBlock) -> std::optional<bool> {
-				return validateMemoryInit(_memoryInit, _subBlock);
+				return validateInitFreeMPtr(_initFreeMPtr, _subBlock);
 			},
 			[&](FunctionDefinition&) -> std::optional<bool> { return std::nullopt; },
 			[&](ExpressionStatement& _exprStmt) -> std::optional<bool> {
-				return get_if<FunctionCall>(&_exprStmt.expression) == _memoryInit;
+				return get_if<FunctionCall>(&_exprStmt.expression) == _initFreeMPtr;
 			},
 			[&](auto&&) -> std::optional<bool> { return false; }
 		}, statement))
@@ -128,17 +128,17 @@ void StackLimitEvader::run(
 		"StackToMemoryMover can only be run on objects using the EVMDialect with object access."
 	);
 
-	// Find the literal argument of the ``memoryinit`` call, if there is a unique such call, otherwise abort.
-	Literal* memoryInitLiteral = nullptr;
+	// Find the literal argument of the ``initfreemptr`` call, if there is a unique such call, otherwise abort.
+	Literal* initFreeMPtrLiteral = nullptr;
 	if (
-		auto memoryInits = FunctionCallFinder::run(*_object.code, "memoryinit"_yulstring);
-		memoryInits.size() == 1
+		auto initFreeMPtrs = FunctionCallFinder::run(*_object.code, "initfreemptr"_yulstring);
+		initFreeMPtrs.size() == 1
 	)
-		if (validateMemoryInit(memoryInits.front(), *_object.code))
-			memoryInitLiteral = std::get_if<Literal>(&memoryInits.front()->arguments.back());
-	if (!memoryInitLiteral)
+		if (validateInitFreeMPtr(initFreeMPtrs.front(), *_object.code))
+			initFreeMPtrLiteral = std::get_if<Literal>(&initFreeMPtrs.front()->arguments.back());
+	if (!initFreeMPtrLiteral)
 		return;
-	u256 reservedMemory = valueOfLiteral(*memoryInitLiteral);
+	u256 reservedMemory = valueOfLiteral(*initFreeMPtrLiteral);
 
 	CallGraph callGraph = CallGraphGenerator::callGraph(*_object.code);
 
@@ -151,5 +151,5 @@ void StackLimitEvader::run(
 	uint64_t requiredSlots = memoryOffsetAllocator.run();
 
 	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations}(*_object.code);
-	memoryInitLiteral->value = YulString{util::toCompactHexWithPrefix(reservedMemory + 32 * requiredSlots)};
+	initFreeMPtrLiteral->value = YulString{util::toCompactHexWithPrefix(reservedMemory + 32 * requiredSlots)};
 }

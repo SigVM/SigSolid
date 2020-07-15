@@ -1,6 +1,6 @@
 {
     {
-        memoryinit(128)
+        initfreemptr(128)
         sstore(23, f())
     }
     function f() -> v{
@@ -169,7 +169,7 @@
 //
 // {
 //     {
-//         memoryinit(0x0100)
+//         initfreemptr(0x0100)
 //         sstore(23, f())
 //     }
 //     function f() -> v

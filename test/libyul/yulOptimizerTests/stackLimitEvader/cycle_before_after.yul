@@ -1,5 +1,5 @@
 {
-    memoryinit(128)
+    initfreemptr(128)
     sstore(0, g(sload(0)))
     function g(x) -> v {
       switch lt(x, 3)
@@ -57,7 +57,7 @@
 // step: stackLimitEvader
 //
 // {
-//     memoryinit(0xa0)
+//     initfreemptr(0xa0)
 //     sstore(0, g(sload(0)))
 //     function g(x) -> v
 //     {
