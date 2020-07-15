@@ -51,11 +51,7 @@ struct Object;
 class StackLimitEvader
 {
 public:
-	static void run(
-		OptimiserStepContext& _context,
-		Object& _object,
-		bool _optimizeStackAllocation
-	);
+	/// @a _unreachableVariables can be determined by the CompilabilityChecker.
 	static void run(
 		OptimiserStepContext& _context,
 		Object& _object,

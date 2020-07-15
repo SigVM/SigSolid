@@ -356,7 +356,11 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 		obj.code = m_ast;
 		obj.analysisInfo = m_analysisInfo;
 		disambiguate();
-		StackLimitEvader::run(*m_context, obj, true);
+		StackLimitEvader::run(*m_context, obj, CompilabilityChecker{
+			*m_dialect,
+			obj,
+			true
+		}.unreachableVariables);
 	}
 	else if (m_optimizerStep == "fakeStackLimitEvader")
 	{

@@ -452,7 +452,7 @@ void CodeTransform::operator()(FunctionDefinition const& _function)
 	if (!subTransform.m_stackErrors.empty())
 	{
 		m_assembly.markAsInvalid();
-		for (auto& stackError: subTransform.m_stackErrors)
+		for (StackTooDeepError& stackError: subTransform.m_stackErrors)
 		{
 			if (stackError.functionName.empty())
 				stackError.functionName = _function.name;
@@ -724,7 +724,7 @@ size_t CodeTransform::variableHeightDiff(Scope::Variable const& _var, YulString 
 			" slot(s) too deep inside the stack."
 		);
 		m_assembly.markAsInvalid();
-		return 0;
+		return _forSwap ? 2 : 1;
 	}
 	return heightDiff;
 }

@@ -95,19 +95,11 @@ u256 getLiteralArgumentValue(FunctionCall const& _call)
 }
 }
 
-void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
-{
-	run(_context, _object, CompilabilityChecker(
-		_context.dialect,
-		_object,
-		_optimizeStackAllocation
-	).unreachableVariables);
-}
-
 void StackLimitEvader::run(
 	OptimiserStepContext& _context,
 	Object& _object,
-	std::map<YulString, std::set<YulString>> const& _unreachableVariables)
+	map<YulString, set<YulString>> const& _unreachableVariables
+)
 {
 	yulAssert(_object.code, "");
 	auto const* evmDialect = dynamic_cast<EVMDialect const*>(&_context.dialect);

@@ -32,32 +32,36 @@ using namespace solidity;
 using namespace solidity::yul;
 using namespace solidity::util;
 
-std::set<YulString> CallGraph::recursiveFunctions() const
+namespace
 {
-	// TODO: This algorithm is non-optimal.
-	struct CycleFinder {
-		CallGraph const& callGraph;
-		std::set<YulString> containedInCycle{};
-		std::set<YulString> visited{};
-		std::vector<YulString> currentPath{};
-		void visit(YulString _function)
+// TODO: This algorithm is non-optimal.
+struct CallGraphCycleFinder {
+	CallGraph const& callGraph;
+	std::set<YulString> containedInCycle{};
+	std::set<YulString> visited{};
+	std::vector<YulString> currentPath{};
+	void visit(YulString _function)
+	{
+		if (visited.count(_function))
+			return;
+		if (auto it = std::find(currentPath.begin(), currentPath.end(), _function); it != currentPath.end())
+			containedInCycle.insert(it, currentPath.end());
+		else
 		{
-			if (visited.count(_function))
-				return;
-			if (auto it = std::find(currentPath.begin(), currentPath.end(), _function); it != currentPath.end())
-				containedInCycle.insert(it, currentPath.end());
-			else
-			{
-				currentPath.emplace_back(_function);
-				if (callGraph.functionCalls.count(_function))
-					for (auto const& child: callGraph.functionCalls.at(_function))
-						visit(child);
-				currentPath.pop_back();
-				visited.insert(_function);
-			}
+			currentPath.emplace_back(_function);
+			if (callGraph.functionCalls.count(_function))
+				for (auto const& child: callGraph.functionCalls.at(_function))
+					visit(child);
+			currentPath.pop_back();
+			visited.insert(_function);
 		}
-	};
-	CycleFinder cycleFinder{*this};
+	}
+};
+}
+
+set<YulString> CallGraph::recursiveFunctions() const
+{
+	CallGraphCycleFinder cycleFinder{*this};
 	// Visiting the root only is not enough, since there may be disconnected recursive functions.
 	for (auto const& call: functionCalls)
 		cycleFinder.visit(call.first);
