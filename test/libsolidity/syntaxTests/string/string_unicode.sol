@@ -7,4 +7,4 @@ contract test {
     }
 }
 // ----
-// SyntaxError 5811: (86-108): Non-ASCII characters found
+// ParserError 8936: (86-88): Invalid character in string.
