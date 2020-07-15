@@ -63,11 +63,11 @@ StackToMemoryMover::StackToMemoryMover(
 
 void StackToMemoryMover::operator()(FunctionDefinition& _functionDefinition)
 {
-	auto const* saved = m_currentFunctionMemorySlots;
+	map<YulString, uint64_t> const* saved = m_currentFunctionMemorySlots;
 	if (m_memorySlots.count(_functionDefinition.name))
 	{
 		m_currentFunctionMemorySlots = &m_memorySlots.at(_functionDefinition.name);
-		for (auto const& param: _functionDefinition.parameters + _functionDefinition.returnVariables)
+		for (TypedName const& param: _functionDefinition.parameters + _functionDefinition.returnVariables)
 			if (m_currentFunctionMemorySlots->count(param.name))
 			{
 				// TODO: we cannot handle function parameters yet.
@@ -172,11 +172,11 @@ void StackToMemoryMover::operator()(Block& _block)
 void StackToMemoryMover::visit(Expression& _expression)
 {
 	if (
-		auto identifier = std::get_if<Identifier>(&_expression);
+		Identifier* identifier = std::get_if<Identifier>(&_expression);
 		identifier && m_currentFunctionMemorySlots && m_currentFunctionMemorySlots->count(identifier->name)
-		)
+	)
 	{
-		auto loc = identifier->location;
+		langutil::SourceLocation loc = identifier->location;
 		_expression = FunctionCall {
 			loc,
 			Identifier{loc, "mload"_yulstring}, {

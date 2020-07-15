@@ -64,14 +64,14 @@ struct MemoryOffsetAllocator
 
 		uint64_t nextSlot = 0;
 		if (callGraph.count(_function))
-			for (auto child: callGraph.at(_function))
+			for (YulString child: callGraph.at(_function))
 				nextSlot = std::max(run(child), nextSlot);
 
 		if (unreachableVariables.count(_function))
 		{
 			yulAssert(!slotAllocations.count(_function), "");
 			auto& assignedSlots = slotAllocations[_function];
-			for (auto const& variable: unreachableVariables.at(_function))
+			for (YulString variable: unreachableVariables.at(_function))
 				if (variable.empty())
 				{
 					// TODO: Too many function arguments or return parameters.
@@ -131,7 +131,7 @@ void StackLimitEvader::run(
 	// Find the literal argument of the ``initfreemptr`` call, if there is a unique such call, otherwise abort.
 	Literal* initFreeMPtrLiteral = nullptr;
 	if (
-		auto initFreeMPtrs = FunctionCallFinder::run(*_object.code, "initfreemptr"_yulstring);
+		vector<FunctionCall*> initFreeMPtrs = FunctionCallFinder::run(*_object.code, "initfreemptr"_yulstring);
 		initFreeMPtrs.size() == 1
 	)
 		if (validateInitFreeMPtr(initFreeMPtrs.front(), *_object.code))
