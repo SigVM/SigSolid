@@ -1389,9 +1389,9 @@ bool TypeChecker::visit(Conditional const& _conditional)
 
 	if (_conditional.annotation().willBeWrittenTo)
 		m_errorReporter.typeError(
-				2212_error,
-				_conditional.location(),
-				"Conditional expression as left value is not supported yet."
+			2212_error,
+			_conditional.location(),
+			"Conditional expression as left value is not supported yet."
 		);
 
 	return false;

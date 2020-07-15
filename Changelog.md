@@ -12,6 +12,7 @@ Bugfixes:
  * SMTChecker: Fix internal error when using bitwise operators on fixed bytes type.
  * Type Checker: Fix overload resolution in combination with ``{value: ...}``.
  * Type Checker: Fix internal compiler error related to oversized types.
+ * Type Checker: Do not allow function application with named arguments on the result of a conditional operator.
  * Code Generator: Avoid double cleanup when copying to memory.
 
 Compiler Features:
