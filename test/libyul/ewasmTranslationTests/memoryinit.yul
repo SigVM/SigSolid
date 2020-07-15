@@ -1,5 +1,5 @@
 {
-  initfreemptr(0x0102030405060708)
+  mstore(0x40, freememorystart(0x0102030405060708))
   sstore(1, mload(0x40))
 }
 // ----

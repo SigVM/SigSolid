@@ -86,25 +86,13 @@ struct MemoryOffsetAllocator
 	map<YulString, map<YulString, uint64_t>> slotAllocations{};
 	map<YulString, uint64_t> nextAvailableSlot{};
 };
-
-/// Checks if @a _initFreeMPtr is effectively the first proper statement in @a _block.
-bool validateInitFreeMPtr(FunctionCall* _initFreeMPtr, Block& _block)
+u256 getLiteralArgumentValue(FunctionCall const& _call)
 {
-	for (Statement& statement: _block.statements)
-		if (std::optional<bool> result = std::visit(util::GenericVisitor{
-			[&](Block& _subBlock) -> std::optional<bool> {
-				return validateInitFreeMPtr(_initFreeMPtr, _subBlock);
-			},
-			[&](FunctionDefinition&) -> std::optional<bool> { return std::nullopt; },
-			[&](ExpressionStatement& _exprStmt) -> std::optional<bool> {
-				return get_if<FunctionCall>(&_exprStmt.expression) == _initFreeMPtr;
-			},
-			[&](auto&&) -> std::optional<bool> { return false; }
-		}, statement))
-			return *result;
-	return false;
+	yulAssert(_call.arguments.size() == 1, "");
+	Literal const* literal = std::get_if<Literal>(&_call.arguments.front());
+	yulAssert(literal, "");
+	return valueOfLiteral(*literal);
 }
-
 }
 
 void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
@@ -128,17 +116,18 @@ void StackLimitEvader::run(
 		"StackToMemoryMover can only be run on objects using the EVMDialect with object access."
 	);
 
-	// Find the literal argument of the ``initfreemptr`` call, if there is a unique such call, otherwise abort.
-	Literal* initFreeMPtrLiteral = nullptr;
-	if (
-		vector<FunctionCall*> initFreeMPtrs = FunctionCallFinder::run(*_object.code, "initfreemptr"_yulstring);
-		initFreeMPtrs.size() == 1
-	)
-		if (validateInitFreeMPtr(initFreeMPtrs.front(), *_object.code))
-			initFreeMPtrLiteral = std::get_if<Literal>(&initFreeMPtrs.front()->arguments.back());
-	if (!initFreeMPtrLiteral)
+	vector<FunctionCall*> getFreeMemoryStartCalls = FunctionCallFinder::run(
+		*_object.code,
+		"freememorystart"_yulstring
+	);
+	if (getFreeMemoryStartCalls.empty())
 		return;
-	u256 reservedMemory = valueOfLiteral(*initFreeMPtrLiteral);
+
+	// Make sure all calls to ``freememorystart`` we found have the same value as argument.
+	u256 reservedMemory = getLiteralArgumentValue(*getFreeMemoryStartCalls.front());
+	for (FunctionCall const* getFreeMemoryStartCall: getFreeMemoryStartCalls)
+			if (reservedMemory != getLiteralArgumentValue(*getFreeMemoryStartCall))
+				return;
 
 	CallGraph callGraph = CallGraphGenerator::callGraph(*_object.code);
 
@@ -151,5 +140,11 @@ void StackLimitEvader::run(
 	uint64_t requiredSlots = memoryOffsetAllocator.run();
 
 	StackToMemoryMover{_context, reservedMemory, memoryOffsetAllocator.slotAllocations}(*_object.code);
-	initFreeMPtrLiteral->value = YulString{util::toCompactHexWithPrefix(reservedMemory + 32 * requiredSlots)};
+	reservedMemory += 32 * requiredSlots;
+	for (FunctionCall* getFreeMemoryStartCall: getFreeMemoryStartCalls)
+	{
+		Literal* literal = std::get_if<Literal>(&getFreeMemoryStartCall->arguments.front());
+		literal->value = YulString{util::toCompactHexWithPrefix(reservedMemory)};
+	}
+
 }

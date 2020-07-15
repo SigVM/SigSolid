@@ -1,6 +1,6 @@
 {
     {
-        initfreemptr(128)
+        mstore(0x40, freememorystart(128))
         sstore(g(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16), f())
     }
     function g(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) -> v {
@@ -51,7 +51,7 @@
 //
 // {
 //     {
-//         initfreemptr(0xa0)
+//         mstore(0x40, freememorystart(0xa0))
 //         sstore(g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), f())
 //     }
 //     function g(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) -> v

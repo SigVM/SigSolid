@@ -8,7 +8,7 @@
 
 object \"C_10\" {
     code {
-        initfreemptr(128)
+        mstore(0x40, freememorystart(128))
         if callvalue() { revert(0, 0) }
 
         constructor_C_10()
@@ -24,7 +24,7 @@ object \"C_10\" {
     }
     object \"C_10_deployed\" {
         code {
-            initfreemptr(128)
+            mstore(0x40, freememorystart(128))
 
             if iszero(lt(calldatasize(), 4))
             {

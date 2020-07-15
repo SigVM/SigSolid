@@ -8,7 +8,7 @@
 
 object \"C_6\" {
     code {
-        initfreemptr(128)
+        mstore(0x40, freememorystart(128))
         if callvalue() { revert(0, 0) }
 
         constructor_C_6()
@@ -24,7 +24,7 @@ object \"C_6\" {
     }
     object \"C_6_deployed\" {
         code {
-            initfreemptr(128)
+            mstore(0x40, freememorystart(128))
 
             if iszero(lt(calldatasize(), 4))
             {
