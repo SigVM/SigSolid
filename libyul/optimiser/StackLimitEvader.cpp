@@ -29,6 +29,7 @@
 #include <libyul/Utilities.h>
 #include <libsolutil/Algorithms.h>
 #include <libsolutil/CommonData.h>
+#include <libsolutil/Visitor.h>
 #include <libevmasm/Exceptions.h>
 
 using namespace std;
@@ -85,6 +86,25 @@ struct MemoryOffsetAllocator
 	map<YulString, map<YulString, uint64_t>> slotAllocations{};
 	map<YulString, uint64_t> nextAvailableSlot{};
 };
+
+/// Checks if @a _memoryInit is effectively the first proper statement in @a _block.
+bool validateMemoryInit(FunctionCall* _memoryInit, Block& _block)
+{
+	for (Statement& statement: _block.statements)
+		if (std::optional<bool> result = std::visit(util::GenericVisitor{
+			[&](Block& _subBlock) -> std::optional<bool> {
+				return validateMemoryInit(_memoryInit, _subBlock);
+			},
+			[&](FunctionDefinition&) -> std::optional<bool> { return std::nullopt; },
+			[&](ExpressionStatement& _exprStmt) -> std::optional<bool> {
+				return get_if<FunctionCall>(&_exprStmt.expression) == _memoryInit;
+			},
+			[&](auto&&) -> std::optional<bool> { return false; }
+		}, statement))
+			return *result;
+	return false;
+}
+
 }
 
 void StackLimitEvader::run(OptimiserStepContext& _context, Object& _object, bool _optimizeStackAllocation)
@@ -114,7 +134,8 @@ void StackLimitEvader::run(
 		auto memoryInits = FunctionCallFinder::run(*_object.code, "memoryinit"_yulstring);
 		memoryInits.size() == 1
 	)
-		memoryInitLiteral = std::get_if<Literal>(&memoryInits.front()->arguments.back());
+		if (validateMemoryInit(memoryInits.front(), *_object.code))
+			memoryInitLiteral = std::get_if<Literal>(&memoryInits.front()->arguments.back());
 	if (!memoryInitLiteral)
 		return;
 	u256 reservedMemory = valueOfLiteral(*memoryInitLiteral);
