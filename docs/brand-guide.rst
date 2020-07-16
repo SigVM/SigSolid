@@ -24,7 +24,7 @@ Solidity Brand Name
 "Solidity" should be used to refer to the Solidity programming language
 solely.
 
-Please don't use "Solidity":
+Please do not use "Solidity":
 
 - To refer to any other programming language.
 
