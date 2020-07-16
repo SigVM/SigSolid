@@ -67,7 +67,8 @@ When using the Solidity logo, please respect the Solidity logo guidelines.
 Solidity Logo Guidelines
 ========================
 
-You can find the official Solidity logo SVG `here <https://github.com/ethereum/solidity/blob/develop/docs/logo.svg>`_.
+.. literalinclude:: logo.svg
+   :language: svg
 
 Please do not:
 
