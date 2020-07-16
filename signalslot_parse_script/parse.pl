@@ -116,7 +116,7 @@ END_MESSAGE
     function $slot_name\() public{
         $slot_name\_key = keccak256(\"$hash_slot_title");
         assembly {
-            sstore($slot_name\_status_slot,createslot($argc,1,2,sload($slot_name\_key_slot)))
+            sstore($slot_name\_status_slot,createslot($argc,10,30000,sload($slot_name\_key_slot)))
         }		
     }
     function $slot_title public{

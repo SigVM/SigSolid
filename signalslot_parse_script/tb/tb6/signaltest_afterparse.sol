@@ -45,7 +45,7 @@ contract B {
     function priceReceive() public{
         priceReceive_key = keccak256("priceReceive_func(bytes32)");
         assembly {
-            sstore(priceReceive_status_slot,createslot(32,1,2,sload(priceReceive_key_slot)))
+            sstore(priceReceive_status_slot,createslot(32,10,30000,sload(priceReceive_key_slot)))
         }		
     }
     function priceReceive_func(bytes32 obj) public{
