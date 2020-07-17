@@ -3373,7 +3373,7 @@ TypePointer FunctionType::mobileType() const
 		m_parameterTypes,
 		m_returnParameterTypes,
 		strings(m_parameterTypes.size()),
-		m_returnParameterNames,
+		strings(m_returnParameterNames.size()),
 		m_kind,
 		m_arbitraryParameters,
 		m_stateMutability,
