@@ -1,0 +1,414 @@
+    /* "exec_test_parsed.sol":24:627  contract B {... */
+  mstore(0x40, 0x80)
+    /* "exec_test_parsed.sol":582:625  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "exec_test_parsed.sol":607:621  priceReceive() */
+  tag_4
+    /* "exec_test_parsed.sol":607:619  priceReceive */
+  shl(0x20, tag_5)
+    /* "exec_test_parsed.sol":607:621  priceReceive() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "exec_test_parsed.sol":24:627  contract B {... */
+  jump(tag_6)
+    /* "exec_test_parsed.sol":210:442  function priceReceive() public{... */
+tag_5:
+    /* "exec_test_parsed.sol":269:307  keccak256("priceReceive_func(bytes3)") */
+  mload(0x40)
+  dup1
+  dup1
+  0x7072696365526563656976655f66756e63286279746573332900000000000000
+  dup2
+  mstore
+  pop
+  0x19
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "exec_test_parsed.sol":250:266  priceReceive_key */
+  0x03
+    /* "exec_test_parsed.sol":250:307  priceReceive_key = keccak256("priceReceive_func(bytes3)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "exec_test_parsed.sol":400:421  priceReceive_key_slot */
+  0x03
+    /* "exec_test_parsed.sol":394:422  sload(priceReceive_key_slot) */
+  sload
+    /* "exec_test_parsed.sol":388:393  30000 */
+  0x7530
+    /* "exec_test_parsed.sol":385:387  10 */
+  0x0a
+    /* "exec_test_parsed.sol":383:384  3 */
+  0x03
+    /* "exec_test_parsed.sol":372:423  createslot(3,10,30000,sload(priceReceive_key_slot)) */
+  createslot
+    /* "exec_test_parsed.sol":347:371  priceReceive_status_slot */
+  0x01
+    /* "exec_test_parsed.sol":340:424  sstore(priceReceive_status_slot,createslot(3,10,30000,sload(priceReceive_key_slot))) */
+  sstore
+    /* "exec_test_parsed.sol":326:434  {... */
+  jump	// out
+    /* "exec_test_parsed.sol":24:627  contract B {... */
+tag_6:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "exec_test_parsed.sol":24:627  contract B {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0cd2542e
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x0f912881
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x25528630
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x68c0b038
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xb6675486
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xfd0bf5a3
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "exec_test_parsed.sol":108:143  bytes32 public priceReceive_codePtr */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":447:580  function priceReceive_func(bytes3 obj) public returns (bytes3 ret){... */
+    tag_4:
+      tag_11
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_12
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_12:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_13
+      jump	// in
+    tag_11:
+      mload(0x40)
+      dup1
+      dup3
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":71:102  uint public priceReceive_status */
+    tag_5:
+      tag_14
+      tag_15
+      jump	// in
+    tag_14:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":38:65  bytes3 public LocalPriceSum */
+    tag_6:
+      tag_16
+      tag_17
+      jump	// in
+    tag_16:
+      mload(0x40)
+      dup1
+      dup3
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":210:442  function priceReceive() public{... */
+    tag_7:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      stop
+        /* "exec_test_parsed.sol":173:204  bytes32 public priceReceive_key */
+    tag_8:
+      tag_20
+      tag_21
+      jump	// in
+    tag_20:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "exec_test_parsed.sol":108:143  bytes32 public priceReceive_codePtr */
+    tag_10:
+      sload(0x02)
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":447:580  function priceReceive_func(bytes3 obj) public returns (bytes3 ret){... */
+    tag_13:
+        /* "exec_test_parsed.sol":502:512  bytes3 ret */
+      0x00
+        /* "exec_test_parsed.sol":539:542  obj */
+      dup2
+        /* "exec_test_parsed.sol":523:536  LocalPriceSum */
+      0x00
+      dup1
+        /* "exec_test_parsed.sol":523:542  LocalPriceSum = obj */
+      0x0100
+      exp
+      dup2
+      sload
+      dup2
+      0xffffff
+      mul
+      not
+      and
+      swap1
+      dup4
+      0xe8
+      shr
+      mul
+      or
+      swap1
+      sstore
+      pop
+        /* "exec_test_parsed.sol":560:573  LocalPriceSum */
+      0x00
+      dup1
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xe8
+      shl
+        /* "exec_test_parsed.sol":558:573  ~ LocalPriceSum */
+      not
+        /* "exec_test_parsed.sol":552:573  ret = ~ LocalPriceSum */
+      swap1
+      pop
+        /* "exec_test_parsed.sol":447:580  function priceReceive_func(bytes3 obj) public returns (bytes3 ret){... */
+      swap2
+      swap1
+      pop
+      jump	// out
+        /* "exec_test_parsed.sol":71:102  uint public priceReceive_status */
+    tag_15:
+      sload(0x01)
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":38:65  bytes3 public LocalPriceSum */
+    tag_17:
+      0x00
+      dup1
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xe8
+      shl
+      dup2
+      jump	// out
+        /* "exec_test_parsed.sol":210:442  function priceReceive() public{... */
+    tag_19:
+        /* "exec_test_parsed.sol":269:307  keccak256("priceReceive_func(bytes3)") */
+      mload(0x40)
+      dup1
+      dup1
+      0x7072696365526563656976655f66756e63286279746573332900000000000000
+      dup2
+      mstore
+      pop
+      0x19
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "exec_test_parsed.sol":250:266  priceReceive_key */
+      0x03
+        /* "exec_test_parsed.sol":250:307  priceReceive_key = keccak256("priceReceive_func(bytes3)") */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "exec_test_parsed.sol":400:421  priceReceive_key_slot */
+      0x03
+        /* "exec_test_parsed.sol":394:422  sload(priceReceive_key_slot) */
+      sload
+        /* "exec_test_parsed.sol":388:393  30000 */
+      0x7530
+        /* "exec_test_parsed.sol":385:387  10 */
+      0x0a
+        /* "exec_test_parsed.sol":383:384  3 */
+      0x03
+        /* "exec_test_parsed.sol":372:423  createslot(3,10,30000,sload(priceReceive_key_slot)) */
+      createslot
+        /* "exec_test_parsed.sol":347:371  priceReceive_status_slot */
+      0x01
+        /* "exec_test_parsed.sol":340:424  sstore(priceReceive_status_slot,createslot(3,10,30000,sload(priceReceive_key_slot))) */
+      sstore
+        /* "exec_test_parsed.sol":326:434  {... */
+      jump	// out
+        /* "exec_test_parsed.sol":173:204  bytes32 public priceReceive_key */
+    tag_21:
+      sload(0x03)
+      dup2
+      jump	// out
+
+    auxdata: 0xa26469706673582212206c5d65486a71d7534b8309409b32ebcf14c1b19d5f661a088a2b3cb3360a5a8164736f6c63782c302e362e31312d646576656c6f702e323032302e372e31342b636f6d6d69742e63333731353564362e6d6f64005d
+}
