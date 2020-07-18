@@ -7,10 +7,14 @@ my $defaultfile = $ARGV[0];
 my $mainfile = $ARGV[1];
 
 open( my $default_fh, "<", $defaultfile ) or die $!;
-open( my $main_fh,    ">", $mainfile )    or die $!;
+open( my $main_fh,    ">", "$mainfile\.firststage" )    or die $!;
 
 
 while ( my $line = <$default_fh> ) {
+    #remove all comments
+    my ($line_wo_comments) = $line =~ /(.+)\/\//;
+    if(defined $line_wo_comments){ $line = "$line_wo_comments\n";}
+
     if($line =~ /signal\s/){
         my $flag = 0;
         my @line_arr = split(/(\;)/,$line);
@@ -250,5 +254,13 @@ END_MESSAGE
         print {$main_fh} $line;
     }
 }
+close $default_fh;
+close $main_fh;
+open( $default_fh,    "<", "$mainfile\.firststage" )    or die $!;
+open( $main_fh,       ">",  $mainfile )                 or die $!;
+while ( my $line = <$default_fh> ) {
+    print {$main_fh} $line;
+}
+
 close $default_fh;
 close $main_fh;
