@@ -21,22 +21,27 @@ while ( my $line = <$default_fh> ) {
                 my ($func) = $line_arr_ele =~ /signal(.+)\(/;
                 $func =~ s/^\s+|\s+$//g;
                 my ($arg_arr) = $line_arr_ele =~ /\((.+)\)/;
-                my @arg = split /\s/, $arg_arr;
-                my $argc = 0;
-                if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
-                    $argc = 32;
-                }elsif($arg[0] eq "byte"){
-                    $argc = 1;
-                }elsif($arg[0] =~ /byte/){
-                    ($argc) = $arg[0] =~ /(\d+)/;
-                }
-                my $message = <<"END_MESSAGE";
+                my $message;
+                if(defined $arg_arr){
+                    my @arg = split /\s/, $arg_arr;
+                    my $argc = 0;
+                    if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
+                        $argc = 32;
+                    }elsif($arg[0] eq "byte"){
+                        $argc = 1;
+                    }elsif($arg[0] =~ /byte/){
+                        ($argc) = $arg[0] =~ /(\d+)/;
+                    }
+                    $message = <<"END_MESSAGE";
 	$arg[0] public $func\_data;
 	bytes public $func\_dataslot;
 	uint public $func\_status;
     bytes32 public $func\_key;
 	function set\_$func\_data\($arg[0] dataSet) public {
        $func\_data = dataSet;
+    }
+	function get\_$func\_argc\(\) public pure returns (uint argc){
+       return $argc;
     }
 	function get\_$func\_key\() public view returns (bytes32 key){
        return $func\_key;
@@ -52,9 +57,29 @@ while ( my $line = <$default_fh> ) {
 		}
     }
 END_MESSAGE
+                }else{#if there is no emit data defined
+                    $message = <<"END_MESSAGE";
+	bytes public $func\_dataslot;\/\/the data pointer is NULL
+	uint public $func\_status;
+    bytes32 public $func\_key;
+	function get\_$func\_key\() public view returns (bytes32 key){
+       return $func\_key;
+    }
+    function get\_$func\_dataslot\() public view returns (bytes memory dataslot){
+       return $func\_dataslot;
+    }
+    function $func\() public{
+        $func\_key = keccak256(\"function $func\(\)\");
+		assembly {
+			sstore($func\_status\_slot,createsig(0, sload($func\_key_slot)))
+			sstore($func\_dataslot_slot,0x0)
+		}
+    }
+END_MESSAGE
+                }
                 print {$main_fh} $message;
             }else{
-                if($flag == 1){
+                if($flag == 1){#the flag is used for avoid printing additional ";"
                     $flag = 0;
                 }else{
                     print {$main_fh} $line_arr_ele;
@@ -99,19 +124,24 @@ END_MESSAGE
         my ($slot_obj) = $line =~ /\((.+)\)/;
         my ($slot_title) = $line =~ /$slot_name(.+)\)/;
         $slot_title = "$slot_name\_func$slot_title\)";
-        my @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
         my $argc = 0;
-        if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
-            $argc = 32;
-        }elsif($arg[0] eq "byte"){
-            $argc = 1;
-        }elsif($arg[0] =~ /byte/){
-            ($argc) = $arg[0] =~ /(\d+)/;
+        my @arg;
+        my $hash_slot_title;
+        if(defined $slot_obj){
+            @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
+            if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
+                $argc = 32;
+            }elsif($arg[0] eq "byte"){
+                $argc = 1;
+            }elsif($arg[0] =~ /byte/){
+                ($argc) = $arg[0] =~ /(\d+)/;
+            }
+            $hash_slot_title = "$slot_name\_func\($arg[0]\)";
+        }else{
+            $hash_slot_title = "$slot_name\_func\(\)";
         }
-        my $hash_slot_title = "$slot_name\_func\($arg[0]\)";
         my $message = <<"END_MESSAGE";
     uint public $slot_name\_status;
-    bytes32 public $slot_name\_codePtr;\/\/codePtr is useless now
     bytes32 public $slot_name\_key;
     function $slot_name\() public{
         $slot_name\_key = keccak256(\"$hash_slot_title");
@@ -130,7 +160,7 @@ END_MESSAGE
             # }
             print {$main_fh} $line;
         }
-    }elsif($line =~ /emitsig\s/){#TODO: emitsig need num of arg?
+    }elsif($line =~ /emitsig\s/){
         my $flag = 0;
         my @line_arr = split(/(\;)/,$line);
         foreach (@line_arr){
@@ -156,14 +186,26 @@ END_MESSAGE
                 my ($emit_obj) = $line_arr_ele =~ /\((.+)\)\.delay\(/;
                 my $emiter_tr = $emiter;
                 $emiter_tr =~ tr/\./\_/;
-                my $message = <<"END_MESSAGE";
+                my $message;
+                if(defined $emit_obj){
+                $message = <<"END_MESSAGE";
         $emiter\.set_$sig_obj_func\_data\($emit_obj\);
+        uint $emiter_tr\_$sig_obj_func\_argc = $emiter\.get\_$sig_obj_func\_argc();
 		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		assembly {
-			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,32))
+			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,$emiter_tr\_$sig_obj_func\_argc))
 	    }
 END_MESSAGE
+                }else{#if no data emitted defined
+                $message = <<"END_MESSAGE";
+		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
+		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
+		assembly {
+			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,0))
+	    }
+END_MESSAGE
+                }
                 print {$main_fh} $message;
             }else{
                 if($flag == 1){

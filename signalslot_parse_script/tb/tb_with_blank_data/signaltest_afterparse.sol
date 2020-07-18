@@ -25,13 +25,11 @@ contract A {
 		}
     }
 
-    function emitfunc(bytes32 DataSent) public {
-        this.set_priceFeedUpdate_data(DataSent);
-        uint this_priceFeedUpdate_argc = this.get_priceFeedUpdate_argc();
+    function emitfunc() public {
 		bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot();
 		bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key();
 		assembly {
-			mstore(0x40,emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,this_priceFeedUpdate_argc))
+			mstore(0x40,emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,0))
 	    }
 
     }
@@ -46,13 +44,13 @@ contract B {
     uint public priceReceive_status;
     bytes32 public priceReceive_key;
     function priceReceive() public{
-        priceReceive_key = keccak256("priceReceive_func(bytes32)");
+        priceReceive_key = keccak256("priceReceive_func()");
         assembly {
-            sstore(priceReceive_status_slot,createslot(32,10,30000,sload(priceReceive_key_slot)))
+            sstore(priceReceive_status_slot,createslot(0,10,30000,sload(priceReceive_key_slot)))
         }		
     }
-    function priceReceive_func(bytes32 obj) public{
-        LocalPriceSum = LocalPriceSum | obj;
+    function priceReceive_func() public{
+        LocalPriceSum = ~LocalPriceSum;
     }
 	function bindfunc() public view {
 		address dut_address = address(dut);

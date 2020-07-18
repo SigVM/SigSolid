@@ -1,6 +1,6 @@
-    /* "signaltest_afterparse.sol":24:1483  contract A {... */
+    /* "signaltest_afterparse.sol":24:1320  contract A {... */
   mstore(0x40, 0x80)
-    /* "signaltest_afterparse.sol":1435:1481  constructor() public {... */
+    /* "signaltest_afterparse.sol":1272:1318  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,16 +11,16 @@
   revert
 tag_1:
   pop
-    /* "signaltest_afterparse.sol":1460:1477  priceFeedUpdate() */
+    /* "signaltest_afterparse.sol":1297:1314  priceFeedUpdate() */
   tag_4
-    /* "signaltest_afterparse.sol":1460:1475  priceFeedUpdate */
+    /* "signaltest_afterparse.sol":1297:1312  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "signaltest_afterparse.sol":1460:1477  priceFeedUpdate() */
+    /* "signaltest_afterparse.sol":1297:1314  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "signaltest_afterparse.sol":24:1483  contract A {... */
+    /* "signaltest_afterparse.sol":24:1320  contract A {... */
   jump(tag_6)
     /* "signaltest_afterparse.sol":684:965  function priceFeedUpdate() public{... */
 tag_5:
@@ -69,7 +69,7 @@ tag_5:
   sstore
     /* "signaltest_afterparse.sol":801:959  {... */
   jump	// out
-    /* "signaltest_afterparse.sol":24:1483  contract A {... */
+    /* "signaltest_afterparse.sol":24:1320  contract A {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -81,7 +81,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "signaltest_afterparse.sol":24:1483  contract A {... */
+        /* "signaltest_afterparse.sol":24:1320  contract A {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -106,7 +106,7 @@ sub_0: assembly {
       tag_8
       jumpi
       dup1
-      0x6bb97c67
+      0xa0a25d6b
       eq
       tag_9
       jumpi
@@ -392,49 +392,19 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "signaltest_afterparse.sol":971:1433  function emitfunc(bytes32 DataSent) public {... */
+        /* "signaltest_afterparse.sol":971:1270  function emitfunc() public {... */
     tag_9:
       tag_32
-      0x04
-      dup1
-      calldatasize
-      sub
-      0x20
-      dup2
-      lt
-      iszero
       tag_33
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_33:
-      dup2
-      add
-      swap1
-      dup1
-      dup1
-      calldataload
-      swap1
-      0x20
-      add
-      swap1
-      swap3
-      swap2
-      swap1
-      pop
-      pop
-      pop
-      tag_34
       jump	// in
     tag_32:
       stop
         /* "signaltest_afterparse.sol":434:544  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
     tag_10:
+      tag_34
       tag_35
-      tag_36
       jump	// in
-    tag_35:
+    tag_34:
       mload(0x40)
       dup1
       dup3
@@ -453,17 +423,17 @@ sub_0: assembly {
       return
         /* "signaltest_afterparse.sol":684:965  function priceFeedUpdate() public{... */
     tag_11:
+      tag_36
       tag_37
-      tag_38
       jump	// in
-    tag_37:
+    tag_36:
       stop
         /* "signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
     tag_12:
+      tag_38
       tag_39
-      tag_40
       jump	// in
-    tag_39:
+    tag_38:
       mload(0x40)
       dup1
       dup3
@@ -482,10 +452,10 @@ sub_0: assembly {
       return
         /* "signaltest_afterparse.sol":549:679  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
     tag_13:
+      tag_40
       tag_41
-      tag_42
       jump	// in
-    tag_41:
+    tag_40:
       mload(0x40)
       dup1
       dup1
@@ -516,12 +486,12 @@ sub_0: assembly {
       dup4
       dup4
       0x00
-    tag_43:
+    tag_42:
       dup4
       dup2
       lt
       iszero
-      tag_45
+      tag_44
       jumpi
       dup1
       dup3
@@ -536,8 +506,8 @@ sub_0: assembly {
       add
       swap1
       pop
-      jump(tag_43)
-    tag_45:
+      jump(tag_42)
+    tag_44:
       pop
       pop
       pop
@@ -552,7 +522,7 @@ sub_0: assembly {
       and
       dup1
       iszero
-      tag_46
+      tag_45
       jumpi
       dup1
       dup3
@@ -574,7 +544,7 @@ sub_0: assembly {
       add
       swap2
       pop
-    tag_46:
+    tag_45:
       pop
       swap3
       pop
@@ -688,12 +658,12 @@ sub_0: assembly {
       div
       dup1
       iszero
-      tag_49
+      tag_48
       jumpi
       dup1
       0x1f
       lt
-      tag_50
+      tag_49
       jumpi
       0x0100
       dup1
@@ -707,8 +677,8 @@ sub_0: assembly {
       0x20
       add
       swap2
-      jump(tag_49)
-    tag_50:
+      jump(tag_48)
+    tag_49:
       dup3
       add
       swap2
@@ -717,7 +687,7 @@ sub_0: assembly {
       mstore
       keccak256(0x00, 0x20)
       swap1
-    tag_51:
+    tag_50:
       dup2
       sload
       dup2
@@ -731,7 +701,7 @@ sub_0: assembly {
       dup1
       dup4
       gt
-      tag_51
+      tag_50
       jumpi
       dup3
       swap1
@@ -741,7 +711,7 @@ sub_0: assembly {
       dup3
       add
       swap2
-    tag_49:
+    tag_48:
       pop
       pop
       pop
@@ -749,168 +719,17 @@ sub_0: assembly {
       pop
       dup2
       jump	// out
-        /* "signaltest_afterparse.sol":971:1433  function emitfunc(bytes32 DataSent) public {... */
-    tag_34:
-        /* "signaltest_afterparse.sol":1024:1028  this */
-      address
-        /* "signaltest_afterparse.sol":1024:1053  this.set_priceFeedUpdate_data */
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-      0x4a2e901c
-        /* "signaltest_afterparse.sol":1054:1062  DataSent */
-      dup3
-        /* "signaltest_afterparse.sol":1024:1063  this.set_priceFeedUpdate_data(DataSent) */
-      mload(0x40)
-      dup3
-      0xffffffff
-      and
-      0xe0
-      shl
-      dup2
-      mstore
-      0x04
-      add
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      0x00
-      mload(0x40)
-      dup1
-      dup4
-      sub
-      dup2
-      0x00
-      dup8
-      dup1
-      extcodesize
-      iszero
-      dup1
-      iszero
-      tag_53
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_53:
-      pop
-      gas
-      call
-      iszero
-      dup1
-      iszero
-      tag_55
-      jumpi
-      returndatasize
-      0x00
-      dup1
-      returndatacopy
-      revert(0x00, returndatasize)
-    tag_55:
-      pop
-      pop
-      pop
-      pop
-        /* "signaltest_afterparse.sol":1073:1103  uint this_priceFeedUpdate_argc */
-      0x00
-        /* "signaltest_afterparse.sol":1106:1110  this */
-      address
-        /* "signaltest_afterparse.sol":1106:1135  this.get_priceFeedUpdate_argc */
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-      0x3e4fe9a4
-        /* "signaltest_afterparse.sol":1106:1137  this.get_priceFeedUpdate_argc() */
-      mload(0x40)
-      dup2
-      0xffffffff
-      and
-      0xe0
-      shl
-      dup2
-      mstore
-      0x04
-      add
-      0x20
-      mload(0x40)
-      dup1
-      dup4
-      sub
-      dup2
-      dup7
-      dup1
-      extcodesize
-      iszero
-      dup1
-      iszero
-      tag_56
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_56:
-      pop
-      gas
-      staticcall
-      iszero
-      dup1
-      iszero
-      tag_58
-      jumpi
-      returndatasize
-      0x00
-      dup1
-      returndatacopy
-      revert(0x00, returndatasize)
-    tag_58:
-      pop
-      pop
-      pop
-      pop
-      mload(0x40)
-      returndatasize
-      0x20
-      dup2
-      lt
-      iszero
-      tag_59
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_59:
-      dup2
-      add
-      swap1
-      dup1
-      dup1
-      mload
-      swap1
-      0x20
-      add
-      swap1
-      swap3
-      swap2
-      swap1
-      pop
-      pop
-      pop
-        /* "signaltest_afterparse.sol":1073:1137  uint this_priceFeedUpdate_argc = this.get_priceFeedUpdate_argc() */
-      swap1
-      pop
-        /* "signaltest_afterparse.sol":1141:1183  bytes memory this_priceFeedUpdate_dataslot */
+        /* "signaltest_afterparse.sol":971:1270  function emitfunc() public {... */
+    tag_33:
+        /* "signaltest_afterparse.sol":1002:1044  bytes memory this_priceFeedUpdate_dataslot */
       0x60
-        /* "signaltest_afterparse.sol":1186:1190  this */
+        /* "signaltest_afterparse.sol":1047:1051  this */
       address
-        /* "signaltest_afterparse.sol":1186:1219  this.get_priceFeedUpdate_dataslot */
+        /* "signaltest_afterparse.sol":1047:1080  this.get_priceFeedUpdate_dataslot */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xfd5e127c
-        /* "signaltest_afterparse.sol":1186:1221  this.get_priceFeedUpdate_dataslot() */
+        /* "signaltest_afterparse.sol":1047:1082  this.get_priceFeedUpdate_dataslot() */
       mload(0x40)
       dup2
       0xffffffff
@@ -933,26 +752,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_60
+      tag_52
       jumpi
       0x00
       dup1
       revert
-    tag_60:
+    tag_52:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_62
+      tag_54
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_62:
+    tag_54:
       pop
       pop
       pop
@@ -978,12 +797,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_63
+      tag_55
       jumpi
       0x00
       dup1
       revert
-    tag_63:
+    tag_55:
       dup2
       add
       swap1
@@ -1000,12 +819,12 @@ sub_0: assembly {
       dup3
       gt
       iszero
-      tag_64
+      tag_56
       jumpi
       0x00
       dup1
       revert
-    tag_64:
+    tag_56:
       dup4
       dup3
       add
@@ -1018,12 +837,12 @@ sub_0: assembly {
       dup2
       gt
       iszero
-      tag_65
+      tag_57
       jumpi
       0x00
       dup1
       revert
-    tag_65:
+    tag_57:
       dup3
       mload
       dup7
@@ -1038,12 +857,12 @@ sub_0: assembly {
       gt
       or
       iszero
-      tag_66
+      tag_58
       jumpi
       0x00
       dup1
       revert
-    tag_66:
+    tag_58:
       dup1
       dup4
       mstore
@@ -1065,12 +884,12 @@ sub_0: assembly {
       dup4
       dup4
       0x00
-    tag_67:
+    tag_59:
       dup4
       dup2
       lt
       iszero
-      tag_69
+      tag_61
       jumpi
       dup1
       dup3
@@ -1085,8 +904,8 @@ sub_0: assembly {
       add
       swap1
       pop
-      jump(tag_67)
-    tag_69:
+      jump(tag_59)
+    tag_61:
       pop
       pop
       pop
@@ -1101,7 +920,7 @@ sub_0: assembly {
       and
       dup1
       iszero
-      tag_70
+      tag_62
       jumpi
       dup1
       dup3
@@ -1123,25 +942,25 @@ sub_0: assembly {
       add
       swap2
       pop
-    tag_70:
+    tag_62:
       pop
       0x40
       mstore
       pop
       pop
       pop
-        /* "signaltest_afterparse.sol":1141:1221  bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot() */
+        /* "signaltest_afterparse.sol":1002:1082  bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":1225:1257  bytes32 this_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":1086:1118  bytes32 this_priceFeedUpdate_key */
       0x00
-        /* "signaltest_afterparse.sol":1260:1264  this */
+        /* "signaltest_afterparse.sol":1121:1125  this */
       address
-        /* "signaltest_afterparse.sol":1260:1288  this.get_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":1121:1149  this.get_priceFeedUpdate_key */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xbab3affe
-        /* "signaltest_afterparse.sol":1260:1290  this.get_priceFeedUpdate_key() */
+        /* "signaltest_afterparse.sol":1121:1151  this.get_priceFeedUpdate_key() */
       mload(0x40)
       dup2
       0xffffffff
@@ -1164,26 +983,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_71
+      tag_63
       jumpi
       0x00
       dup1
       revert
-    tag_71:
+    tag_63:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_73
+      tag_65
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_73:
+    tag_65:
       pop
       pop
       pop
@@ -1194,12 +1013,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_74
+      tag_66
       jumpi
       0x00
       dup1
       revert
-    tag_74:
+    tag_66:
       dup2
       add
       swap1
@@ -1216,31 +1035,29 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "signaltest_afterparse.sol":1225:1290  bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key() */
+        /* "signaltest_afterparse.sol":1086:1151  bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":1392:1417  this_priceFeedUpdate_argc */
+        /* "signaltest_afterparse.sol":1253:1254  0 */
+      0x00
+        /* "signaltest_afterparse.sol":1223:1252  this_priceFeedUpdate_dataslot */
       dup3
-        /* "signaltest_afterparse.sol":1362:1391  this_priceFeedUpdate_dataslot */
-      dup3
-        /* "signaltest_afterparse.sol":1353:1361  ONE_HOUR */
+        /* "signaltest_afterparse.sol":1214:1222  ONE_HOUR */
       0xb4
-        /* "signaltest_afterparse.sol":1328:1352  this_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":1189:1213  this_priceFeedUpdate_key */
       dup4
-        /* "signaltest_afterparse.sol":1320:1418  emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,this_priceFeedUpdate_argc) */
+        /* "signaltest_afterparse.sol":1181:1255  emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,0) */
       emitsig
-        /* "signaltest_afterparse.sol":1315:1319  0x40 */
+        /* "signaltest_afterparse.sol":1176:1180  0x40 */
       0x40
-        /* "signaltest_afterparse.sol":1308:1419  mstore(0x40,emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,this_priceFeedUpdate_argc)) */
+        /* "signaltest_afterparse.sol":1169:1256  mstore(0x40,emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,0)) */
       mstore
-        /* "signaltest_afterparse.sol":1303:1426  {... */
-      pop
-      pop
+        /* "signaltest_afterparse.sol":1164:1263  {... */
       pop
       pop
       jump	// out
         /* "signaltest_afterparse.sol":434:544  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
-    tag_36:
+    tag_35:
         /* "signaltest_afterparse.sol":490:501  bytes32 key */
       0x00
         /* "signaltest_afterparse.sol":518:537  priceFeedUpdate_key */
@@ -1252,7 +1069,7 @@ sub_0: assembly {
       swap1
       jump	// out
         /* "signaltest_afterparse.sol":684:965  function priceFeedUpdate() public{... */
-    tag_38:
+    tag_37:
         /* "signaltest_afterparse.sol":749:788  keccak256("function priceFeedUpdate()") */
       mload(0x40)
       dup1
@@ -1299,12 +1116,12 @@ sub_0: assembly {
         /* "signaltest_afterparse.sol":801:959  {... */
       jump	// out
         /* "signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
-    tag_40:
+    tag_39:
       sload(0x00)
       dup2
       jump	// out
         /* "signaltest_afterparse.sol":549:679  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
-    tag_42:
+    tag_41:
         /* "signaltest_afterparse.sol":610:631  bytes memory dataslot */
       0x60
         /* "signaltest_afterparse.sol":648:672  priceFeedUpdate_dataslot */
@@ -1366,12 +1183,12 @@ sub_0: assembly {
       div
       dup1
       iszero
-      tag_78
+      tag_70
       jumpi
       dup1
       0x1f
       lt
-      tag_79
+      tag_71
       jumpi
       0x0100
       dup1
@@ -1385,8 +1202,8 @@ sub_0: assembly {
       0x20
       add
       swap2
-      jump(tag_78)
-    tag_79:
+      jump(tag_70)
+    tag_71:
       dup3
       add
       swap2
@@ -1395,7 +1212,7 @@ sub_0: assembly {
       mstore
       keccak256(0x00, 0x20)
       swap1
-    tag_80:
+    tag_72:
       dup2
       sload
       dup2
@@ -1409,7 +1226,7 @@ sub_0: assembly {
       dup1
       dup4
       gt
-      tag_80
+      tag_72
       jumpi
       dup3
       swap1
@@ -1419,7 +1236,7 @@ sub_0: assembly {
       dup3
       add
       swap2
-    tag_78:
+    tag_70:
       pop
       pop
       pop
@@ -1431,5 +1248,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa26469706673582212203ba58a6366068aa4084a08c9f77d04fa3a17c9406e1094df9c8b4695e3ad858b64736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
+    auxdata: 0xa2646970667358221220d9e14b88be385213f4d7712187edd61a7b09bca640f62ebc9dc326e403618bfa64736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
 }
