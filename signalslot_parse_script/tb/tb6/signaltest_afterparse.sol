@@ -35,9 +35,10 @@ contract A {
 	    }
 
     }
-	constructor() public {
-		priceFeedUpdate();
-	}
+
+constructor() public {
+   priceFeedUpdate();
+}
 }
 contract B {
 	A dut;
@@ -70,7 +71,7 @@ contract B {
 		}
 
     }
-	constructor() public {
-		priceReceive();
-	}
+constructor() public {
+   priceReceive();
+}
 }

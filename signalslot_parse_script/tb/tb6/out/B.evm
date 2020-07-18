@@ -1,6 +1,6 @@
-    /* "signaltest_afterparse.sol":1484:2553  contract B {... */
+    /* "signaltest_afterparse.sol":1484:2552  contract B {... */
   mstore(0x40, 0x80)
-    /* "signaltest_afterparse.sol":2508:2551  constructor() public {... */
+    /* "signaltest_afterparse.sol":2507:2550  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -20,7 +20,7 @@ tag_1:
   shr
   jump	// in
 tag_4:
-    /* "signaltest_afterparse.sol":1484:2553  contract B {... */
+    /* "signaltest_afterparse.sol":1484:2552  contract B {... */
   jump(tag_6)
     /* "signaltest_afterparse.sol":1655:1889  function priceReceive() public{... */
 tag_5:
@@ -67,7 +67,7 @@ tag_5:
   sstore
     /* "signaltest_afterparse.sol":1772:1881  {... */
   jump	// out
-    /* "signaltest_afterparse.sol":1484:2553  contract B {... */
+    /* "signaltest_afterparse.sol":1484:2552  contract B {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -79,7 +79,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "signaltest_afterparse.sol":1484:2553  contract B {... */
+        /* "signaltest_afterparse.sol":1484:2552  contract B {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -642,5 +642,5 @@ sub_0: assembly {
       dup2
       jump	// out
 
-    auxdata: 0xa26469706673582212205afa6443c1e0af82b9ea93ac9c4c3435e16624a03c67493381e81fca88b7c61c64736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
+    auxdata: 0xa2646970667358221220cb23b3c618f0b880e3063a3b878aee34f8a7f147df6cb243e91bec8fec9fc5ce64736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
 }

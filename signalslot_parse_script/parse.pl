@@ -258,9 +258,60 @@ close $default_fh;
 close $main_fh;
 open( $default_fh,    "<", "$mainfile\.firststage" )    or die $!;
 open( $main_fh,       ">",  $mainfile )                 or die $!;
+
+#contructor handling: if building construtor, it must be placed under slot/signal declaration
+#contract cannot be written into the same line
+#if building a contructor, it cannot be written into the same line
+my @sigslot_funcinit_arr = ();
+my $end_counter = 0;
+my $in_contract = 0;
+my $found_constuct = 0;
 while ( my $line = <$default_fh> ) {
-    print {$main_fh} $line;
+    my $inc = ($line =~ /\{/g);
+    my $sub = ($line =~ /\}/g);
+    $end_counter = $end_counter + $inc - $sub;
+    if($line =~ /contract\s/){
+        $in_contract = 1;
+        if($inc > 0 && $sub > 0 && $end_counter == 0)
+        {
+            print("contract cannot be written into the same line, exit now ...\n");
+            exit;
+        }
+        print {$main_fh} $line;
+    }elsif($end_counter == 0){#contract finished or not enter
+        if($in_contract == 1 && $found_constuct == 0){#add default construct
+            print {$main_fh} "constructor() public {\n";
+            if(@sigslot_funcinit_arr){
+                foreach ( @sigslot_funcinit_arr ) {
+                    print {$main_fh} $_;
+                }
+            }
+            print {$main_fh} "}\n";
+        }
+        @sigslot_funcinit_arr = ();
+        $in_contract = 0;
+        print {$main_fh} $line;
+    }elsif($line =~ /constructor/){
+        $found_constuct = 1;
+        print {$main_fh} $line;
+        if(@sigslot_funcinit_arr){
+            foreach ( @sigslot_funcinit_arr ) {
+                print {$main_fh} $_;
+            }
+        }
+    }else{
+        if($line =~ /createsig\(/){
+            my ($funcTmp) = $line =~ /sload\((.+)\_key_slot\)\)\)/;
+            push(@sigslot_funcinit_arr, "   $funcTmp\();\n");
+        }
+        elsif($line =~ /createslot\(/){
+            my ($funcTmp) = $line =~ /sload\((.+)\_key_slot\)\)\)/;
+            push(@sigslot_funcinit_arr, "   $funcTmp\();\n");
+        }
+        print {$main_fh} $line;
+    }
 }
 
 close $default_fh;
 close $main_fh;
+system("rm -rf $mainfile\.firststage");

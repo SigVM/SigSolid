@@ -11,11 +11,11 @@
   revert
 tag_1:
   pop
-    /* "signaltest_afterparse.sol":1460:1477  priceFeedUpdate() */
+    /* "signaltest_afterparse.sol":1461:1478  priceFeedUpdate() */
   tag_4
-    /* "signaltest_afterparse.sol":1460:1475  priceFeedUpdate */
+    /* "signaltest_afterparse.sol":1461:1476  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "signaltest_afterparse.sol":1460:1477  priceFeedUpdate() */
+    /* "signaltest_afterparse.sol":1461:1478  priceFeedUpdate() */
   0x20
   shr
   jump	// in
@@ -1431,5 +1431,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa26469706673582212203ba58a6366068aa4084a08c9f77d04fa3a17c9406e1094df9c8b4695e3ad858b64736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
+    auxdata: 0xa2646970667358221220aea09109aa6c9ea5242c106bfce5f9df40a2fbf41865aa8404b489b194cdeec864736f6c637828302e362e31312d646576656c6f702e323032302e372e31382b636f6d6d69742e63663038346332330059
 }
