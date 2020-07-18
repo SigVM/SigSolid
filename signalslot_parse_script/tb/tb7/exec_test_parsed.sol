@@ -10,8 +10,9 @@ contract B {
             sstore(priceReceive_status_slot,createslot(3,10,30000,sload(priceReceive_key_slot)))
         }		
     }
-    function priceReceive_func(bytes3 obj) public{
-        LocalPriceSum = LocalPriceSum | obj;
+    function priceReceive_func(bytes3 obj) public returns (bytes3 ret){
+        LocalPriceSum = obj;
+        ret = ~ LocalPriceSum;
     }
 	constructor() public {
 		priceReceive();
