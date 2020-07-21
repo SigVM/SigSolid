@@ -28,11 +28,11 @@ async function main() {
   });
 
   // estimate deploy contract gas use
-  const estimate = await contract.constructor(10).estimateGasAndCollateral();
+  const estimate = await contract.constructor().estimateGasAndCollateral();
   console.log(JSON.stringify(estimate)); // {"gasUsed":"175050","storageCollateralized":"64"}
 
   // deploy the contract, and get `contractCreated`
-  const receipt = await contract.constructor(10)
+  const receipt = await contract.constructor()
     .sendTransaction({ from: account })
     .confirmed();
   console.log(receipt); // receipt.contractCreated: 0x8de528bc539e9be1fe5682f597e1e83f6b4e841b
