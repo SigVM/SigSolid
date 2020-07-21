@@ -50,6 +50,11 @@ async function main() {
   //   to: null,
   //   transactionHash: '0x2cde7233206b505730b779fded515317bbbc112d30de62e790db8361fe5e9df3'
   // }
+  let ret;
+  ret = await contract.get_priceFeedUpdate_argc();
+  console.log(ret.toString());
+  //console.log(contract.address);
+  //console.log(await cfx.getCode('0x1cad0b19bb29d4674531d6f115237e16afce377c'));
 }
 
 main().catch(e => console.error(e));
