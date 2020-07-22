@@ -20,8 +20,8 @@ contract A {
     function priceFeedUpdate() public{
         priceFeedUpdate_key = keccak256("function priceFeedUpdate()");
 		assembly {
-			sstore(priceFeedUpdate_status_slot,createsig(32, sload(priceFeedUpdate_key_slot)))
-			sstore(priceFeedUpdate_dataslot_slot,priceFeedUpdate_data_slot)
+			sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot)))
+			sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot)
 		}
     }
 
@@ -31,7 +31,7 @@ contract A {
 		bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot();
 		bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key();
 		assembly {
-			mstore(0x40,emitsig(this_priceFeedUpdate_key,ONE_HOUR,this_priceFeedUpdate_dataslot,this_priceFeedUpdate_argc))
+			mstore(0x40, emitsig(this_priceFeedUpdate_key, ONE_HOUR, this_priceFeedUpdate_dataslot, this_priceFeedUpdate_argc))
 	    }
 
     }
@@ -49,7 +49,7 @@ contract B {
     function priceReceive() public{
         priceReceive_key = keccak256("priceReceive_func(bytes32)");
         assembly {
-            sstore(priceReceive_status_slot,createslot(32,10,30000,sload(priceReceive_key_slot)))
+            sstore(priceReceive_status_slot, createslot(32, 10, 30000, sload(priceReceive_key_slot)))
         }		
     }
     function priceReceive_func(bytes32 obj) public{
@@ -59,7 +59,7 @@ contract B {
 		address dut_address = address(dut);
 		bytes32 dut_priceFeedUpdate_key = dut.get_priceFeedUpdate_key();
 		assembly {
-			mstore(0x40,bindsig(dut_address,dut_priceFeedUpdate_key,sload(priceReceive_key_slot)))
+			mstore(0x40,bindslot(dut_address,dut_priceFeedUpdate_key,sload(priceReceive_key_slot)))
 	    }
 
 	}
@@ -67,7 +67,7 @@ contract B {
 		bytes32 dut_priceFeedUpdate_key = dut.get_priceFeedUpdate_key();
 		address dut_address = address(dut);
 		assembly{
-			mstore(0x40,detachsig(dut_address,dut_priceFeedUpdate_key,sload(priceReceive_key_slot)))
+			mstore(0x40, detachslot(dut_address, dut_priceFeedUpdate_key, sload(priceReceive_key_slot)))
 		}
 
     }

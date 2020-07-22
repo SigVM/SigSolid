@@ -56,8 +56,8 @@ while ( my $line = <$default_fh> ) {
     function $func\() public{
         $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
-			sstore($func\_status\_slot,createsig($argc, sload($func\_key_slot)))
-			sstore($func\_dataslot_slot,$func\_data_slot)
+			sstore($func\_status\_slot, createsig($argc, sload($func\_key_slot)))
+			sstore($func\_dataslot_slot, $func\_data_slot)
 		}
     }
 END_MESSAGE
@@ -75,8 +75,8 @@ END_MESSAGE
     function $func\() public{
         $func\_key = keccak256(\"function $func\(\)\");
 		assembly {
-			sstore($func\_status\_slot,createsig(0, sload($func\_key_slot)))
-			sstore($func\_dataslot_slot,0x0)
+			sstore($func\_status\_slot, createsig(0, sload($func\_key_slot)))
+			sstore($func\_dataslot_slot, 0x0)
 		}
     }
 END_MESSAGE
@@ -109,7 +109,7 @@ END_MESSAGE
 		address $emiter_tr\_address = address($emiter\);
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key\();
 		assembly {
-			mstore(0x40,bindsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot)))
+			mstore(0x40,bindslot($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot)))
 	    }
 END_MESSAGE
                 print {$main_fh} $message;
@@ -150,7 +150,7 @@ END_MESSAGE
     function $slot_name\() public{
         $slot_name\_key = keccak256(\"$hash_slot_title");
         assembly {
-            sstore($slot_name\_status_slot,createslot($argc,10,30000,sload($slot_name\_key_slot)))
+            sstore($slot_name\_status_slot, createslot($argc, 10, 30000, sload($slot_name\_key_slot)))
         }		
     }
     function $slot_title public{
@@ -198,7 +198,7 @@ END_MESSAGE
 		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		assembly {
-			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,$emiter_tr\_$sig_obj_func\_argc))
+			mstore(0x40, emitsig($emiter_tr\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_$sig_obj_func\_dataslot, $emiter_tr\_$sig_obj_func\_argc))
 	    }
 END_MESSAGE
                 }else{#if no data emitted defined
@@ -206,7 +206,7 @@ END_MESSAGE
 		bytes memory $emiter_tr\_$sig_obj_func\_dataslot = $emiter\.get\_$sig_obj_func\_dataslot();
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		assembly {
-			mstore(0x40,emitsig($emiter_tr\_$sig_obj_func\_key,$delay_obj,$emiter_tr\_$sig_obj_func\_dataslot,0))
+			mstore(0x40, emitsig($emiter_tr\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_$sig_obj_func\_dataslot, 0))
 	    }
 END_MESSAGE
                 }
@@ -238,7 +238,7 @@ END_MESSAGE
 		bytes32 $emiter_tr\_$sig_obj_func\_key = $emiter\.get\_$sig_obj_func\_key();
 		address $emiter_tr\_address = address($emiter\);
 		assembly{
-			mstore(0x40,detachsig($emiter_tr\_address,$emiter_tr\_$sig_obj_func\_key,sload($slot_obj\_key_slot)))
+			mstore(0x40, detachslot($emiter_tr\_address, $emiter_tr\_$sig_obj_func\_key, sload($slot_obj\_key_slot)))
 		}
 END_MESSAGE
                 print {$main_fh} $message;
@@ -259,7 +259,7 @@ close $main_fh;
 open( $default_fh,    "<", "$mainfile\.firststage" )    or die $!;
 open( $main_fh,       ">",  $mainfile )                 or die $!;
 
-#contructor handling: if building construtor, it must be placed under slot/signal declaration
+#contructor handling: if building constructor, it must be placed under slot/signal declaration
 #contract cannot be written into the same line
 #if building a contructor, it cannot be written into the same line
 my @sigslot_funcinit_arr = ();

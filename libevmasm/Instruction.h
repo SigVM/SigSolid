@@ -99,11 +99,7 @@ enum class Instruction: uint8_t
 	MSIZE,				///< get the size of active memory
 	GAS,				///< get the amount of available gas
 	JUMPDEST,			///< set a potential jump destination
-	CREATESIG = 0xc0,
-	CREATESLOT = 0xc1,
-	DETACHSIG = 0xc2,
-	BINDSIG = 0xc3,
-	EMITSIG = 0xc4,
+
 	PUSH1 = 0x60,		///< place 1 byte item on stack
 	PUSH2,				///< place 2 byte item on stack
 	PUSH3,				///< place 3 byte item on stack
@@ -187,6 +183,18 @@ enum class Instruction: uint8_t
 	RETURNSUB,          ///< return to subroutine jumped from -- not part of Instructions.cpp
 	PUTLOCAL,           ///< pop top of stack to local variable -- not part of Instructions.cpp
 	GETLOCAL,           ///< push local variable to top of stack -- not part of Instructions.cpp
+
+	///////////////////////////////////////////////////////////////////////////
+	// Signal and Slots begin
+	// These constants must match the constants found in the EVM interpreter.
+	// For the conflux chain, that would be /core/src/evm/instructions.rs.
+	CREATESIG  = 0xc0,	///< Create a new signal
+	CREATESLOT = 0xc1, 	///< Create a new slot
+	BINDSLOT   = 0xc2,	///< Bind a slot to a signal 
+	DETACHSLOT = 0xc3,	///< Detach a slot from a signal
+	EMITSIG    = 0xc4,	///< Emit a signal to all listening slots
+	// Signal and Slots end
+	///////////////////////////////////////////////////////////////////////////
 
 	CREATE = 0xf0,		///< create a new account with associated code
 	CALL,				///< message-call into an account
