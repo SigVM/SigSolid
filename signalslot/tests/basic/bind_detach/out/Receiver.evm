@@ -1,0 +1,679 @@
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":2554:5808  contract Receiver {... */
+  mstore(0x40, 0x80)
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5067:5806  constructor(Emitter addr) public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  mload(0x40)
+  sub(codesize, bytecodeSize)
+  dup1
+  bytecodeSize
+  dup4
+  codecopy
+  dup2
+  dup2
+  add
+  0x40
+  mstore
+  0x20
+  dup2
+  lt
+  iszero
+  tag_2
+  jumpi
+  0x00
+  dup1
+  revert
+tag_2:
+  dup2
+  add
+  swap1
+  dup1
+  dup1
+  mload
+  swap1
+  0x20
+  add
+  swap1
+  swap3
+  swap2
+  swap1
+  pop
+  pop
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5105:5118  HandleAlert() */
+  tag_5
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5105:5116  HandleAlert */
+  shl(0x20, tag_6)
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5105:5118  HandleAlert() */
+  0x20
+  shr
+  jump	// in
+tag_5:
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5137:5141  addr */
+  dup1
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5128:5134  source */
+  0x00
+  dup1
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5128:5141  source = addr */
+  0x0100
+  exp
+  dup2
+  sload
+  dup2
+  0xffffffffffffffffffffffffffffffffffffffff
+  mul
+  not
+  and
+  swap1
+  dup4
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+  mul
+  or
+  swap1
+  sstore
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5394:5416  address source_address */
+  0x00
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5427:5433  source */
+  dup1
+  0x00
+  swap1
+  sload
+  swap1
+  0x0100
+  exp
+  swap1
+  div
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5394:5434  address source_address = address(source) */
+  swap1
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5486:5510  bytes32 source_Alert_key */
+  0x00
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5513:5519  source */
+  dup1
+  0x00
+  swap1
+  sload
+  swap1
+  0x0100
+  exp
+  swap1
+  div
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5513:5533  source.get_Alert_key */
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+  0x65410bf1
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5513:5535  source.get_Alert_key() */
+  mload(0x40)
+  dup2
+  0xffffffff
+  and
+  0xe0
+  shl
+  dup2
+  mstore
+  0x04
+  add
+  0x20
+  mload(0x40)
+  dup1
+  dup4
+  sub
+  dup2
+  dup7
+  dup1
+  extcodesize
+  iszero
+  dup1
+  iszero
+  tag_7
+  jumpi
+  0x00
+  dup1
+  revert
+tag_7:
+  pop
+  gas
+  staticcall
+  iszero
+  dup1
+  iszero
+  tag_9
+  jumpi
+  returndatasize
+  0x00
+  dup1
+  returndatacopy
+  revert(0x00, returndatasize)
+tag_9:
+  pop
+  pop
+  pop
+  pop
+  mload(0x40)
+  returndatasize
+  0x20
+  dup2
+  lt
+  iszero
+  tag_10
+  jumpi
+  0x00
+  dup1
+  revert
+tag_10:
+  dup2
+  add
+  swap1
+  dup1
+  dup1
+  mload
+  swap1
+  0x20
+  add
+  swap1
+  swap3
+  swap2
+  swap1
+  pop
+  pop
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5486:5535  bytes32 source_Alert_key = source.get_Alert_key() */
+  swap1
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5662:5682  HandleAlert_key_slot */
+  0x03
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5656:5683  sload(HandleAlert_key_slot) */
+  sload
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5638:5654  source_Alert_key */
+  dup2
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5622:5636  source_address */
+  dup4
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5613:5684  bindslot(source_address, source_Alert_key, sload(HandleAlert_key_slot)) */
+  bindslot
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5607:5611  0x40 */
+  0x40
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5600:5685  mstore(0x40, bindslot(source_address, source_Alert_key, sload(HandleAlert_key_slot))) */
+  mstore
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":5595:5692  {... */
+  pop
+  pop
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":2554:5808  contract Receiver {... */
+  jump(tag_11)
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3036:3269  function HandleAlert() private {... */
+tag_6:
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3095:3133  keccak256("HandleAlert_func(bytes32)") */
+  mload(0x40)
+  dup1
+  dup1
+  0x48616e646c65416c6572745f66756e6328627974657333322900000000000000
+  dup2
+  mstore
+  pop
+  0x19
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3077:3092  HandleAlert_key */
+  0x03
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3077:3133  HandleAlert_key = keccak256("HandleAlert_func(bytes32)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3230:3250  HandleAlert_key_slot */
+  0x03
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3224:3251  sload(HandleAlert_key_slot) */
+  sload
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3217:3222  30000 */
+  0x7530
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3213:3215  10 */
+  0x0a
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3209:3211  32 */
+  0x20
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3198:3252  createslot(32, 10, 30000, sload(HandleAlert_key_slot)) */
+  createslot
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3173:3196  HandleAlert_status_slot */
+  0x02
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3166:3253  sstore(HandleAlert_status_slot, createslot(32, 10, 30000, sload(HandleAlert_key_slot))) */
+  sstore
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3152:3263  {... */
+  jump	// out
+    /* "./tests/basic/bind_detach/bind_detach_parsed.sol":2554:5808  contract Receiver {... */
+tag_11:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":2554:5808  contract Receiver {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0e3b8590
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x14583309
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x1671379c
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x50bf8b0d
+      eq
+      tag_6
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4380:5061  function detach_from_alert() public view {... */
+    tag_3:
+      tag_7
+      tag_8
+      jump	// in
+    tag_7:
+      stop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3672:4374  function bind_to_alert() public view {... */
+    tag_4:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      stop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3502:3579  function HandleAlert_func(bytes32 value) public {... */
+    tag_5:
+      tag_11
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_12
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_12:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_13
+      jump	// in
+    tag_11:
+      stop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3585:3666  function get_data() public view returns (bytes32 ret) {... */
+    tag_6:
+      tag_14
+      tag_15
+      jump	// in
+    tag_14:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4380:5061  function detach_from_alert() public view {... */
+    tag_8:
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4676:4700  bytes32 source_Alert_key */
+      0x00
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4703:4709  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4703:4723  source.get_Alert_key */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0x65410bf1
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4703:4725  source.get_Alert_key() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_17
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_17:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_19
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_19:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      0x20
+      dup2
+      lt
+      iszero
+      tag_20
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_20:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4676:4725  bytes32 source_Alert_key = source.get_Alert_key() */
+      swap1
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4756:4778  address source_address */
+      0x00
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4789:4795  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4756:4796  address source_address = address(source) */
+      swap1
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4920:4940  HandleAlert_key_slot */
+      0x03
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4914:4941  sload(HandleAlert_key_slot) */
+      sload
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4896:4912  source_Alert_key */
+      dup3
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4880:4894  source_address */
+      dup3
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4869:4942  detachslot(source_address, source_Alert_key, sload(HandleAlert_key_slot)) */
+      detachslot
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4863:4867  0x40 */
+      0x40
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4856:4943  mstore(0x40, detachslot(source_address, source_Alert_key, sload(HandleAlert_key_slot))) */
+      mstore
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4851:4947  {... */
+      pop
+      pop
+      jump	// out
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3672:4374  function bind_to_alert() public view {... */
+    tag_10:
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3962:3984  address source_address */
+      0x00
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3995:4001  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3962:4002  address source_address = address(source) */
+      swap1
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4054:4078  bytes32 source_Alert_key */
+      0x00
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4081:4087  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4081:4101  source.get_Alert_key */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0x65410bf1
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4081:4103  source.get_Alert_key() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
+      0x04
+      add
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_22
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_22:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_24
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_24:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      0x20
+      dup2
+      lt
+      iszero
+      tag_25
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_25:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4054:4103  bytes32 source_Alert_key = source.get_Alert_key() */
+      swap1
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4230:4250  HandleAlert_key_slot */
+      0x03
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4224:4251  sload(HandleAlert_key_slot) */
+      sload
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4206:4222  source_Alert_key */
+      dup2
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4190:4204  source_address */
+      dup4
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4181:4252  bindslot(source_address, source_Alert_key, sload(HandleAlert_key_slot)) */
+      bindslot
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4175:4179  0x40 */
+      0x40
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4168:4253  mstore(0x40, bindslot(source_address, source_Alert_key, sload(HandleAlert_key_slot))) */
+      mstore
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":4163:4260  {... */
+      pop
+      pop
+      jump	// out
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3502:3579  function HandleAlert_func(bytes32 value) public {... */
+    tag_13:
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3567:3572  value */
+      dup1
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3560:3564  data */
+      0x01
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3560:3572  data = value */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3502:3579  function HandleAlert_func(bytes32 value) public {... */
+      pop
+      jump	// out
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3585:3666  function get_data() public view returns (bytes32 ret) {... */
+    tag_15:
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3626:3637  bytes32 ret */
+      0x00
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3655:3659  data */
+      sload(0x01)
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3649:3659  ret = data */
+      swap1
+      pop
+        /* "./tests/basic/bind_detach/bind_detach_parsed.sol":3585:3666  function get_data() public view returns (bytes32 ret) {... */
+      swap1
+      jump	// out
+
+    auxdata: 0xa2646970667358221220f61968c7e94cce686bfb14fcedc41e07aa19e4ceba390afa352d7a55b50de2fe64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32312b636f6d6d69742e63316635663761632e6d6f64005d
+}
