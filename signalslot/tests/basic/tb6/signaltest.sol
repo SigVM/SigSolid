@@ -9,10 +9,6 @@ contract A {
     function emitfunc(bytes32 DataSent) public {
 		emitsig priceFeedUpdate(DataSent).delay(ONE_HOUR);
     }
-
-	constructor() public {
-		data = 1;
-	}
 }
 
 contract B {

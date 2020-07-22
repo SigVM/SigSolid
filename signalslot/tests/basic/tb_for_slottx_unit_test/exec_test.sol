@@ -4,7 +4,4 @@ contract B {
 	slot priceReceive(bytes3 obj){
         LocalPriceSum = LocalPriceSum | obj;
     }
-	constructor() public {
-		priceReceive();
-	}
 }
