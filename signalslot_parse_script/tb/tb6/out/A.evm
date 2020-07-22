@@ -1,6 +1,6 @@
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":24:1489  contract A {... */
+    /* "./tb/tb6/signaltest_afterparse.sol":25:3888  contract A {... */
   mstore(0x40, 0x80)
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1441:1487  constructor() public {... */
+    /* "./tb/tb6/signaltest_afterparse.sol":3814:3886  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,20 +11,38 @@
   revert
 tag_1:
   pop
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1467:1484  priceFeedUpdate() */
+    /* "./tb/tb6/signaltest_afterparse.sol":3840:3857  priceFeedUpdate() */
   tag_4
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1467:1482  priceFeedUpdate */
+    /* "./tb/tb6/signaltest_afterparse.sol":3840:3855  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1467:1484  priceFeedUpdate() */
+    /* "./tb/tb6/signaltest_afterparse.sol":3840:3857  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":24:1489  contract A {... */
-  jump(tag_6)
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":684:967  function priceFeedUpdate() public{... */
+    /* "./tb/tb6/signaltest_afterparse.sol":3862:3870  random() */
+  tag_6
+    /* "./tb/tb6/signaltest_afterparse.sol":3862:3868  random */
+  shl(0x20, tag_7)
+    /* "./tb/tb6/signaltest_afterparse.sol":3862:3870  random() */
+  0x20
+  shr
+  jump	// in
+tag_6:
+    /* "./tb/tb6/signaltest_afterparse.sol":3881:3882  1 */
+  0x01
+    /* "./tb/tb6/signaltest_afterparse.sol":3874:3878  data */
+  0x00
+    /* "./tb/tb6/signaltest_afterparse.sol":3874:3882  data = 1 */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./tb/tb6/signaltest_afterparse.sol":25:3888  contract A {... */
+  jump(tag_8)
+    /* "./tb/tb6/signaltest_afterparse.sol":1301:1586  function priceFeedUpdate() private {... */
 tag_5:
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":749:788  keccak256("function priceFeedUpdate()") */
+    /* "./tb/tb6/signaltest_afterparse.sol":1368:1407  keccak256("function priceFeedUpdate()") */
   mload(0x40)
   dup1
   dup1
@@ -42,35 +60,82 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":727:746  priceFeedUpdate_key */
-  0x03
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":727:788  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
+    /* "./tb/tb6/signaltest_afterparse.sol":1346:1365  priceFeedUpdate_key */
+  0x04
+    /* "./tb/tb6/signaltest_afterparse.sol":1346:1407  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
   dup2
   swap1
   sstore
   pop
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":862:886  priceFeedUpdate_key_slot */
-  0x03
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":856:887  sload(priceFeedUpdate_key_slot) */
+    /* "./tb/tb6/signaltest_afterparse.sol":1481:1505  priceFeedUpdate_key_slot */
+  0x04
+    /* "./tb/tb6/signaltest_afterparse.sol":1475:1506  sload(priceFeedUpdate_key_slot) */
   sload
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":852:854  32 */
+    /* "./tb/tb6/signaltest_afterparse.sol":1471:1473  32 */
   0x20
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":842:888  createsig(32, sload(priceFeedUpdate_key_slot)) */
+    /* "./tb/tb6/signaltest_afterparse.sol":1461:1507  createsig(32, sload(priceFeedUpdate_key_slot)) */
   createsig
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":813:840  priceFeedUpdate_status_slot */
-  0x02
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":806:889  sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot))) */
+    /* "./tb/tb6/signaltest_afterparse.sol":1432:1459  priceFeedUpdate_status_slot */
+  0x03
+    /* "./tb/tb6/signaltest_afterparse.sol":1425:1508  sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot))) */
   sstore
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":931:956  priceFeedUpdate_data_slot */
-  0x00
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":900:929  priceFeedUpdate_dataslot_slot */
+    /* "./tb/tb6/signaltest_afterparse.sol":1550:1575  priceFeedUpdate_data_slot */
   0x01
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":893:957  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
+    /* "./tb/tb6/signaltest_afterparse.sol":1519:1548  priceFeedUpdate_dataslot_slot */
+  0x02
+    /* "./tb/tb6/signaltest_afterparse.sol":1512:1576  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
   sstore
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":801:961  {... */
+    /* "./tb/tb6/signaltest_afterparse.sol":1420:1580  {... */
   jump	// out
-    /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":24:1489  contract A {... */
-tag_6:
+    /* "./tb/tb6/signaltest_afterparse.sol":2468:2676  function random() private {... */
+tag_7:
+    /* "./tb/tb6/signaltest_afterparse.sol":2517:2547  keccak256("function random()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x66756e6374696f6e2072616e646f6d2829000000000000000000000000000000
+  dup2
+  mstore
+  pop
+  0x11
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "./tb/tb6/signaltest_afterparse.sol":2504:2514  random_key */
+  0x07
+    /* "./tb/tb6/signaltest_afterparse.sol":2504:2547  random_key = keccak256("function random()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./tb/tb6/signaltest_afterparse.sol":2611:2626  random_key_slot */
+  0x07
+    /* "./tb/tb6/signaltest_afterparse.sol":2605:2627  sload(random_key_slot) */
+  sload
+    /* "./tb/tb6/signaltest_afterparse.sol":2602:2603  0 */
+  0x00
+    /* "./tb/tb6/signaltest_afterparse.sol":2592:2628  createsig(0, sload(random_key_slot)) */
+  createsig
+    /* "./tb/tb6/signaltest_afterparse.sol":2572:2590  random_status_slot */
+  0x06
+    /* "./tb/tb6/signaltest_afterparse.sol":2565:2629  sstore(random_status_slot, createsig(0, sload(random_key_slot))) */
+  sstore
+    /* "./tb/tb6/signaltest_afterparse.sol":2662:2665  0x0 */
+  0x00
+    /* "./tb/tb6/signaltest_afterparse.sol":2640:2660  random_dataslot_slot */
+  0x05
+    /* "./tb/tb6/signaltest_afterparse.sol":2633:2666  sstore(random_dataslot_slot, 0x0) */
+  sstore
+    /* "./tb/tb6/signaltest_afterparse.sol":2560:2670  {... */
+  jump	// out
+    /* "./tb/tb6/signaltest_afterparse.sol":25:3888  contract A {... */
+tag_8:
   dataSize(sub_0)
   dup1
   dataOffset(sub_0)
@@ -81,7 +146,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":24:1489  contract A {... */
+        /* "./tb/tb6/signaltest_afterparse.sol":25:3888  contract A {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -96,77 +161,45 @@ sub_0: assembly {
       jumpi(tag_2, lt(calldatasize, 0x04))
       shr(0xe0, calldataload(0x00))
       dup1
-      0x5531ba9c
-      gt
-      tag_14
-      jumpi
-      dup1
-      0x5531ba9c
-      eq
-      tag_8
-      jumpi
-      dup1
-      0x6bb97c67
-      eq
-      tag_9
-      jumpi
-      dup1
-      0xbab3affe
-      eq
-      tag_10
-      jumpi
-      dup1
-      0xc260b94c
-      eq
-      tag_11
-      jumpi
-      dup1
-      0xe8e18682
-      eq
-      tag_12
-      jumpi
-      dup1
-      0xfd5e127c
-      eq
-      tag_13
-      jumpi
-      jump(tag_2)
-    tag_14:
-      dup1
       0x165035e2
       eq
       tag_3
       jumpi
       dup1
-      0x2c4e57fc
+      0x3e4fe9a4
       eq
       tag_4
       jumpi
       dup1
-      0x3e4fe9a4
+      0x6bb97c67
       eq
       tag_5
       jumpi
       dup1
-      0x459a453a
+      0xbab3affe
       eq
       tag_6
       jumpi
       dup1
-      0x4a2e901c
+      0xc7a89cec
       eq
       tag_7
+      jumpi
+      dup1
+      0xfd5e127c
+      eq
+      tag_8
       jumpi
     tag_2:
       0x00
       dup1
       revert
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
+        /* "./tb/tb6/signaltest_afterparse.sol":54:89  uint public constant ONE_HOUR = 180 */
     tag_3:
-      tag_15
-      tag_16
+      tag_9
+      tag_10
       jump	// in
-    tag_15:
+    tag_9:
       mload(0x40)
       dup1
       dup3
@@ -183,12 +216,12 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":197:231  bytes32 public priceFeedUpdate_key */
+        /* "./tb/tb6/signaltest_afterparse.sol":744:837  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
     tag_4:
-      tag_17
-      tag_18
+      tag_11
+      tag_12
       jump	// in
-    tag_17:
+    tag_11:
       mload(0x40)
       dup1
       dup3
@@ -205,53 +238,9 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":340:432  function get_priceFeedUpdate_argc() public pure returns (uint argc){... */
+        /* "./tb/tb6/signaltest_afterparse.sol":2786:3811  function emitfunc(bytes32 DataSent) public {... */
     tag_5:
-      tag_19
-      tag_20
-      jump	// in
-    tag_19:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":157:191  uint public priceFeedUpdate_status */
-    tag_6:
-      tag_21
-      tag_22
-      jump	// in
-    tag_21:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
-    tag_7:
-      tag_23
+      tag_13
       0x04
       dup1
       calldatasize
@@ -260,12 +249,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_24
+      tag_14
       jumpi
       0x00
       dup1
       revert
-    tag_24:
+    tag_14:
       dup2
       add
       swap1
@@ -282,16 +271,60 @@ sub_0: assembly {
       pop
       pop
       pop
-      tag_25
+      tag_15
       jump	// in
-    tag_23:
+    tag_13:
       stop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":117:154  bytes public priceFeedUpdate_dataslot */
-    tag_8:
-      tag_26
-      tag_27
+        /* "./tb/tb6/signaltest_afterparse.sol":866:977  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_6:
+      tag_16
+      tag_17
       jump	// in
-    tag_26:
+    tag_16:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./tb/tb6/signaltest_afterparse.sol":2077:2170  function get_random_key() public view returns (bytes32 key) {... */
+    tag_7:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./tb/tb6/signaltest_afterparse.sol":1008:1139  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+    tag_8:
+      tag_20
+      tag_21
+      jump	// in
+    tag_20:
       mload(0x40)
       dup1
       dup1
@@ -322,12 +355,12 @@ sub_0: assembly {
       dup4
       dup4
       0x00
-    tag_28:
+    tag_22:
       dup4
       dup2
       lt
       iszero
-      tag_30
+      tag_24
       jumpi
       dup1
       dup3
@@ -342,8 +375,8 @@ sub_0: assembly {
       add
       swap1
       pop
-      jump(tag_28)
-    tag_30:
+      jump(tag_22)
+    tag_24:
       pop
       pop
       pop
@@ -358,7 +391,7 @@ sub_0: assembly {
       and
       dup1
       iszero
-      tag_31
+      tag_25
       jumpi
       dup1
       dup3
@@ -380,7 +413,7 @@ sub_0: assembly {
       add
       swap2
       pop
-    tag_31:
+    tag_25:
       pop
       swap3
       pop
@@ -392,13 +425,93 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":973:1439  function emitfunc(bytes32 DataSent) public {... */
-    tag_9:
-      tag_32
+        /* "./tb/tb6/signaltest_afterparse.sol":54:89  uint public constant ONE_HOUR = 180 */
+    tag_10:
+        /* "./tb/tb6/signaltest_afterparse.sol":86:89  180 */
+      0xb4
+        /* "./tb/tb6/signaltest_afterparse.sol":54:89  uint public constant ONE_HOUR = 180 */
+      dup2
+      jump	// out
+        /* "./tb/tb6/signaltest_afterparse.sol":744:837  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+    tag_12:
+        /* "./tb/tb6/signaltest_afterparse.sol":801:810  uint argc */
+      0x00
+        /* "./tb/tb6/signaltest_afterparse.sol":828:830  32 */
+      0x20
+        /* "./tb/tb6/signaltest_afterparse.sol":821:830  return 32 */
+      swap1
+      pop
+        /* "./tb/tb6/signaltest_afterparse.sol":744:837  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+      swap1
+      jump	// out
+        /* "./tb/tb6/signaltest_afterparse.sol":2786:3811  function emitfunc(bytes32 DataSent) public {... */
+    tag_15:
+        /* "./tb/tb6/signaltest_afterparse.sol":3129:3163  set_priceFeedUpdate_data(DataSent) */
+      tag_28
+        /* "./tb/tb6/signaltest_afterparse.sol":3154:3162  DataSent */
+      dup2
+        /* "./tb/tb6/signaltest_afterparse.sol":3129:3153  set_priceFeedUpdate_data */
+      tag_29
+        /* "./tb/tb6/signaltest_afterparse.sol":3129:3163  set_priceFeedUpdate_data(DataSent) */
+      jump	// in
+    tag_28:
+        /* "./tb/tb6/signaltest_afterparse.sol":3207:3237  uint this_priceFeedUpdate_argc */
+      0x00
+        /* "./tb/tb6/signaltest_afterparse.sol":3240:3244  this */
+      address
+        /* "./tb/tb6/signaltest_afterparse.sol":3240:3269  this.get_priceFeedUpdate_argc */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0x3e4fe9a4
+        /* "./tb/tb6/signaltest_afterparse.sol":3240:3271  this.get_priceFeedUpdate_argc() */
+      mload(0x40)
+      dup2
+      0xffffffff
+      and
+      0xe0
+      shl
+      dup2
+      mstore
       0x04
+      add
+      0x20
+      mload(0x40)
       dup1
-      calldatasize
+      dup4
       sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_30
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_30:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_32
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_32:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
       0x20
       dup2
       lt
@@ -414,480 +527,6 @@ sub_0: assembly {
       swap1
       dup1
       dup1
-      calldataload
-      swap1
-      0x20
-      add
-      swap1
-      swap3
-      swap2
-      swap1
-      pop
-      pop
-      pop
-      tag_34
-      jump	// in
-    tag_32:
-      stop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":434:544  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
-    tag_10:
-      tag_35
-      tag_36
-      jump	// in
-    tag_35:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":684:967  function priceFeedUpdate() public{... */
-    tag_11:
-      tag_37
-      tag_38
-      jump	// in
-    tag_37:
-      stop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
-    tag_12:
-      tag_39
-      tag_40
-      jump	// in
-    tag_39:
-      mload(0x40)
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":549:679  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
-    tag_13:
-      tag_41
-      tag_42
-      jump	// in
-    tag_41:
-      mload(0x40)
-      dup1
-      dup1
-      0x20
-      add
-      dup3
-      dup2
-      sub
-      dup3
-      mstore
-      dup4
-      dup2
-      dup2
-      mload
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      dup1
-      mload
-      swap1
-      0x20
-      add
-      swap1
-      dup1
-      dup4
-      dup4
-      0x00
-    tag_43:
-      dup4
-      dup2
-      lt
-      iszero
-      tag_45
-      jumpi
-      dup1
-      dup3
-      add
-      mload
-      dup2
-      dup5
-      add
-      mstore
-      0x20
-      dup2
-      add
-      swap1
-      pop
-      jump(tag_43)
-    tag_45:
-      pop
-      pop
-      pop
-      pop
-      swap1
-      pop
-      swap1
-      dup2
-      add
-      swap1
-      0x1f
-      and
-      dup1
-      iszero
-      tag_46
-      jumpi
-      dup1
-      dup3
-      sub
-      dup1
-      mload
-      0x01
-      dup4
-      0x20
-      sub
-      0x0100
-      exp
-      sub
-      not
-      and
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-    tag_46:
-      pop
-      swap3
-      pop
-      pop
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      return
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
-    tag_16:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":73:76  180 */
-      0xb4
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":41:76  uint public constant ONE_HOUR = 180 */
-      dup2
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":197:231  bytes32 public priceFeedUpdate_key */
-    tag_18:
-      sload(0x03)
-      dup2
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":340:432  function get_priceFeedUpdate_argc() public pure returns (uint argc){... */
-    tag_20:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":397:406  uint argc */
-      0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":423:425  32 */
-      0x20
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":416:425  return 32 */
-      swap1
-      pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":340:432  function get_priceFeedUpdate_argc() public pure returns (uint argc){... */
-      swap1
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":157:191  uint public priceFeedUpdate_status */
-    tag_22:
-      sload(0x02)
-      dup2
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
-    tag_25:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":324:331  dataSet */
-      dup1
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":301:321  priceFeedUpdate_data */
-      0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":301:331  priceFeedUpdate_data = dataSet */
-      dup2
-      swap1
-      sstore
-      pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":234:338  function set_priceFeedUpdate_data(bytes32 dataSet) public {... */
-      pop
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":117:154  bytes public priceFeedUpdate_dataslot */
-    tag_27:
-      0x01
-      dup1
-      sload
-      0x01
-      dup2
-      0x01
-      and
-      iszero
-      0x0100
-      mul
-      sub
-      and
-      0x02
-      swap1
-      div
-      dup1
-      0x1f
-      add
-      0x20
-      dup1
-      swap2
-      div
-      mul
-      0x20
-      add
-      mload(0x40)
-      swap1
-      dup2
-      add
-      0x40
-      mstore
-      dup1
-      swap3
-      swap2
-      swap1
-      dup2
-      dup2
-      mstore
-      0x20
-      add
-      dup3
-      dup1
-      sload
-      0x01
-      dup2
-      0x01
-      and
-      iszero
-      0x0100
-      mul
-      sub
-      and
-      0x02
-      swap1
-      div
-      dup1
-      iszero
-      tag_49
-      jumpi
-      dup1
-      0x1f
-      lt
-      tag_50
-      jumpi
-      0x0100
-      dup1
-      dup4
-      sload
-      div
-      mul
-      dup4
-      mstore
-      swap2
-      0x20
-      add
-      swap2
-      jump(tag_49)
-    tag_50:
-      dup3
-      add
-      swap2
-      swap1
-      0x00
-      mstore
-      keccak256(0x00, 0x20)
-      swap1
-    tag_51:
-      dup2
-      sload
-      dup2
-      mstore
-      swap1
-      0x01
-      add
-      swap1
-      0x20
-      add
-      dup1
-      dup4
-      gt
-      tag_51
-      jumpi
-      dup3
-      swap1
-      sub
-      0x1f
-      and
-      dup3
-      add
-      swap2
-    tag_49:
-      pop
-      pop
-      pop
-      pop
-      pop
-      dup2
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":973:1439  function emitfunc(bytes32 DataSent) public {... */
-    tag_34:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1026:1030  this */
-      address
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1026:1055  this.set_priceFeedUpdate_data */
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-      0x4a2e901c
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1056:1064  DataSent */
-      dup3
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1026:1065  this.set_priceFeedUpdate_data(DataSent) */
-      mload(0x40)
-      dup3
-      0xffffffff
-      and
-      0xe0
-      shl
-      dup2
-      mstore
-      0x04
-      add
-      dup1
-      dup3
-      dup2
-      mstore
-      0x20
-      add
-      swap2
-      pop
-      pop
-      0x00
-      mload(0x40)
-      dup1
-      dup4
-      sub
-      dup2
-      0x00
-      dup8
-      dup1
-      extcodesize
-      iszero
-      dup1
-      iszero
-      tag_53
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_53:
-      pop
-      gas
-      call
-      iszero
-      dup1
-      iszero
-      tag_55
-      jumpi
-      returndatasize
-      0x00
-      dup1
-      returndatacopy
-      revert(0x00, returndatasize)
-    tag_55:
-      pop
-      pop
-      pop
-      pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1075:1105  uint this_priceFeedUpdate_argc */
-      0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1108:1112  this */
-      address
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1108:1137  this.get_priceFeedUpdate_argc */
-      0xffffffffffffffffffffffffffffffffffffffff
-      and
-      0x3e4fe9a4
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1108:1139  this.get_priceFeedUpdate_argc() */
-      mload(0x40)
-      dup2
-      0xffffffff
-      and
-      0xe0
-      shl
-      dup2
-      mstore
-      0x04
-      add
-      0x20
-      mload(0x40)
-      dup1
-      dup4
-      sub
-      dup2
-      dup7
-      dup1
-      extcodesize
-      iszero
-      dup1
-      iszero
-      tag_56
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_56:
-      pop
-      gas
-      staticcall
-      iszero
-      dup1
-      iszero
-      tag_58
-      jumpi
-      returndatasize
-      0x00
-      dup1
-      returndatacopy
-      revert(0x00, returndatasize)
-    tag_58:
-      pop
-      pop
-      pop
-      pop
-      mload(0x40)
-      returndatasize
-      0x20
-      dup2
-      lt
-      iszero
-      tag_59
-      jumpi
-      0x00
-      dup1
-      revert
-    tag_59:
-      dup2
-      add
-      swap1
-      dup1
-      dup1
       mload
       swap1
       0x20
@@ -899,18 +538,18 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1075:1139  uint this_priceFeedUpdate_argc = this.get_priceFeedUpdate_argc() */
+        /* "./tb/tb6/signaltest_afterparse.sol":3207:3271  uint this_priceFeedUpdate_argc = this.get_priceFeedUpdate_argc() */
       swap1
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1143:1185  bytes memory this_priceFeedUpdate_dataslot */
+        /* "./tb/tb6/signaltest_afterparse.sol":3304:3346  bytes memory this_priceFeedUpdate_dataslot */
       0x60
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1188:1192  this */
+        /* "./tb/tb6/signaltest_afterparse.sol":3349:3353  this */
       address
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1188:1221  this.get_priceFeedUpdate_dataslot */
+        /* "./tb/tb6/signaltest_afterparse.sol":3349:3382  this.get_priceFeedUpdate_dataslot */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xfd5e127c
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1188:1223  this.get_priceFeedUpdate_dataslot() */
+        /* "./tb/tb6/signaltest_afterparse.sol":3349:3384  this.get_priceFeedUpdate_dataslot() */
       mload(0x40)
       dup2
       0xffffffff
@@ -933,26 +572,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_60
+      tag_34
       jumpi
       0x00
       dup1
       revert
-    tag_60:
+    tag_34:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_62
+      tag_36
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_62:
+    tag_36:
       pop
       pop
       pop
@@ -978,12 +617,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_63
+      tag_37
       jumpi
       0x00
       dup1
       revert
-    tag_63:
+    tag_37:
       dup2
       add
       swap1
@@ -1000,12 +639,12 @@ sub_0: assembly {
       dup3
       gt
       iszero
-      tag_64
+      tag_38
       jumpi
       0x00
       dup1
       revert
-    tag_64:
+    tag_38:
       dup4
       dup3
       add
@@ -1018,12 +657,12 @@ sub_0: assembly {
       dup2
       gt
       iszero
-      tag_65
+      tag_39
       jumpi
       0x00
       dup1
       revert
-    tag_65:
+    tag_39:
       dup3
       mload
       dup7
@@ -1038,12 +677,12 @@ sub_0: assembly {
       gt
       or
       iszero
-      tag_66
+      tag_40
       jumpi
       0x00
       dup1
       revert
-    tag_66:
+    tag_40:
       dup1
       dup4
       mstore
@@ -1065,12 +704,12 @@ sub_0: assembly {
       dup4
       dup4
       0x00
-    tag_67:
+    tag_41:
       dup4
       dup2
       lt
       iszero
-      tag_69
+      tag_43
       jumpi
       dup1
       dup3
@@ -1085,8 +724,8 @@ sub_0: assembly {
       add
       swap1
       pop
-      jump(tag_67)
-    tag_69:
+      jump(tag_41)
+    tag_43:
       pop
       pop
       pop
@@ -1101,7 +740,7 @@ sub_0: assembly {
       and
       dup1
       iszero
-      tag_70
+      tag_44
       jumpi
       dup1
       dup3
@@ -1123,25 +762,25 @@ sub_0: assembly {
       add
       swap2
       pop
-    tag_70:
+    tag_44:
       pop
       0x40
       mstore
       pop
       pop
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1143:1223  bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot() */
+        /* "./tb/tb6/signaltest_afterparse.sol":3304:3384  bytes memory this_priceFeedUpdate_dataslot = this.get_priceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1227:1259  bytes32 this_priceFeedUpdate_key */
+        /* "./tb/tb6/signaltest_afterparse.sol":3418:3450  bytes32 this_priceFeedUpdate_key */
       0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1262:1266  this */
+        /* "./tb/tb6/signaltest_afterparse.sol":3453:3457  this */
       address
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1262:1290  this.get_priceFeedUpdate_key */
+        /* "./tb/tb6/signaltest_afterparse.sol":3453:3481  this.get_priceFeedUpdate_key */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xbab3affe
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1262:1292  this.get_priceFeedUpdate_key() */
+        /* "./tb/tb6/signaltest_afterparse.sol":3453:3483  this.get_priceFeedUpdate_key() */
       mload(0x40)
       dup2
       0xffffffff
@@ -1164,26 +803,26 @@ sub_0: assembly {
       iszero
       dup1
       iszero
-      tag_71
+      tag_45
       jumpi
       0x00
       dup1
       revert
-    tag_71:
+    tag_45:
       pop
       gas
       staticcall
       iszero
       dup1
       iszero
-      tag_73
+      tag_47
       jumpi
       returndatasize
       0x00
       dup1
       returndatacopy
       revert(0x00, returndatasize)
-    tag_73:
+    tag_47:
       pop
       pop
       pop
@@ -1194,12 +833,12 @@ sub_0: assembly {
       dup2
       lt
       iszero
-      tag_74
+      tag_48
       jumpi
       0x00
       dup1
       revert
-    tag_74:
+    tag_48:
       dup2
       add
       swap1
@@ -1216,100 +855,60 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1227:1292  bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key() */
+        /* "./tb/tb6/signaltest_afterparse.sol":3418:3483  bytes32 this_priceFeedUpdate_key = this.get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1398:1423  this_priceFeedUpdate_argc */
+        /* "./tb/tb6/signaltest_afterparse.sol":3663:3688  this_priceFeedUpdate_argc */
       dup3
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1367:1396  this_priceFeedUpdate_dataslot */
+        /* "./tb/tb6/signaltest_afterparse.sol":3632:3661  this_priceFeedUpdate_dataslot */
       dup3
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1357:1365  ONE_HOUR */
+        /* "./tb/tb6/signaltest_afterparse.sol":3622:3630  ONE_HOUR */
       0xb4
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1331:1355  this_priceFeedUpdate_key */
+        /* "./tb/tb6/signaltest_afterparse.sol":3596:3620  this_priceFeedUpdate_key */
       dup4
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1323:1424  emitsig(this_priceFeedUpdate_key, ONE_HOUR, this_priceFeedUpdate_dataslot, this_priceFeedUpdate_argc) */
+        /* "./tb/tb6/signaltest_afterparse.sol":3588:3689  emitsig(this_priceFeedUpdate_key, ONE_HOUR, this_priceFeedUpdate_dataslot, this_priceFeedUpdate_argc) */
       emitsig
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1317:1321  0x40 */
+        /* "./tb/tb6/signaltest_afterparse.sol":3582:3586  0x40 */
       0x40
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1310:1425  mstore(0x40, emitsig(this_priceFeedUpdate_key, ONE_HOUR, this_priceFeedUpdate_dataslot, this_priceFeedUpdate_argc)) */
+        /* "./tb/tb6/signaltest_afterparse.sol":3575:3690  mstore(0x40, emitsig(this_priceFeedUpdate_key, ONE_HOUR, this_priceFeedUpdate_dataslot, this_priceFeedUpdate_argc)) */
       mstore
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":1305:1432  {... */
+        /* "./tb/tb6/signaltest_afterparse.sol":3570:3697  {... */
       pop
       pop
       pop
       pop
       jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":434:544  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
-    tag_36:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":490:501  bytes32 key */
+        /* "./tb/tb6/signaltest_afterparse.sol":866:977  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_17:
+        /* "./tb/tb6/signaltest_afterparse.sol":922:933  bytes32 key */
       0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":518:537  priceFeedUpdate_key */
-      sload(0x03)
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":511:537  return priceFeedUpdate_key */
+        /* "./tb/tb6/signaltest_afterparse.sol":951:970  priceFeedUpdate_key */
+      sload(0x04)
+        /* "./tb/tb6/signaltest_afterparse.sol":944:970  return priceFeedUpdate_key */
       swap1
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":434:544  function get_priceFeedUpdate_key() public view returns (bytes32 key){... */
+        /* "./tb/tb6/signaltest_afterparse.sol":866:977  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":684:967  function priceFeedUpdate() public{... */
-    tag_38:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":749:788  keccak256("function priceFeedUpdate()") */
-      mload(0x40)
-      dup1
-      dup1
-      0x66756e6374696f6e207072696365466565645570646174652829000000000000
-      dup2
-      mstore
-      pop
-      0x1a
-      add
-      swap1
-      pop
-      mload(0x40)
-      dup1
-      swap2
-      sub
-      swap1
-      keccak256
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":727:746  priceFeedUpdate_key */
-      0x03
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":727:788  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
-      dup2
-      swap1
-      sstore
-      pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":862:886  priceFeedUpdate_key_slot */
-      0x03
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":856:887  sload(priceFeedUpdate_key_slot) */
-      sload
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":852:854  32 */
-      0x20
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":842:888  createsig(32, sload(priceFeedUpdate_key_slot)) */
-      createsig
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":813:840  priceFeedUpdate_status_slot */
-      0x02
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":806:889  sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot))) */
-      sstore
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":931:956  priceFeedUpdate_data_slot */
+        /* "./tb/tb6/signaltest_afterparse.sol":2077:2170  function get_random_key() public view returns (bytes32 key) {... */
+    tag_19:
+        /* "./tb/tb6/signaltest_afterparse.sol":2124:2135  bytes32 key */
       0x00
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":900:929  priceFeedUpdate_dataslot_slot */
-      0x01
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":893:957  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
-      sstore
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":801:961  {... */
+        /* "./tb/tb6/signaltest_afterparse.sol":2153:2163  random_key */
+      sload(0x07)
+        /* "./tb/tb6/signaltest_afterparse.sol":2146:2163  return random_key */
+      swap1
+      pop
+        /* "./tb/tb6/signaltest_afterparse.sol":2077:2170  function get_random_key() public view returns (bytes32 key) {... */
+      swap1
       jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":79:114  bytes32 public priceFeedUpdate_data */
-    tag_40:
-      sload(0x00)
-      dup2
-      jump	// out
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":549:679  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
-    tag_42:
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":610:631  bytes memory dataslot */
+        /* "./tb/tb6/signaltest_afterparse.sol":1008:1139  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+    tag_21:
+        /* "./tb/tb6/signaltest_afterparse.sol":1069:1090  bytes memory dataslot */
       0x60
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":648:672  priceFeedUpdate_dataslot */
-      0x01
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":641:672  return priceFeedUpdate_dataslot */
+        /* "./tb/tb6/signaltest_afterparse.sol":1108:1132  priceFeedUpdate_dataslot */
+      0x02
+        /* "./tb/tb6/signaltest_afterparse.sol":1101:1132  return priceFeedUpdate_dataslot */
       dup1
       sload
       0x01
@@ -1366,12 +965,12 @@ sub_0: assembly {
       div
       dup1
       iszero
-      tag_78
+      tag_52
       jumpi
       dup1
       0x1f
       lt
-      tag_79
+      tag_53
       jumpi
       0x0100
       dup1
@@ -1385,8 +984,8 @@ sub_0: assembly {
       0x20
       add
       swap2
-      jump(tag_78)
-    tag_79:
+      jump(tag_52)
+    tag_53:
       dup3
       add
       swap2
@@ -1395,7 +994,7 @@ sub_0: assembly {
       mstore
       keccak256(0x00, 0x20)
       swap1
-    tag_80:
+    tag_54:
       dup2
       sload
       dup2
@@ -1409,7 +1008,7 @@ sub_0: assembly {
       dup1
       dup4
       gt
-      tag_80
+      tag_54
       jumpi
       dup3
       swap1
@@ -1419,7 +1018,7 @@ sub_0: assembly {
       dup3
       add
       swap2
-    tag_78:
+    tag_52:
       pop
       pop
       pop
@@ -1427,9 +1026,23 @@ sub_0: assembly {
       pop
       swap1
       pop
-        /* "./signalslot_parse_script/tb/tb6/signaltest_afterparse.sol":549:679  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot){... */
+        /* "./tb/tb6/signaltest_afterparse.sol":1008:1139  function get_priceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
       swap1
       jump	// out
+        /* "./tb/tb6/signaltest_afterparse.sol":606:711  function set_priceFeedUpdate_data(bytes32 dataSet) private {... */
+    tag_29:
+        /* "./tb/tb6/signaltest_afterparse.sol":697:704  dataSet */
+      dup1
+        /* "./tb/tb6/signaltest_afterparse.sol":674:694  priceFeedUpdate_data */
+      0x01
+        /* "./tb/tb6/signaltest_afterparse.sol":674:704  priceFeedUpdate_data = dataSet */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "./tb/tb6/signaltest_afterparse.sol":606:711  function set_priceFeedUpdate_data(bytes32 dataSet) private {... */
+      pop
+      jump	// out
 
-    auxdata: 0xa2646970667358221220579db71964789fb9fef7d12008ae02c84283755b9cb52634c5dc12a7bb8bec4564736f6c63782c302e362e31312d646576656c6f702e323032302e372e32312b636f6d6d69742e63316635663761632e6d6f64005d
+    auxdata: 0xa26469706673582212205f5331813472890a39ccb49a247515810963009ea8c1d8f1c0ffd359f570874d64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32312b636f6d6d69742e63316635663761632e6d6f64005d
 }
