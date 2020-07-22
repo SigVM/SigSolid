@@ -44,7 +44,7 @@ contract TimeLock {
         }
 
         // solium-disable-next-line security/no-call-value
-        (bool success, bytes memory returnData) = new_tx.target.call.value(value)(callData);
+        (bool success, bytes memory returnData) = new_tx.target.call.value(new_tx.value)(callData);//TODO:"value here is new_tx.value? Please double check"
         require(success, "Timelock::executeTransaction: Transaction execution reverted.");
     }
 

@@ -49,13 +49,13 @@ contract ReceiverA {
         price = new_price;
     }
 
-    constructor(address oracle_addr) {
+    constructor(address oracle_addr) public {
         oracle = PriceOracleBuffer(oracle_addr);
-        RecievePrice.bind(oracle.PriceFeedUpdate());
+        RecievePrice.bind(oracle.PriceFeedUpdate);
     }
     
-    function detatch() public {
-        RecievePrice.detatch(oracle.PriceFeedUpdate());
+    function detach() public {
+        RecievePrice.detach(oracle.PriceFeedUpdate);
     }
 }
 
@@ -70,12 +70,12 @@ contract ReceiverB {
         price = new_price;
     }
 
-    constructor(address oracle_addr) {
+    constructor(address oracle_addr) public {
         oracle = PriceOracleBuffer(oracle_addr);
-        RecievePrice.bind(oracle.PriceFeedUpdate());
+        RecievePrice.bind(oracle.PriceFeedUpdate);
     }
     
-    function detatch() public {
-        RecievePrice.detatch(oracle.PriceFeedUpdate());
+    function detach() public {
+        RecievePrice.detach(oracle.PriceFeedUpdate);
     }
 }

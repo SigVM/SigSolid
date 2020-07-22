@@ -1,0 +1,1008 @@
+    /* "feed_parsed.sol":26:5865  contract PriceOracleBuffer {... */
+  mstore(0x40, 0x80)
+    /* "feed_parsed.sol":3942:5863  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "feed_parsed.sol":3968:3985  PriceFeedUpdate() */
+  tag_4
+    /* "feed_parsed.sol":3968:3983  PriceFeedUpdate */
+  shl(0x20, tag_5)
+    /* "feed_parsed.sol":3968:3985  PriceFeedUpdate() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "feed_parsed.sol":3990:4002  SendUpdate() */
+  tag_6
+    /* "feed_parsed.sol":3990:4000  SendUpdate */
+  shl(0x20, tag_7)
+    /* "feed_parsed.sol":3990:4002  SendUpdate() */
+  0x20
+  shr
+  jump	// in
+tag_6:
+    /* "feed_parsed.sol":4044:4045  0 */
+  0x00
+    /* "feed_parsed.sol":4030:4041  peeked_data */
+  0x02
+    /* "feed_parsed.sol":4030:4045  peeked_data = 0 */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "feed_parsed.sol":4305:4334  address this_bindslot_address */
+  0x00
+    /* "feed_parsed.sol":4345:4349  this */
+  address
+    /* "feed_parsed.sol":4305:4350  address this_bindslot_address = address(this) */
+  swap1
+  pop
+    /* "feed_parsed.sol":4402:4443  bytes32 this_bindslot_PriceFeedUpdate_key */
+  0x00
+    /* "feed_parsed.sol":4446:4471  get_PriceFeedUpdate_key() */
+  tag_8
+    /* "feed_parsed.sol":4446:4469  get_PriceFeedUpdate_key */
+  shl(0x20, tag_9)
+    /* "feed_parsed.sol":4446:4471  get_PriceFeedUpdate_key() */
+  0x20
+  shr
+  jump	// in
+tag_8:
+    /* "feed_parsed.sol":4402:4471  bytes32 this_bindslot_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
+  swap1
+  pop
+    /* "feed_parsed.sol":4528:4564  bytes32 this_bindslot_SendUpdate_key */
+  0x00
+    /* "feed_parsed.sol":4567:4587  get_SendUpdate_key() */
+  tag_10
+    /* "feed_parsed.sol":4567:4585  get_SendUpdate_key */
+  shl(0x20, tag_11)
+    /* "feed_parsed.sol":4567:4587  get_SendUpdate_key() */
+  0x20
+  shr
+  jump	// in
+tag_10:
+    /* "feed_parsed.sol":4528:4587  bytes32 this_bindslot_SendUpdate_key = get_SendUpdate_key() */
+  swap1
+  pop
+    /* "feed_parsed.sol":4732:4760  this_bindslot_SendUpdate_key */
+  dup1
+    /* "feed_parsed.sol":4697:4730  this_bindslot_PriceFeedUpdate_key */
+  dup3
+    /* "feed_parsed.sol":4674:4695  this_bindslot_address */
+  dup5
+    /* "feed_parsed.sol":4665:4761  bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_bindslot_SendUpdate_key) */
+  bindslot
+    /* "feed_parsed.sol":4659:4663  0x40 */
+  0x40
+    /* "feed_parsed.sol":4652:4762  mstore(0x40, bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_bindslot_SendUpdate_key)) */
+  mstore
+    /* "feed_parsed.sol":5162:5189  set_PriceFeedUpdate_data(0) */
+  tag_12
+    /* "feed_parsed.sol":5187:5188  0 */
+  0x00
+    /* "feed_parsed.sol":5162:5186  set_PriceFeedUpdate_data */
+  shl(0x20, tag_13)
+    /* "feed_parsed.sol":5162:5189  set_PriceFeedUpdate_data(0) */
+  0x20
+  shr
+  jump	// in
+tag_12:
+    /* "feed_parsed.sol":5233:5271  uint this_emitsig_PriceFeedUpdate_argc */
+  0x00
+    /* "feed_parsed.sol":5274:5300  get_PriceFeedUpdate_argc() */
+  tag_14
+    /* "feed_parsed.sol":5274:5298  get_PriceFeedUpdate_argc */
+  shl(0x20, tag_15)
+    /* "feed_parsed.sol":5274:5300  get_PriceFeedUpdate_argc() */
+  0x20
+  shr
+  jump	// in
+tag_14:
+    /* "feed_parsed.sol":5233:5300  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
+  swap1
+  pop
+    /* "feed_parsed.sol":5333:5383  bytes memory this_emitsig_PriceFeedUpdate_dataslot */
+  0x60
+    /* "feed_parsed.sol":5386:5416  get_PriceFeedUpdate_dataslot() */
+  tag_16
+    /* "feed_parsed.sol":5386:5414  get_PriceFeedUpdate_dataslot */
+  shl(0x20, tag_17)
+    /* "feed_parsed.sol":5386:5416  get_PriceFeedUpdate_dataslot() */
+  0x20
+  shr
+  jump	// in
+tag_16:
+    /* "feed_parsed.sol":5333:5416  bytes memory this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
+  swap1
+  pop
+    /* "feed_parsed.sol":5450:5490  bytes32 this_emitsig_PriceFeedUpdate_key */
+  0x00
+    /* "feed_parsed.sol":5493:5518  get_PriceFeedUpdate_key() */
+  tag_18
+    /* "feed_parsed.sol":5493:5516  get_PriceFeedUpdate_key */
+  shl(0x20, tag_9)
+    /* "feed_parsed.sol":5493:5518  get_PriceFeedUpdate_key() */
+  0x20
+  shr
+  jump	// in
+tag_18:
+    /* "feed_parsed.sol":5450:5518  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
+  swap1
+  pop
+    /* "feed_parsed.sol":5707:5740  this_emitsig_PriceFeedUpdate_argc */
+  dup3
+    /* "feed_parsed.sol":5668:5705  this_emitsig_PriceFeedUpdate_dataslot */
+  dup3
+    /* "feed_parsed.sol":5665:5666  0 */
+  0x00
+    /* "feed_parsed.sol":5631:5663  this_emitsig_PriceFeedUpdate_key */
+  dup4
+    /* "feed_parsed.sol":5623:5741  emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
+  emitsig
+    /* "feed_parsed.sol":5617:5621  0x40 */
+  0x40
+    /* "feed_parsed.sol":5610:5742  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
+  mstore
+    /* "feed_parsed.sol":5605:5749  {... */
+  pop
+  pop
+  pop
+  pop
+  pop
+  pop
+    /* "feed_parsed.sol":26:5865  contract PriceOracleBuffer {... */
+  jump(tag_19)
+    /* "feed_parsed.sol":1386:1671  function PriceFeedUpdate() private {... */
+tag_5:
+    /* "feed_parsed.sol":1453:1492  keccak256("function PriceFeedUpdate()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x66756e6374696f6e205072696365466565645570646174652829000000000000
+  dup2
+  mstore
+  pop
+  0x1a
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "feed_parsed.sol":1431:1450  PriceFeedUpdate_key */
+  0x06
+    /* "feed_parsed.sol":1431:1492  PriceFeedUpdate_key = keccak256("function PriceFeedUpdate()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "feed_parsed.sol":1566:1590  PriceFeedUpdate_key_slot */
+  0x06
+    /* "feed_parsed.sol":1560:1591  sload(PriceFeedUpdate_key_slot) */
+  sload
+    /* "feed_parsed.sol":1556:1558  32 */
+  0x20
+    /* "feed_parsed.sol":1546:1592  createsig(32, sload(PriceFeedUpdate_key_slot)) */
+  createsig
+    /* "feed_parsed.sol":1517:1544  PriceFeedUpdate_status_slot */
+  0x05
+    /* "feed_parsed.sol":1510:1593  sstore(PriceFeedUpdate_status_slot, createsig(32, sload(PriceFeedUpdate_key_slot))) */
+  sstore
+    /* "feed_parsed.sol":1635:1660  PriceFeedUpdate_data_slot */
+  0x03
+    /* "feed_parsed.sol":1604:1633  PriceFeedUpdate_dataslot_slot */
+  0x04
+    /* "feed_parsed.sol":1597:1661  sstore(PriceFeedUpdate_dataslot_slot, PriceFeedUpdate_data_slot) */
+  sstore
+    /* "feed_parsed.sol":1505:1665  {... */
+  jump	// out
+    /* "feed_parsed.sol":2323:2548  function SendUpdate() private {... */
+tag_7:
+    /* "feed_parsed.sol":2380:2414  keccak256("SendUpdate_func(uint)") */
+  mload(0x40)
+  dup1
+  dup1
+  0x53656e645570646174655f66756e632875696e74290000000000000000000000
+  dup2
+  mstore
+  pop
+  0x15
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "feed_parsed.sol":2363:2377  SendUpdate_key */
+  0x08
+    /* "feed_parsed.sol":2363:2414  SendUpdate_key = keccak256("SendUpdate_func(uint)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "feed_parsed.sol":2510:2529  SendUpdate_key_slot */
+  0x08
+    /* "feed_parsed.sol":2504:2530  sload(SendUpdate_key_slot) */
+  sload
+    /* "feed_parsed.sol":2497:2502  30000 */
+  0x7530
+    /* "feed_parsed.sol":2493:2495  10 */
+  0x0a
+    /* "feed_parsed.sol":2489:2491  32 */
+  0x20
+    /* "feed_parsed.sol":2478:2531  createslot(32, 10, 30000, sload(SendUpdate_key_slot)) */
+  createslot
+    /* "feed_parsed.sol":2454:2476  SendUpdate_status_slot */
+  0x07
+    /* "feed_parsed.sol":2447:2532  sstore(SendUpdate_status_slot, createslot(32, 10, 30000, sload(SendUpdate_key_slot))) */
+  sstore
+    /* "feed_parsed.sol":2433:2542  {... */
+  jump	// out
+    /* "feed_parsed.sol":951:1062  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
+tag_9:
+    /* "feed_parsed.sol":1007:1018  bytes32 key */
+  0x00
+    /* "feed_parsed.sol":1036:1055  PriceFeedUpdate_key */
+  sload(0x06)
+    /* "feed_parsed.sol":1029:1055  return PriceFeedUpdate_key */
+  swap1
+  pop
+    /* "feed_parsed.sol":951:1062  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
+  swap1
+  jump	// out
+    /* "feed_parsed.sol":2127:2228  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+tag_11:
+    /* "feed_parsed.sol":2178:2189  bytes32 key */
+  0x00
+    /* "feed_parsed.sol":2207:2221  SendUpdate_key */
+  sload(0x08)
+    /* "feed_parsed.sol":2200:2221  return SendUpdate_key */
+  swap1
+  pop
+    /* "feed_parsed.sol":2127:2228  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+  swap1
+  jump	// out
+    /* "feed_parsed.sol":694:796  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+tag_13:
+    /* "feed_parsed.sol":782:789  dataSet */
+  dup1
+    /* "feed_parsed.sol":759:779  PriceFeedUpdate_data */
+  0x03
+    /* "feed_parsed.sol":759:789  PriceFeedUpdate_data = dataSet */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "feed_parsed.sol":694:796  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+  pop
+  jump	// out
+    /* "feed_parsed.sol":829:922  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+tag_15:
+    /* "feed_parsed.sol":886:895  uint argc */
+  0x00
+    /* "feed_parsed.sol":913:915  32 */
+  0x20
+    /* "feed_parsed.sol":906:915  return 32 */
+  swap1
+  pop
+    /* "feed_parsed.sol":829:922  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+  swap1
+  jump	// out
+    /* "feed_parsed.sol":1093:1224  function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+tag_17:
+    /* "feed_parsed.sol":1154:1175  bytes memory dataslot */
+  0x60
+    /* "feed_parsed.sol":1193:1217  PriceFeedUpdate_dataslot */
+  0x04
+    /* "feed_parsed.sol":1186:1217  return PriceFeedUpdate_dataslot */
+  dup1
+  sload
+  0x01
+  dup2
+  0x01
+  and
+  iszero
+  0x0100
+  mul
+  sub
+  and
+  0x02
+  swap1
+  div
+  dup1
+  0x1f
+  add
+  0x20
+  dup1
+  swap2
+  div
+  mul
+  0x20
+  add
+  mload(0x40)
+  swap1
+  dup2
+  add
+  0x40
+  mstore
+  dup1
+  swap3
+  swap2
+  swap1
+  dup2
+  dup2
+  mstore
+  0x20
+  add
+  dup3
+  dup1
+  sload
+  0x01
+  dup2
+  0x01
+  and
+  iszero
+  0x0100
+  mul
+  sub
+  and
+  0x02
+  swap1
+  div
+  dup1
+  iszero
+  tag_27
+  jumpi
+  dup1
+  0x1f
+  lt
+  tag_28
+  jumpi
+  0x0100
+  dup1
+  dup4
+  sload
+  div
+  mul
+  dup4
+  mstore
+  swap2
+  0x20
+  add
+  swap2
+  jump(tag_27)
+tag_28:
+  dup3
+  add
+  swap2
+  swap1
+  0x00
+  mstore
+  keccak256(0x00, 0x20)
+  swap1
+tag_29:
+  dup2
+  sload
+  dup2
+  mstore
+  swap1
+  0x01
+  add
+  swap1
+  0x20
+  add
+  dup1
+  dup4
+  gt
+  tag_29
+  jumpi
+  dup3
+  swap1
+  sub
+  0x1f
+  and
+  dup3
+  add
+  swap2
+tag_27:
+  pop
+  pop
+  pop
+  pop
+  pop
+  swap1
+  pop
+    /* "feed_parsed.sol":1093:1224  function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+  swap1
+  jump	// out
+    /* "feed_parsed.sol":26:5865  contract PriceOracleBuffer {... */
+tag_19:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "feed_parsed.sol":26:5865  contract PriceOracleBuffer {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x166978b4
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x2492d4e9
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x2ae59cbe
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x89506560
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xafbc4c0b
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xd69c5385
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "feed_parsed.sol":2127:2228  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "feed_parsed.sol":829:922  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+    tag_4:
+      tag_11
+      tag_12
+      jump	// in
+    tag_11:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "feed_parsed.sol":2780:3931  function SendUpdate_func(uint unused) public {... */
+    tag_5:
+      tag_13
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_14
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_14:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_15
+      jump	// in
+    tag_13:
+      stop
+        /* "feed_parsed.sol":64:108  uint public constant ONE_HOUR_CONFLUX = 7200 */
+    tag_6:
+      tag_16
+      tag_17
+      jump	// in
+    tag_16:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "feed_parsed.sol":951:1062  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_7:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "feed_parsed.sol":1093:1224  function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+    tag_8:
+      tag_20
+      tag_21
+      jump	// in
+    tag_20:
+      mload(0x40)
+      dup1
+      dup1
+      0x20
+      add
+      dup3
+      dup2
+      sub
+      dup3
+      mstore
+      dup4
+      dup2
+      dup2
+      mload
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+      0x00
+    tag_22:
+      dup4
+      dup2
+      lt
+      iszero
+      tag_24
+      jumpi
+      dup1
+      dup3
+      add
+      mload
+      dup2
+      dup5
+      add
+      mstore
+      0x20
+      dup2
+      add
+      swap1
+      pop
+      jump(tag_22)
+    tag_24:
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_25
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_25:
+      pop
+      swap3
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "feed_parsed.sol":2127:2228  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+    tag_10:
+        /* "feed_parsed.sol":2178:2189  bytes32 key */
+      0x00
+        /* "feed_parsed.sol":2207:2221  SendUpdate_key */
+      sload(0x08)
+        /* "feed_parsed.sol":2200:2221  return SendUpdate_key */
+      swap1
+      pop
+        /* "feed_parsed.sol":2127:2228  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "feed_parsed.sol":829:922  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+    tag_12:
+        /* "feed_parsed.sol":886:895  uint argc */
+      0x00
+        /* "feed_parsed.sol":913:915  32 */
+      0x20
+        /* "feed_parsed.sol":906:915  return 32 */
+      swap1
+      pop
+        /* "feed_parsed.sol":829:922  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+      swap1
+      jump	// out
+        /* "feed_parsed.sol":2780:3931  function SendUpdate_func(uint unused) public {... */
+    tag_15:
+        /* "feed_parsed.sol":2863:2864  1 */
+      0x01
+        /* "feed_parsed.sol":2849:2860  peeked_data */
+      sload(0x02)
+        /* "feed_parsed.sol":2849:2864  peeked_data + 1 */
+      add
+        /* "feed_parsed.sol":2835:2846  peeked_data */
+      0x02
+        /* "feed_parsed.sol":2835:2864  peeked_data = peeked_data + 1 */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "feed_parsed.sol":2880:2883  nxt */
+      sload(0x01)
+        /* "feed_parsed.sol":2874:2877  cur */
+      0x00
+        /* "feed_parsed.sol":2874:2883  cur = nxt */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "feed_parsed.sol":2899:2910  peeked_data */
+      sload(0x02)
+        /* "feed_parsed.sol":2893:2896  nxt */
+      0x01
+        /* "feed_parsed.sol":2893:2910  nxt = peeked_data */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "feed_parsed.sol":3213:3242  set_PriceFeedUpdate_data(cur) */
+      tag_29
+        /* "feed_parsed.sol":3238:3241  cur */
+      sload(0x00)
+        /* "feed_parsed.sol":3213:3237  set_PriceFeedUpdate_data */
+      tag_30
+        /* "feed_parsed.sol":3213:3242  set_PriceFeedUpdate_data(cur) */
+      jump	// in
+    tag_29:
+        /* "feed_parsed.sol":3286:3324  uint this_emitsig_PriceFeedUpdate_argc */
+      0x00
+        /* "feed_parsed.sol":3327:3353  get_PriceFeedUpdate_argc() */
+      tag_31
+        /* "feed_parsed.sol":3327:3351  get_PriceFeedUpdate_argc */
+      tag_12
+        /* "feed_parsed.sol":3327:3353  get_PriceFeedUpdate_argc() */
+      jump	// in
+    tag_31:
+        /* "feed_parsed.sol":3286:3353  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
+      swap1
+      pop
+        /* "feed_parsed.sol":3386:3436  bytes memory this_emitsig_PriceFeedUpdate_dataslot */
+      0x60
+        /* "feed_parsed.sol":3439:3469  get_PriceFeedUpdate_dataslot() */
+      tag_32
+        /* "feed_parsed.sol":3439:3467  get_PriceFeedUpdate_dataslot */
+      tag_21
+        /* "feed_parsed.sol":3439:3469  get_PriceFeedUpdate_dataslot() */
+      jump	// in
+    tag_32:
+        /* "feed_parsed.sol":3386:3469  bytes memory this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
+      swap1
+      pop
+        /* "feed_parsed.sol":3503:3543  bytes32 this_emitsig_PriceFeedUpdate_key */
+      0x00
+        /* "feed_parsed.sol":3546:3571  get_PriceFeedUpdate_key() */
+      tag_33
+        /* "feed_parsed.sol":3546:3569  get_PriceFeedUpdate_key */
+      tag_19
+        /* "feed_parsed.sol":3546:3571  get_PriceFeedUpdate_key() */
+      jump	// in
+    tag_33:
+        /* "feed_parsed.sol":3503:3571  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
+      swap1
+      pop
+        /* "feed_parsed.sol":3775:3808  this_emitsig_PriceFeedUpdate_argc */
+      dup3
+        /* "feed_parsed.sol":3736:3773  this_emitsig_PriceFeedUpdate_dataslot */
+      dup3
+        /* "feed_parsed.sol":3718:3734  ONE_HOUR_CONFLUX */
+      0x1c20
+        /* "feed_parsed.sol":3684:3716  this_emitsig_PriceFeedUpdate_key */
+      dup4
+        /* "feed_parsed.sol":3676:3809  emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
+      emitsig
+        /* "feed_parsed.sol":3670:3674  0x40 */
+      0x40
+        /* "feed_parsed.sol":3663:3810  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
+      mstore
+        /* "feed_parsed.sol":3658:3817  {... */
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "feed_parsed.sol":64:108  uint public constant ONE_HOUR_CONFLUX = 7200 */
+    tag_17:
+        /* "feed_parsed.sol":104:108  7200 */
+      0x1c20
+        /* "feed_parsed.sol":64:108  uint public constant ONE_HOUR_CONFLUX = 7200 */
+      dup2
+      jump	// out
+        /* "feed_parsed.sol":951:1062  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_19:
+        /* "feed_parsed.sol":1007:1018  bytes32 key */
+      0x00
+        /* "feed_parsed.sol":1036:1055  PriceFeedUpdate_key */
+      sload(0x06)
+        /* "feed_parsed.sol":1029:1055  return PriceFeedUpdate_key */
+      swap1
+      pop
+        /* "feed_parsed.sol":951:1062  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "feed_parsed.sol":1093:1224  function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+    tag_21:
+        /* "feed_parsed.sol":1154:1175  bytes memory dataslot */
+      0x60
+        /* "feed_parsed.sol":1193:1217  PriceFeedUpdate_dataslot */
+      0x04
+        /* "feed_parsed.sol":1186:1217  return PriceFeedUpdate_dataslot */
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      0x1f
+      add
+      0x20
+      dup1
+      swap2
+      div
+      mul
+      0x20
+      add
+      mload(0x40)
+      swap1
+      dup2
+      add
+      0x40
+      mstore
+      dup1
+      swap3
+      swap2
+      swap1
+      dup2
+      dup2
+      mstore
+      0x20
+      add
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      iszero
+      tag_36
+      jumpi
+      dup1
+      0x1f
+      lt
+      tag_37
+      jumpi
+      0x0100
+      dup1
+      dup4
+      sload
+      div
+      mul
+      dup4
+      mstore
+      swap2
+      0x20
+      add
+      swap2
+      jump(tag_36)
+    tag_37:
+      dup3
+      add
+      swap2
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+    tag_38:
+      dup2
+      sload
+      dup2
+      mstore
+      swap1
+      0x01
+      add
+      swap1
+      0x20
+      add
+      dup1
+      dup4
+      gt
+      tag_38
+      jumpi
+      dup3
+      swap1
+      sub
+      0x1f
+      and
+      dup3
+      add
+      swap2
+    tag_36:
+      pop
+      pop
+      pop
+      pop
+      pop
+      swap1
+      pop
+        /* "feed_parsed.sol":1093:1224  function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {... */
+      swap1
+      jump	// out
+        /* "feed_parsed.sol":694:796  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+    tag_30:
+        /* "feed_parsed.sol":782:789  dataSet */
+      dup1
+        /* "feed_parsed.sol":759:779  PriceFeedUpdate_data */
+      0x03
+        /* "feed_parsed.sol":759:789  PriceFeedUpdate_data = dataSet */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "feed_parsed.sol":694:796  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+      pop
+      jump	// out
+
+    auxdata: 0xa2646970667358221220146f010bcd961ba4f1a0f704f4e2844c21db3b1aa60df936a8f13c0b469ce38b64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+}
