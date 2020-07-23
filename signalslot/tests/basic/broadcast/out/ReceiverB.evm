@@ -1,6 +1,6 @@
-    /* "broadcast_parsed.sol":4568:6716  contract ReceiverB {... */
+    /* "broadcast_parsed.sol":4582:6744  contract ReceiverB {... */
   mstore(0x40, 0x80)
-    /* "broadcast_parsed.sol":5819:6714  constructor(Emitter addr) public {... */
+    /* "broadcast_parsed.sol":5833:6742  constructor(Emitter addr) public {... */
   callvalue
   dup1
   iszero
@@ -48,21 +48,21 @@ tag_2:
   pop
   pop
   pop
-    /* "broadcast_parsed.sol":5857:5870  HandleAlert() */
+    /* "broadcast_parsed.sol":5871:5884  HandleAlert() */
   tag_5
-    /* "broadcast_parsed.sol":5857:5868  HandleAlert */
+    /* "broadcast_parsed.sol":5871:5882  HandleAlert */
   shl(0x20, tag_6)
-    /* "broadcast_parsed.sol":5857:5870  HandleAlert() */
+    /* "broadcast_parsed.sol":5871:5884  HandleAlert() */
   0x20
   shr
   jump	// in
 tag_5:
-    /* "broadcast_parsed.sol":5889:5893  addr */
+    /* "broadcast_parsed.sol":5903:5907  addr */
   dup1
-    /* "broadcast_parsed.sol":5880:5886  source */
+    /* "broadcast_parsed.sol":5894:5900  source */
   0x00
   dup1
-    /* "broadcast_parsed.sol":5880:5893  source = addr */
+    /* "broadcast_parsed.sol":5894:5907  source = addr */
   0x0100
   exp
   dup2
@@ -81,9 +81,9 @@ tag_5:
   swap1
   sstore
   pop
-    /* "broadcast_parsed.sol":6146:6177  address source_bindslot_address */
+    /* "broadcast_parsed.sol":6160:6191  address source_bindslot_address */
   0x00
-    /* "broadcast_parsed.sol":6188:6194  source */
+    /* "broadcast_parsed.sol":6202:6208  source */
   dup1
   0x00
   swap1
@@ -95,12 +95,12 @@ tag_5:
   div
   0xffffffffffffffffffffffffffffffffffffffff
   and
-    /* "broadcast_parsed.sol":6146:6195  address source_bindslot_address = address(source) */
+    /* "broadcast_parsed.sol":6160:6209  address source_bindslot_address = address(source) */
   swap1
   pop
-    /* "broadcast_parsed.sol":6247:6280  bytes32 source_bindslot_Alert_key */
+    /* "broadcast_parsed.sol":6261:6294  bytes32 source_bindslot_Alert_key */
   0x00
-    /* "broadcast_parsed.sol":6283:6289  source */
+    /* "broadcast_parsed.sol":6297:6303  source */
   dup1
   0x00
   swap1
@@ -112,11 +112,11 @@ tag_5:
   div
   0xffffffffffffffffffffffffffffffffffffffff
   and
-    /* "broadcast_parsed.sol":6283:6303  source.get_Alert_key */
+    /* "broadcast_parsed.sol":6297:6317  source.get_Alert_key */
   0xffffffffffffffffffffffffffffffffffffffff
   and
   0x65410bf1
-    /* "broadcast_parsed.sol":6283:6305  source.get_Alert_key() */
+    /* "broadcast_parsed.sol":6297:6319  source.get_Alert_key() */
   mload(0x40)
   dup2
   0xffffffff
@@ -191,45 +191,45 @@ tag_10:
   pop
   pop
   pop
-    /* "broadcast_parsed.sol":6247:6305  bytes32 source_bindslot_Alert_key = source.get_Alert_key() */
+    /* "broadcast_parsed.sol":6261:6319  bytes32 source_bindslot_Alert_key = source.get_Alert_key() */
   swap1
   pop
-    /* "broadcast_parsed.sol":6362:6399  bytes32 this_bindslot_HandleAlert_key */
+    /* "broadcast_parsed.sol":6376:6420  bytes32 this_source_bindslot_HandleAlert_key */
   0x00
-    /* "broadcast_parsed.sol":6402:6423  get_HandleAlert_key() */
+    /* "broadcast_parsed.sol":6423:6444  get_HandleAlert_key() */
   tag_11
-    /* "broadcast_parsed.sol":6402:6421  get_HandleAlert_key */
+    /* "broadcast_parsed.sol":6423:6442  get_HandleAlert_key */
   shl(0x20, tag_12)
-    /* "broadcast_parsed.sol":6402:6423  get_HandleAlert_key() */
+    /* "broadcast_parsed.sol":6423:6444  get_HandleAlert_key() */
   0x20
   shr
   jump	// in
 tag_11:
-    /* "broadcast_parsed.sol":6362:6423  bytes32 this_bindslot_HandleAlert_key = get_HandleAlert_key() */
+    /* "broadcast_parsed.sol":6376:6444  bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key() */
   swap1
   pop
-    /* "broadcast_parsed.sol":6562:6591  this_bindslot_HandleAlert_key */
+    /* "broadcast_parsed.sol":6583:6619  this_source_bindslot_HandleAlert_key */
   dup1
-    /* "broadcast_parsed.sol":6535:6560  source_bindslot_Alert_key */
+    /* "broadcast_parsed.sol":6556:6581  source_bindslot_Alert_key */
   dup3
-    /* "broadcast_parsed.sol":6510:6533  source_bindslot_address */
+    /* "broadcast_parsed.sol":6531:6554  source_bindslot_address */
   dup5
-    /* "broadcast_parsed.sol":6501:6592  bindslot(source_bindslot_address, source_bindslot_Alert_key, this_bindslot_HandleAlert_key) */
+    /* "broadcast_parsed.sol":6522:6620  bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key) */
   bindslot
-    /* "broadcast_parsed.sol":6495:6499  0x40 */
+    /* "broadcast_parsed.sol":6516:6520  0x40 */
   0x40
-    /* "broadcast_parsed.sol":6488:6593  mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_bindslot_HandleAlert_key)) */
+    /* "broadcast_parsed.sol":6509:6621  mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key)) */
   mstore
-    /* "broadcast_parsed.sol":6483:6600  {... */
+    /* "broadcast_parsed.sol":6504:6628  {... */
   pop
   pop
   pop
   pop
-    /* "broadcast_parsed.sol":4568:6716  contract ReceiverB {... */
+    /* "broadcast_parsed.sol":4582:6744  contract ReceiverB {... */
   jump(tag_13)
-    /* "broadcast_parsed.sol":5183:5416  function HandleAlert() private {... */
+    /* "broadcast_parsed.sol":5197:5430  function HandleAlert() private {... */
 tag_6:
-    /* "broadcast_parsed.sol":5242:5280  keccak256("HandleAlert_func(bytes32)") */
+    /* "broadcast_parsed.sol":5256:5294  keccak256("HandleAlert_func(bytes32)") */
   mload(0x40)
   dup1
   dup1
@@ -247,44 +247,44 @@ tag_6:
   sub
   swap1
   keccak256
-    /* "broadcast_parsed.sol":5224:5239  HandleAlert_key */
+    /* "broadcast_parsed.sol":5238:5253  HandleAlert_key */
   0x03
-    /* "broadcast_parsed.sol":5224:5280  HandleAlert_key = keccak256("HandleAlert_func(bytes32)") */
+    /* "broadcast_parsed.sol":5238:5294  HandleAlert_key = keccak256("HandleAlert_func(bytes32)") */
   dup2
   swap1
   sstore
   pop
-    /* "broadcast_parsed.sol":5377:5397  HandleAlert_key_slot */
+    /* "broadcast_parsed.sol":5391:5411  HandleAlert_key_slot */
   0x03
-    /* "broadcast_parsed.sol":5371:5398  sload(HandleAlert_key_slot) */
+    /* "broadcast_parsed.sol":5385:5412  sload(HandleAlert_key_slot) */
   sload
-    /* "broadcast_parsed.sol":5364:5369  30000 */
+    /* "broadcast_parsed.sol":5378:5383  30000 */
   0x7530
-    /* "broadcast_parsed.sol":5360:5362  10 */
+    /* "broadcast_parsed.sol":5374:5376  10 */
   0x0a
-    /* "broadcast_parsed.sol":5356:5358  32 */
+    /* "broadcast_parsed.sol":5370:5372  32 */
   0x20
-    /* "broadcast_parsed.sol":5345:5399  createslot(32, 10, 30000, sload(HandleAlert_key_slot)) */
+    /* "broadcast_parsed.sol":5359:5413  createslot(32, 10, 30000, sload(HandleAlert_key_slot)) */
   createslot
-    /* "broadcast_parsed.sol":5320:5343  HandleAlert_status_slot */
+    /* "broadcast_parsed.sol":5334:5357  HandleAlert_status_slot */
   0x02
-    /* "broadcast_parsed.sol":5313:5400  sstore(HandleAlert_status_slot, createslot(32, 10, 30000, sload(HandleAlert_key_slot))) */
+    /* "broadcast_parsed.sol":5327:5414  sstore(HandleAlert_status_slot, createslot(32, 10, 30000, sload(HandleAlert_key_slot))) */
   sstore
-    /* "broadcast_parsed.sol":5299:5410  {... */
+    /* "broadcast_parsed.sol":5313:5424  {... */
   jump	// out
-    /* "broadcast_parsed.sol":4984:5087  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+    /* "broadcast_parsed.sol":4998:5101  function get_HandleAlert_key() public view returns (bytes32 key) {... */
 tag_12:
-    /* "broadcast_parsed.sol":5036:5047  bytes32 key */
+    /* "broadcast_parsed.sol":5050:5061  bytes32 key */
   0x00
-    /* "broadcast_parsed.sol":5065:5080  HandleAlert_key */
+    /* "broadcast_parsed.sol":5079:5094  HandleAlert_key */
   sload(0x03)
-    /* "broadcast_parsed.sol":5058:5080  return HandleAlert_key */
+    /* "broadcast_parsed.sol":5072:5094  return HandleAlert_key */
   swap1
   pop
-    /* "broadcast_parsed.sol":4984:5087  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+    /* "broadcast_parsed.sol":4998:5101  function get_HandleAlert_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
-    /* "broadcast_parsed.sol":4568:6716  contract ReceiverB {... */
+    /* "broadcast_parsed.sol":4582:6744  contract ReceiverB {... */
 tag_13:
   dataSize(sub_0)
   dup1
@@ -296,7 +296,7 @@ tag_13:
 stop
 
 sub_0: assembly {
-        /* "broadcast_parsed.sol":4568:6716  contract ReceiverB {... */
+        /* "broadcast_parsed.sol":4582:6744  contract ReceiverB {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -329,7 +329,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "broadcast_parsed.sol":5649:5726  function HandleAlert_func(bytes32 value) public {... */
+        /* "broadcast_parsed.sol":5663:5740  function HandleAlert_func(bytes32 value) public {... */
     tag_3:
       tag_6
       0x04
@@ -366,7 +366,7 @@ sub_0: assembly {
       jump	// in
     tag_6:
       stop
-        /* "broadcast_parsed.sol":5732:5813  function get_data() public view returns (bytes32 ret) {... */
+        /* "broadcast_parsed.sol":5746:5827  function get_data() public view returns (bytes32 ret) {... */
     tag_4:
       tag_9
       tag_10
@@ -388,7 +388,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "broadcast_parsed.sol":4984:5087  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+        /* "broadcast_parsed.sol":4998:5101  function get_HandleAlert_key() public view returns (bytes32 key) {... */
     tag_5:
       tag_11
       tag_12
@@ -410,44 +410,44 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "broadcast_parsed.sol":5649:5726  function HandleAlert_func(bytes32 value) public {... */
+        /* "broadcast_parsed.sol":5663:5740  function HandleAlert_func(bytes32 value) public {... */
     tag_8:
-        /* "broadcast_parsed.sol":5714:5719  value */
+        /* "broadcast_parsed.sol":5728:5733  value */
       dup1
-        /* "broadcast_parsed.sol":5707:5711  data */
+        /* "broadcast_parsed.sol":5721:5725  data */
       0x01
-        /* "broadcast_parsed.sol":5707:5719  data = value */
+        /* "broadcast_parsed.sol":5721:5733  data = value */
       dup2
       swap1
       sstore
       pop
-        /* "broadcast_parsed.sol":5649:5726  function HandleAlert_func(bytes32 value) public {... */
+        /* "broadcast_parsed.sol":5663:5740  function HandleAlert_func(bytes32 value) public {... */
       pop
       jump	// out
-        /* "broadcast_parsed.sol":5732:5813  function get_data() public view returns (bytes32 ret) {... */
+        /* "broadcast_parsed.sol":5746:5827  function get_data() public view returns (bytes32 ret) {... */
     tag_10:
-        /* "broadcast_parsed.sol":5773:5784  bytes32 ret */
+        /* "broadcast_parsed.sol":5787:5798  bytes32 ret */
       0x00
-        /* "broadcast_parsed.sol":5802:5806  data */
+        /* "broadcast_parsed.sol":5816:5820  data */
       sload(0x01)
-        /* "broadcast_parsed.sol":5796:5806  ret = data */
+        /* "broadcast_parsed.sol":5810:5820  ret = data */
       swap1
       pop
-        /* "broadcast_parsed.sol":5732:5813  function get_data() public view returns (bytes32 ret) {... */
+        /* "broadcast_parsed.sol":5746:5827  function get_data() public view returns (bytes32 ret) {... */
       swap1
       jump	// out
-        /* "broadcast_parsed.sol":4984:5087  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+        /* "broadcast_parsed.sol":4998:5101  function get_HandleAlert_key() public view returns (bytes32 key) {... */
     tag_12:
-        /* "broadcast_parsed.sol":5036:5047  bytes32 key */
+        /* "broadcast_parsed.sol":5050:5061  bytes32 key */
       0x00
-        /* "broadcast_parsed.sol":5065:5080  HandleAlert_key */
+        /* "broadcast_parsed.sol":5079:5094  HandleAlert_key */
       sload(0x03)
-        /* "broadcast_parsed.sol":5058:5080  return HandleAlert_key */
+        /* "broadcast_parsed.sol":5072:5094  return HandleAlert_key */
       swap1
       pop
-        /* "broadcast_parsed.sol":4984:5087  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+        /* "broadcast_parsed.sol":4998:5101  function get_HandleAlert_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220758c1548041b9a3707c5edb86cd3640d88e4e7efea3e1a68fd5191fd45c5c23664736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220cac8cacee2f4961cef206f894a912dbeaa01e4d83046d647abda28f795d89a5564736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

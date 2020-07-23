@@ -230,10 +230,10 @@ contract Receiver {
         // Get signal key from emitter contract
 		bytes32 on_time_bindslot_Alert_key = on_time.get_Alert_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_Receive_key = get_Receive_key();
+        bytes32 this_on_time_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_bindslot_Receive_key))
+			mstore(0x40, bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_on_time_bindslot_Receive_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -248,10 +248,10 @@ contract Receiver {
         // Get signal key from emitter contract
 		bytes32 late_bindslot_Alert_key = late.get_Alert_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_Receive_key = get_Receive_key();
+        bytes32 this_late_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(late_bindslot_address, late_bindslot_Alert_key, this_bindslot_Receive_key))
+			mstore(0x40, bindslot(late_bindslot_address, late_bindslot_Alert_key, this_late_bindslot_Receive_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

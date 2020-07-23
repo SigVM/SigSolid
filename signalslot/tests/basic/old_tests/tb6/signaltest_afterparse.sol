@@ -159,10 +159,10 @@ contract B {
         // Get signal key from emitter contract
 		bytes32 dut_bindslot_priceFeedUpdate_key = dut.get_priceFeedUpdate_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_priceReceive_key = get_priceReceive_key();
+        bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_bindslot_priceReceive_key))
+			mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -180,10 +180,10 @@ contract B {
         // Get the address
 		address dut_detach_address = address(dut);
         //Get the slot key
-        bytes32 this_bindslot_priceReceive_key = get_priceReceive_key();
+        bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key();
         // Use assembly to detach the slot
 		assembly{
-			mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_bindslot_priceReceive_key))
+			mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key))
 		}
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

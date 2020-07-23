@@ -50,6 +50,13 @@ async function main() {
   //   to: null,
   //   transactionHash: '0x2cde7233206b505730b779fded515317bbbc112d30de62e790db8361fe5e9df3'
   // }
+  let ret;
+  /**
+   * call contract function.
+   * `get` is a function name, see `solidity.sol`
+   */
+  ret = await contract.get(); // ret instance of JSBI.BigInt
+  console.log(ret.toString()); // "10", set by 'contract.constructor(10)'
 }
 
 main().catch(e => console.error(e));

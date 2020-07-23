@@ -180,10 +180,10 @@ END_MESSAGE
         // Get signal key from emitter contract
 		bytes32 $emiter_tr\_bindslot\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key\();
         // Get slot key from receiver contract
-        bytes32 $receiver_tr\_bindslot\_$slot_obj_func\_key = ${receiver_func_call}get\_$slot_obj_func\_key\();
+        bytes32 $receiver_tr\_$emiter_tr\_bindslot\_$slot_obj_func\_key = ${receiver_func_call}get\_$slot_obj_func\_key\();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot($emiter_tr\_bindslot\_address, $emiter_tr\_bindslot\_$sig_obj_func\_key, $receiver_tr\_bindslot\_$slot_obj_func\_key))
+			mstore(0x40, bindslot($emiter_tr\_bindslot\_address, $emiter_tr\_bindslot\_$sig_obj_func\_key, $receiver_tr\_$emiter_tr\_bindslot\_$slot_obj_func\_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 END_MESSAGE
@@ -387,10 +387,10 @@ END_MESSAGE
         // Get the address
 		address $emiter_tr\_detach\_address = address($emiter\);
         //Get the slot key
-        bytes32 $receiver_tr\_bindslot\_$slot_obj_func\_key = ${receiver_func_call}get\_$slot_obj_func\_key\();
+        bytes32 $receiver_tr\_$emiter_tr\_bindslot\_$slot_obj_func\_key = ${receiver_func_call}get\_$slot_obj_func\_key\();
         // Use assembly to detach the slot
 		assembly{
-			mstore(0x40, detachslot($emiter_tr\_detach\_address, $emiter_tr\_detach\_$sig_obj_func\_key, $receiver_tr\_bindslot\_$slot_obj_func\_key))
+			mstore(0x40, detachslot($emiter_tr\_detach\_address, $emiter_tr\_detach\_$sig_obj_func\_key, $receiver_tr\_$emiter_tr\_bindslot\_$slot_obj_func\_key))
 		}
         //////////////////////////////////////////////////////////////////////////////////////////////////
 END_MESSAGE

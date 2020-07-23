@@ -1,6 +1,6 @@
-    /* "signaltest_afterparse.sol":3908:6884  contract B {... */
+    /* "signaltest_afterparse.sol":3908:6900  contract B {... */
   mstore(0x40, 0x80)
-    /* "signaltest_afterparse.sol":6839:6882  constructor() public {... */
+    /* "signaltest_afterparse.sol":6855:6898  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,16 +11,16 @@
   revert
 tag_1:
   pop
-    /* "signaltest_afterparse.sol":6865:6879  priceReceive() */
+    /* "signaltest_afterparse.sol":6881:6895  priceReceive() */
   tag_4
-    /* "signaltest_afterparse.sol":6865:6877  priceReceive */
+    /* "signaltest_afterparse.sol":6881:6893  priceReceive */
   shl(0x20, tag_5)
-    /* "signaltest_afterparse.sol":6865:6879  priceReceive() */
+    /* "signaltest_afterparse.sol":6881:6895  priceReceive() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "signaltest_afterparse.sol":3908:6884  contract B {... */
+    /* "signaltest_afterparse.sol":3908:6900  contract B {... */
   jump(tag_6)
     /* "signaltest_afterparse.sol":4555:4793  function priceReceive() private {... */
 tag_5:
@@ -67,7 +67,7 @@ tag_5:
   sstore
     /* "signaltest_afterparse.sol":4674:4787  {... */
   jump	// out
-    /* "signaltest_afterparse.sol":3908:6884  contract B {... */
+    /* "signaltest_afterparse.sol":3908:6900  contract B {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -79,7 +79,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "signaltest_afterparse.sol":3908:6884  contract B {... */
+        /* "signaltest_afterparse.sol":3908:6900  contract B {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -171,7 +171,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "signaltest_afterparse.sol":5129:6002  function bindfunc() public view {... */
+        /* "signaltest_afterparse.sol":5129:6010  function bindfunc() public view {... */
     tag_5:
       tag_13
       tag_14
@@ -200,7 +200,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "signaltest_afterparse.sol":6008:6838  function detachfunc() public view {... */
+        /* "signaltest_afterparse.sol":6016:6854  function detachfunc() public view {... */
     tag_7:
       tag_17
       tag_18
@@ -263,7 +263,7 @@ sub_0: assembly {
         /* "signaltest_afterparse.sol":4353:4458  function get_priceReceive_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "signaltest_afterparse.sol":5129:6002  function bindfunc() public view {... */
+        /* "signaltest_afterparse.sol":5129:6010  function bindfunc() public view {... */
     tag_14:
         /* "signaltest_afterparse.sol":5422:5450  address dut_bindslot_address */
       0x00
@@ -378,31 +378,31 @@ sub_0: assembly {
         /* "signaltest_afterparse.sol":5517:5589  bytes32 dut_bindslot_priceFeedUpdate_key = dut.get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":5646:5684  bytes32 this_bindslot_priceReceive_key */
+        /* "signaltest_afterparse.sol":5646:5688  bytes32 this_dut_bindslot_priceReceive_key */
       0x00
-        /* "signaltest_afterparse.sol":5687:5709  get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":5691:5713  get_priceReceive_key() */
       tag_28
-        /* "signaltest_afterparse.sol":5687:5707  get_priceReceive_key */
+        /* "signaltest_afterparse.sol":5691:5711  get_priceReceive_key */
       tag_12
-        /* "signaltest_afterparse.sol":5687:5709  get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":5691:5713  get_priceReceive_key() */
       jump	// in
     tag_28:
-        /* "signaltest_afterparse.sol":5646:5709  bytes32 this_bindslot_priceReceive_key = get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":5646:5713  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":5852:5882  this_bindslot_priceReceive_key */
+        /* "signaltest_afterparse.sol":5856:5890  this_dut_bindslot_priceReceive_key */
       dup1
-        /* "signaltest_afterparse.sol":5818:5850  dut_bindslot_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":5822:5854  dut_bindslot_priceFeedUpdate_key */
       dup3
-        /* "signaltest_afterparse.sol":5796:5816  dut_bindslot_address */
+        /* "signaltest_afterparse.sol":5800:5820  dut_bindslot_address */
       dup5
-        /* "signaltest_afterparse.sol":5787:5883  bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_bindslot_priceReceive_key) */
+        /* "signaltest_afterparse.sol":5791:5891  bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
       bindslot
-        /* "signaltest_afterparse.sol":5781:5785  0x40 */
+        /* "signaltest_afterparse.sol":5785:5789  0x40 */
       0x40
-        /* "signaltest_afterparse.sol":5774:5884  mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_bindslot_priceReceive_key)) */
+        /* "signaltest_afterparse.sol":5778:5892  mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
       mstore
-        /* "signaltest_afterparse.sol":5769:5891  {... */
+        /* "signaltest_afterparse.sol":5773:5899  {... */
       pop
       pop
       pop
@@ -412,11 +412,11 @@ sub_0: assembly {
       sload(0x01)
       dup2
       jump	// out
-        /* "signaltest_afterparse.sol":6008:6838  function detachfunc() public view {... */
+        /* "signaltest_afterparse.sol":6016:6854  function detachfunc() public view {... */
     tag_18:
-        /* "signaltest_afterparse.sol":6310:6348  bytes32 dut_detach_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":6318:6356  bytes32 dut_detach_priceFeedUpdate_key */
       0x00
-        /* "signaltest_afterparse.sol":6351:6354  dut */
+        /* "signaltest_afterparse.sol":6359:6362  dut */
       dup1
       0x00
       swap1
@@ -428,11 +428,11 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "signaltest_afterparse.sol":6351:6378  dut.get_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":6359:6386  dut.get_priceFeedUpdate_key */
       0xffffffffffffffffffffffffffffffffffffffff
       and
       0xbab3affe
-        /* "signaltest_afterparse.sol":6351:6380  dut.get_priceFeedUpdate_key() */
+        /* "signaltest_afterparse.sol":6359:6388  dut.get_priceFeedUpdate_key() */
       mload(0x40)
       dup2
       0xffffffff
@@ -507,12 +507,12 @@ sub_0: assembly {
       pop
       pop
       pop
-        /* "signaltest_afterparse.sol":6310:6380  bytes32 dut_detach_priceFeedUpdate_key = dut.get_priceFeedUpdate_key() */
+        /* "signaltest_afterparse.sol":6318:6388  bytes32 dut_detach_priceFeedUpdate_key = dut.get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":6411:6437  address dut_detach_address */
+        /* "signaltest_afterparse.sol":6419:6445  address dut_detach_address */
       0x00
-        /* "signaltest_afterparse.sol":6448:6451  dut */
+        /* "signaltest_afterparse.sol":6456:6459  dut */
       dup1
       0x00
       swap1
@@ -524,34 +524,34 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "signaltest_afterparse.sol":6411:6452  address dut_detach_address = address(dut) */
+        /* "signaltest_afterparse.sol":6419:6460  address dut_detach_address = address(dut) */
       swap1
       pop
-        /* "signaltest_afterparse.sol":6489:6527  bytes32 this_bindslot_priceReceive_key */
+        /* "signaltest_afterparse.sol":6497:6539  bytes32 this_dut_bindslot_priceReceive_key */
       0x00
-        /* "signaltest_afterparse.sol":6530:6552  get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":6542:6564  get_priceReceive_key() */
       tag_34
-        /* "signaltest_afterparse.sol":6530:6550  get_priceReceive_key */
+        /* "signaltest_afterparse.sol":6542:6562  get_priceReceive_key */
       tag_12
-        /* "signaltest_afterparse.sol":6530:6552  get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":6542:6564  get_priceReceive_key() */
       jump	// in
     tag_34:
-        /* "signaltest_afterparse.sol":6489:6552  bytes32 this_bindslot_priceReceive_key = get_priceReceive_key() */
+        /* "signaltest_afterparse.sol":6497:6564  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
       swap1
       pop
-        /* "signaltest_afterparse.sol":6688:6718  this_bindslot_priceReceive_key */
+        /* "signaltest_afterparse.sol":6700:6734  this_dut_bindslot_priceReceive_key */
       dup1
-        /* "signaltest_afterparse.sol":6656:6686  dut_detach_priceFeedUpdate_key */
+        /* "signaltest_afterparse.sol":6668:6698  dut_detach_priceFeedUpdate_key */
       dup4
-        /* "signaltest_afterparse.sol":6636:6654  dut_detach_address */
+        /* "signaltest_afterparse.sol":6648:6666  dut_detach_address */
       dup4
-        /* "signaltest_afterparse.sol":6625:6719  detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_bindslot_priceReceive_key) */
+        /* "signaltest_afterparse.sol":6637:6735  detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
       detachslot
-        /* "signaltest_afterparse.sol":6619:6623  0x40 */
+        /* "signaltest_afterparse.sol":6631:6635  0x40 */
       0x40
-        /* "signaltest_afterparse.sol":6612:6720  mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_bindslot_priceReceive_key)) */
+        /* "signaltest_afterparse.sol":6624:6736  mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
       mstore
-        /* "signaltest_afterparse.sol":6607:6724  {... */
+        /* "signaltest_afterparse.sol":6619:6740  {... */
       pop
       pop
       pop
@@ -575,5 +575,5 @@ sub_0: assembly {
       pop
       jump	// out
 
-    auxdata: 0xa26469706673582212201e082abba203b12a43f70a51bdc51b996f9cb2a8a3e16065b216971ccf4a45fe64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220fb791e67411c568b9e995acbd485c34c628ac380954ee5245474aa3ac781b6cc64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

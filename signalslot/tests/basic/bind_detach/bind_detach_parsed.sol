@@ -126,10 +126,10 @@ contract Receiver {
         // Get signal key from emitter contract
 		bytes32 source_bindslot_Alert_key = source.get_Alert_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_HandleAlert_key = get_HandleAlert_key();
+        bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_bindslot_HandleAlert_key))
+			mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -147,10 +147,10 @@ contract Receiver {
         // Get the address
 		address source_detach_address = address(source);
         //Get the slot key
-        bytes32 this_bindslot_HandleAlert_key = get_HandleAlert_key();
+        bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key();
         // Use assembly to detach the slot
 		assembly{
-			mstore(0x40, detachslot(source_detach_address, source_detach_Alert_key, this_bindslot_HandleAlert_key))
+			mstore(0x40, detachslot(source_detach_address, source_detach_Alert_key, this_source_bindslot_HandleAlert_key))
 		}
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -170,10 +170,10 @@ contract Receiver {
         // Get signal key from emitter contract
 		bytes32 source_bindslot_Alert_key = source.get_Alert_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_HandleAlert_key = get_HandleAlert_key();
+        bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_bindslot_HandleAlert_key))
+			mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

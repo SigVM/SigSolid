@@ -131,10 +131,10 @@ contract PriceOracleBuffer {
         // Get signal key from emitter contract
 		bytes32 this_bindslot_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_SendUpdate_key = get_SendUpdate_key();
+        bytes32 this_this_bindslot_SendUpdate_key = get_SendUpdate_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_bindslot_SendUpdate_key))
+			mstore(0x40, bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_this_bindslot_SendUpdate_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -212,10 +212,10 @@ contract ReceiverA {
         // Get signal key from emitter contract
 		bytes32 oracle_bindslot_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_RecievePrice_key = get_RecievePrice_key();
+        bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_bindslot_RecievePrice_key))
+			mstore(0x40, bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -233,10 +233,10 @@ contract ReceiverA {
         // Get the address
 		address oracle_detach_address = address(oracle);
         //Get the slot key
-        bytes32 this_bindslot_RecievePrice_key = get_RecievePrice_key();
+        bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to detach the slot
 		assembly{
-			mstore(0x40, detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_bindslot_RecievePrice_key))
+			mstore(0x40, detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key))
 		}
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -294,10 +294,10 @@ contract ReceiverB {
         // Get signal key from emitter contract
 		bytes32 oracle_bindslot_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_RecievePrice_key = get_RecievePrice_key();
+        bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_bindslot_RecievePrice_key))
+			mstore(0x40, bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -315,10 +315,10 @@ contract ReceiverB {
         // Get the address
 		address oracle_detach_address = address(oracle);
         //Get the slot key
-        bytes32 this_bindslot_RecievePrice_key = get_RecievePrice_key();
+        bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to detach the slot
 		assembly{
-			mstore(0x40, detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_bindslot_RecievePrice_key))
+			mstore(0x40, detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key))
 		}
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

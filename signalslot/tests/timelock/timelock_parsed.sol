@@ -127,10 +127,10 @@ contract TimeLock {
         // Get signal key from emitter contract
 		bytes32 this_bindslot_TimesUp_key = get_TimesUp_key();
         // Get slot key from receiver contract
-        bytes32 this_bindslot_TxExecutor_key = get_TxExecutor_key();
+        bytes32 this_this_bindslot_TxExecutor_key = get_TxExecutor_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(this_bindslot_address, this_bindslot_TimesUp_key, this_bindslot_TxExecutor_key))
+			mstore(0x40, bindslot(this_bindslot_address, this_bindslot_TimesUp_key, this_this_bindslot_TxExecutor_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
