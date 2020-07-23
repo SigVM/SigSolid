@@ -1,9 +1,6 @@
 pragma solidity ^0.6.9;
 
-// Simple heartbeat 'contract' utilizing delayed 'signal' emit
-
-// TODO: Parser does not support emitting signals inside slots!
-
+// Simple heartbeat contract utilizing delayed signal emit
 contract HeartBeat {
     uint32 counter;
 

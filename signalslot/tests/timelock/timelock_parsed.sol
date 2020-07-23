@@ -13,7 +13,7 @@ contract TimeLock {
     uint ONE_DAY = 4320; 
 
     
-    mapping (bytes32 => LockedTx[]) queuedTx;
+    mapping (bytes32 => LockedTx) private queuedTx;
 
     
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,10 +93,10 @@ contract TimeLock {
     // The slot is converted to a function that will be called in slot transactions.
     function TxExecutor_func(bytes32 tx_hash) public {
         
-        require(queuedTx[tx_hash] != 0, "This transaction execution has been cancelled");
+        require(queuedTx[tx_hash].target != address(0), "This transaction execution has been cancelled");
         
         
-        LockedTx new_tx = queuedTx[tx_hash];
+        LockedTx memory new_tx = queuedTx[tx_hash];
         delete queuedTx[tx_hash];
         
         
@@ -107,8 +107,10 @@ contract TimeLock {
             callData = abi.encodePacked(bytes4(keccak256(bytes(new_tx.signature))), new_tx.data);
         }
 
-        
-        (bool success, bytes memory returnData) = new_tx.target.call.value(new_tx.value)(callData);
+        (bool success, bytes memory returnData) = new_tx
+            .target
+            .call{value: new_tx.value} (callData);
+
         require(success, "Timelock::executeTransaction: Transaction execution reverted.");
     }
 
@@ -143,7 +145,7 @@ contract TimeLock {
         require(buffer_len > ONE_DAY, "Time locking period is not long enough!");
         
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data));
-        LockedTx new_tx = LockedTx(target, value, signature, data);
+        LockedTx memory new_tx = LockedTx(target, value, signature, data);
         
         queuedTx[txHash] = new_tx;
 

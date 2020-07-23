@@ -21,7 +21,7 @@ contract TimeLock {
     uint ONE_DAY = 4320; // 60*60*24/20
 
     // Transaction queue
-    mapping (bytes32 => LockedTx[]) queuedTx;
+    mapping (bytes32 => LockedTx) private queuedTx;
 
     // Signal emitted when a transaction needs to be executed
     signal TimesUp(bytes32 tx_hash);
@@ -29,10 +29,10 @@ contract TimeLock {
     // Slot that does the executing
     slot TxExecutor(bytes32 tx_hash) {
         // Check for cancellation
-        require(queuedTx[tx_hash] != 0, "This transaction execution has been cancelled");
+        require(queuedTx[tx_hash].target != address(0), "This transaction execution has been cancelled");
         
         // Store the mapped transaction locally and delete the map entry
-        LockedTx new_tx = queuedTx[tx_hash];
+        LockedTx memory new_tx = queuedTx[tx_hash];
         delete queuedTx[tx_hash];
         
         // Execute the transaction
@@ -43,8 +43,10 @@ contract TimeLock {
             callData = abi.encodePacked(bytes4(keccak256(bytes(new_tx.signature))), new_tx.data);
         }
 
-        // solium-disable-next-line security/no-call-value
-        (bool success, bytes memory returnData) = new_tx.target.call.value(new_tx.value)(callData);//TODO:"value here is new_tx.value? Please double check"
+        (bool success, bytes memory returnData) = new_tx
+            .target
+            .call{value: new_tx.value} (callData);
+
         require(success, "Timelock::executeTransaction: Transaction execution reverted.");
     }
 
@@ -60,7 +62,7 @@ contract TimeLock {
         require(buffer_len > ONE_DAY, "Time locking period is not long enough!");
         // Compute hash and form a LockedTx struct
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data));
-        LockedTx new_tx = LockedTx(target, value, signature, data);
+        LockedTx memory new_tx = LockedTx(target, value, signature, data);
         // Push the new transaction to the queuedTx map
         queuedTx[txHash] = new_tx;
 

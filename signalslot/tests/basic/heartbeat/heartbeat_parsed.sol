@@ -1,7 +1,5 @@
 pragma solidity ^0.6.9;
 
-
-
 contract HeartBeat {
     uint32 counter;
 
