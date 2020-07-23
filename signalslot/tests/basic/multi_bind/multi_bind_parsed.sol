@@ -1,7 +1,6 @@
 pragma solidity ^0.6.9;
 
-// TODO: Including the full word 'signal' messes up the parser...
-// Functionality test to see if a signall can be created.
+
 contract EmitOnTime {
     bytes32 private data;
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,14 +61,14 @@ contract EmitOnTime {
         // Set the data field in the signal
         set_Alert_data(data);
         // Get the argument count
-        uint this_Alert_argc = this.get_Alert_argc();
+        uint this_emitsig_Alert_argc = get_Alert_argc();
         // Get the data slot
-		bytes memory this_Alert_dataslot = this.get_Alert_dataslot();
+		bytes memory this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
-		bytes32 this_Alert_key = this.get_Alert_key();
+		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_Alert_key, 0, this_Alert_dataslot, this_Alert_argc))
+			mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,14 +144,14 @@ contract EmitLate {
         // Set the data field in the signal
         set_Alert_data(data);
         // Get the argument count
-        uint this_Alert_argc = this.get_Alert_argc();
+        uint this_emitsig_Alert_argc = get_Alert_argc();
         // Get the data slot
-		bytes memory this_Alert_dataslot = this.get_Alert_dataslot();
+		bytes memory this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
-		bytes32 this_Alert_key = this.get_Alert_key();
+		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_Alert_key, 10, this_Alert_dataslot, this_Alert_argc))
+			mstore(0x40, emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -168,7 +167,6 @@ contract EmitLate {
     }
 }
 
-// Functionality test for listening to slots!
 contract Receiver {
     EmitOnTime public on_time;
     EmitLate public late;
@@ -185,6 +183,11 @@ contract Receiver {
     // Generated variables that represent the slot
     uint private Receive_status;
     bytes32 private Receive_key;
+
+    // Get the signal key
+	function get_Receive_key() public view returns (bytes32 key) {
+       return Receive_key;
+    }
 
     // Receive construction
     // Should be called once in the contract construction
@@ -223,12 +226,14 @@ contract Receiver {
         // Receive.bind(on_time.Alert)
 
         // Convert to address
-		address on_time_address = address(on_time);
+		address on_time_bindslot_address = address(on_time);
         // Get signal key from emitter contract
-		bytes32 on_time_Alert_key = on_time.get_Alert_key();
+		bytes32 on_time_bindslot_Alert_key = on_time.get_Alert_key();
+        // Get slot key from receiver contract
+        bytes32 this_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(on_time_address, on_time_Alert_key, sload(Receive_key_slot)))
+			mstore(0x40, bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_bindslot_Receive_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -239,12 +244,14 @@ contract Receiver {
         // Receive.bind(late.Alert)
 
         // Convert to address
-		address late_address = address(late);
+		address late_bindslot_address = address(late);
         // Get signal key from emitter contract
-		bytes32 late_Alert_key = late.get_Alert_key();
+		bytes32 late_bindslot_Alert_key = late.get_Alert_key();
+        // Get slot key from receiver contract
+        bytes32 this_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal
 		assembly {
-			mstore(0x40, bindslot(late_address, late_Alert_key, sload(Receive_key_slot)))
+			mstore(0x40, bindslot(late_bindslot_address, late_bindslot_Alert_key, this_bindslot_Receive_key))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
