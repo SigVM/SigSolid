@@ -1,6 +1,6 @@
 pragma solidity ^0.6.9;
 
-// Test to see if a 'signal' can bind to multiple
+// Test to see if a signal can broadcast to multiple slots.
 
 // Emitter
 contract Emitter {
@@ -13,7 +13,6 @@ contract Emitter {
 
 // First listener
 contract ReceiverA {
-    Emitter source;
     bytes32 private data;
 
     slot HandleAlert(bytes32 value) {
@@ -24,15 +23,13 @@ contract ReceiverA {
         ret = data;
     }
 
-    constructor(Emitter addr) public {
-        source = addr;
-        HandleAlert.bind(source.Alert);
+    function bind_to_alert(Emitter addr) public view {
+        HandleAlert.bind(addr.Alert);
     }
 }
 
 // Second listener
 contract ReceiverB {
-    Emitter source;
     bytes32 private data;
 
     slot HandleAlert(bytes32 value) {
@@ -43,8 +40,7 @@ contract ReceiverB {
         ret = data;
     }
 
-    constructor(Emitter addr) public {
-        source = addr;
-        HandleAlert.bind(source.Alert);
+    function bind_to_alert(Emitter addr) public view {
+        HandleAlert.bind(addr.Alert);
     }
 }
