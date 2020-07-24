@@ -1,0 +1,490 @@
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":25:3890  contract A {... */
+  mstore(0x40, 0x80)
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3829:3888  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3855:3872  priceFeedUpdate() */
+  tag_4
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3855:3870  priceFeedUpdate */
+  shl(0x20, tag_5)
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3855:3872  priceFeedUpdate() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3877:3885  random() */
+  tag_6
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3877:3883  random */
+  shl(0x20, tag_7)
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":3877:3885  random() */
+  0x20
+  shr
+  jump	// in
+tag_6:
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":25:3890  contract A {... */
+  jump(tag_8)
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1295:1579  function priceFeedUpdate() private {... */
+tag_5:
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1362:1401  keccak256("function priceFeedUpdate()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x66756e6374696f6e207072696365466565645570646174652829000000000000
+  dup2
+  mstore
+  pop
+  0x1a
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1340:1359  priceFeedUpdate_key */
+  0x04
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1340:1401  priceFeedUpdate_key = keccak256("function priceFeedUpdate()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1474:1498  priceFeedUpdate_key_slot */
+  0x04
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1468:1499  sload(priceFeedUpdate_key_slot) */
+  sload
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1465:1466  3 */
+  0x03
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1455:1500  createsig(3, sload(priceFeedUpdate_key_slot)) */
+  createsig
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1426:1453  priceFeedUpdate_status_slot */
+  0x03
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1419:1501  sstore(priceFeedUpdate_status_slot, createsig(3, sload(priceFeedUpdate_key_slot))) */
+  sstore
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1543:1568  priceFeedUpdate_data_slot */
+  0x01
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1512:1541  priceFeedUpdate_dataslot_slot */
+  0x02
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1505:1569  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
+  sstore
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":1414:1573  {... */
+  jump	// out
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2458:2666  function random() private {... */
+tag_7:
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2507:2537  keccak256("function random()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x66756e6374696f6e2072616e646f6d2829000000000000000000000000000000
+  dup2
+  mstore
+  pop
+  0x11
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2494:2504  random_key */
+  0x07
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2494:2537  random_key = keccak256("function random()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2601:2616  random_key_slot */
+  0x07
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2595:2617  sload(random_key_slot) */
+  sload
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2592:2593  0 */
+  0x00
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2582:2618  createsig(0, sload(random_key_slot)) */
+  createsig
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2562:2580  random_status_slot */
+  0x06
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2555:2619  sstore(random_status_slot, createsig(0, sload(random_key_slot))) */
+  sstore
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2652:2655  0x0 */
+  0x00
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2630:2650  random_dataslot_slot */
+  0x05
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2623:2656  sstore(random_dataslot_slot, 0x0) */
+  sstore
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":2550:2660  {... */
+  jump	// out
+    /* "basic/old_tests/signaltest/signaltest_parsed.sol":25:3890  contract A {... */
+tag_8:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":25:3890  contract A {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x165035e2
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x3e4fe9a4
+      eq
+      tag_4
+      jumpi
+      dup1
+      0xbab3affe
+      eq
+      tag_5
+      jumpi
+      dup1
+      0xc7a89cec
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xdf48d06a
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xfd5e127c
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":54:89  uint public constant ONE_HOUR = 180 */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":744:836  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+    tag_4:
+      tag_11
+      tag_12
+      jump	// in
+    tag_11:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":865:976  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_5:
+      tag_13
+      tag_14
+      jump	// in
+    tag_13:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2072:2165  function get_random_key() public view returns (bytes32 key) {... */
+    tag_6:
+      tag_15
+      tag_16
+      jump	// in
+    tag_15:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2776:3828  function emitfunc(bytes3 DataSent) public {... */
+    tag_7:
+      tag_17
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_18
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_18:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_19
+      jump	// in
+    tag_17:
+      stop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1007:1133  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+    tag_8:
+      tag_20
+      tag_21
+      jump	// in
+    tag_20:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":54:89  uint public constant ONE_HOUR = 180 */
+    tag_10:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":86:89  180 */
+      0xb4
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":54:89  uint public constant ONE_HOUR = 180 */
+      dup2
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":744:836  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+    tag_12:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":801:810  uint argc */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":828:829  3 */
+      0x03
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":821:829  return 3 */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":744:836  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+      swap1
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":865:976  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+    tag_14:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":921:932  bytes32 key */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":950:969  priceFeedUpdate_key */
+      sload(0x04)
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":943:969  return priceFeedUpdate_key */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":865:976  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2072:2165  function get_random_key() public view returns (bytes32 key) {... */
+    tag_16:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2119:2130  bytes32 key */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2148:2158  random_key */
+      sload(0x07)
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2141:2158  return random_key */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2072:2165  function get_random_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":2776:3828  function emitfunc(bytes3 DataSent) public {... */
+    tag_19:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3118:3152  set_priceFeedUpdate_data(DataSent) */
+      tag_26
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3143:3151  DataSent */
+      dup2
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3118:3142  set_priceFeedUpdate_data */
+      tag_27
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3118:3152  set_priceFeedUpdate_data(DataSent) */
+      jump	// in
+    tag_26:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3196:3234  uint this_emitsig_priceFeedUpdate_argc */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3237:3263  get_priceFeedUpdate_argc() */
+      tag_28
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3237:3261  get_priceFeedUpdate_argc */
+      tag_12
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3237:3263  get_priceFeedUpdate_argc() */
+      jump	// in
+    tag_28:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3196:3263  uint this_emitsig_priceFeedUpdate_argc = get_priceFeedUpdate_argc() */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3296:3341  bytes32 this_emitsig_priceFeedUpdate_dataslot */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3344:3374  get_priceFeedUpdate_dataslot() */
+      tag_29
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3344:3372  get_priceFeedUpdate_dataslot */
+      tag_21
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3344:3374  get_priceFeedUpdate_dataslot() */
+      jump	// in
+    tag_29:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3296:3374  bytes32 this_emitsig_priceFeedUpdate_dataslot = get_priceFeedUpdate_dataslot() */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3408:3448  bytes32 this_emitsig_priceFeedUpdate_key */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3451:3476  get_priceFeedUpdate_key() */
+      tag_30
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3451:3474  get_priceFeedUpdate_key */
+      tag_14
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3451:3476  get_priceFeedUpdate_key() */
+      jump	// in
+    tag_30:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3408:3476  bytes32 this_emitsig_priceFeedUpdate_key = get_priceFeedUpdate_key() */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3672:3705  this_emitsig_priceFeedUpdate_argc */
+      dup3
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3633:3670  this_emitsig_priceFeedUpdate_dataslot */
+      dup3
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3623:3631  ONE_HOUR */
+      0xb4
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3589:3621  this_emitsig_priceFeedUpdate_key */
+      dup4
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3581:3706  emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_argc) */
+      emitsig
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3575:3579  0x40 */
+      0x40
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3568:3707  mstore(0x40, emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_argc)) */
+      mstore
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":3563:3714  {... */
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1007:1133  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+    tag_21:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1068:1084  bytes32 dataslot */
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1102:1126  priceFeedUpdate_dataslot */
+      sload(0x02)
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1095:1126  return priceFeedUpdate_dataslot */
+      swap1
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":1007:1133  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+      swap1
+      jump	// out
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":607:711  function set_priceFeedUpdate_data(bytes3 dataSet) private {... */
+    tag_27:
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":697:704  dataSet */
+      dup1
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":674:694  priceFeedUpdate_data */
+      0x01
+      0x00
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":674:704  priceFeedUpdate_data = dataSet */
+      0x0100
+      exp
+      dup2
+      sload
+      dup2
+      0xffffff
+      mul
+      not
+      and
+      swap1
+      dup4
+      0xe8
+      shr
+      mul
+      or
+      swap1
+      sstore
+      pop
+        /* "basic/old_tests/signaltest/signaltest_parsed.sol":607:711  function set_priceFeedUpdate_data(bytes3 dataSet) private {... */
+      pop
+      jump	// out
+
+    auxdata: 0xa2646970667358221220abb8a2998cd80768a5660a057ff279db0145e73d0680cf7e4a9550af27656ab864736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+}

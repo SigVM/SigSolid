@@ -22,7 +22,7 @@ contract PriceOracleBuffer {
 
     // Generated variables that represent the signal
 	uint private PriceFeedUpdate_data;
-	bytes private PriceFeedUpdate_dataslot;
+	bytes32 private PriceFeedUpdate_dataslot;
 	uint private PriceFeedUpdate_status;
     bytes32 private PriceFeedUpdate_key;
 
@@ -42,7 +42,7 @@ contract PriceOracleBuffer {
     }
 
     // Get the data slot
-    function get_PriceFeedUpdate_dataslot() public view returns (bytes memory dataslot) {
+    function get_PriceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {
        return PriceFeedUpdate_dataslot;
     }
 
@@ -102,7 +102,7 @@ contract PriceOracleBuffer {
         // Get the argument count
         uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc();
         // Get the data slot
-		bytes memory this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
+		bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -129,7 +129,7 @@ contract PriceOracleBuffer {
         // Convert to address
 		address this_bindslot_address = address(this);
         // Get signal key from emitter contract
-		bytes32 this_bindslot_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
+		bytes32 this_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
         // Get slot key from receiver contract
         bytes32 this_this_bindslot_SendUpdate_key = get_SendUpdate_key();
         // Use assembly to bind slot to signal
@@ -149,7 +149,7 @@ contract PriceOracleBuffer {
         // Get the argument count
         uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc();
         // Get the data slot
-		bytes memory this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
+		bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -210,7 +210,7 @@ contract ReceiverA {
         // Convert to address
 		address oracle_bindslot_address = address(oracle);
         // Get signal key from emitter contract
-		bytes32 oracle_bindslot_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
+		bytes32 oracle_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
         // Get slot key from receiver contract
         bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to bind slot to signal
@@ -229,7 +229,7 @@ contract ReceiverA {
         // this.RecievePrice.detach(oracle.PriceFeedUpdate)
 
         // Get the signal key
-		bytes32 oracle_detach_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
+		bytes32 oracle_detach_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
         // Get the address
 		address oracle_detach_address = address(oracle);
         //Get the slot key
@@ -292,7 +292,7 @@ contract ReceiverB {
         // Convert to address
 		address oracle_bindslot_address = address(oracle);
         // Get signal key from emitter contract
-		bytes32 oracle_bindslot_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
+		bytes32 oracle_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
         // Get slot key from receiver contract
         bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key();
         // Use assembly to bind slot to signal
@@ -311,7 +311,7 @@ contract ReceiverB {
         // this.RecievePrice.detach(oracle.PriceFeedUpdate)
 
         // Get the signal key
-		bytes32 oracle_detach_PriceFeedUpdate_key = oracle.get_PriceFeedUpdate_key();
+		bytes32 oracle_detach_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
         // Get the address
 		address oracle_detach_address = address(oracle);
         //Get the slot key

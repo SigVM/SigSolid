@@ -10,7 +10,7 @@ contract HeartBeat {
     // signal Heart
 
     // Generated variables that represent the signal
-	bytes private Heart_dataslot;//the data pointer is NULL
+	bytes32 private Heart_dataslot;//the data pointer is NULL
 	uint private Heart_status;
     bytes32 private Heart_key;
 
@@ -20,7 +20,7 @@ contract HeartBeat {
     }
 
     // Get the data slot
-    function get_Heart_dataslot() private view returns (bytes memory dataslot) {
+    function get_Heart_dataslot() private view returns (bytes32 dataslot) {
        return Heart_dataslot;
     }
 
@@ -72,7 +72,7 @@ contract HeartBeat {
         // emitsig Heart().delay(10)
 
         // Get the data slot
-		bytes memory this_emitsig_Heart_dataslot = get_Heart_dataslot();
+		bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Heart_key = get_Heart_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -96,7 +96,7 @@ contract HeartBeat {
         // Convert to address
 		address this_bindslot_address = address(this);
         // Get signal key from emitter contract
-		bytes32 this_bindslot_Heart_key = get_Heart_key();
+		bytes32 this_bindslot_Heart_key = keccak256("Heart()");
         // Get slot key from receiver contract
         bytes32 this_this_bindslot_Beat_key = get_Beat_key();
         // Use assembly to bind slot to signal
@@ -112,7 +112,7 @@ contract HeartBeat {
         // emitsig Heart().delay(10)
 
         // Get the data slot
-		bytes memory this_emitsig_Heart_dataslot = get_Heart_dataslot();
+		bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Heart_key = get_Heart_key();
         // Use assembly to emit the signal and queue up slot transactions

@@ -53,7 +53,7 @@ while ( my $line = <$default_fh> ) {
 
     // Generated variables that represent the signal
 	$arg[0] private $func\_data;
-	bytes private $func\_dataslot;
+	bytes32 private $func\_dataslot;
 	uint private $func\_status;
     bytes32 private $func\_key;
 
@@ -73,7 +73,7 @@ while ( my $line = <$default_fh> ) {
     }
 
     // Get the data slot
-    function get\_$func\_dataslot\() public view returns (bytes memory dataslot) {
+    function get\_$func\_dataslot\() public view returns (bytes32 dataslot) {
        return $func\_dataslot;
     }
 
@@ -98,7 +98,7 @@ END_MESSAGE
     // signal $func
 
     // Generated variables that represent the signal
-	bytes private $func\_dataslot;\/\/the data pointer is NULL
+	bytes32 private $func\_dataslot;\/\/the data pointer is NULL
 	uint private $func\_status;
     bytes32 private $func\_key;
 
@@ -108,7 +108,7 @@ END_MESSAGE
     }
 
     // Get the data slot
-    function get\_$func\_dataslot\() private view returns (bytes memory dataslot) {
+    function get\_$func\_dataslot\() private view returns (bytes32 dataslot) {
        return $func\_dataslot;
     }
 
@@ -178,7 +178,7 @@ END_MESSAGE
         // Convert to address
 		address $emiter_tr\_bindslot\_address = address($emiter\);
         // Get signal key from emitter contract
-		bytes32 $emiter_tr\_bindslot\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key\();
+		bytes32 $emiter_tr\_bindslot\_$sig_obj_func\_key = keccak256("$sig_obj_func\()");
         // Get slot key from receiver contract
         bytes32 $receiver_tr\_$emiter_tr\_bindslot\_$slot_obj_func\_key = ${receiver_func_call}get\_$slot_obj_func\_key\();
         // Use assembly to bind slot to signal
@@ -304,7 +304,7 @@ END_MESSAGE
         // Get the argument count
         uint $emiter_tr\_emitsig\_$sig_obj_func\_argc = ${emiter_func_call}get\_$sig_obj_func\_argc();
         // Get the data slot
-		bytes memory $emiter_tr\_emitsig\_$sig_obj_func\_dataslot = ${emiter_func_call}get\_$sig_obj_func\_dataslot();
+		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_dataslot = ${emiter_func_call}get\_$sig_obj_func\_dataslot();
         // Get the signal key
 		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -322,7 +322,7 @@ END_MESSAGE
         // emitsig $sig_obj_func().delay($delay_obj)
 
         // Get the data slot
-		bytes memory $emiter_tr\_emitsig\_$sig_obj_func\_dataslot = ${emiter_func_call}get\_$sig_obj_func\_dataslot();
+		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_dataslot = ${emiter_func_call}get\_$sig_obj_func\_dataslot();
         // Get the signal key
 		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -383,7 +383,7 @@ END_MESSAGE
         // $slot_obj.detach($emiter.$sig_obj_func)
 
         // Get the signal key
-		bytes32 $emiter_tr\_detach\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key();
+		bytes32 $emiter_tr\_detach\_$sig_obj_func\_key = keccak256("$sig_obj_func\()");
         // Get the address
 		address $emiter_tr\_detach\_address = address($emiter\);
         //Get the slot key

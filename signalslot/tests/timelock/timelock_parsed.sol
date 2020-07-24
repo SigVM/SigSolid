@@ -26,7 +26,7 @@ contract TimeLock {
 
     // Generated variables that represent the signal
 	bytes32 private TimesUp_data;
-	bytes private TimesUp_dataslot;
+	bytes32 private TimesUp_dataslot;
 	uint private TimesUp_status;
     bytes32 private TimesUp_key;
 
@@ -46,7 +46,7 @@ contract TimeLock {
     }
 
     // Get the data slot
-    function get_TimesUp_dataslot() public view returns (bytes memory dataslot) {
+    function get_TimesUp_dataslot() public view returns (bytes32 dataslot) {
        return TimesUp_dataslot;
     }
 
@@ -127,7 +127,7 @@ contract TimeLock {
         // Convert to address
 		address this_bindslot_address = address(this);
         // Get signal key from emitter contract
-		bytes32 this_bindslot_TimesUp_key = get_TimesUp_key();
+		bytes32 this_bindslot_TimesUp_key = keccak256("TimesUp()");
         // Get slot key from receiver contract
         bytes32 this_this_bindslot_TxExecutor_key = get_TxExecutor_key();
         // Use assembly to bind slot to signal
@@ -161,7 +161,7 @@ contract TimeLock {
         // Get the argument count
         uint this_emitsig_TimesUp_argc = get_TimesUp_argc();
         // Get the data slot
-		bytes memory this_emitsig_TimesUp_dataslot = get_TimesUp_dataslot();
+		bytes32 this_emitsig_TimesUp_dataslot = get_TimesUp_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_TimesUp_key = get_TimesUp_key();
         // Use assembly to emit the signal and queue up slot transactions

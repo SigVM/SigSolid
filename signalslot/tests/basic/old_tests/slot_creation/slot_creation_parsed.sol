@@ -11,6 +11,11 @@ contract B {
     uint private priceReceive_status;
     bytes32 private priceReceive_key;
 
+    // Get the signal key
+	function get_priceReceive_key() public view returns (bytes32 key) {
+       return priceReceive_key;
+    }
+
     // priceReceive construction
     // Should be called once in the contract construction
     function priceReceive() private {

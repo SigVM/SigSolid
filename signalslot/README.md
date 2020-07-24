@@ -21,3 +21,9 @@ To compile a parsed contract from the root of this repository, run the following
 The binary files and abi JSON file will be generated in the specified output directory.
 ## Tests
 A few test contracts are held in the tests folder. These example contracts demonstrate the signal and slot solidity syntax that is supported by the parsing script. The output binaries are also included. The js_tests folder contains some information for testing on the conflux chain.
+To run all builtin tests
+```
+cd <root dir>/signalslot/tests
+python test_for_all.py
+```
+Then check the error and info in stdout. More individual tests can be added in test_for_all.py.

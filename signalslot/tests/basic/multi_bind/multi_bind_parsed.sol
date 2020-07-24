@@ -13,7 +13,7 @@ contract EmitOnTime {
 
     // Generated variables that represent the signal
 	bytes32 private Alert_data;
-	bytes private Alert_dataslot;
+	bytes32 private Alert_dataslot;
 	uint private Alert_status;
     bytes32 private Alert_key;
 
@@ -33,7 +33,7 @@ contract EmitOnTime {
     }
 
     // Get the data slot
-    function get_Alert_dataslot() public view returns (bytes memory dataslot) {
+    function get_Alert_dataslot() public view returns (bytes32 dataslot) {
        return Alert_dataslot;
     }
 
@@ -63,7 +63,7 @@ contract EmitOnTime {
         // Get the argument count
         uint this_emitsig_Alert_argc = get_Alert_argc();
         // Get the data slot
-		bytes memory this_emitsig_Alert_dataslot = get_Alert_dataslot();
+		bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -96,7 +96,7 @@ contract EmitLate {
 
     // Generated variables that represent the signal
 	bytes32 private Alert_data;
-	bytes private Alert_dataslot;
+	bytes32 private Alert_dataslot;
 	uint private Alert_status;
     bytes32 private Alert_key;
 
@@ -116,7 +116,7 @@ contract EmitLate {
     }
 
     // Get the data slot
-    function get_Alert_dataslot() public view returns (bytes memory dataslot) {
+    function get_Alert_dataslot() public view returns (bytes32 dataslot) {
        return Alert_dataslot;
     }
 
@@ -146,7 +146,7 @@ contract EmitLate {
         // Get the argument count
         uint this_emitsig_Alert_argc = get_Alert_argc();
         // Get the data slot
-		bytes memory this_emitsig_Alert_dataslot = get_Alert_dataslot();
+		bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -228,7 +228,7 @@ contract Receiver {
         // Convert to address
 		address on_time_bindslot_address = address(on_time);
         // Get signal key from emitter contract
-		bytes32 on_time_bindslot_Alert_key = on_time.get_Alert_key();
+		bytes32 on_time_bindslot_Alert_key = keccak256("Alert()");
         // Get slot key from receiver contract
         bytes32 this_on_time_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal
@@ -246,7 +246,7 @@ contract Receiver {
         // Convert to address
 		address late_bindslot_address = address(late);
         // Get signal key from emitter contract
-		bytes32 late_bindslot_Alert_key = late.get_Alert_key();
+		bytes32 late_bindslot_Alert_key = keccak256("Alert()");
         // Get slot key from receiver contract
         bytes32 this_late_bindslot_Receive_key = get_Receive_key();
         // Use assembly to bind slot to signal

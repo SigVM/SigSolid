@@ -2,7 +2,8 @@
 
 const { Conflux } = require('js-conflux-sdk');
 
-const PRIVATE_KEY = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
+const PRIVATE_KEY_A = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
+const PRIVATE_KEY_B = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde0';
 
 async function main() {
   const cfx = new Conflux({
@@ -16,45 +17,47 @@ async function main() {
   console.log(cfx.defaultGas); // 1000000
 
   // ================================ Account =================================
-  const account = cfx.Account(PRIVATE_KEY); // create account instance
-  console.log(account.address); // 0x1bd9e9be525ab967e633bcdaeac8bd5723ed4d6b
+  const accountA = cfx.Account(PRIVATE_KEY_A); // create account instance
+  console.log(accountA.address);
 
   // ================================ Contract ================================
   // create contract instance
-  const contract = cfx.Contract({
-    abi: require('./contract/abi.json'),
-    bytecode: require('./contract/bytecode.json'),
-    // address is empty and wait for deploy
+  const contractA = cfx.Contract({
+    abi: require('./contract/A-abi.json'),
+    bytecode: require('./contract/A-bytecode.json'),
   });
 
   // estimate deploy contract gas use
-  const estimate = await contract.constructor().estimateGasAndCollateral();
-  console.log(JSON.stringify(estimate)); // {"gasUsed":"175050","storageCollateralized":"64"}
+  const estimateA = await contractA.constructor().estimateGasAndCollateral();
+  console.log(JSON.stringify(estimateA));
 
   // deploy the contract, and get `contractCreated`
-  const receipt = await contract.constructor()
-    .sendTransaction({ from: account })
+  const receiptA = await contractA.constructor()
+    .sendTransaction({ from: accountA })
     .confirmed();
-  console.log(receipt); // receipt.contractCreated: 0x8de528bc539e9be1fe5682f597e1e83f6b4e841b
-  // {
-  //   index: 0,
-  //   epochNumber: 1276551,
-  //   outcomeStatus: 0,
-  //   gasUsed: 175050n,
-  //   blockHash: '0x0d770a1d2036e10a019891ffc3e7ccba86a6fc1a48d7faf53f32329378986b21',
-  //   contractCreated: '0x8de528bc539e9be1fe5682f597e1e83f6b4e841b',
-  //   from: '0x1bd9e9be525ab967e633bcdaeac8bd5723ed4d6b',
-  //   logs: [],
-  //   logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  //   stateRoot: '0x2fc5606ffda21fdb04c98e403fd396e1f3cf768873b08cbf1d67103f1c65932c',
-  //   to: null,
-  //   transactionHash: '0x2cde7233206b505730b779fded515317bbbc112d30de62e790db8361fe5e9df3'
-  // }
-  let ret;
-  ret = await contract.get_priceFeedUpdate_argc();
-  console.log(ret.toString());
-  //console.log(contract.address);
-  //console.log(await cfx.getCode('0x1cad0b19bb29d4674531d6f115237e16afce377c'));
+  console.log(receiptA);
+
+
+  // ================================ Account =================================
+  const accountB = cfx.Account(PRIVATE_KEY_B); // create account instance
+  console.log(accountB.address);
+
+  // ================================ Contract ================================
+  // create contract instance
+  const contractB = cfx.Contract({
+    abi: require('./contract/B-abi.json'),
+    bytecode: require('./contract/B-bytecode.json'),
+  });
+
+  // estimate deploy contract gas use
+  const estimateB = await contractB.constructor().estimateGasAndCollateral();
+  console.log(JSON.stringify(estimateB));
+
+  // deploy the contract, and get `contractCreated`
+  const receiptB = await contractB.constructor()
+    .sendTransaction({ from: accountB })
+    .confirmed();
+  console.log(receiptB);
 }
 
 main().catch(e => console.error(e));

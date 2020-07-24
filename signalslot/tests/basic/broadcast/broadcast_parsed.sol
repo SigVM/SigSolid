@@ -12,7 +12,7 @@ contract Emitter {
 
     // Generated variables that represent the signal
 	bytes32 private Alert_data;
-	bytes private Alert_dataslot;
+	bytes32 private Alert_dataslot;
 	uint private Alert_status;
     bytes32 private Alert_key;
 
@@ -32,7 +32,7 @@ contract Emitter {
     }
 
     // Get the data slot
-    function get_Alert_dataslot() public view returns (bytes memory dataslot) {
+    function get_Alert_dataslot() public view returns (bytes32 dataslot) {
        return Alert_dataslot;
     }
 
@@ -61,7 +61,7 @@ contract Emitter {
         // Get the argument count
         uint this_emitsig_Alert_argc = get_Alert_argc();
         // Get the data slot
-		bytes memory this_emitsig_Alert_dataslot = get_Alert_dataslot();
+		bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
@@ -124,7 +124,7 @@ contract ReceiverA {
         // Convert to address
 		address addr_bindslot_address = address(addr);
         // Get signal key from emitter contract
-		bytes32 addr_bindslot_Alert_key = addr.get_Alert_key();
+		bytes32 addr_bindslot_Alert_key = keccak256("Alert()");
         // Get slot key from receiver contract
         bytes32 this_addr_bindslot_HandleAlert_key = get_HandleAlert_key();
         // Use assembly to bind slot to signal
@@ -187,7 +187,7 @@ contract ReceiverB {
         // Convert to address
 		address addr_bindslot_address = address(addr);
         // Get signal key from emitter contract
-		bytes32 addr_bindslot_Alert_key = addr.get_Alert_key();
+		bytes32 addr_bindslot_Alert_key = keccak256("Alert()");
         // Get slot key from receiver contract
         bytes32 this_addr_bindslot_HandleAlert_key = get_HandleAlert_key();
         // Use assembly to bind slot to signal
