@@ -81,7 +81,7 @@ while ( my $line = <$default_fh> ) {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function $func\() private {
-        $func\_key = keccak256(\"function $func\(\)\");
+        $func\_key = keccak256(\"$func\(\)\");
 		assembly {
 			sstore($func\_status\_slot, createsig($argc, sload($func\_key_slot)))
 			sstore($func\_dataslot_slot, $func\_data_slot)
@@ -116,7 +116,7 @@ END_MESSAGE
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function $func\() private {
-        $func\_key = keccak256(\"function $func\(\)\");
+        $func\_key = keccak256(\"$func\(\)\");
 		assembly {
 			sstore($func\_status\_slot, createsig(0, sload($func\_key_slot)))
 			sstore($func\_dataslot_slot, 0x0)

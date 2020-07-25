@@ -1,6 +1,6 @@
-    /* "basic/heartbeat/heartbeat_parsed.sol":25:4336  contract HeartBeat {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":25:4327  contract HeartBeat {... */
   mstore(0x40, 0x80)
-    /* "basic/heartbeat/heartbeat_parsed.sol":2806:4334  constructor() public {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2797:4325  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,30 +11,30 @@
   revert
 tag_1:
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":2832:2839  Heart() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2823:2830  Heart() */
   tag_4
-    /* "basic/heartbeat/heartbeat_parsed.sol":2832:2837  Heart */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2823:2828  Heart */
   shl(0x20, tag_5)
-    /* "basic/heartbeat/heartbeat_parsed.sol":2832:2839  Heart() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2823:2830  Heart() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "basic/heartbeat/heartbeat_parsed.sol":2844:2850  Beat() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2835:2841  Beat() */
   tag_6
-    /* "basic/heartbeat/heartbeat_parsed.sol":2844:2848  Beat */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2835:2839  Beat */
   shl(0x20, tag_7)
-    /* "basic/heartbeat/heartbeat_parsed.sol":2844:2850  Beat() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2835:2841  Beat() */
   0x20
   shr
   jump	// in
 tag_6:
-    /* "basic/heartbeat/heartbeat_parsed.sol":2870:2871  0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2861:2862  0 */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":2860:2867  counter */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2851:2858  counter */
   dup1
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":2860:2871  counter = 0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":2851:2862  counter = 0 */
   0x0100
   exp
   dup2
@@ -53,16 +53,16 @@ tag_6:
   swap1
   sstore
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":3115:3144  address this_bindslot_address */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3106:3135  address this_bindslot_address */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":3155:3159  this */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3146:3150  this */
   address
-    /* "basic/heartbeat/heartbeat_parsed.sol":3115:3160  address this_bindslot_address = address(this) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3106:3151  address this_bindslot_address = address(this) */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":3212:3243  bytes32 this_bindslot_Heart_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3203:3234  bytes32 this_bindslot_Heart_key */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":3246:3266  keccak256("Heart()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3237:3257  keccak256("Heart()") */
   mload(0x40)
   dup1
   dup1
@@ -80,96 +80,96 @@ tag_6:
   sub
   swap1
   keccak256
-    /* "basic/heartbeat/heartbeat_parsed.sol":3212:3266  bytes32 this_bindslot_Heart_key = keccak256("Heart()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3203:3257  bytes32 this_bindslot_Heart_key = keccak256("Heart()") */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":3323:3358  bytes32 this_this_bindslot_Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3314:3349  bytes32 this_this_bindslot_Beat_key */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":3361:3375  get_Beat_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3352:3366  get_Beat_key() */
   tag_8
-    /* "basic/heartbeat/heartbeat_parsed.sol":3361:3373  get_Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3352:3364  get_Beat_key */
   shl(0x20, tag_9)
-    /* "basic/heartbeat/heartbeat_parsed.sol":3361:3375  get_Beat_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3352:3366  get_Beat_key() */
   0x20
   shr
   jump	// in
 tag_8:
-    /* "basic/heartbeat/heartbeat_parsed.sol":3323:3375  bytes32 this_this_bindslot_Beat_key = get_Beat_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3314:3366  bytes32 this_this_bindslot_Beat_key = get_Beat_key() */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":3510:3537  this_this_bindslot_Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3501:3528  this_this_bindslot_Beat_key */
   dup1
-    /* "basic/heartbeat/heartbeat_parsed.sol":3485:3508  this_bindslot_Heart_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3476:3499  this_bindslot_Heart_key */
   dup3
-    /* "basic/heartbeat/heartbeat_parsed.sol":3462:3483  this_bindslot_address */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3453:3474  this_bindslot_address */
   dup5
-    /* "basic/heartbeat/heartbeat_parsed.sol":3453:3538  bindslot(this_bindslot_address, this_bindslot_Heart_key, this_this_bindslot_Beat_key) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3444:3529  bindslot(this_bindslot_address, this_bindslot_Heart_key, this_this_bindslot_Beat_key) */
   bindslot
-    /* "basic/heartbeat/heartbeat_parsed.sol":3447:3451  0x40 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3438:3442  0x40 */
   0x40
-    /* "basic/heartbeat/heartbeat_parsed.sol":3440:3539  mstore(0x40, bindslot(this_bindslot_address, this_bindslot_Heart_key, this_this_bindslot_Beat_key)) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3431:3530  mstore(0x40, bindslot(this_bindslot_address, this_bindslot_Heart_key, this_this_bindslot_Beat_key)) */
   mstore
-    /* "basic/heartbeat/heartbeat_parsed.sol":3900:3935  bytes32 this_emitsig_Heart_dataslot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3891:3926  bytes32 this_emitsig_Heart_dataslot */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":3938:3958  get_Heart_dataslot() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3929:3949  get_Heart_dataslot() */
   tag_10
-    /* "basic/heartbeat/heartbeat_parsed.sol":3938:3956  get_Heart_dataslot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3929:3947  get_Heart_dataslot */
   shl(0x20, tag_11)
-    /* "basic/heartbeat/heartbeat_parsed.sol":3938:3958  get_Heart_dataslot() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3929:3949  get_Heart_dataslot() */
   0x20
   shr
   jump	// in
 tag_10:
-    /* "basic/heartbeat/heartbeat_parsed.sol":3900:3958  bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3891:3949  bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot() */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":3992:4022  bytes32 this_emitsig_Heart_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3983:4013  bytes32 this_emitsig_Heart_key */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":4025:4040  get_Heart_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4016:4031  get_Heart_key() */
   tag_12
-    /* "basic/heartbeat/heartbeat_parsed.sol":4025:4038  get_Heart_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4016:4029  get_Heart_key */
   shl(0x20, tag_13)
-    /* "basic/heartbeat/heartbeat_parsed.sol":4025:4040  get_Heart_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4016:4031  get_Heart_key() */
   0x20
   shr
   jump	// in
 tag_12:
-    /* "basic/heartbeat/heartbeat_parsed.sol":3992:4040  bytes32 this_emitsig_Heart_key = get_Heart_key() */
+    /* "basic/heartbeat/heartbeat_parsed.sol":3983:4031  bytes32 this_emitsig_Heart_key = get_Heart_key() */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":4210:4211  0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4201:4202  0 */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":4181:4208  this_emitsig_Heart_dataslot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4172:4199  this_emitsig_Heart_dataslot */
   dup3
-    /* "basic/heartbeat/heartbeat_parsed.sol":4177:4179  10 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4168:4170  10 */
   0x0a
-    /* "basic/heartbeat/heartbeat_parsed.sol":4153:4175  this_emitsig_Heart_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4144:4166  this_emitsig_Heart_key */
   dup4
-    /* "basic/heartbeat/heartbeat_parsed.sol":4145:4212  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4136:4203  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
   emitsig
-    /* "basic/heartbeat/heartbeat_parsed.sol":4139:4143  0x40 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4130:4134  0x40 */
   0x40
-    /* "basic/heartbeat/heartbeat_parsed.sol":4132:4213  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4123:4204  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
   mstore
-    /* "basic/heartbeat/heartbeat_parsed.sol":4127:4220  {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4118:4211  {... */
   pop
   pop
   pop
   pop
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":25:4336  contract HeartBeat {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":25:4327  contract HeartBeat {... */
   jump(tag_14)
-    /* "basic/heartbeat/heartbeat_parsed.sol":832:1034  function Heart() private {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":832:1025  function Heart() private {... */
 tag_5:
-    /* "basic/heartbeat/heartbeat_parsed.sol":879:908  keccak256("function Heart()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":879:899  keccak256("Heart()") */
   mload(0x40)
   dup1
   dup1
-  0x66756e6374696f6e204865617274282900000000000000000000000000000000
+  0x4865617274282900000000000000000000000000000000000000000000000000
   dup2
   mstore
   pop
-  0x10
+  0x07
   add
   swap1
   pop
@@ -181,34 +181,34 @@ tag_5:
   keccak256
     /* "basic/heartbeat/heartbeat_parsed.sol":867:876  Heart_key */
   0x03
-    /* "basic/heartbeat/heartbeat_parsed.sol":867:908  Heart_key = keccak256("function Heart()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":867:899  Heart_key = keccak256("Heart()") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":971:985  Heart_key_slot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":962:976  Heart_key_slot */
   0x03
-    /* "basic/heartbeat/heartbeat_parsed.sol":965:986  sload(Heart_key_slot) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":956:977  sload(Heart_key_slot) */
   sload
-    /* "basic/heartbeat/heartbeat_parsed.sol":962:963  0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":953:954  0 */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":952:987  createsig(0, sload(Heart_key_slot)) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":943:978  createsig(0, sload(Heart_key_slot)) */
   createsig
-    /* "basic/heartbeat/heartbeat_parsed.sol":933:950  Heart_status_slot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":924:941  Heart_status_slot */
   0x02
-    /* "basic/heartbeat/heartbeat_parsed.sol":926:988  sstore(Heart_status_slot, createsig(0, sload(Heart_key_slot))) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":917:979  sstore(Heart_status_slot, createsig(0, sload(Heart_key_slot))) */
   sstore
-    /* "basic/heartbeat/heartbeat_parsed.sol":1020:1023  0x0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1011:1014  0x0 */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":999:1018  Heart_dataslot_slot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":990:1009  Heart_dataslot_slot */
   0x01
-    /* "basic/heartbeat/heartbeat_parsed.sol":992:1024  sstore(Heart_dataslot_slot, 0x0) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":983:1015  sstore(Heart_dataslot_slot, 0x0) */
   sstore
-    /* "basic/heartbeat/heartbeat_parsed.sol":921:1028  {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":912:1019  {... */
   jump	// out
-    /* "basic/heartbeat/heartbeat_parsed.sol":1644:1834  function Beat() private {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1635:1825  function Beat() private {... */
 tag_7:
-    /* "basic/heartbeat/heartbeat_parsed.sol":1689:1713  keccak256("Beat_func()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1680:1704  keccak256("Beat_func()") */
   mload(0x40)
   dup1
   dup1
@@ -226,41 +226,41 @@ tag_7:
   sub
   swap1
   keccak256
-    /* "basic/heartbeat/heartbeat_parsed.sol":1678:1686  Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1669:1677  Beat_key */
   0x05
-    /* "basic/heartbeat/heartbeat_parsed.sol":1678:1713  Beat_key = keccak256("Beat_func()") */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1669:1704  Beat_key = keccak256("Beat_func()") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":1802:1815  Beat_key_slot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1793:1806  Beat_key_slot */
   0x05
-    /* "basic/heartbeat/heartbeat_parsed.sol":1796:1816  sload(Beat_key_slot) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1787:1807  sload(Beat_key_slot) */
   sload
-    /* "basic/heartbeat/heartbeat_parsed.sol":1789:1794  30000 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1780:1785  30000 */
   0x7530
-    /* "basic/heartbeat/heartbeat_parsed.sol":1785:1787  10 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1776:1778  10 */
   0x0a
-    /* "basic/heartbeat/heartbeat_parsed.sol":1782:1783  0 */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1773:1774  0 */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":1771:1817  createslot(0, 10, 30000, sload(Beat_key_slot)) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1762:1808  createslot(0, 10, 30000, sload(Beat_key_slot)) */
   createslot
-    /* "basic/heartbeat/heartbeat_parsed.sol":1753:1769  Beat_status_slot */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1744:1760  Beat_status_slot */
   0x04
-    /* "basic/heartbeat/heartbeat_parsed.sol":1746:1818  sstore(Beat_status_slot, createslot(0, 10, 30000, sload(Beat_key_slot))) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1737:1809  sstore(Beat_status_slot, createslot(0, 10, 30000, sload(Beat_key_slot))) */
   sstore
-    /* "basic/heartbeat/heartbeat_parsed.sol":1732:1828  {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1723:1819  {... */
   jump	// out
-    /* "basic/heartbeat/heartbeat_parsed.sol":1466:1555  function get_Beat_key() public view returns (bytes32 key) {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1457:1546  function get_Beat_key() public view returns (bytes32 key) {... */
 tag_9:
-    /* "basic/heartbeat/heartbeat_parsed.sol":1511:1522  bytes32 key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1502:1513  bytes32 key */
   0x00
-    /* "basic/heartbeat/heartbeat_parsed.sol":1540:1548  Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1531:1539  Beat_key */
   sload(0x05)
-    /* "basic/heartbeat/heartbeat_parsed.sol":1533:1548  return Beat_key */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1524:1539  return Beat_key */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":1466:1555  function get_Beat_key() public view returns (bytes32 key) {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":1457:1546  function get_Beat_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
     /* "basic/heartbeat/heartbeat_parsed.sol":573:680  function get_Heart_dataslot() private view returns (bytes32 dataslot) {... */
@@ -287,7 +287,7 @@ tag_13:
     /* "basic/heartbeat/heartbeat_parsed.sol":451:542  function get_Heart_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
-    /* "basic/heartbeat/heartbeat_parsed.sol":25:4336  contract HeartBeat {... */
+    /* "basic/heartbeat/heartbeat_parsed.sol":25:4327  contract HeartBeat {... */
 tag_14:
   dataSize(sub_0)
   dup1
@@ -299,7 +299,7 @@ tag_14:
 stop
 
 sub_0: assembly {
-        /* "basic/heartbeat/heartbeat_parsed.sol":25:4336  contract HeartBeat {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":25:4327  contract HeartBeat {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -332,7 +332,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "basic/heartbeat/heartbeat_parsed.sol":1466:1555  function get_Beat_key() public view returns (bytes32 key) {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1457:1546  function get_Beat_key() public view returns (bytes32 key) {... */
     tag_3:
       tag_6
       tag_7
@@ -354,7 +354,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/heartbeat/heartbeat_parsed.sol":2060:2800  function Beat_func() public {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2051:2791  function Beat_func() public {... */
     tag_4:
       tag_8
       tag_9
@@ -383,23 +383,23 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/heartbeat/heartbeat_parsed.sol":1466:1555  function get_Beat_key() public view returns (bytes32 key) {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1457:1546  function get_Beat_key() public view returns (bytes32 key) {... */
     tag_7:
-        /* "basic/heartbeat/heartbeat_parsed.sol":1511:1522  bytes32 key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1502:1513  bytes32 key */
       0x00
-        /* "basic/heartbeat/heartbeat_parsed.sol":1540:1548  Beat_key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1531:1539  Beat_key */
       sload(0x05)
-        /* "basic/heartbeat/heartbeat_parsed.sol":1533:1548  return Beat_key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1524:1539  return Beat_key */
       swap1
       pop
-        /* "basic/heartbeat/heartbeat_parsed.sol":1466:1555  function get_Beat_key() public view returns (bytes32 key) {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":1457:1546  function get_Beat_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "basic/heartbeat/heartbeat_parsed.sol":2060:2800  function Beat_func() public {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2051:2791  function Beat_func() public {... */
     tag_9:
-        /* "basic/heartbeat/heartbeat_parsed.sol":2118:2119  1 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2109:2110  1 */
       0x01
-        /* "basic/heartbeat/heartbeat_parsed.sol":2108:2115  counter */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2099:2106  counter */
       0x00
       dup1
       swap1
@@ -411,12 +411,12 @@ sub_0: assembly {
       div
       0xffffffff
       and
-        /* "basic/heartbeat/heartbeat_parsed.sol":2108:2119  counter + 1 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2099:2110  counter + 1 */
       add
-        /* "basic/heartbeat/heartbeat_parsed.sol":2098:2105  counter */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2089:2096  counter */
       0x00
       dup1
-        /* "basic/heartbeat/heartbeat_parsed.sol":2098:2119  counter = counter + 1 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2089:2110  counter = counter + 1 */
       0x0100
       exp
       dup2
@@ -435,45 +435,45 @@ sub_0: assembly {
       swap1
       sstore
       pop
-        /* "basic/heartbeat/heartbeat_parsed.sol":2366:2401  bytes32 this_emitsig_Heart_dataslot */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2357:2392  bytes32 this_emitsig_Heart_dataslot */
       0x00
-        /* "basic/heartbeat/heartbeat_parsed.sol":2404:2424  get_Heart_dataslot() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2395:2415  get_Heart_dataslot() */
       tag_14
-        /* "basic/heartbeat/heartbeat_parsed.sol":2404:2422  get_Heart_dataslot */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2395:2413  get_Heart_dataslot */
       tag_15
-        /* "basic/heartbeat/heartbeat_parsed.sol":2404:2424  get_Heart_dataslot() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2395:2415  get_Heart_dataslot() */
       jump	// in
     tag_14:
-        /* "basic/heartbeat/heartbeat_parsed.sol":2366:2424  bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2357:2415  bytes32 this_emitsig_Heart_dataslot = get_Heart_dataslot() */
       swap1
       pop
-        /* "basic/heartbeat/heartbeat_parsed.sol":2458:2488  bytes32 this_emitsig_Heart_key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2449:2479  bytes32 this_emitsig_Heart_key */
       0x00
-        /* "basic/heartbeat/heartbeat_parsed.sol":2491:2506  get_Heart_key() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2482:2497  get_Heart_key() */
       tag_16
-        /* "basic/heartbeat/heartbeat_parsed.sol":2491:2504  get_Heart_key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2482:2495  get_Heart_key */
       tag_11
-        /* "basic/heartbeat/heartbeat_parsed.sol":2491:2506  get_Heart_key() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2482:2497  get_Heart_key() */
       jump	// in
     tag_16:
-        /* "basic/heartbeat/heartbeat_parsed.sol":2458:2506  bytes32 this_emitsig_Heart_key = get_Heart_key() */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2449:2497  bytes32 this_emitsig_Heart_key = get_Heart_key() */
       swap1
       pop
-        /* "basic/heartbeat/heartbeat_parsed.sol":2676:2677  0 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2667:2668  0 */
       0x00
-        /* "basic/heartbeat/heartbeat_parsed.sol":2647:2674  this_emitsig_Heart_dataslot */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2638:2665  this_emitsig_Heart_dataslot */
       dup3
-        /* "basic/heartbeat/heartbeat_parsed.sol":2643:2645  10 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2634:2636  10 */
       0x0a
-        /* "basic/heartbeat/heartbeat_parsed.sol":2619:2641  this_emitsig_Heart_key */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2610:2632  this_emitsig_Heart_key */
       dup4
-        /* "basic/heartbeat/heartbeat_parsed.sol":2611:2678  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2602:2669  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
       emitsig
-        /* "basic/heartbeat/heartbeat_parsed.sol":2605:2609  0x40 */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2596:2600  0x40 */
       0x40
-        /* "basic/heartbeat/heartbeat_parsed.sol":2598:2679  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2589:2670  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
       mstore
-        /* "basic/heartbeat/heartbeat_parsed.sol":2593:2686  {... */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2584:2677  {... */
       pop
       pop
       jump	// out
@@ -502,5 +502,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220293aa8f076b5a1a5fe1d18a425f9b80bf721cbfe702102787fa5a9d59c52ff1564736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa26469706673582212200227c0b971d2573b3418f76c30e0770533a6ace9c6a1c225d6aae9d9bf4ed21d64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

@@ -20,18 +20,12 @@ async function main() {
   const contractB = cfx.Contract({
     abi: require('./contract/B-abi.json'),
     // code is unnecessary
-    address: '0x817aac2df68097e4f6991beb34d6146ad7497039',
+    address: '0x8322570df819d3b89fda0ca7e0bfdc9b3b004e60',
   });
-  // create contract instance
-  const contractA = cfx.Contract({
-    abi: require('./contract/A-abi.json'),
-    // code is unnecessary
-    address: '0x89dd68bbca1a76a1c86570361879301a8e131e96',
-  });
-  //await cfx.getCode(contractB.address);
-  await contractB.bindfunc(contractA.address);
-  //await cfx.getCode(contractA.address);
-  await contractA.emitfunc([0x11,0x22,0x33]);
+  console.log(contractB.address);
+  await cfx.getCode(contractB.address);
+  let ret = await contractB.LocalPriceSum();
+  console.log(ret.toString());
 }
 
 main().catch(e => console.error(e));

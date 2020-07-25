@@ -50,7 +50,7 @@ contract PriceOracleBuffer {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function PriceFeedUpdate() private {
-        PriceFeedUpdate_key = keccak256("function PriceFeedUpdate()");
+        PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
 		assembly {
 			sstore(PriceFeedUpdate_status_slot, createsig(32, sload(PriceFeedUpdate_key_slot)))
 			sstore(PriceFeedUpdate_dataslot_slot, PriceFeedUpdate_data_slot)

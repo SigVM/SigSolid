@@ -41,7 +41,7 @@ contract EmitOnTime {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function Alert() private {
-        Alert_key = keccak256("function Alert()");
+        Alert_key = keccak256("Alert()");
 		assembly {
 			sstore(Alert_status_slot, createsig(32, sload(Alert_key_slot)))
 			sstore(Alert_dataslot_slot, Alert_data_slot)
@@ -124,7 +124,7 @@ contract EmitLate {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function Alert() private {
-        Alert_key = keccak256("function Alert()");
+        Alert_key = keccak256("Alert()");
 		assembly {
 			sstore(Alert_status_slot, createsig(32, sload(Alert_key_slot)))
 			sstore(Alert_dataslot_slot, Alert_data_slot)

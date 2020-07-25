@@ -1,6 +1,6 @@
-    /* "basic/multi_bind/multi_bind_parsed.sol":5080:8256  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5062:8238  contract Receiver {... */
   mstore(0x40, 0x80)
-    /* "basic/multi_bind/multi_bind_parsed.sol":6519:8254  constructor(EmitOnTime first, EmitLate second) public {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6501:8236  constructor(EmitOnTime first, EmitLate second) public {... */
   callvalue
   dup1
   iszero
@@ -57,21 +57,21 @@ tag_2:
   pop
   pop
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":6578:6587  Receive() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6560:6569  Receive() */
   tag_5
-    /* "basic/multi_bind/multi_bind_parsed.sol":6578:6585  Receive */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6560:6567  Receive */
   shl(0x20, tag_6)
-    /* "basic/multi_bind/multi_bind_parsed.sol":6578:6587  Receive() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6560:6569  Receive() */
   0x20
   shr
   jump	// in
 tag_5:
-    /* "basic/multi_bind/multi_bind_parsed.sol":6607:6612  first */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6589:6594  first */
   dup2
-    /* "basic/multi_bind/multi_bind_parsed.sol":6597:6604  on_time */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6579:6586  on_time */
   0x00
   dup1
-    /* "basic/multi_bind/multi_bind_parsed.sol":6597:6612  on_time = first */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6579:6594  on_time = first */
   0x0100
   exp
   dup2
@@ -90,12 +90,12 @@ tag_5:
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":6629:6635  second */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6611:6617  second */
   dup1
-    /* "basic/multi_bind/multi_bind_parsed.sol":6622:6626  late */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6604:6608  late */
   0x01
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":6622:6635  late = second */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6604:6617  late = second */
   0x0100
   exp
   dup2
@@ -114,9 +114,9 @@ tag_5:
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":6885:6917  address on_time_bindslot_address */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6867:6899  address on_time_bindslot_address */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":6928:6935  on_time */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6910:6917  on_time */
   dup1
   0x00
   swap1
@@ -128,12 +128,12 @@ tag_5:
   div
   0xffffffffffffffffffffffffffffffffffffffff
   and
-    /* "basic/multi_bind/multi_bind_parsed.sol":6885:6936  address on_time_bindslot_address = address(on_time) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6867:6918  address on_time_bindslot_address = address(on_time) */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":6988:7022  bytes32 on_time_bindslot_Alert_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6970:7004  bytes32 on_time_bindslot_Alert_key */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7025:7045  keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7007:7027  keccak256("Alert()") */
   mload(0x40)
   dup1
   dup1
@@ -151,38 +151,38 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "basic/multi_bind/multi_bind_parsed.sol":6988:7045  bytes32 on_time_bindslot_Alert_key = keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":6970:7027  bytes32 on_time_bindslot_Alert_key = keccak256("Alert()") */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7102:7143  bytes32 this_on_time_bindslot_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7084:7125  bytes32 this_on_time_bindslot_Receive_key */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7146:7163  get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7128:7145  get_Receive_key() */
   tag_7
-    /* "basic/multi_bind/multi_bind_parsed.sol":7146:7161  get_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7128:7143  get_Receive_key */
   shl(0x20, tag_8)
-    /* "basic/multi_bind/multi_bind_parsed.sol":7146:7163  get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7128:7145  get_Receive_key() */
   0x20
   shr
   jump	// in
 tag_7:
-    /* "basic/multi_bind/multi_bind_parsed.sol":7102:7163  bytes32 this_on_time_bindslot_Receive_key = get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7084:7145  bytes32 this_on_time_bindslot_Receive_key = get_Receive_key() */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7304:7337  this_on_time_bindslot_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7286:7319  this_on_time_bindslot_Receive_key */
   dup1
-    /* "basic/multi_bind/multi_bind_parsed.sol":7276:7302  on_time_bindslot_Alert_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7258:7284  on_time_bindslot_Alert_key */
   dup3
-    /* "basic/multi_bind/multi_bind_parsed.sol":7250:7274  on_time_bindslot_address */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7232:7256  on_time_bindslot_address */
   dup5
-    /* "basic/multi_bind/multi_bind_parsed.sol":7241:7338  bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_on_time_bindslot_Receive_key) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7223:7320  bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_on_time_bindslot_Receive_key) */
   bindslot
-    /* "basic/multi_bind/multi_bind_parsed.sol":7235:7239  0x40 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7217:7221  0x40 */
   0x40
-    /* "basic/multi_bind/multi_bind_parsed.sol":7228:7339  mstore(0x40, bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_on_time_bindslot_Receive_key)) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7210:7321  mstore(0x40, bindslot(on_time_bindslot_address, on_time_bindslot_Alert_key, this_on_time_bindslot_Receive_key)) */
   mstore
-    /* "basic/multi_bind/multi_bind_parsed.sol":7700:7729  address late_bindslot_address */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7682:7711  address late_bindslot_address */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7740:7744  late */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7722:7726  late */
   0x01
   0x00
   swap1
@@ -194,12 +194,12 @@ tag_7:
   div
   0xffffffffffffffffffffffffffffffffffffffff
   and
-    /* "basic/multi_bind/multi_bind_parsed.sol":7700:7745  address late_bindslot_address = address(late) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7682:7727  address late_bindslot_address = address(late) */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7797:7828  bytes32 late_bindslot_Alert_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7779:7810  bytes32 late_bindslot_Alert_key */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7831:7851  keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7813:7833  keccak256("Alert()") */
   mload(0x40)
   dup1
   dup1
@@ -217,36 +217,36 @@ tag_7:
   sub
   swap1
   keccak256
-    /* "basic/multi_bind/multi_bind_parsed.sol":7797:7851  bytes32 late_bindslot_Alert_key = keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7779:7833  bytes32 late_bindslot_Alert_key = keccak256("Alert()") */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7908:7946  bytes32 this_late_bindslot_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7890:7928  bytes32 this_late_bindslot_Receive_key */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7949:7966  get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7931:7948  get_Receive_key() */
   tag_9
-    /* "basic/multi_bind/multi_bind_parsed.sol":7949:7964  get_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7931:7946  get_Receive_key */
   shl(0x20, tag_8)
-    /* "basic/multi_bind/multi_bind_parsed.sol":7949:7966  get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7931:7948  get_Receive_key() */
   0x20
   shr
   jump	// in
 tag_9:
-    /* "basic/multi_bind/multi_bind_parsed.sol":7908:7966  bytes32 this_late_bindslot_Receive_key = get_Receive_key() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7890:7948  bytes32 this_late_bindslot_Receive_key = get_Receive_key() */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":8101:8131  this_late_bindslot_Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8083:8113  this_late_bindslot_Receive_key */
   dup1
-    /* "basic/multi_bind/multi_bind_parsed.sol":8076:8099  late_bindslot_Alert_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8058:8081  late_bindslot_Alert_key */
   dup3
-    /* "basic/multi_bind/multi_bind_parsed.sol":8053:8074  late_bindslot_address */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8035:8056  late_bindslot_address */
   dup5
-    /* "basic/multi_bind/multi_bind_parsed.sol":8044:8132  bindslot(late_bindslot_address, late_bindslot_Alert_key, this_late_bindslot_Receive_key) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8026:8114  bindslot(late_bindslot_address, late_bindslot_Alert_key, this_late_bindslot_Receive_key) */
   bindslot
-    /* "basic/multi_bind/multi_bind_parsed.sol":8038:8042  0x40 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8020:8024  0x40 */
   0x40
-    /* "basic/multi_bind/multi_bind_parsed.sol":8031:8133  mstore(0x40, bindslot(late_bindslot_address, late_bindslot_Alert_key, this_late_bindslot_Receive_key)) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8013:8115  mstore(0x40, bindslot(late_bindslot_address, late_bindslot_Alert_key, this_late_bindslot_Receive_key)) */
   mstore
-    /* "basic/multi_bind/multi_bind_parsed.sol":8026:8140  {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":8008:8122  {... */
   pop
   pop
   pop
@@ -255,11 +255,11 @@ tag_9:
   pop
   pop
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":5080:8256  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5062:8238  contract Receiver {... */
   jump(tag_10)
-    /* "basic/multi_bind/multi_bind_parsed.sol":5719:5932  function Receive() private {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5701:5914  function Receive() private {... */
 tag_6:
-    /* "basic/multi_bind/multi_bind_parsed.sol":5770:5804  keccak256("Receive_func(bytes32)") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5752:5786  keccak256("Receive_func(bytes32)") */
   mload(0x40)
   dup1
   dup1
@@ -277,44 +277,44 @@ tag_6:
   sub
   swap1
   keccak256
-    /* "basic/multi_bind/multi_bind_parsed.sol":5756:5767  Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5738:5749  Receive_key */
   0x03
-    /* "basic/multi_bind/multi_bind_parsed.sol":5756:5804  Receive_key = keccak256("Receive_func(bytes32)") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5738:5786  Receive_key = keccak256("Receive_func(bytes32)") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":5897:5913  Receive_key_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5879:5895  Receive_key_slot */
   0x03
-    /* "basic/multi_bind/multi_bind_parsed.sol":5891:5914  sload(Receive_key_slot) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5873:5896  sload(Receive_key_slot) */
   sload
-    /* "basic/multi_bind/multi_bind_parsed.sol":5884:5889  30000 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5866:5871  30000 */
   0x7530
-    /* "basic/multi_bind/multi_bind_parsed.sol":5880:5882  10 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5862:5864  10 */
   0x0a
-    /* "basic/multi_bind/multi_bind_parsed.sol":5876:5878  32 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5858:5860  32 */
   0x20
-    /* "basic/multi_bind/multi_bind_parsed.sol":5865:5915  createslot(32, 10, 30000, sload(Receive_key_slot)) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5847:5897  createslot(32, 10, 30000, sload(Receive_key_slot)) */
   createslot
-    /* "basic/multi_bind/multi_bind_parsed.sol":5844:5863  Receive_status_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5826:5845  Receive_status_slot */
   0x02
-    /* "basic/multi_bind/multi_bind_parsed.sol":5837:5916  sstore(Receive_status_slot, createslot(32, 10, 30000, sload(Receive_key_slot))) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5819:5898  sstore(Receive_status_slot, createslot(32, 10, 30000, sload(Receive_key_slot))) */
   sstore
-    /* "basic/multi_bind/multi_bind_parsed.sol":5823:5926  {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5805:5908  {... */
   jump	// out
-    /* "basic/multi_bind/multi_bind_parsed.sol":5532:5627  function get_Receive_key() public view returns (bytes32 key) {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5514:5609  function get_Receive_key() public view returns (bytes32 key) {... */
 tag_8:
-    /* "basic/multi_bind/multi_bind_parsed.sol":5580:5591  bytes32 key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5562:5573  bytes32 key */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":5609:5620  Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5591:5602  Receive_key */
   sload(0x03)
-    /* "basic/multi_bind/multi_bind_parsed.sol":5602:5620  return Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5584:5602  return Receive_key */
   swap1
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":5532:5627  function get_Receive_key() public view returns (bytes32 key) {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5514:5609  function get_Receive_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
-    /* "basic/multi_bind/multi_bind_parsed.sol":5080:8256  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5062:8238  contract Receiver {... */
 tag_10:
   dataSize(sub_0)
   dup1
@@ -326,7 +326,7 @@ tag_10:
 stop
 
 sub_0: assembly {
-        /* "basic/multi_bind/multi_bind_parsed.sol":5080:8256  contract Receiver {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5062:8238  contract Receiver {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -369,7 +369,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "basic/multi_bind/multi_bind_parsed.sol":6161:6413  function Receive_func(bytes32 data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6143:6395  function Receive_func(bytes32 data) public {... */
     tag_3:
       tag_8
       0x04
@@ -406,7 +406,7 @@ sub_0: assembly {
       jump	// in
     tag_8:
       stop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5104:5129  EmitOnTime public on_time */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5086:5111  EmitOnTime public on_time */
     tag_4:
       tag_11
       tag_12
@@ -432,7 +432,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":5135:5155  EmitLate public late */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5117:5137  EmitLate public late */
     tag_5:
       tag_13
       tag_14
@@ -458,7 +458,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":5532:5627  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5514:5609  function get_Receive_key() public view returns (bytes32 key) {... */
     tag_6:
       tag_15
       tag_16
@@ -480,7 +480,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":6419:6513  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6401:6495  function get_alert_count() public view returns (uint32 ret) {... */
     tag_7:
       tag_17
       tag_18
@@ -506,14 +506,14 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":6161:6413  function Receive_func(bytes32 data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6143:6395  function Receive_func(bytes32 data) public {... */
     tag_10:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6228:6229  0 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6210:6211  0 */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6214:6225  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6196:6207  alert_count */
       0x01
       0x14
-        /* "basic/multi_bind/multi_bind_parsed.sol":6214:6229  alert_count = 0 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6196:6211  alert_count = 0 */
       0x0100
       exp
       dup2
@@ -532,35 +532,35 @@ sub_0: assembly {
       swap1
       sstore
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6243:6249  uint i */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6225:6231  uint i */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6252:6253  0 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6234:6235  0 */
       dup1
-        /* "basic/multi_bind/multi_bind_parsed.sol":6243:6253  uint i = 0 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6225:6235  uint i = 0 */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6239:6407  for(uint i = 0; i < 32; i++) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6221:6389  for(uint i = 0; i < 32; i++) {... */
     tag_20:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6259:6261  32 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6241:6243  32 */
       0x20
-        /* "basic/multi_bind/multi_bind_parsed.sol":6255:6256  i */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6237:6238  i */
       dup2
-        /* "basic/multi_bind/multi_bind_parsed.sol":6255:6261  i < 32 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6237:6243  i < 32 */
       lt
-        /* "basic/multi_bind/multi_bind_parsed.sol":6239:6407  for(uint i = 0; i < 32; i++) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6221:6389  for(uint i = 0; i < 32; i++) {... */
       iszero
       tag_21
       jumpi
-        /* "basic/multi_bind/multi_bind_parsed.sol":6298:6302  0x00 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6280:6284  0x00 */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6287:6302  data[0] == 0x00 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6269:6284  data[0] == 0x00 */
       0xf8
       shl
-        /* "basic/multi_bind/multi_bind_parsed.sol":6287:6291  data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6269:6273  data */
       dup3
-        /* "basic/multi_bind/multi_bind_parsed.sol":6292:6293  0 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6274:6275  0 */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6287:6294  data[0] */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6269:6276  data[0] */
       0x20
       dup2
       lt
@@ -571,16 +571,16 @@ sub_0: assembly {
       byte
       0xf8
       shl
-        /* "basic/multi_bind/multi_bind_parsed.sol":6287:6302  data[0] == 0x00 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6269:6284  data[0] == 0x00 */
       not(0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
       and
       eq
-        /* "basic/multi_bind/multi_bind_parsed.sol":6282:6367  if(!(data[0] == 0x00)) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6264:6349  if(!(data[0] == 0x00)) {... */
       tag_24
       jumpi
-        /* "basic/multi_bind/multi_bind_parsed.sol":6351:6352  1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6333:6334  1 */
       0x01
-        /* "basic/multi_bind/multi_bind_parsed.sol":6337:6348  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6319:6330  alert_count */
       dup1
       0x14
       swap1
@@ -592,12 +592,12 @@ sub_0: assembly {
       div
       0xffffffff
       and
-        /* "basic/multi_bind/multi_bind_parsed.sol":6337:6352  alert_count + 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6319:6334  alert_count + 1 */
       add
-        /* "basic/multi_bind/multi_bind_parsed.sol":6323:6334  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6305:6316  alert_count */
       0x01
       0x14
-        /* "basic/multi_bind/multi_bind_parsed.sol":6323:6352  alert_count = alert_count + 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6305:6334  alert_count = alert_count + 1 */
       0x0100
       exp
       dup2
@@ -616,19 +616,19 @@ sub_0: assembly {
       swap1
       sstore
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6282:6367  if(!(data[0] == 0x00)) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6264:6349  if(!(data[0] == 0x00)) {... */
     tag_24:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6395:6396  1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6377:6378  1 */
       0x01
-        /* "basic/multi_bind/multi_bind_parsed.sol":6387:6391  data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6369:6373  data */
       dup3
-        /* "basic/multi_bind/multi_bind_parsed.sol":6387:6396  data >> 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6369:6378  data >> 1 */
       swap1
       shr
-        /* "basic/multi_bind/multi_bind_parsed.sol":6380:6396  data = data >> 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6362:6378  data = data >> 1 */
       swap2
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6263:6266  i++ */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6245:6248  i++ */
       dup1
       dup1
       0x01
@@ -636,14 +636,14 @@ sub_0: assembly {
       swap2
       pop
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6239:6407  for(uint i = 0; i < 32; i++) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6221:6389  for(uint i = 0; i < 32; i++) {... */
       jump(tag_20)
     tag_21:
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6161:6413  function Receive_func(bytes32 data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6143:6395  function Receive_func(bytes32 data) public {... */
       pop
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":5104:5129  EmitOnTime public on_time */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5086:5111  EmitOnTime public on_time */
     tag_12:
       0x00
       dup1
@@ -658,7 +658,7 @@ sub_0: assembly {
       and
       dup2
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":5135:5155  EmitLate public late */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5117:5137  EmitLate public late */
     tag_14:
       0x01
       0x00
@@ -673,23 +673,23 @@ sub_0: assembly {
       and
       dup2
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":5532:5627  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5514:5609  function get_Receive_key() public view returns (bytes32 key) {... */
     tag_16:
-        /* "basic/multi_bind/multi_bind_parsed.sol":5580:5591  bytes32 key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5562:5573  bytes32 key */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":5609:5620  Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5591:5602  Receive_key */
       sload(0x03)
-        /* "basic/multi_bind/multi_bind_parsed.sol":5602:5620  return Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5584:5602  return Receive_key */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5532:5627  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5514:5609  function get_Receive_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":6419:6513  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6401:6495  function get_alert_count() public view returns (uint32 ret) {... */
     tag_18:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6467:6477  uint32 ret */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6449:6459  uint32 ret */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6495:6506  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6477:6488  alert_count */
       0x01
       0x14
       swap1
@@ -701,12 +701,12 @@ sub_0: assembly {
       div
       0xffffffff
       and
-        /* "basic/multi_bind/multi_bind_parsed.sol":6489:6506  ret = alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6471:6488  ret = alert_count */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6419:6513  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6401:6495  function get_alert_count() public view returns (uint32 ret) {... */
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220de6b48fb1b5209b7b5a7b6eb8c9c29ec50462f8bafda2e6665e54091dc4ffd3e64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa26469706673582212205c1bf1c6695154101806c62b97f7edb0405b84feaa1e97a5e51bc7948068da5f64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

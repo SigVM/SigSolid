@@ -41,7 +41,7 @@ contract A {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function priceFeedUpdate() private {
-        priceFeedUpdate_key = keccak256("function priceFeedUpdate()");
+        priceFeedUpdate_key = keccak256("priceFeedUpdate()");
 		assembly {
 			sstore(priceFeedUpdate_status_slot, createsig(3, sload(priceFeedUpdate_key_slot)))
 			sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot)
@@ -74,7 +74,7 @@ contract A {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function random() private {
-        random_key = keccak256("function random()");
+        random_key = keccak256("random()");
 		assembly {
 			sstore(random_status_slot, createsig(0, sload(random_key_slot)))
 			sstore(random_dataslot_slot, 0x0)

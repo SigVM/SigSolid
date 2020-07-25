@@ -28,7 +28,7 @@ contract HeartBeat {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function Heart() private {
-        Heart_key = keccak256("function Heart()");
+        Heart_key = keccak256("Heart()");
 		assembly {
 			sstore(Heart_status_slot, createsig(0, sload(Heart_key_slot)))
 			sstore(Heart_dataslot_slot, 0x0)

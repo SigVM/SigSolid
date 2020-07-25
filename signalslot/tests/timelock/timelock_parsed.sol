@@ -54,7 +54,7 @@ contract TimeLock {
     // This should be called once in the contract construction.
     // This parser should automatically call it.
     function TimesUp() private {
-        TimesUp_key = keccak256("function TimesUp()");
+        TimesUp_key = keccak256("TimesUp()");
 		assembly {
 			sstore(TimesUp_status_slot, createsig(32, sload(TimesUp_key_slot)))
 			sstore(TimesUp_dataslot_slot, TimesUp_data_slot)
