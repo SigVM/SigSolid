@@ -22,13 +22,24 @@ async function main() {
     // code is unnecessary
     address: '0x8cc811f57df445efecf5afa2bb3252f56b77b200',
   });
-  // console.log(contractB.address);
-  // await cfx.getCode(contractB.address);
+  // create contract instance
+  const contractA = cfx.Contract({
+    abi: require('./contract/A-abi.json'),
+    // code is unnecessary
+    address: '0x8eb2c1a3c0d158620c690a3610472721ed673c00',
+  });
   const accountB = cfx.Account(PRIVATE_KEY_B); // create account instance
-  let ret = await contractB.getLocalPriceSum()
-  .sendTransaction({ from: accountB})
+  await contractB.bindfunc(contractA.address)
+  .sendTransaction({ from: accountB })
   .confirmed();
-  console.log(ret.toString());
+
+  // const accountA = cfx.Account(PRIVATE_KEY_A); // create account instance
+  // const estimate = await contractA.emitfunc([0x11,0x22,0x33]).estimateGasAndCollateral();
+  // console.info(JSON.stringify(estimate));
+  // await contractA.emitfunc([0x11,0x22,0x33])
+  // .sendTransaction({ from: accountA,
+  //                    gas: 5000000})
+  // .confirmed();
 }
 
 main().catch(e => console.error(e));

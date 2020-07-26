@@ -28,8 +28,8 @@ async function main() {
   });
 
   // estimate deploy contract gas use
-  const estimateA = await contractA.constructor().estimateGasAndCollateral();
-  console.log(JSON.stringify(estimateA));
+  // const estimateA = await contractA.constructor().estimateGasAndCollateral();
+  // console.log(JSON.stringify(estimateA));
 
   // deploy the contract, and get `contractCreated`
   const receiptA = await contractA.constructor()
@@ -50,8 +50,8 @@ async function main() {
   });
 
   // estimate deploy contract gas use
-  const estimateB = await contractB.constructor().estimateGasAndCollateral();
-  console.log(JSON.stringify(estimateB));
+  // const estimateB = await contractB.constructor().estimateGasAndCollateral();
+  // console.log(JSON.stringify(estimateB));
 
   // deploy the contract, and get `contractCreated`
   const receiptB = await contractB.constructor()
