@@ -25,10 +25,9 @@ async function main() {
   // console.log(contractB.address);
   // await cfx.getCode(contractB.address);
   const accountB = cfx.Account(PRIVATE_KEY_B); // create account instance
-  let ret = await contractB.getLocalPriceSum()
-  .sendTransaction({ from: accountB})
-  .confirmed();
-  console.log(ret.toString());
+  let ret = await contractB.getLocalPriceSum();
+  // .sendTransaction({ from: accountB})
+  // .confirmed();
 }
 
 main().catch(e => console.error(e));

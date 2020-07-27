@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const { Conflux } = require('js-conflux-sdk');
+const { Conflux, util } = require('js-conflux-sdk');
 
 const PRIVATE_KEY_A = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 const PRIVATE_KEY_B = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde0';
@@ -17,17 +17,18 @@ async function main() {
   console.log(cfx.defaultGas); // 1000000
   // ================================ Contract ================================
   // create contract instance
-  const contractB = cfx.Contract({
-    abi: require('./contract/B-abi.json'),
-    // code is unnecessary
-    address: '0x8cc811f57df445efecf5afa2bb3252f56b77b200',
-  });
-  // create contract instance
   const contractA = cfx.Contract({
     abi: require('./contract/A-abi.json'),
     // code is unnecessary
     address: '0x8eb2c1a3c0d158620c690a3610472721ed673c00',
   });
+  // create contract instance
+  const contractB = cfx.Contract({
+    abi: require('./contract/B-abi.json'),
+    // code is unnecessary
+    address: '0x8cc811f57df445efecf5afa2bb3252f56b77b200',
+  });
+
   const accountB = cfx.Account(PRIVATE_KEY_B); // create account instance
   await contractB.bindfunc(contractA.address)
   .sendTransaction({ from: accountB })
