@@ -1,45 +1,31 @@
 pragma solidity ^0.6.9;
 
 // Test to see if a signal can broadcast to multiple slots.
+// Check that slot transactions are created for both receivers
+// when the signal is emitted.
 
-// Emitter
 contract Emitter {
-    signal Alert(bytes32 value);
-
-    function send_alert(bytes32 value) public {
-        emitsig Alert(value).delay(0);
+    signal Alert();
+    function send_alert() public view {
+        emitsig Alert().delay(0);
     }
 }
 
-// First listener
 contract ReceiverA {
     bytes32 private data;
-
-    slot HandleAlert(bytes32 value) {
-        data = value;
+    slot HandleAlert() {
+        data = 0;
     }
-
-    function get_data() public view returns (bytes32 ret) {
-        ret = data;
-    }
-
     function bind_to_alert(Emitter addr) public view {
         HandleAlert.bind(addr.Alert);
     }
 }
 
-// Second listener
 contract ReceiverB {
     bytes32 private data;
-
-    slot HandleAlert(bytes32 value) {
-        data = value;
+    slot HandleAlert() {
+        data = 0;
     }
-
-    function get_data() public view returns (bytes32 ret) {
-        ret = data;
-    }
-
     function bind_to_alert(Emitter addr) public view {
         HandleAlert.bind(addr.Alert);
     }
