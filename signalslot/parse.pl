@@ -35,12 +35,18 @@ while ( my $line = <$default_fh> ) {
                 if(defined $arg_arr){
                     my @arg = split /\s/, $arg_arr;
                     my $argc = 0;
-                    if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
-                        $argc = 32;
-                    }elsif($arg[0] eq "byte"){
+                    if($arg[0] =~ /\[\]/){#now it can accept fix and dynamic
+                        $argc = 0;
+                    }elsif($arg[0] eq "bytes"){
+                        $argc = 0;
+                    }else{
                         $argc = 1;
-                    }elsif($arg[0] =~ /byte/){
-                        ($argc) = $arg[0] =~ /(\d+)/;
+                    }
+                    my $location_declare;
+                    if($argc == 1){
+                        $location_declare = "";
+                    }else{
+                        $location_declare = "memory";
                     }
                     $message = <<"END_MESSAGE";
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +64,7 @@ while ( my $line = <$default_fh> ) {
     bytes32 private $func\_key;
 
     // Set the data to be emitted
-	function set\_$func\_data\($arg[0] dataSet) private {
+	function set\_$func\_data\($arg[0] $location_declare dataSet) private {
        $func\_data = dataSet;
     }
 
@@ -208,12 +214,12 @@ END_MESSAGE
         my $hash_slot_title;
         if(defined $slot_obj){
             @arg = split /\s/, $slot_obj;#argment format must be "blalba[] blabla"
-            if(($arg[0] eq "uint")|($arg[0] eq "int")){#now it can accept int/uint bytes1-32, byte[..],byte
-                $argc = 32;
-            }elsif($arg[0] eq "byte"){
+            if($arg[0] =~ /\[\]/){#now it can accept fix and dynamic
+                $argc = 0;
+            }elsif($arg[0] eq "bytes"){
+                $argc = 0;
+            }else{
                 $argc = 1;
-            }elsif($arg[0] =~ /byte/){
-                ($argc) = $arg[0] =~ /(\d+)/;
             }
             $hash_slot_title = "$slot_name\_func\($arg[0]\)";
         }else{
