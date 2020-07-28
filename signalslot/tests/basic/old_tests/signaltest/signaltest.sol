@@ -4,8 +4,6 @@ contract A {
 	uint data;
     uint public constant ONE_HOUR = 180;
 	signal priceFeedUpdate(bytes data);
-	signal random();
-
     function emitfunc(bytes memory DataSent) public {
 		emitsig priceFeedUpdate(DataSent).delay(0);
     }
@@ -13,11 +11,11 @@ contract A {
 
 contract B {
 	A dut;
-	bytes3 public LocalPriceSum;
+	bytes public LocalPriceSum;
     uint public constant ONE_HOUR = 180;
 
-	slot priceReceive(bytes3 obj){
-        LocalPriceSum = ~obj;
+	slot priceReceive(bytes memory obj){
+        LocalPriceSum = obj;
     }
 
 	function bindfunc(address addrA) public {
@@ -29,12 +27,13 @@ contract B {
 		priceReceive.detach(dut.priceFeedUpdate);
     }
 
-	function getLocalPriceSum() public returns (bytes3){
+	function getLocalPriceSum() public returns (bytes memory){
 		return LocalPriceSum;
 	}
 }
 
-
+//../../../../parse.pl signaltest.sol signaltest_parsed.sol
+//../../../../../build/solc/solc --overwrite -o out --asm --bin --abi signaltest_parsed.sol
 //cp out/A.bin ../../../../js_tests/tb_with_sigslt/contract/A-bytecode.json
 //cp out/A.abi ../../../../js_tests/tb_with_sigslt/contract/A-abi.json
 //cp out/B.bin ../../../../js_tests/tb_with_sigslt/contract/B-bytecode.json
