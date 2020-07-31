@@ -1,5 +1,6 @@
 import os
 test_folder = ["basic/bind_detach",
+"basic/bind_detach_v2",
 "basic/broadcast",
 "basic/heartbeat",
 "basic/multi_bind",

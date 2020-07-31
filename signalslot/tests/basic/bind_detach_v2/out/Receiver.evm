@@ -1,0 +1,459 @@
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2399:5425  contract Receiver {... */
+  mstore(0x40, 0x80)
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5381:5423  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5407:5420  HandleAlert() */
+  tag_4
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5407:5418  HandleAlert */
+  shl(0x20, tag_5)
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5407:5420  HandleAlert() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2399:5425  contract Receiver {... */
+  jump(tag_6)
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3013:3245  function HandleAlert() private {... */
+tag_5:
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3072:3110  keccak256("HandleAlert_func(bytes32)") */
+  mload(0x40)
+  dup1
+  dup1
+  0x48616e646c65416c6572745f66756e6328627974657333322900000000000000
+  dup2
+  mstore
+  pop
+  0x19
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3054:3069  HandleAlert_key */
+  0x03
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3054:3110  HandleAlert_key = keccak256("HandleAlert_func(bytes32)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3206:3226  HandleAlert_key_slot */
+  0x03
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3200:3227  sload(HandleAlert_key_slot) */
+  sload
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3193:3198  30000 */
+  0x7530
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3189:3191  10 */
+  0x0a
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3186:3187  1 */
+  0x01
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3175:3228  createslot(1, 10, 30000, sload(HandleAlert_key_slot)) */
+  createslot
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3150:3173  HandleAlert_status_slot */
+  0x02
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3143:3229  sstore(HandleAlert_status_slot, createslot(1, 10, 30000, sload(HandleAlert_key_slot))) */
+  sstore
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3129:3239  {... */
+  jump	// out
+    /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2399:5425  contract Receiver {... */
+tag_6:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2399:5425  contract Receiver {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0e3b8590
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x1671379c
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x3e2f5fe5
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x50bf8b0d
+      eq
+      tag_6
+      jumpi
+      dup1
+      0x9981f1bc
+      eq
+      tag_7
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4553:5379  function detach_from_alert() public view {... */
+    tag_3:
+      tag_8
+      tag_9
+      jump	// in
+    tag_8:
+      stop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3478:3555  function HandleAlert_func(bytes32 value) public {... */
+    tag_4:
+      tag_10
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_11
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_11:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_12
+      jump	// in
+    tag_10:
+      stop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3648:4547  function bind_to_alert(Emitter addr) public{... */
+    tag_5:
+      tag_13
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_14
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_14:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_15
+      jump	// in
+    tag_13:
+      stop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3561:3642  function get_data() public view returns (bytes32 ret) {... */
+    tag_6:
+      tag_16
+      tag_17
+      jump	// in
+    tag_16:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2814:2917  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+    tag_7:
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4553:5379  function detach_from_alert() public view {... */
+    tag_9:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4854:4885  bytes32 source_detach_Alert_key */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4888:4908  keccak256("Alert()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x416c657274282900000000000000000000000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      0x07
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4854:4908  bytes32 source_detach_Alert_key = keccak256("Alert()") */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4939:4968  address source_detach_address */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4979:4985  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4939:4986  address source_detach_address = address(source) */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5023:5067  bytes32 this_source_bindslot_HandleAlert_key */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5070:5091  get_HandleAlert_key() */
+      tag_21
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5070:5089  get_HandleAlert_key */
+      tag_19
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5070:5091  get_HandleAlert_key() */
+      jump	// in
+    tag_21:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5023:5091  bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key() */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5223:5259  this_source_bindslot_HandleAlert_key */
+      dup1
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5198:5221  source_detach_Alert_key */
+      dup4
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5175:5196  source_detach_address */
+      dup4
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5164:5260  detachslot(source_detach_address, source_detach_Alert_key, this_source_bindslot_HandleAlert_key) */
+      detachslot
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5158:5162  0x40 */
+      0x40
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5151:5261  mstore(0x40, detachslot(source_detach_address, source_detach_Alert_key, this_source_bindslot_HandleAlert_key)) */
+      mstore
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":5146:5265  {... */
+      pop
+      pop
+      pop
+      jump	// out
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3478:3555  function HandleAlert_func(bytes32 value) public {... */
+    tag_12:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3543:3548  value */
+      dup1
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3536:3540  data */
+      0x01
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3536:3548  data = value */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3478:3555  function HandleAlert_func(bytes32 value) public {... */
+      pop
+      jump	// out
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3648:4547  function bind_to_alert(Emitter addr) public{... */
+    tag_15:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3710:3714  addr */
+      dup1
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3701:3707  source */
+      0x00
+      dup1
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3701:3714  source = addr */
+      0x0100
+      exp
+      dup2
+      sload
+      dup2
+      0xffffffffffffffffffffffffffffffffffffffff
+      mul
+      not
+      and
+      swap1
+      dup4
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      mul
+      or
+      swap1
+      sstore
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3967:3998  address source_bindslot_address */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4009:4015  source */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3967:4016  address source_bindslot_address = address(source) */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4068:4101  bytes32 source_bindslot_Alert_key */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4104:4124  keccak256("Alert()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x416c657274282900000000000000000000000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      0x07
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4068:4124  bytes32 source_bindslot_Alert_key = keccak256("Alert()") */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4181:4225  bytes32 this_source_bindslot_HandleAlert_key */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4228:4249  get_HandleAlert_key() */
+      tag_24
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4228:4247  get_HandleAlert_key */
+      tag_19
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4228:4249  get_HandleAlert_key() */
+      jump	// in
+    tag_24:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4181:4249  bytes32 this_source_bindslot_HandleAlert_key = get_HandleAlert_key() */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4388:4424  this_source_bindslot_HandleAlert_key */
+      dup1
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4361:4386  source_bindslot_Alert_key */
+      dup3
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4336:4359  source_bindslot_address */
+      dup5
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4327:4425  bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key) */
+      bindslot
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4321:4325  0x40 */
+      0x40
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4314:4426  mstore(0x40, bindslot(source_bindslot_address, source_bindslot_Alert_key, this_source_bindslot_HandleAlert_key)) */
+      mstore
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":4309:4433  {... */
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3561:3642  function get_data() public view returns (bytes32 ret) {... */
+    tag_17:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3602:3613  bytes32 ret */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3631:3635  data */
+      sload(0x01)
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3625:3635  ret = data */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":3561:3642  function get_data() public view returns (bytes32 ret) {... */
+      swap1
+      jump	// out
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2814:2917  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+    tag_19:
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2866:2877  bytes32 key */
+      0x00
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2895:2910  HandleAlert_key */
+      sload(0x03)
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2888:2910  return HandleAlert_key */
+      swap1
+      pop
+        /* "basic/bind_detach_v2/bind_detach_v2_parsed.sol":2814:2917  function get_HandleAlert_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+
+    auxdata: 0xa26469706673582212201c894b53dadbb14a891d7e56e5daafee8aabc871c061f59c40c3ee3d7b1affe864736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+}
