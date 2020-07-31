@@ -137,19 +137,19 @@ tag_12:
     /* "basic/heartbeat/heartbeat_parsed.sol":3983:4031  bytes32 this_emitsig_Heart_key = get_Heart_key() */
   swap1
   pop
-    /* "basic/heartbeat/heartbeat_parsed.sol":4201:4202  0 */
-  0x00
+    /* "basic/heartbeat/heartbeat_parsed.sol":4201:4202  2 */
+  0x02
     /* "basic/heartbeat/heartbeat_parsed.sol":4172:4199  this_emitsig_Heart_dataslot */
   dup3
     /* "basic/heartbeat/heartbeat_parsed.sol":4168:4170  10 */
   0x0a
     /* "basic/heartbeat/heartbeat_parsed.sol":4144:4166  this_emitsig_Heart_key */
   dup4
-    /* "basic/heartbeat/heartbeat_parsed.sol":4136:4203  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4136:4203  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2) */
   emitsig
     /* "basic/heartbeat/heartbeat_parsed.sol":4130:4134  0x40 */
   0x40
-    /* "basic/heartbeat/heartbeat_parsed.sol":4123:4204  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
+    /* "basic/heartbeat/heartbeat_parsed.sol":4123:4204  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2)) */
   mstore
     /* "basic/heartbeat/heartbeat_parsed.sol":4118:4211  {... */
   pop
@@ -459,19 +459,19 @@ sub_0: assembly {
         /* "basic/heartbeat/heartbeat_parsed.sol":2449:2497  bytes32 this_emitsig_Heart_key = get_Heart_key() */
       swap1
       pop
-        /* "basic/heartbeat/heartbeat_parsed.sol":2667:2668  0 */
-      0x00
+        /* "basic/heartbeat/heartbeat_parsed.sol":2667:2668  2 */
+      0x02
         /* "basic/heartbeat/heartbeat_parsed.sol":2638:2665  this_emitsig_Heart_dataslot */
       dup3
         /* "basic/heartbeat/heartbeat_parsed.sol":2634:2636  10 */
       0x0a
         /* "basic/heartbeat/heartbeat_parsed.sol":2610:2632  this_emitsig_Heart_key */
       dup4
-        /* "basic/heartbeat/heartbeat_parsed.sol":2602:2669  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0) */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2602:2669  emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2) */
       emitsig
         /* "basic/heartbeat/heartbeat_parsed.sol":2596:2600  0x40 */
       0x40
-        /* "basic/heartbeat/heartbeat_parsed.sol":2589:2670  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0)) */
+        /* "basic/heartbeat/heartbeat_parsed.sol":2589:2670  mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2)) */
       mstore
         /* "basic/heartbeat/heartbeat_parsed.sol":2584:2677  {... */
       pop
@@ -502,5 +502,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa26469706673582212200227c0b971d2573b3418f76c30e0770533a6ace9c6a1c225d6aae9d9bf4ed21d64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa26469706673582212202a9130e9569411fc7f76f5d4d16f2dd10896d9f1cd3bc330b00a25bdb4a2280664736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

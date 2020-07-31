@@ -1,6 +1,6 @@
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2532  contract A {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2531  contract A {... */
   mstore(0x40, 0x80)
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2462:2530  constructor() public {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2461:2529  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,27 +11,27 @@
   revert
 tag_1:
   pop
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2488:2505  priceFeedUpdate() */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2487:2504  priceFeedUpdate() */
   tag_4
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2488:2503  priceFeedUpdate */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2487:2502  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2488:2505  priceFeedUpdate() */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2487:2504  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2509:2526  priceFeedUpdate() */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2508:2525  priceFeedUpdate() */
   tag_6
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2509:2524  priceFeedUpdate */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2508:2523  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2509:2526  priceFeedUpdate() */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2508:2525  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_6:
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2532  contract A {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2531  contract A {... */
   jump(tag_7)
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1285:1561  function priceFeedUpdate() private {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1285:1560  function priceFeedUpdate() private {... */
 tag_5:
     /* "basic/old_tests/blank_data/blank_data_parsed.sol":1352:1382  keccak256("priceFeedUpdate()") */
   mload(0x40)
@@ -58,27 +58,27 @@ tag_5:
   swap1
   sstore
   pop
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1456:1480  priceFeedUpdate_key_slot */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1455:1479  priceFeedUpdate_key_slot */
   0x03
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1450:1481  sload(priceFeedUpdate_key_slot) */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1449:1480  sload(priceFeedUpdate_key_slot) */
   sload
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1446:1448  32 */
-  0x20
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1436:1482  createsig(32, sload(priceFeedUpdate_key_slot)) */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1446:1447  1 */
+  0x01
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1436:1481  createsig(1, sload(priceFeedUpdate_key_slot)) */
   createsig
     /* "basic/old_tests/blank_data/blank_data_parsed.sol":1407:1434  priceFeedUpdate_status_slot */
   0x02
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1400:1483  sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot))) */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1400:1482  sstore(priceFeedUpdate_status_slot, createsig(1, sload(priceFeedUpdate_key_slot))) */
   sstore
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1525:1550  priceFeedUpdate_data_slot */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1524:1549  priceFeedUpdate_data_slot */
   0x00
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1494:1523  priceFeedUpdate_dataslot_slot */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1493:1522  priceFeedUpdate_dataslot_slot */
   0x01
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1487:1551  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1486:1550  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
   sstore
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1395:1555  {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":1395:1554  {... */
   jump	// out
-    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2532  contract A {... */
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2531  contract A {... */
 tag_7:
   dataSize(sub_0)
   dup1
@@ -90,7 +90,7 @@ tag_7:
 stop
 
 sub_0: assembly {
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2532  contract A {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":24:2531  contract A {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -155,7 +155,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":733:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
     tag_4:
       tag_10
       tag_11
@@ -177,7 +177,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1670:2460  function emitfunc() public {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1669:2459  function emitfunc() public {... */
     tag_5:
       tag_12
       tag_13
@@ -235,59 +235,59 @@ sub_0: assembly {
         /* "basic/old_tests/blank_data/blank_data_parsed.sol":41:76  uint public constant ONE_HOUR = 180 */
       dup2
       jump	// out
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":733:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
     tag_11:
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":790:799  uint argc */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":791:800  uint argc */
       0x00
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":817:819  32 */
-      0x20
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":810:819  return 32 */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":818:819  1 */
+      0x01
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":811:819  return 1 */
       swap1
       pop
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":733:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
       swap1
       jump	// out
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1670:2460  function emitfunc() public {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1669:2459  function emitfunc() public {... */
     tag_13:
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1960:2005  bytes32 this_emitsig_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1959:2004  bytes32 this_emitsig_priceFeedUpdate_dataslot */
       0x00
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2008:2038  get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2007:2037  get_priceFeedUpdate_dataslot() */
       tag_20
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2008:2036  get_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2007:2035  get_priceFeedUpdate_dataslot */
       tag_17
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2008:2038  get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2007:2037  get_priceFeedUpdate_dataslot() */
       jump	// in
     tag_20:
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1960:2038  bytes32 this_emitsig_priceFeedUpdate_dataslot = get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":1959:2037  bytes32 this_emitsig_priceFeedUpdate_dataslot = get_priceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2072:2112  bytes32 this_emitsig_priceFeedUpdate_key */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2071:2111  bytes32 this_emitsig_priceFeedUpdate_key */
       0x00
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2115:2140  get_priceFeedUpdate_key() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2114:2139  get_priceFeedUpdate_key() */
       tag_21
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2115:2138  get_priceFeedUpdate_key */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2114:2137  get_priceFeedUpdate_key */
       tag_15
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2115:2140  get_priceFeedUpdate_key() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2114:2139  get_priceFeedUpdate_key() */
       jump	// in
     tag_21:
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2072:2140  bytes32 this_emitsig_priceFeedUpdate_key = get_priceFeedUpdate_key() */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2071:2139  bytes32 this_emitsig_priceFeedUpdate_key = get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2336:2337  0 */
-      0x00
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2297:2334  this_emitsig_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2335:2336  2 */
+      0x02
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2296:2333  this_emitsig_priceFeedUpdate_dataslot */
       dup3
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2287:2295  ONE_HOUR */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2286:2294  ONE_HOUR */
       0xb4
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2253:2285  this_emitsig_priceFeedUpdate_key */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2252:2284  this_emitsig_priceFeedUpdate_key */
       dup4
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2245:2338  emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, 0) */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2244:2337  emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, 2) */
       emitsig
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2239:2243  0x40 */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2238:2242  0x40 */
       0x40
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2232:2339  mstore(0x40, emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, 0)) */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2231:2338  mstore(0x40, emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, 2)) */
       mstore
-        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2227:2346  {... */
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2226:2345  {... */
       pop
       pop
       jump	// out
@@ -316,5 +316,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220f86e03e89ad477fc7ae89359142cdf7ec622a89254d49be7d6d66ce88cb6698464736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa264697066735822122017f5fe0a26addbb2308dded17e8cbc9a31f34714f5b6649e8071a0ae340f24dc64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

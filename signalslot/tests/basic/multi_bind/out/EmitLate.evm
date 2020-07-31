@@ -1,6 +1,6 @@
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2398:4771  contract EmitLate {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":2397:4769  contract EmitLate {... */
   mstore(0x40, 0x80)
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4733:4769  constructor() public {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4731:4767  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,20 +11,20 @@
   revert
 tag_1:
   pop
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4759:4766  Alert() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4757:4764  Alert() */
   tag_4
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4759:4764  Alert */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4757:4762  Alert */
   shl(0x20, tag_5)
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4759:4766  Alert() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4757:4764  Alert() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2398:4771  contract EmitLate {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":2397:4769  contract EmitLate {... */
   jump(tag_6)
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3495:3701  function Alert() private {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3494:3699  function Alert() private {... */
 tag_5:
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3542:3562  keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3541:3561  keccak256("Alert()") */
   mload(0x40)
   dup1
   dup1
@@ -42,34 +42,34 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3530:3539  Alert_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3529:3538  Alert_key */
   0x03
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3530:3562  Alert_key = keccak256("Alert()") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3529:3561  Alert_key = keccak256("Alert()") */
   dup2
   swap1
   sstore
   pop
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3626:3640  Alert_key_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3624:3638  Alert_key_slot */
   0x03
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3620:3641  sload(Alert_key_slot) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3618:3639  sload(Alert_key_slot) */
   sload
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3616:3618  32 */
-  0x20
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3606:3642  createsig(32, sload(Alert_key_slot)) */
-  createsig
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3587:3604  Alert_status_slot */
-  0x02
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3580:3643  sstore(Alert_status_slot, createsig(32, sload(Alert_key_slot))) */
-  sstore
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3675:3690  Alert_data_slot */
-  0x00
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3654:3673  Alert_dataslot_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3615:3616  1 */
   0x01
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3647:3691  sstore(Alert_dataslot_slot, Alert_data_slot) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3605:3640  createsig(1, sload(Alert_key_slot)) */
+  createsig
+    /* "basic/multi_bind/multi_bind_parsed.sol":3586:3603  Alert_status_slot */
+  0x02
+    /* "basic/multi_bind/multi_bind_parsed.sol":3579:3641  sstore(Alert_status_slot, createsig(1, sload(Alert_key_slot))) */
   sstore
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3575:3695  {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":3673:3688  Alert_data_slot */
+  0x00
+    /* "basic/multi_bind/multi_bind_parsed.sol":3652:3671  Alert_dataslot_slot */
+  0x01
+    /* "basic/multi_bind/multi_bind_parsed.sol":3645:3689  sstore(Alert_dataslot_slot, Alert_data_slot) */
+  sstore
+    /* "basic/multi_bind/multi_bind_parsed.sol":3574:3693  {... */
   jump	// out
-    /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2398:4771  contract EmitLate {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":2397:4769  contract EmitLate {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -81,7 +81,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2398:4771  contract EmitLate {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2397:4769  contract EmitLate {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -119,7 +119,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3115:3206  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3114:3205  function get_Alert_key() public view returns (bytes32 key) {... */
     tag_3:
       tag_7
       tag_8
@@ -141,7 +141,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3811:4732  function send_alert(bytes32 data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3809:4730  function send_alert(bytes32 data) public {... */
     tag_4:
       tag_9
       0x04
@@ -178,7 +178,7 @@ sub_0: assembly {
       jump	// in
     tag_9:
       stop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3237:3343  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3236:3342  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
     tag_5:
       tag_12
       tag_13
@@ -200,7 +200,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3003:3086  function get_Alert_argc() public pure returns (uint argc) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3003:3085  function get_Alert_argc() public pure returns (uint argc) {... */
     tag_6:
       tag_14
       tag_15
@@ -222,123 +222,123 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3115:3206  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3114:3205  function get_Alert_key() public view returns (bytes32 key) {... */
     tag_8:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3161:3172  bytes32 key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3160:3171  bytes32 key */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3190:3199  Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3189:3198  Alert_key */
       sload(0x03)
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3183:3199  return Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3182:3198  return Alert_key */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3115:3206  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3114:3205  function get_Alert_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3811:4732  function send_alert(bytes32 data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3809:4730  function send_alert(bytes32 data) public {... */
     tag_11:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4132:4152  set_Alert_data(data) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4130:4150  set_Alert_data(data) */
       tag_18
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4147:4151  data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4145:4149  data */
       dup2
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4132:4146  set_Alert_data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4130:4144  set_Alert_data */
       tag_19
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4132:4152  set_Alert_data(data) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4130:4150  set_Alert_data(data) */
       jump	// in
     tag_18:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4196:4224  uint this_emitsig_Alert_argc */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4194:4222  uint this_emitsig_Alert_argc */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4227:4243  get_Alert_argc() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4225:4241  get_Alert_argc() */
       tag_20
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4227:4241  get_Alert_argc */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4225:4239  get_Alert_argc */
       tag_15
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4227:4243  get_Alert_argc() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4225:4241  get_Alert_argc() */
       jump	// in
     tag_20:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4196:4243  uint this_emitsig_Alert_argc = get_Alert_argc() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4194:4241  uint this_emitsig_Alert_argc = get_Alert_argc() */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4276:4311  bytes32 this_emitsig_Alert_dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4274:4309  bytes32 this_emitsig_Alert_dataslot */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4314:4334  get_Alert_dataslot() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4312:4332  get_Alert_dataslot() */
       tag_21
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4314:4332  get_Alert_dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4312:4330  get_Alert_dataslot */
       tag_13
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4314:4334  get_Alert_dataslot() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4312:4332  get_Alert_dataslot() */
       jump	// in
     tag_21:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4276:4334  bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4274:4332  bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot() */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4368:4398  bytes32 this_emitsig_Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4366:4396  bytes32 this_emitsig_Alert_key */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4401:4416  get_Alert_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4399:4414  get_Alert_key() */
       tag_22
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4401:4414  get_Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4399:4412  get_Alert_key */
       tag_8
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4401:4416  get_Alert_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4399:4414  get_Alert_key() */
       jump	// in
     tag_22:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4368:4416  bytes32 this_emitsig_Alert_key = get_Alert_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4366:4414  bytes32 this_emitsig_Alert_key = get_Alert_key() */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4586:4609  this_emitsig_Alert_argc */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4584:4607  this_emitsig_Alert_argc */
       dup3
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4557:4584  this_emitsig_Alert_dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4555:4582  this_emitsig_Alert_dataslot */
       dup3
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4553:4555  10 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4551:4553  10 */
       0x0a
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4529:4551  this_emitsig_Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4527:4549  this_emitsig_Alert_key */
       dup4
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4521:4610  emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4519:4608  emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc) */
       emitsig
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4515:4519  0x40 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4513:4517  0x40 */
       0x40
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4508:4611  mstore(0x40, emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc)) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4506:4609  mstore(0x40, emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc)) */
       mstore
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":4503:4618  {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4501:4616  {... */
       pop
       pop
       pop
       pop
       jump	// out
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3237:3343  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3236:3342  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
     tag_13:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3288:3304  bytes32 dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3287:3303  bytes32 dataslot */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3322:3336  Alert_dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3321:3335  Alert_dataslot */
       sload(0x01)
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3315:3336  return Alert_dataslot */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3314:3335  return Alert_dataslot */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3237:3343  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3236:3342  function get_Alert_dataslot() public view returns (bytes32 dataslot) {... */
       swap1
       jump	// out
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3003:3086  function get_Alert_argc() public pure returns (uint argc) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3003:3085  function get_Alert_argc() public pure returns (uint argc) {... */
     tag_15:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3050:3059  uint argc */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3050:3059  uint argc */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3077:3079  32 */
-      0x20
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3070:3079  return 32 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3077:3078  1 */
+      0x01
+        /* "basic/multi_bind/multi_bind_parsed.sol":3070:3078  return 1 */
       swap1
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":3003:3086  function get_Alert_argc() public pure returns (uint argc) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":3003:3085  function get_Alert_argc() public pure returns (uint argc) {... */
       swap1
       jump	// out
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2885:2970  function set_Alert_data(bytes32 dataSet) private {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2884:2970  function set_Alert_data(bytes32  dataSet) private {... */
     tag_19:
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2956:2963  dataSet */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2956:2963  dataSet */
       dup1
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2943:2953  Alert_data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2943:2953  Alert_data */
       0x00
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2943:2963  Alert_data = dataSet */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2943:2963  Alert_data = dataSet */
       dup2
       swap1
       sstore
       pop
-        /* "./tests/basic/multi_bind/multi_bind_parsed.sol":2885:2970  function set_Alert_data(bytes32 dataSet) private {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":2884:2970  function set_Alert_data(bytes32  dataSet) private {... */
       pop
       jump	// out
 
-    auxdata: 0xa26469706673582212208f925f2f9a51d1d25306139bd2ffb1067157d0626424d0197d21443de95509b764736f6c63782c302e362e31312d646576656c6f702e323032302e372e32312b636f6d6d69742e63316635663761632e6d6f64005d
+    auxdata: 0xa2646970667358221220114d561e782f1e462bc135b2bc0051bcfdd5902ca7166bb9c6960d5ecdc94cb764736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

@@ -1,6 +1,6 @@
-    /* "./feed/feed_parsed.sol":26:5858  contract PriceOracleBuffer {... */
+    /* "./feed/feed_parsed.sol":26:5856  contract PriceOracleBuffer {... */
   mstore(0x40, 0x80)
-    /* "./feed/feed_parsed.sol":3925:5856  constructor() public {... */
+    /* "./feed/feed_parsed.sol":3923:5854  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,43 +11,43 @@
   revert
 tag_1:
   pop
-    /* "./feed/feed_parsed.sol":3951:3968  PriceFeedUpdate() */
+    /* "./feed/feed_parsed.sol":3949:3966  PriceFeedUpdate() */
   tag_4
-    /* "./feed/feed_parsed.sol":3951:3966  PriceFeedUpdate */
+    /* "./feed/feed_parsed.sol":3949:3964  PriceFeedUpdate */
   shl(0x20, tag_5)
-    /* "./feed/feed_parsed.sol":3951:3968  PriceFeedUpdate() */
+    /* "./feed/feed_parsed.sol":3949:3966  PriceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "./feed/feed_parsed.sol":3973:3985  SendUpdate() */
+    /* "./feed/feed_parsed.sol":3971:3983  SendUpdate() */
   tag_6
-    /* "./feed/feed_parsed.sol":3973:3983  SendUpdate */
+    /* "./feed/feed_parsed.sol":3971:3981  SendUpdate */
   shl(0x20, tag_7)
-    /* "./feed/feed_parsed.sol":3973:3985  SendUpdate() */
+    /* "./feed/feed_parsed.sol":3971:3983  SendUpdate() */
   0x20
   shr
   jump	// in
 tag_6:
-    /* "./feed/feed_parsed.sol":4027:4028  0 */
+    /* "./feed/feed_parsed.sol":4025:4026  0 */
   0x00
-    /* "./feed/feed_parsed.sol":4013:4024  peeked_data */
+    /* "./feed/feed_parsed.sol":4011:4022  peeked_data */
   0x02
-    /* "./feed/feed_parsed.sol":4013:4028  peeked_data = 0 */
+    /* "./feed/feed_parsed.sol":4011:4026  peeked_data = 0 */
   dup2
   swap1
   sstore
   pop
-    /* "./feed/feed_parsed.sol":4288:4317  address this_bindslot_address */
+    /* "./feed/feed_parsed.sol":4286:4315  address this_bindslot_address */
   0x00
-    /* "./feed/feed_parsed.sol":4328:4332  this */
+    /* "./feed/feed_parsed.sol":4326:4330  this */
   address
-    /* "./feed/feed_parsed.sol":4288:4333  address this_bindslot_address = address(this) */
+    /* "./feed/feed_parsed.sol":4286:4331  address this_bindslot_address = address(this) */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":4385:4426  bytes32 this_bindslot_PriceFeedUpdate_key */
+    /* "./feed/feed_parsed.sol":4383:4424  bytes32 this_bindslot_PriceFeedUpdate_key */
   0x00
-    /* "./feed/feed_parsed.sol":4429:4459  keccak256("PriceFeedUpdate()") */
+    /* "./feed/feed_parsed.sol":4427:4457  keccak256("PriceFeedUpdate()") */
   mload(0x40)
   dup1
   dup1
@@ -65,112 +65,112 @@ tag_6:
   sub
   swap1
   keccak256
-    /* "./feed/feed_parsed.sol":4385:4459  bytes32 this_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()") */
+    /* "./feed/feed_parsed.sol":4383:4457  bytes32 this_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()") */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":4516:4557  bytes32 this_this_bindslot_SendUpdate_key */
+    /* "./feed/feed_parsed.sol":4514:4555  bytes32 this_this_bindslot_SendUpdate_key */
   0x00
-    /* "./feed/feed_parsed.sol":4560:4580  get_SendUpdate_key() */
+    /* "./feed/feed_parsed.sol":4558:4578  get_SendUpdate_key() */
   tag_8
-    /* "./feed/feed_parsed.sol":4560:4578  get_SendUpdate_key */
+    /* "./feed/feed_parsed.sol":4558:4576  get_SendUpdate_key */
   shl(0x20, tag_9)
-    /* "./feed/feed_parsed.sol":4560:4580  get_SendUpdate_key() */
+    /* "./feed/feed_parsed.sol":4558:4578  get_SendUpdate_key() */
   0x20
   shr
   jump	// in
 tag_8:
-    /* "./feed/feed_parsed.sol":4516:4580  bytes32 this_this_bindslot_SendUpdate_key = get_SendUpdate_key() */
+    /* "./feed/feed_parsed.sol":4514:4578  bytes32 this_this_bindslot_SendUpdate_key = get_SendUpdate_key() */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":4725:4758  this_this_bindslot_SendUpdate_key */
+    /* "./feed/feed_parsed.sol":4723:4756  this_this_bindslot_SendUpdate_key */
   dup1
-    /* "./feed/feed_parsed.sol":4690:4723  this_bindslot_PriceFeedUpdate_key */
+    /* "./feed/feed_parsed.sol":4688:4721  this_bindslot_PriceFeedUpdate_key */
   dup3
-    /* "./feed/feed_parsed.sol":4667:4688  this_bindslot_address */
+    /* "./feed/feed_parsed.sol":4665:4686  this_bindslot_address */
   dup5
-    /* "./feed/feed_parsed.sol":4658:4759  bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_this_bindslot_SendUpdate_key) */
+    /* "./feed/feed_parsed.sol":4656:4757  bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_this_bindslot_SendUpdate_key) */
   bindslot
-    /* "./feed/feed_parsed.sol":4652:4656  0x40 */
+    /* "./feed/feed_parsed.sol":4650:4654  0x40 */
   0x40
-    /* "./feed/feed_parsed.sol":4645:4760  mstore(0x40, bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_this_bindslot_SendUpdate_key)) */
+    /* "./feed/feed_parsed.sol":4643:4758  mstore(0x40, bindslot(this_bindslot_address, this_bindslot_PriceFeedUpdate_key, this_this_bindslot_SendUpdate_key)) */
   mstore
-    /* "./feed/feed_parsed.sol":5160:5187  set_PriceFeedUpdate_data(0) */
+    /* "./feed/feed_parsed.sol":5158:5185  set_PriceFeedUpdate_data(0) */
   tag_10
-    /* "./feed/feed_parsed.sol":5185:5186  0 */
+    /* "./feed/feed_parsed.sol":5183:5184  0 */
   0x00
-    /* "./feed/feed_parsed.sol":5160:5184  set_PriceFeedUpdate_data */
+    /* "./feed/feed_parsed.sol":5158:5182  set_PriceFeedUpdate_data */
   shl(0x20, tag_11)
-    /* "./feed/feed_parsed.sol":5160:5187  set_PriceFeedUpdate_data(0) */
+    /* "./feed/feed_parsed.sol":5158:5185  set_PriceFeedUpdate_data(0) */
   0x20
   shr
   jump	// in
 tag_10:
-    /* "./feed/feed_parsed.sol":5231:5269  uint this_emitsig_PriceFeedUpdate_argc */
+    /* "./feed/feed_parsed.sol":5229:5267  uint this_emitsig_PriceFeedUpdate_argc */
   0x00
-    /* "./feed/feed_parsed.sol":5272:5298  get_PriceFeedUpdate_argc() */
+    /* "./feed/feed_parsed.sol":5270:5296  get_PriceFeedUpdate_argc() */
   tag_12
-    /* "./feed/feed_parsed.sol":5272:5296  get_PriceFeedUpdate_argc */
+    /* "./feed/feed_parsed.sol":5270:5294  get_PriceFeedUpdate_argc */
   shl(0x20, tag_13)
-    /* "./feed/feed_parsed.sol":5272:5298  get_PriceFeedUpdate_argc() */
+    /* "./feed/feed_parsed.sol":5270:5296  get_PriceFeedUpdate_argc() */
   0x20
   shr
   jump	// in
 tag_12:
-    /* "./feed/feed_parsed.sol":5231:5298  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
+    /* "./feed/feed_parsed.sol":5229:5296  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":5331:5376  bytes32 this_emitsig_PriceFeedUpdate_dataslot */
+    /* "./feed/feed_parsed.sol":5329:5374  bytes32 this_emitsig_PriceFeedUpdate_dataslot */
   0x00
-    /* "./feed/feed_parsed.sol":5379:5409  get_PriceFeedUpdate_dataslot() */
+    /* "./feed/feed_parsed.sol":5377:5407  get_PriceFeedUpdate_dataslot() */
   tag_14
-    /* "./feed/feed_parsed.sol":5379:5407  get_PriceFeedUpdate_dataslot */
+    /* "./feed/feed_parsed.sol":5377:5405  get_PriceFeedUpdate_dataslot */
   shl(0x20, tag_15)
-    /* "./feed/feed_parsed.sol":5379:5409  get_PriceFeedUpdate_dataslot() */
+    /* "./feed/feed_parsed.sol":5377:5407  get_PriceFeedUpdate_dataslot() */
   0x20
   shr
   jump	// in
 tag_14:
-    /* "./feed/feed_parsed.sol":5331:5409  bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
+    /* "./feed/feed_parsed.sol":5329:5407  bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":5443:5483  bytes32 this_emitsig_PriceFeedUpdate_key */
+    /* "./feed/feed_parsed.sol":5441:5481  bytes32 this_emitsig_PriceFeedUpdate_key */
   0x00
-    /* "./feed/feed_parsed.sol":5486:5511  get_PriceFeedUpdate_key() */
+    /* "./feed/feed_parsed.sol":5484:5509  get_PriceFeedUpdate_key() */
   tag_16
-    /* "./feed/feed_parsed.sol":5486:5509  get_PriceFeedUpdate_key */
+    /* "./feed/feed_parsed.sol":5484:5507  get_PriceFeedUpdate_key */
   shl(0x20, tag_17)
-    /* "./feed/feed_parsed.sol":5486:5511  get_PriceFeedUpdate_key() */
+    /* "./feed/feed_parsed.sol":5484:5509  get_PriceFeedUpdate_key() */
   0x20
   shr
   jump	// in
 tag_16:
-    /* "./feed/feed_parsed.sol":5443:5511  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
+    /* "./feed/feed_parsed.sol":5441:5509  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":5700:5733  this_emitsig_PriceFeedUpdate_argc */
+    /* "./feed/feed_parsed.sol":5698:5731  this_emitsig_PriceFeedUpdate_argc */
   dup3
-    /* "./feed/feed_parsed.sol":5661:5698  this_emitsig_PriceFeedUpdate_dataslot */
+    /* "./feed/feed_parsed.sol":5659:5696  this_emitsig_PriceFeedUpdate_dataslot */
   dup3
-    /* "./feed/feed_parsed.sol":5658:5659  0 */
+    /* "./feed/feed_parsed.sol":5656:5657  0 */
   0x00
-    /* "./feed/feed_parsed.sol":5624:5656  this_emitsig_PriceFeedUpdate_key */
+    /* "./feed/feed_parsed.sol":5622:5654  this_emitsig_PriceFeedUpdate_key */
   dup4
-    /* "./feed/feed_parsed.sol":5616:5734  emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
+    /* "./feed/feed_parsed.sol":5614:5732  emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
   emitsig
-    /* "./feed/feed_parsed.sol":5610:5614  0x40 */
+    /* "./feed/feed_parsed.sol":5608:5612  0x40 */
   0x40
-    /* "./feed/feed_parsed.sol":5603:5735  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
+    /* "./feed/feed_parsed.sol":5601:5733  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
   mstore
-    /* "./feed/feed_parsed.sol":5598:5742  {... */
+    /* "./feed/feed_parsed.sol":5596:5740  {... */
   pop
   pop
   pop
   pop
   pop
   pop
-    /* "./feed/feed_parsed.sol":26:5858  contract PriceOracleBuffer {... */
+    /* "./feed/feed_parsed.sol":26:5856  contract PriceOracleBuffer {... */
   jump(tag_18)
-    /* "./feed/feed_parsed.sol":1383:1659  function PriceFeedUpdate() private {... */
+    /* "./feed/feed_parsed.sol":1383:1658  function PriceFeedUpdate() private {... */
 tag_5:
     /* "./feed/feed_parsed.sol":1450:1480  keccak256("PriceFeedUpdate()") */
   mload(0x40)
@@ -197,29 +197,29 @@ tag_5:
   swap1
   sstore
   pop
-    /* "./feed/feed_parsed.sol":1554:1578  PriceFeedUpdate_key_slot */
+    /* "./feed/feed_parsed.sol":1553:1577  PriceFeedUpdate_key_slot */
   0x06
-    /* "./feed/feed_parsed.sol":1548:1579  sload(PriceFeedUpdate_key_slot) */
+    /* "./feed/feed_parsed.sol":1547:1578  sload(PriceFeedUpdate_key_slot) */
   sload
-    /* "./feed/feed_parsed.sol":1544:1546  32 */
-  0x20
-    /* "./feed/feed_parsed.sol":1534:1580  createsig(32, sload(PriceFeedUpdate_key_slot)) */
+    /* "./feed/feed_parsed.sol":1544:1545  1 */
+  0x01
+    /* "./feed/feed_parsed.sol":1534:1579  createsig(1, sload(PriceFeedUpdate_key_slot)) */
   createsig
     /* "./feed/feed_parsed.sol":1505:1532  PriceFeedUpdate_status_slot */
   0x05
-    /* "./feed/feed_parsed.sol":1498:1581  sstore(PriceFeedUpdate_status_slot, createsig(32, sload(PriceFeedUpdate_key_slot))) */
+    /* "./feed/feed_parsed.sol":1498:1580  sstore(PriceFeedUpdate_status_slot, createsig(1, sload(PriceFeedUpdate_key_slot))) */
   sstore
-    /* "./feed/feed_parsed.sol":1623:1648  PriceFeedUpdate_data_slot */
+    /* "./feed/feed_parsed.sol":1622:1647  PriceFeedUpdate_data_slot */
   0x03
-    /* "./feed/feed_parsed.sol":1592:1621  PriceFeedUpdate_dataslot_slot */
+    /* "./feed/feed_parsed.sol":1591:1620  PriceFeedUpdate_dataslot_slot */
   0x04
-    /* "./feed/feed_parsed.sol":1585:1649  sstore(PriceFeedUpdate_dataslot_slot, PriceFeedUpdate_data_slot) */
+    /* "./feed/feed_parsed.sol":1584:1648  sstore(PriceFeedUpdate_dataslot_slot, PriceFeedUpdate_data_slot) */
   sstore
-    /* "./feed/feed_parsed.sol":1493:1653  {... */
+    /* "./feed/feed_parsed.sol":1493:1652  {... */
   jump	// out
-    /* "./feed/feed_parsed.sol":2311:2536  function SendUpdate() private {... */
+    /* "./feed/feed_parsed.sol":2310:2534  function SendUpdate() private {... */
 tag_7:
-    /* "./feed/feed_parsed.sol":2368:2402  keccak256("SendUpdate_func(uint)") */
+    /* "./feed/feed_parsed.sol":2367:2401  keccak256("SendUpdate_func(uint)") */
   mload(0x40)
   dup1
   dup1
@@ -237,67 +237,67 @@ tag_7:
   sub
   swap1
   keccak256
-    /* "./feed/feed_parsed.sol":2351:2365  SendUpdate_key */
+    /* "./feed/feed_parsed.sol":2350:2364  SendUpdate_key */
   0x08
-    /* "./feed/feed_parsed.sol":2351:2402  SendUpdate_key = keccak256("SendUpdate_func(uint)") */
+    /* "./feed/feed_parsed.sol":2350:2401  SendUpdate_key = keccak256("SendUpdate_func(uint)") */
   dup2
   swap1
   sstore
   pop
-    /* "./feed/feed_parsed.sol":2498:2517  SendUpdate_key_slot */
+    /* "./feed/feed_parsed.sol":2496:2515  SendUpdate_key_slot */
   0x08
-    /* "./feed/feed_parsed.sol":2492:2518  sload(SendUpdate_key_slot) */
+    /* "./feed/feed_parsed.sol":2490:2516  sload(SendUpdate_key_slot) */
   sload
-    /* "./feed/feed_parsed.sol":2485:2490  30000 */
+    /* "./feed/feed_parsed.sol":2483:2488  30000 */
   0x7530
-    /* "./feed/feed_parsed.sol":2481:2483  10 */
+    /* "./feed/feed_parsed.sol":2479:2481  10 */
   0x0a
-    /* "./feed/feed_parsed.sol":2477:2479  32 */
-  0x20
-    /* "./feed/feed_parsed.sol":2466:2519  createslot(32, 10, 30000, sload(SendUpdate_key_slot)) */
+    /* "./feed/feed_parsed.sol":2476:2477  1 */
+  0x01
+    /* "./feed/feed_parsed.sol":2465:2517  createslot(1, 10, 30000, sload(SendUpdate_key_slot)) */
   createslot
-    /* "./feed/feed_parsed.sol":2442:2464  SendUpdate_status_slot */
+    /* "./feed/feed_parsed.sol":2441:2463  SendUpdate_status_slot */
   0x07
-    /* "./feed/feed_parsed.sol":2435:2520  sstore(SendUpdate_status_slot, createslot(32, 10, 30000, sload(SendUpdate_key_slot))) */
+    /* "./feed/feed_parsed.sol":2434:2518  sstore(SendUpdate_status_slot, createslot(1, 10, 30000, sload(SendUpdate_key_slot))) */
   sstore
-    /* "./feed/feed_parsed.sol":2421:2530  {... */
+    /* "./feed/feed_parsed.sol":2420:2528  {... */
   jump	// out
-    /* "./feed/feed_parsed.sol":2115:2216  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+    /* "./feed/feed_parsed.sol":2114:2215  function get_SendUpdate_key() public view returns (bytes32 key) {... */
 tag_9:
-    /* "./feed/feed_parsed.sol":2166:2177  bytes32 key */
+    /* "./feed/feed_parsed.sol":2165:2176  bytes32 key */
   0x00
-    /* "./feed/feed_parsed.sol":2195:2209  SendUpdate_key */
+    /* "./feed/feed_parsed.sol":2194:2208  SendUpdate_key */
   sload(0x08)
-    /* "./feed/feed_parsed.sol":2188:2209  return SendUpdate_key */
+    /* "./feed/feed_parsed.sol":2187:2208  return SendUpdate_key */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":2115:2216  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+    /* "./feed/feed_parsed.sol":2114:2215  function get_SendUpdate_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
-    /* "./feed/feed_parsed.sol":696:798  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+    /* "./feed/feed_parsed.sol":696:799  function set_PriceFeedUpdate_data(uint  dataSet) private {... */
 tag_11:
-    /* "./feed/feed_parsed.sol":784:791  dataSet */
+    /* "./feed/feed_parsed.sol":785:792  dataSet */
   dup1
-    /* "./feed/feed_parsed.sol":761:781  PriceFeedUpdate_data */
+    /* "./feed/feed_parsed.sol":762:782  PriceFeedUpdate_data */
   0x03
-    /* "./feed/feed_parsed.sol":761:791  PriceFeedUpdate_data = dataSet */
+    /* "./feed/feed_parsed.sol":762:792  PriceFeedUpdate_data = dataSet */
   dup2
   swap1
   sstore
   pop
-    /* "./feed/feed_parsed.sol":696:798  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+    /* "./feed/feed_parsed.sol":696:799  function set_PriceFeedUpdate_data(uint  dataSet) private {... */
   pop
   jump	// out
-    /* "./feed/feed_parsed.sol":831:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+    /* "./feed/feed_parsed.sol":832:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
 tag_13:
-    /* "./feed/feed_parsed.sol":888:897  uint argc */
+    /* "./feed/feed_parsed.sol":889:898  uint argc */
   0x00
-    /* "./feed/feed_parsed.sol":915:917  32 */
-  0x20
-    /* "./feed/feed_parsed.sol":908:917  return 32 */
+    /* "./feed/feed_parsed.sol":916:917  1 */
+  0x01
+    /* "./feed/feed_parsed.sol":909:917  return 1 */
   swap1
   pop
-    /* "./feed/feed_parsed.sol":831:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+    /* "./feed/feed_parsed.sol":832:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
   swap1
   jump	// out
     /* "./feed/feed_parsed.sol":1095:1221  function get_PriceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
@@ -324,7 +324,7 @@ tag_17:
     /* "./feed/feed_parsed.sol":953:1064  function get_PriceFeedUpdate_key() public view returns (bytes32 key) {... */
   swap1
   jump	// out
-    /* "./feed/feed_parsed.sol":26:5858  contract PriceOracleBuffer {... */
+    /* "./feed/feed_parsed.sol":26:5856  contract PriceOracleBuffer {... */
 tag_18:
   dataSize(sub_0)
   dup1
@@ -336,7 +336,7 @@ tag_18:
 stop
 
 sub_0: assembly {
-        /* "./feed/feed_parsed.sol":26:5858  contract PriceOracleBuffer {... */
+        /* "./feed/feed_parsed.sol":26:5856  contract PriceOracleBuffer {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -384,7 +384,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "./feed/feed_parsed.sol":2115:2216  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+        /* "./feed/feed_parsed.sol":2114:2215  function get_SendUpdate_key() public view returns (bytes32 key) {... */
     tag_3:
       tag_9
       tag_10
@@ -406,7 +406,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./feed/feed_parsed.sol":831:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "./feed/feed_parsed.sol":832:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
     tag_4:
       tag_11
       tag_12
@@ -428,7 +428,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./feed/feed_parsed.sol":2768:3914  function SendUpdate_func(uint unused) public {... */
+        /* "./feed/feed_parsed.sol":2766:3912  function SendUpdate_func(uint unused) public {... */
     tag_5:
       tag_13
       0x04
@@ -531,123 +531,123 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./feed/feed_parsed.sol":2115:2216  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+        /* "./feed/feed_parsed.sol":2114:2215  function get_SendUpdate_key() public view returns (bytes32 key) {... */
     tag_10:
-        /* "./feed/feed_parsed.sol":2166:2177  bytes32 key */
+        /* "./feed/feed_parsed.sol":2165:2176  bytes32 key */
       0x00
-        /* "./feed/feed_parsed.sol":2195:2209  SendUpdate_key */
+        /* "./feed/feed_parsed.sol":2194:2208  SendUpdate_key */
       sload(0x08)
-        /* "./feed/feed_parsed.sol":2188:2209  return SendUpdate_key */
+        /* "./feed/feed_parsed.sol":2187:2208  return SendUpdate_key */
       swap1
       pop
-        /* "./feed/feed_parsed.sol":2115:2216  function get_SendUpdate_key() public view returns (bytes32 key) {... */
+        /* "./feed/feed_parsed.sol":2114:2215  function get_SendUpdate_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "./feed/feed_parsed.sol":831:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "./feed/feed_parsed.sol":832:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
     tag_12:
-        /* "./feed/feed_parsed.sol":888:897  uint argc */
+        /* "./feed/feed_parsed.sol":889:898  uint argc */
       0x00
-        /* "./feed/feed_parsed.sol":915:917  32 */
-      0x20
-        /* "./feed/feed_parsed.sol":908:917  return 32 */
+        /* "./feed/feed_parsed.sol":916:917  1 */
+      0x01
+        /* "./feed/feed_parsed.sol":909:917  return 1 */
       swap1
       pop
-        /* "./feed/feed_parsed.sol":831:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "./feed/feed_parsed.sol":832:924  function get_PriceFeedUpdate_argc() public pure returns (uint argc) {... */
       swap1
       jump	// out
-        /* "./feed/feed_parsed.sol":2768:3914  function SendUpdate_func(uint unused) public {... */
+        /* "./feed/feed_parsed.sol":2766:3912  function SendUpdate_func(uint unused) public {... */
     tag_15:
-        /* "./feed/feed_parsed.sol":2851:2852  1 */
+        /* "./feed/feed_parsed.sol":2849:2850  1 */
       0x01
-        /* "./feed/feed_parsed.sol":2837:2848  peeked_data */
+        /* "./feed/feed_parsed.sol":2835:2846  peeked_data */
       sload(0x02)
-        /* "./feed/feed_parsed.sol":2837:2852  peeked_data + 1 */
+        /* "./feed/feed_parsed.sol":2835:2850  peeked_data + 1 */
       add
-        /* "./feed/feed_parsed.sol":2823:2834  peeked_data */
+        /* "./feed/feed_parsed.sol":2821:2832  peeked_data */
       0x02
-        /* "./feed/feed_parsed.sol":2823:2852  peeked_data = peeked_data + 1 */
+        /* "./feed/feed_parsed.sol":2821:2850  peeked_data = peeked_data + 1 */
       dup2
       swap1
       sstore
       pop
-        /* "./feed/feed_parsed.sol":2868:2871  nxt */
+        /* "./feed/feed_parsed.sol":2866:2869  nxt */
       sload(0x01)
-        /* "./feed/feed_parsed.sol":2862:2865  cur */
+        /* "./feed/feed_parsed.sol":2860:2863  cur */
       0x00
-        /* "./feed/feed_parsed.sol":2862:2871  cur = nxt */
+        /* "./feed/feed_parsed.sol":2860:2869  cur = nxt */
       dup2
       swap1
       sstore
       pop
-        /* "./feed/feed_parsed.sol":2887:2898  peeked_data */
+        /* "./feed/feed_parsed.sol":2885:2896  peeked_data */
       sload(0x02)
-        /* "./feed/feed_parsed.sol":2881:2884  nxt */
+        /* "./feed/feed_parsed.sol":2879:2882  nxt */
       0x01
-        /* "./feed/feed_parsed.sol":2881:2898  nxt = peeked_data */
+        /* "./feed/feed_parsed.sol":2879:2896  nxt = peeked_data */
       dup2
       swap1
       sstore
       pop
-        /* "./feed/feed_parsed.sol":3201:3230  set_PriceFeedUpdate_data(cur) */
+        /* "./feed/feed_parsed.sol":3199:3228  set_PriceFeedUpdate_data(cur) */
       tag_25
-        /* "./feed/feed_parsed.sol":3226:3229  cur */
+        /* "./feed/feed_parsed.sol":3224:3227  cur */
       sload(0x00)
-        /* "./feed/feed_parsed.sol":3201:3225  set_PriceFeedUpdate_data */
+        /* "./feed/feed_parsed.sol":3199:3223  set_PriceFeedUpdate_data */
       tag_26
-        /* "./feed/feed_parsed.sol":3201:3230  set_PriceFeedUpdate_data(cur) */
+        /* "./feed/feed_parsed.sol":3199:3228  set_PriceFeedUpdate_data(cur) */
       jump	// in
     tag_25:
-        /* "./feed/feed_parsed.sol":3274:3312  uint this_emitsig_PriceFeedUpdate_argc */
+        /* "./feed/feed_parsed.sol":3272:3310  uint this_emitsig_PriceFeedUpdate_argc */
       0x00
-        /* "./feed/feed_parsed.sol":3315:3341  get_PriceFeedUpdate_argc() */
+        /* "./feed/feed_parsed.sol":3313:3339  get_PriceFeedUpdate_argc() */
       tag_27
-        /* "./feed/feed_parsed.sol":3315:3339  get_PriceFeedUpdate_argc */
+        /* "./feed/feed_parsed.sol":3313:3337  get_PriceFeedUpdate_argc */
       tag_12
-        /* "./feed/feed_parsed.sol":3315:3341  get_PriceFeedUpdate_argc() */
+        /* "./feed/feed_parsed.sol":3313:3339  get_PriceFeedUpdate_argc() */
       jump	// in
     tag_27:
-        /* "./feed/feed_parsed.sol":3274:3341  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
+        /* "./feed/feed_parsed.sol":3272:3339  uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc() */
       swap1
       pop
-        /* "./feed/feed_parsed.sol":3374:3419  bytes32 this_emitsig_PriceFeedUpdate_dataslot */
+        /* "./feed/feed_parsed.sol":3372:3417  bytes32 this_emitsig_PriceFeedUpdate_dataslot */
       0x00
-        /* "./feed/feed_parsed.sol":3422:3452  get_PriceFeedUpdate_dataslot() */
+        /* "./feed/feed_parsed.sol":3420:3450  get_PriceFeedUpdate_dataslot() */
       tag_28
-        /* "./feed/feed_parsed.sol":3422:3450  get_PriceFeedUpdate_dataslot */
+        /* "./feed/feed_parsed.sol":3420:3448  get_PriceFeedUpdate_dataslot */
       tag_21
-        /* "./feed/feed_parsed.sol":3422:3452  get_PriceFeedUpdate_dataslot() */
+        /* "./feed/feed_parsed.sol":3420:3450  get_PriceFeedUpdate_dataslot() */
       jump	// in
     tag_28:
-        /* "./feed/feed_parsed.sol":3374:3452  bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
+        /* "./feed/feed_parsed.sol":3372:3450  bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "./feed/feed_parsed.sol":3486:3526  bytes32 this_emitsig_PriceFeedUpdate_key */
+        /* "./feed/feed_parsed.sol":3484:3524  bytes32 this_emitsig_PriceFeedUpdate_key */
       0x00
-        /* "./feed/feed_parsed.sol":3529:3554  get_PriceFeedUpdate_key() */
+        /* "./feed/feed_parsed.sol":3527:3552  get_PriceFeedUpdate_key() */
       tag_29
-        /* "./feed/feed_parsed.sol":3529:3552  get_PriceFeedUpdate_key */
+        /* "./feed/feed_parsed.sol":3527:3550  get_PriceFeedUpdate_key */
       tag_19
-        /* "./feed/feed_parsed.sol":3529:3554  get_PriceFeedUpdate_key() */
+        /* "./feed/feed_parsed.sol":3527:3552  get_PriceFeedUpdate_key() */
       jump	// in
     tag_29:
-        /* "./feed/feed_parsed.sol":3486:3554  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
+        /* "./feed/feed_parsed.sol":3484:3552  bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key() */
       swap1
       pop
-        /* "./feed/feed_parsed.sol":3758:3791  this_emitsig_PriceFeedUpdate_argc */
+        /* "./feed/feed_parsed.sol":3756:3789  this_emitsig_PriceFeedUpdate_argc */
       dup3
-        /* "./feed/feed_parsed.sol":3719:3756  this_emitsig_PriceFeedUpdate_dataslot */
+        /* "./feed/feed_parsed.sol":3717:3754  this_emitsig_PriceFeedUpdate_dataslot */
       dup3
-        /* "./feed/feed_parsed.sol":3701:3717  ONE_HOUR_CONFLUX */
+        /* "./feed/feed_parsed.sol":3699:3715  ONE_HOUR_CONFLUX */
       0x1c20
-        /* "./feed/feed_parsed.sol":3667:3699  this_emitsig_PriceFeedUpdate_key */
+        /* "./feed/feed_parsed.sol":3665:3697  this_emitsig_PriceFeedUpdate_key */
       dup4
-        /* "./feed/feed_parsed.sol":3659:3792  emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
+        /* "./feed/feed_parsed.sol":3657:3790  emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc) */
       emitsig
-        /* "./feed/feed_parsed.sol":3653:3657  0x40 */
+        /* "./feed/feed_parsed.sol":3651:3655  0x40 */
       0x40
-        /* "./feed/feed_parsed.sol":3646:3793  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
+        /* "./feed/feed_parsed.sol":3644:3791  mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc)) */
       mstore
-        /* "./feed/feed_parsed.sol":3641:3800  {... */
+        /* "./feed/feed_parsed.sol":3639:3798  {... */
       pop
       pop
       pop
@@ -684,20 +684,20 @@ sub_0: assembly {
         /* "./feed/feed_parsed.sol":1095:1221  function get_PriceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
       swap1
       jump	// out
-        /* "./feed/feed_parsed.sol":696:798  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+        /* "./feed/feed_parsed.sol":696:799  function set_PriceFeedUpdate_data(uint  dataSet) private {... */
     tag_26:
-        /* "./feed/feed_parsed.sol":784:791  dataSet */
+        /* "./feed/feed_parsed.sol":785:792  dataSet */
       dup1
-        /* "./feed/feed_parsed.sol":761:781  PriceFeedUpdate_data */
+        /* "./feed/feed_parsed.sol":762:782  PriceFeedUpdate_data */
       0x03
-        /* "./feed/feed_parsed.sol":761:791  PriceFeedUpdate_data = dataSet */
+        /* "./feed/feed_parsed.sol":762:792  PriceFeedUpdate_data = dataSet */
       dup2
       swap1
       sstore
       pop
-        /* "./feed/feed_parsed.sol":696:798  function set_PriceFeedUpdate_data(uint dataSet) private {... */
+        /* "./feed/feed_parsed.sol":696:799  function set_PriceFeedUpdate_data(uint  dataSet) private {... */
       pop
       jump	// out
 
-    auxdata: 0xa264697066735822122073432fb257a2bd48bb90da86a53bdc23bbfeff0674f6dee6a11423d8edd6f86b64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220db36a4829bca6590ef665fc0ce0b76d2dc2c9cda2eb5813a8c345fed199e7c7864736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

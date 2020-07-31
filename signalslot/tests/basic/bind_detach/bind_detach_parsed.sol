@@ -16,13 +16,13 @@ contract Emitter {
     bytes32 private Alert_key;
 
     // Set the data to be emitted
-	function set_Alert_data(bytes32 dataSet) private {
+	function set_Alert_data(bytes32  dataSet) private {
        Alert_data = dataSet;
     }
 
     // Get the argument count
 	function get_Alert_argc() public pure returns (uint argc) {
-       return 32;
+       return 1;
     }
 
     // Get the signal key
@@ -41,7 +41,7 @@ contract Emitter {
     function Alert() private {
         Alert_key = keccak256("Alert()");
 		assembly {
-			sstore(Alert_status_slot, createsig(32, sload(Alert_key_slot)))
+			sstore(Alert_status_slot, createsig(1, sload(Alert_key_slot)))
 			sstore(Alert_dataslot_slot, Alert_data_slot)
 		}
     }
@@ -99,7 +99,7 @@ contract Receiver {
     function HandleAlert() private {
         HandleAlert_key = keccak256("HandleAlert_func(bytes32)");
         assembly {
-            sstore(HandleAlert_status_slot, createslot(32, 10, 30000, sload(HandleAlert_key_slot)))
+            sstore(HandleAlert_status_slot, createslot(1, 10, 30000, sload(HandleAlert_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////

@@ -333,7 +333,7 @@ END_MESSAGE
 		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig($emiter_tr\_emitsig\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_emitsig\_$sig_obj_func\_dataslot, 0))
+			mstore(0x40, emitsig($emiter_tr\_emitsig\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_emitsig\_$sig_obj_func\_dataslot, 2))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 END_MESSAGE

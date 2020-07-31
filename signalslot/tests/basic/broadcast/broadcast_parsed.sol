@@ -48,7 +48,7 @@ contract Emitter {
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 0))
+			mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 2))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

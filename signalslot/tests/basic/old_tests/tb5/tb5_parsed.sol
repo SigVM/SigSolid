@@ -16,13 +16,13 @@ contract A {
     bytes32 private priceFeedUpdate_key;
 
     // Set the data to be emitted
-	function set_priceFeedUpdate_data(bytes32 dataSet) private {
+	function set_priceFeedUpdate_data(bytes32  dataSet) private {
        priceFeedUpdate_data = dataSet;
     }
 
     // Get the argument count
 	function get_priceFeedUpdate_argc() public pure returns (uint argc) {
-       return 32;
+       return 1;
     }
 
     // Get the signal key
@@ -41,7 +41,7 @@ contract A {
     function priceFeedUpdate() private {
         priceFeedUpdate_key = keccak256("priceFeedUpdate()");
 		assembly {
-			sstore(priceFeedUpdate_status_slot, createsig(32, sload(priceFeedUpdate_key_slot)))
+			sstore(priceFeedUpdate_status_slot, createsig(1, sload(priceFeedUpdate_key_slot)))
 			sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot)
 		}
     }
@@ -98,7 +98,7 @@ contract B {
     function priceReceive() private {
         priceReceive_key = keccak256("priceReceive_func(bytes32)");
         assembly {
-            sstore(priceReceive_status_slot, createslot(32, 10, 30000, sload(priceReceive_key_slot)))
+            sstore(priceReceive_status_slot, createslot(1, 10, 30000, sload(priceReceive_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////

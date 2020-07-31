@@ -57,13 +57,13 @@ tag_5:
   0x7530
     /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":799:801  10 */
   0x0a
-    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":796:797  3 */
-  0x03
-    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":785:839  createslot(3, 10, 30000, sload(priceReceive_key_slot)) */
+    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":796:797  1 */
+  0x01
+    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":785:839  createslot(1, 10, 30000, sload(priceReceive_key_slot)) */
   createslot
     /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":759:783  priceReceive_status_slot */
   0x01
-    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":752:840  sstore(priceReceive_status_slot, createslot(3, 10, 30000, sload(priceReceive_key_slot))) */
+    /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":752:840  sstore(priceReceive_status_slot, createslot(1, 10, 30000, sload(priceReceive_key_slot))) */
   sstore
     /* "basic/old_tests/slot_creation/slot_creation_parsed.sol":738:850  {... */
   jump	// out
@@ -270,5 +270,5 @@ sub_0: assembly {
       dup2
       jump	// out
 
-    auxdata: 0xa26469706673582212209a6a6b0ce032dd9613d89ca3dbb926584db08e3fa0bb845e713f0dfddfa140fa64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220590877ab8558876486f06dd248f5f9a46dbdce5616cc97b54aba6b38f4db159a64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

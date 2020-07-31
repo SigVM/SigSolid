@@ -1,6 +1,6 @@
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
+    /* "basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
   mstore(0x40, 0x80)
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":1826:1862  constructor() public {... */
+    /* "basic/broadcast/broadcast_parsed.sol":1826:1862  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,20 +11,20 @@
   revert
 tag_1:
   pop
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":1852:1859  Alert() */
+    /* "basic/broadcast/broadcast_parsed.sol":1852:1859  Alert() */
   tag_4
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":1852:1857  Alert */
+    /* "basic/broadcast/broadcast_parsed.sol":1852:1857  Alert */
   shl(0x20, tag_5)
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":1852:1859  Alert() */
+    /* "basic/broadcast/broadcast_parsed.sol":1852:1859  Alert() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
+    /* "basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
   jump(tag_6)
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":810:1003  function Alert() private {... */
+    /* "basic/broadcast/broadcast_parsed.sol":810:1003  function Alert() private {... */
 tag_5:
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":857:877  keccak256("Alert()") */
+    /* "basic/broadcast/broadcast_parsed.sol":857:877  keccak256("Alert()") */
   mload(0x40)
   dup1
   dup1
@@ -42,34 +42,34 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":845:854  Alert_key */
+    /* "basic/broadcast/broadcast_parsed.sol":845:854  Alert_key */
   0x02
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":845:877  Alert_key = keccak256("Alert()") */
+    /* "basic/broadcast/broadcast_parsed.sol":845:877  Alert_key = keccak256("Alert()") */
   dup2
   swap1
   sstore
   pop
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":940:954  Alert_key_slot */
+    /* "basic/broadcast/broadcast_parsed.sol":940:954  Alert_key_slot */
   0x02
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":934:955  sload(Alert_key_slot) */
+    /* "basic/broadcast/broadcast_parsed.sol":934:955  sload(Alert_key_slot) */
   sload
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":931:932  0 */
+    /* "basic/broadcast/broadcast_parsed.sol":931:932  0 */
   0x00
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":921:956  createsig(0, sload(Alert_key_slot)) */
+    /* "basic/broadcast/broadcast_parsed.sol":921:956  createsig(0, sload(Alert_key_slot)) */
   createsig
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":902:919  Alert_status_slot */
+    /* "basic/broadcast/broadcast_parsed.sol":902:919  Alert_status_slot */
   0x01
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":895:957  sstore(Alert_status_slot, createsig(0, sload(Alert_key_slot))) */
+    /* "basic/broadcast/broadcast_parsed.sol":895:957  sstore(Alert_status_slot, createsig(0, sload(Alert_key_slot))) */
   sstore
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":989:992  0x0 */
+    /* "basic/broadcast/broadcast_parsed.sol":989:992  0x0 */
   0x00
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":968:987  Alert_dataslot_slot */
+    /* "basic/broadcast/broadcast_parsed.sol":968:987  Alert_dataslot_slot */
   dup1
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":961:993  sstore(Alert_dataslot_slot, 0x0) */
+    /* "basic/broadcast/broadcast_parsed.sol":961:993  sstore(Alert_dataslot_slot, 0x0) */
   sstore
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":890:997  {... */
+    /* "basic/broadcast/broadcast_parsed.sol":890:997  {... */
   jump	// out
-    /* "./tests/basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
+    /* "basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -81,7 +81,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
+        /* "basic/broadcast/broadcast_parsed.sol":26:1864  contract Emitter {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -109,7 +109,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
     tag_3:
       tag_5
       tag_6
@@ -131,82 +131,82 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1112:1825  function send_alert() public view {... */
+        /* "basic/broadcast/broadcast_parsed.sol":1112:1825  function send_alert() public view {... */
     tag_4:
       tag_7
       tag_8
       jump	// in
     tag_7:
       stop
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
     tag_6:
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":475:486  bytes32 key */
+        /* "basic/broadcast/broadcast_parsed.sol":475:486  bytes32 key */
       0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":504:513  Alert_key */
+        /* "basic/broadcast/broadcast_parsed.sol":504:513  Alert_key */
       sload(0x02)
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":497:513  return Alert_key */
+        /* "basic/broadcast/broadcast_parsed.sol":497:513  return Alert_key */
       swap1
       pop
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
+        /* "basic/broadcast/broadcast_parsed.sol":429:520  function get_Alert_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1112:1825  function send_alert() public view {... */
+        /* "basic/broadcast/broadcast_parsed.sol":1112:1825  function send_alert() public view {... */
     tag_8:
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1392:1427  bytes32 this_emitsig_Alert_dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":1392:1427  bytes32 this_emitsig_Alert_dataslot */
       0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1430:1450  get_Alert_dataslot() */
+        /* "basic/broadcast/broadcast_parsed.sol":1430:1450  get_Alert_dataslot() */
       tag_11
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1430:1448  get_Alert_dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":1430:1448  get_Alert_dataslot */
       tag_12
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1430:1450  get_Alert_dataslot() */
+        /* "basic/broadcast/broadcast_parsed.sol":1430:1450  get_Alert_dataslot() */
       jump	// in
     tag_11:
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1392:1450  bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot() */
+        /* "basic/broadcast/broadcast_parsed.sol":1392:1450  bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot() */
       swap1
       pop
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1484:1514  bytes32 this_emitsig_Alert_key */
+        /* "basic/broadcast/broadcast_parsed.sol":1484:1514  bytes32 this_emitsig_Alert_key */
       0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1517:1532  get_Alert_key() */
+        /* "basic/broadcast/broadcast_parsed.sol":1517:1532  get_Alert_key() */
       tag_13
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1517:1530  get_Alert_key */
+        /* "basic/broadcast/broadcast_parsed.sol":1517:1530  get_Alert_key */
       tag_6
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1517:1532  get_Alert_key() */
+        /* "basic/broadcast/broadcast_parsed.sol":1517:1532  get_Alert_key() */
       jump	// in
     tag_13:
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1484:1532  bytes32 this_emitsig_Alert_key = get_Alert_key() */
+        /* "basic/broadcast/broadcast_parsed.sol":1484:1532  bytes32 this_emitsig_Alert_key = get_Alert_key() */
       swap1
       pop
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1701:1702  0 */
-      0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1672:1699  this_emitsig_Alert_dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":1701:1702  2 */
+      0x02
+        /* "basic/broadcast/broadcast_parsed.sol":1672:1699  this_emitsig_Alert_dataslot */
       dup3
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1669:1670  0 */
+        /* "basic/broadcast/broadcast_parsed.sol":1669:1670  0 */
       0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1645:1667  this_emitsig_Alert_key */
+        /* "basic/broadcast/broadcast_parsed.sol":1645:1667  this_emitsig_Alert_key */
       dup4
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1637:1703  emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 0) */
+        /* "basic/broadcast/broadcast_parsed.sol":1637:1703  emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 2) */
       emitsig
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1631:1635  0x40 */
+        /* "basic/broadcast/broadcast_parsed.sol":1631:1635  0x40 */
       0x40
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1624:1704  mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 0)) */
+        /* "basic/broadcast/broadcast_parsed.sol":1624:1704  mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, 2)) */
       mstore
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":1619:1711  {... */
+        /* "basic/broadcast/broadcast_parsed.sol":1619:1711  {... */
       pop
       pop
       jump	// out
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":551:658  function get_Alert_dataslot() private view returns (bytes32 dataslot) {... */
+        /* "basic/broadcast/broadcast_parsed.sol":551:658  function get_Alert_dataslot() private view returns (bytes32 dataslot) {... */
     tag_12:
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":603:619  bytes32 dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":603:619  bytes32 dataslot */
       0x00
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":637:651  Alert_dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":637:651  Alert_dataslot */
       dup1
       sload
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":630:651  return Alert_dataslot */
+        /* "basic/broadcast/broadcast_parsed.sol":630:651  return Alert_dataslot */
       swap1
       pop
-        /* "./tests/basic/broadcast/broadcast_parsed.sol":551:658  function get_Alert_dataslot() private view returns (bytes32 dataslot) {... */
+        /* "basic/broadcast/broadcast_parsed.sol":551:658  function get_Alert_dataslot() private view returns (bytes32 dataslot) {... */
       swap1
       jump	// out
 
-    auxdata: 0xa26469706673582212206fd086039e3cdf80de2714e2f45950017587c2f6c3a544ff7ae9618cfcc97fa364736f6c63782c302e362e31312d646576656c6f702e323032302e372e32312b636f6d6d69742e63316635663761632e6d6f64005d
+    auxdata: 0xa2646970667358221220d8c7e0f70c20322d41aa7ae7f94c8bc532def40b80fff7da6c6bbecc958d995264736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

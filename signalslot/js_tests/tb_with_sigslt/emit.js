@@ -19,13 +19,13 @@ async function main() {
   const contractA = cfx.Contract({
     abi: require('./contract/A-abi.json'),
     // code is unnecessary
-    address: '0x8733899e20be5245078211c2d992aa0fbbf67b31',
+    address: '0x831374a9e79725099584243d11703fc5c9c2c629',
   });
   // create contract instance
   const contractB = cfx.Contract({
     abi: require('./contract/B-abi.json'),
     // code is unnecessary
-    address: '0x8cc811f57df445efecf5afa2bb3252f56b77b200',
+    address: '0x8aa5dcc78ed0336ec46baebde6e69e61627653f6',
   });
 
   const accountA = cfx.Account(PRIVATE_KEY_A); // create account instance
@@ -48,7 +48,7 @@ async function main() {
 
   // const estimate = await contractA.emitfunc([0x11,0x22,0x33]).estimateGasAndCollateral();
   // console.info(JSON.stringify(estimate));
-  const receiptA = await contractA.emitfunc([0x11,0x22,0x33])
+  const receiptA = await contractA.emitfunc([0x11,0x22,0x33])//,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x11,0x22,0x33,0x44])
   .sendTransaction({ from: accountA,
                       gas: 10000000})
   .confirmed();

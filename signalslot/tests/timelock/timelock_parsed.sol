@@ -31,13 +31,13 @@ contract TimeLock {
     bytes32 private TimesUp_key;
 
     // Set the data to be emitted
-	function set_TimesUp_data(bytes32 dataSet) private {
+	function set_TimesUp_data(bytes32  dataSet) private {
        TimesUp_data = dataSet;
     }
 
     // Get the argument count
 	function get_TimesUp_argc() public pure returns (uint argc) {
-       return 32;
+       return 1;
     }
 
     // Get the signal key
@@ -56,7 +56,7 @@ contract TimeLock {
     function TimesUp() private {
         TimesUp_key = keccak256("TimesUp()");
 		assembly {
-			sstore(TimesUp_status_slot, createsig(32, sload(TimesUp_key_slot)))
+			sstore(TimesUp_status_slot, createsig(1, sload(TimesUp_key_slot)))
 			sstore(TimesUp_dataslot_slot, TimesUp_data_slot)
 		}
     }
@@ -84,7 +84,7 @@ contract TimeLock {
     function TxExecutor() private {
         TxExecutor_key = keccak256("TxExecutor_func(bytes32)");
         assembly {
-            sstore(TxExecutor_status_slot, createslot(32, 10, 30000, sload(TxExecutor_key_slot)))
+            sstore(TxExecutor_status_slot, createslot(1, 10, 30000, sload(TxExecutor_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////

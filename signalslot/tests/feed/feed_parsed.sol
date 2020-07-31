@@ -27,13 +27,13 @@ contract PriceOracleBuffer {
     bytes32 private PriceFeedUpdate_key;
 
     // Set the data to be emitted
-	function set_PriceFeedUpdate_data(uint dataSet) private {
+	function set_PriceFeedUpdate_data(uint  dataSet) private {
        PriceFeedUpdate_data = dataSet;
     }
 
     // Get the argument count
 	function get_PriceFeedUpdate_argc() public pure returns (uint argc) {
-       return 32;
+       return 1;
     }
 
     // Get the signal key
@@ -52,7 +52,7 @@ contract PriceOracleBuffer {
     function PriceFeedUpdate() private {
         PriceFeedUpdate_key = keccak256("PriceFeedUpdate()");
 		assembly {
-			sstore(PriceFeedUpdate_status_slot, createsig(32, sload(PriceFeedUpdate_key_slot)))
+			sstore(PriceFeedUpdate_status_slot, createsig(1, sload(PriceFeedUpdate_key_slot)))
 			sstore(PriceFeedUpdate_dataslot_slot, PriceFeedUpdate_data_slot)
 		}
     }
@@ -80,7 +80,7 @@ contract PriceOracleBuffer {
     function SendUpdate() private {
         SendUpdate_key = keccak256("SendUpdate_func(uint)");
         assembly {
-            sstore(SendUpdate_status_slot, createslot(32, 10, 30000, sload(SendUpdate_key_slot)))
+            sstore(SendUpdate_status_slot, createslot(1, 10, 30000, sload(SendUpdate_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ contract ReceiverA {
     function RecievePrice() private {
         RecievePrice_key = keccak256("RecievePrice_func(uint)");
         assembly {
-            sstore(RecievePrice_status_slot, createslot(32, 10, 30000, sload(RecievePrice_key_slot)))
+            sstore(RecievePrice_status_slot, createslot(1, 10, 30000, sload(RecievePrice_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,7 +269,7 @@ contract ReceiverB {
     function RecievePrice() private {
         RecievePrice_key = keccak256("RecievePrice_func(uint)");
         assembly {
-            sstore(RecievePrice_status_slot, createslot(32, 10, 30000, sload(RecievePrice_key_slot)))
+            sstore(RecievePrice_status_slot, createslot(1, 10, 30000, sload(RecievePrice_key_slot)))
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////

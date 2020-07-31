@@ -3,19 +3,19 @@ pragma solidity ^0.6.9;
 contract A {
 	uint data;
     uint public constant ONE_HOUR = 180;
-	signal priceFeedUpdate(bytes data);
-    function emitfunc(bytes memory DataSent) public {
+	signal priceFeedUpdate(bytes3 data);
+    function emitfunc(bytes3 DataSent) public {
 		emitsig priceFeedUpdate(DataSent).delay(0);
     }
 }
 
 contract B {
 	A dut;
-	bytes public LocalPriceSum;
+	bytes3 public LocalPriceSum;
     uint public constant ONE_HOUR = 180;
 
-	slot priceReceive(bytes memory obj){
-        LocalPriceSum = obj;
+	slot priceReceive(bytes3 obj){
+        LocalPriceSum = ~ obj;
     }
 
 	function bindfunc(address addrA) public {
@@ -27,7 +27,7 @@ contract B {
 		priceReceive.detach(dut.priceFeedUpdate);
     }
 
-	function getLocalPriceSum() public returns (bytes memory){
+	function getLocalPriceSum() public returns (bytes3){
 		return LocalPriceSum;
 	}
 }

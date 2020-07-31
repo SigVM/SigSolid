@@ -77,7 +77,7 @@ contract HeartBeat {
 		bytes32 this_emitsig_Heart_key = get_Heart_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0))
+			mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +117,7 @@ contract HeartBeat {
 		bytes32 this_emitsig_Heart_key = get_Heart_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 0))
+			mstore(0x40, emitsig(this_emitsig_Heart_key, 10, this_emitsig_Heart_dataslot, 2))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
