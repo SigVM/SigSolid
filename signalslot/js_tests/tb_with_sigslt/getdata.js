@@ -20,7 +20,7 @@ async function main() {
   const contractB = cfx.Contract({
     abi: require('./contract/B-abi.json'),
     // code is unnecessary
-    address: '0x8aa5dcc78ed0336ec46baebde6e69e61627653f6',
+    address: '0x8e42d341402d98722a02304194113e3350828fc6',
   });
   // console.log(contractB.address);
   // await cfx.getCode(contractB.address);

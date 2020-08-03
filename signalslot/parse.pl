@@ -69,7 +69,7 @@ while ( my $line = <$default_fh> ) {
     }
 
     // Get the argument count
-	function get\_$func\_argc\(\) public pure returns (uint argc) {
+	function get\_$func\_is_fix\(\) public pure returns (uint is_fix) {
        return $argc;
     }
 
@@ -308,14 +308,14 @@ END_MESSAGE
         // Set the data field in the signal
         set_$sig_obj_func\_data\($emit_obj\);
         // Get the argument count
-        uint $emiter_tr\_emitsig\_$sig_obj_func\_argc = ${emiter_func_call}get\_$sig_obj_func\_argc();
+        uint $emiter_tr\_emitsig\_$sig_obj_func\_is_fix = ${emiter_func_call}get\_$sig_obj_func\_is_fix();
         // Get the data slot
 		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_dataslot = ${emiter_func_call}get\_$sig_obj_func\_dataslot();
         // Get the signal key
 		bytes32 $emiter_tr\_emitsig\_$sig_obj_func\_key = ${emiter_func_call}get\_$sig_obj_func\_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig($emiter_tr\_emitsig\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_emitsig\_$sig_obj_func\_dataslot, $emiter_tr\_emitsig\_$sig_obj_func\_argc))
+			mstore(0x40, emitsig($emiter_tr\_emitsig\_$sig_obj_func\_key, $delay_obj, $emiter_tr\_emitsig\_$sig_obj_func\_dataslot, $emiter_tr\_emitsig\_$sig_obj_func\_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 END_MESSAGE

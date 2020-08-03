@@ -36,7 +36,7 @@ contract TimeLock {
     }
 
     // Get the argument count
-	function get_TimesUp_argc() public pure returns (uint argc) {
+	function get_TimesUp_is_fix() public pure returns (uint is_fix) {
        return 1;
     }
 
@@ -159,14 +159,14 @@ contract TimeLock {
         // Set the data field in the signal
         set_TimesUp_data(txHash);
         // Get the argument count
-        uint this_emitsig_TimesUp_argc = get_TimesUp_argc();
+        uint this_emitsig_TimesUp_is_fix = get_TimesUp_is_fix();
         // Get the data slot
 		bytes32 this_emitsig_TimesUp_dataslot = get_TimesUp_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_TimesUp_key = get_TimesUp_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_TimesUp_key, buffer_len, this_emitsig_TimesUp_dataslot, this_emitsig_TimesUp_argc))
+			mstore(0x40, emitsig(this_emitsig_TimesUp_key, buffer_len, this_emitsig_TimesUp_dataslot, this_emitsig_TimesUp_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

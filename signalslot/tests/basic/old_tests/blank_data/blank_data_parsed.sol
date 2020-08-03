@@ -21,7 +21,7 @@ contract A {
     }
 
     // Get the argument count
-	function get_priceFeedUpdate_argc() public pure returns (uint argc) {
+	function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {
        return 1;
     }
 

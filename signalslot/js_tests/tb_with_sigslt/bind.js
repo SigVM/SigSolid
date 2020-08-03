@@ -20,13 +20,13 @@ async function main() {
   const contractA = cfx.Contract({
     abi: require('./contract/A-abi.json'),
     // code is unnecessary
-    address: '0x831374a9e79725099584243d11703fc5c9c2c629',
+    address: '0x8b047d0d48dbf050e58a3c8ee922c4e492f255ea',
   });
   // create contract instance
   const contractB = cfx.Contract({
     abi: require('./contract/B-abi.json'),
     // code is unnecessary
-    address: '0x8aa5dcc78ed0336ec46baebde6e69e61627653f6',
+    address: '0x8e42d341402d98722a02304194113e3350828fc6',
   });
 
   const accountB = cfx.Account(PRIVATE_KEY_B); // create account instance

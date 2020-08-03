@@ -1,6 +1,6 @@
-    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2794  contract A {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2804  contract A {... */
   mstore(0x40, 0x80)
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2724:2792  constructor() public {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2734:2802  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,29 +11,29 @@
   revert
 tag_1:
   pop
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2750:2767  priceFeedUpdate() */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2760:2777  priceFeedUpdate() */
   tag_4
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2750:2765  priceFeedUpdate */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2760:2775  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2750:2767  priceFeedUpdate() */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2760:2777  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2771:2788  priceFeedUpdate() */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2781:2798  priceFeedUpdate() */
   tag_6
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2771:2786  priceFeedUpdate */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2781:2796  priceFeedUpdate */
   shl(0x20, tag_5)
-    /* "basic/old_tests/tb5/tb5_parsed.sol":2771:2788  priceFeedUpdate() */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":2781:2798  priceFeedUpdate() */
   0x20
   shr
   jump	// in
 tag_6:
-    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2794  contract A {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2804  contract A {... */
   jump(tag_7)
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1285:1560  function priceFeedUpdate() private {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1289:1564  function priceFeedUpdate() private {... */
 tag_5:
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1352:1382  keccak256("priceFeedUpdate()") */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1356:1386  keccak256("priceFeedUpdate()") */
   mload(0x40)
   dup1
   dup1
@@ -51,34 +51,34 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1330:1349  priceFeedUpdate_key */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1334:1353  priceFeedUpdate_key */
   0x03
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1330:1382  priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1334:1386  priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1455:1479  priceFeedUpdate_key_slot */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1459:1483  priceFeedUpdate_key_slot */
   0x03
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1449:1480  sload(priceFeedUpdate_key_slot) */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1453:1484  sload(priceFeedUpdate_key_slot) */
   sload
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1446:1447  1 */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1450:1451  1 */
   0x01
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1436:1481  createsig(1, sload(priceFeedUpdate_key_slot)) */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1440:1485  createsig(1, sload(priceFeedUpdate_key_slot)) */
   createsig
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1407:1434  priceFeedUpdate_status_slot */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1411:1438  priceFeedUpdate_status_slot */
   0x02
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1400:1482  sstore(priceFeedUpdate_status_slot, createsig(1, sload(priceFeedUpdate_key_slot))) */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1404:1486  sstore(priceFeedUpdate_status_slot, createsig(1, sload(priceFeedUpdate_key_slot))) */
   sstore
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1524:1549  priceFeedUpdate_data_slot */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1528:1553  priceFeedUpdate_data_slot */
   0x00
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1493:1522  priceFeedUpdate_dataslot_slot */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1497:1526  priceFeedUpdate_dataslot_slot */
   0x01
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1486:1550  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1490:1554  sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot) */
   sstore
-    /* "basic/old_tests/tb5/tb5_parsed.sol":1395:1554  {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":1399:1558  {... */
   jump	// out
-    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2794  contract A {... */
+    /* "basic/old_tests/tb5/tb5_parsed.sol":24:2804  contract A {... */
 tag_7:
   dataSize(sub_0)
   dup1
@@ -90,7 +90,7 @@ tag_7:
 stop
 
 sub_0: assembly {
-        /* "basic/old_tests/tb5/tb5_parsed.sol":24:2794  contract A {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":24:2804  contract A {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -110,7 +110,7 @@ sub_0: assembly {
       tag_3
       jumpi
       dup1
-      0x3e4fe9a4
+      0x644695be
       eq
       tag_4
       jumpi
@@ -155,7 +155,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/tb5/tb5_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":734:830  function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {... */
     tag_4:
       tag_10
       tag_11
@@ -177,7 +177,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/tb5/tb5_parsed.sol":1669:2722  function emitfunc(bytes32 DataSent) public {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1673:2732  function emitfunc(bytes32 DataSent) public {... */
     tag_5:
       tag_12
       0x04
@@ -214,7 +214,7 @@ sub_0: assembly {
       jump	// in
     tag_12:
       stop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":855:966  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":859:970  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
     tag_6:
       tag_15
       tag_16
@@ -236,7 +236,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/tb5/tb5_parsed.sol":997:1123  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1001:1127  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
     tag_7:
       tag_17
       tag_18
@@ -265,107 +265,107 @@ sub_0: assembly {
         /* "basic/old_tests/tb5/tb5_parsed.sol":41:76  uint public constant ONE_HOUR = 180 */
       dup2
       jump	// out
-        /* "basic/old_tests/tb5/tb5_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":734:830  function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {... */
     tag_11:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":791:800  uint argc */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":793:804  uint is_fix */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":818:819  1 */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":822:823  1 */
       0x01
-        /* "basic/old_tests/tb5/tb5_parsed.sol":811:819  return 1 */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":815:823  return 1 */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":734:826  function get_priceFeedUpdate_argc() public pure returns (uint argc) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":734:830  function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {... */
       swap1
       jump	// out
-        /* "basic/old_tests/tb5/tb5_parsed.sol":1669:2722  function emitfunc(bytes32 DataSent) public {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1673:2732  function emitfunc(bytes32 DataSent) public {... */
     tag_14:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2012:2046  set_priceFeedUpdate_data(DataSent) */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2016:2050  set_priceFeedUpdate_data(DataSent) */
       tag_21
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2037:2045  DataSent */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2041:2049  DataSent */
       dup2
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2012:2036  set_priceFeedUpdate_data */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2016:2040  set_priceFeedUpdate_data */
       tag_22
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2012:2046  set_priceFeedUpdate_data(DataSent) */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2016:2050  set_priceFeedUpdate_data(DataSent) */
       jump	// in
     tag_21:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2090:2128  uint this_emitsig_priceFeedUpdate_argc */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2094:2134  uint this_emitsig_priceFeedUpdate_is_fix */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2131:2157  get_priceFeedUpdate_argc() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2137:2165  get_priceFeedUpdate_is_fix() */
       tag_23
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2131:2155  get_priceFeedUpdate_argc */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2137:2163  get_priceFeedUpdate_is_fix */
       tag_11
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2131:2157  get_priceFeedUpdate_argc() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2137:2165  get_priceFeedUpdate_is_fix() */
       jump	// in
     tag_23:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2090:2157  uint this_emitsig_priceFeedUpdate_argc = get_priceFeedUpdate_argc() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2094:2165  uint this_emitsig_priceFeedUpdate_is_fix = get_priceFeedUpdate_is_fix() */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2190:2235  bytes32 this_emitsig_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2198:2243  bytes32 this_emitsig_priceFeedUpdate_dataslot */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2238:2268  get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2246:2276  get_priceFeedUpdate_dataslot() */
       tag_24
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2238:2266  get_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2246:2274  get_priceFeedUpdate_dataslot */
       tag_18
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2238:2268  get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2246:2276  get_priceFeedUpdate_dataslot() */
       jump	// in
     tag_24:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2190:2268  bytes32 this_emitsig_priceFeedUpdate_dataslot = get_priceFeedUpdate_dataslot() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2198:2276  bytes32 this_emitsig_priceFeedUpdate_dataslot = get_priceFeedUpdate_dataslot() */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2302:2342  bytes32 this_emitsig_priceFeedUpdate_key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2310:2350  bytes32 this_emitsig_priceFeedUpdate_key */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2345:2370  get_priceFeedUpdate_key() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2353:2378  get_priceFeedUpdate_key() */
       tag_25
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2345:2368  get_priceFeedUpdate_key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2353:2376  get_priceFeedUpdate_key */
       tag_16
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2345:2370  get_priceFeedUpdate_key() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2353:2378  get_priceFeedUpdate_key() */
       jump	// in
     tag_25:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2302:2370  bytes32 this_emitsig_priceFeedUpdate_key = get_priceFeedUpdate_key() */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2310:2378  bytes32 this_emitsig_priceFeedUpdate_key = get_priceFeedUpdate_key() */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2566:2599  this_emitsig_priceFeedUpdate_argc */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2574:2609  this_emitsig_priceFeedUpdate_is_fix */
       dup3
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2527:2564  this_emitsig_priceFeedUpdate_dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2535:2572  this_emitsig_priceFeedUpdate_dataslot */
       dup3
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2517:2525  ONE_HOUR */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2525:2533  ONE_HOUR */
       0xb4
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2483:2515  this_emitsig_priceFeedUpdate_key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2491:2523  this_emitsig_priceFeedUpdate_key */
       dup4
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2475:2600  emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_argc) */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2483:2610  emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_is_fix) */
       emitsig
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2469:2473  0x40 */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2477:2481  0x40 */
       0x40
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2462:2601  mstore(0x40, emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_argc)) */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2470:2611  mstore(0x40, emitsig(this_emitsig_priceFeedUpdate_key, ONE_HOUR, this_emitsig_priceFeedUpdate_dataslot, this_emitsig_priceFeedUpdate_is_fix)) */
       mstore
-        /* "basic/old_tests/tb5/tb5_parsed.sol":2457:2608  {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":2465:2618  {... */
       pop
       pop
       pop
       pop
       jump	// out
-        /* "basic/old_tests/tb5/tb5_parsed.sol":855:966  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":859:970  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
     tag_16:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":911:922  bytes32 key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":915:926  bytes32 key */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":940:959  priceFeedUpdate_key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":944:963  priceFeedUpdate_key */
       sload(0x03)
-        /* "basic/old_tests/tb5/tb5_parsed.sol":933:959  return priceFeedUpdate_key */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":937:963  return priceFeedUpdate_key */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":855:966  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":859:970  function get_priceFeedUpdate_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "basic/old_tests/tb5/tb5_parsed.sol":997:1123  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1001:1127  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
     tag_18:
-        /* "basic/old_tests/tb5/tb5_parsed.sol":1058:1074  bytes32 dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1062:1078  bytes32 dataslot */
       0x00
-        /* "basic/old_tests/tb5/tb5_parsed.sol":1092:1116  priceFeedUpdate_dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1096:1120  priceFeedUpdate_dataslot */
       sload(0x01)
-        /* "basic/old_tests/tb5/tb5_parsed.sol":1085:1116  return priceFeedUpdate_dataslot */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1089:1120  return priceFeedUpdate_dataslot */
       swap1
       pop
-        /* "basic/old_tests/tb5/tb5_parsed.sol":997:1123  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
+        /* "basic/old_tests/tb5/tb5_parsed.sol":1001:1127  function get_priceFeedUpdate_dataslot() public view returns (bytes32 dataslot) {... */
       swap1
       jump	// out
         /* "basic/old_tests/tb5/tb5_parsed.sol":595:701  function set_priceFeedUpdate_data(bytes32  dataSet) private {... */
@@ -383,5 +383,5 @@ sub_0: assembly {
       pop
       jump	// out
 
-    auxdata: 0xa26469706673582212202e282180f48cf85db50575d751ae9828f128fefccbce1827c71ece9755dc7f5964736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220185bb2db0302f7ba3f3d62846d71cdc413f2ac648a81e43d76f686469adc6ef564736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

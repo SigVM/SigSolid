@@ -32,7 +32,7 @@ contract PriceOracleBuffer {
     }
 
     // Get the argument count
-	function get_PriceFeedUpdate_argc() public pure returns (uint argc) {
+	function get_PriceFeedUpdate_is_fix() public pure returns (uint is_fix) {
        return 1;
     }
 
@@ -100,14 +100,14 @@ contract PriceOracleBuffer {
         // Set the data field in the signal
         set_PriceFeedUpdate_data(cur);
         // Get the argument count
-        uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc();
+        uint this_emitsig_PriceFeedUpdate_is_fix = get_PriceFeedUpdate_is_fix();
         // Get the data slot
 		bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc))
+			mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, ONE_HOUR_CONFLUX, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -147,14 +147,14 @@ contract PriceOracleBuffer {
         // Set the data field in the signal
         set_PriceFeedUpdate_data(0);
         // Get the argument count
-        uint this_emitsig_PriceFeedUpdate_argc = get_PriceFeedUpdate_argc();
+        uint this_emitsig_PriceFeedUpdate_is_fix = get_PriceFeedUpdate_is_fix();
         // Get the data slot
 		bytes32 this_emitsig_PriceFeedUpdate_dataslot = get_PriceFeedUpdate_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_PriceFeedUpdate_key = get_PriceFeedUpdate_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_argc))
+			mstore(0x40, emitsig(this_emitsig_PriceFeedUpdate_key, 0, this_emitsig_PriceFeedUpdate_dataslot, this_emitsig_PriceFeedUpdate_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 

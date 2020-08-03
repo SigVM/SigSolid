@@ -34,9 +34,9 @@ contract B {
 
 //../../../../parse.pl signaltest.sol signaltest_parsed.sol
 //../../../../../build/solc/solc --overwrite -o out --asm --bin --abi signaltest_parsed.sol
-cp out/A.bin ../../../../js_tests/tb_with_dyn_sigslt/contract/A-bytecode.json
-cp out/A.abi ../../../../js_tests/tb_with_dyn_sigslt/contract/A-abi.json
-cp out/B.bin ../../../../js_tests/tb_with_dyn_sigslt/contract/B-bytecode.json
-cp out/B.abi ../../../../js_tests/tb_with_dyn_sigslt/contract/B-abi.json
-cp signaltest_parsed.sol ../../../../js_tests/tb_with_dyn_sigslt/contract/signaltest_parsed.sol
+// cp out/A.bin ../../../../js_tests/tb_with_dyn_sigslt/contract/A-bytecode.json
+// cp out/A.abi ../../../../js_tests/tb_with_dyn_sigslt/contract/A-abi.json
+// cp out/B.bin ../../../../js_tests/tb_with_dyn_sigslt/contract/B-bytecode.json
+// cp out/B.abi ../../../../js_tests/tb_with_dyn_sigslt/contract/B-abi.json
+// cp signaltest_parsed.sol ../../../../js_tests/tb_with_dyn_sigslt/contract/signaltest_parsed.sol
 

@@ -20,7 +20,7 @@ contract EmitOnTime {
     }
 
     // Get the argument count
-	function get_Alert_argc() public pure returns (uint argc) {
+	function get_Alert_is_fix() public pure returns (uint is_fix) {
        return 1;
     }
 
@@ -57,14 +57,14 @@ contract EmitOnTime {
         // Set the data field in the signal
         set_Alert_data(data);
         // Get the argument count
-        uint this_emitsig_Alert_argc = get_Alert_argc();
+        uint this_emitsig_Alert_is_fix = get_Alert_is_fix();
         // Get the data slot
 		bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc))
+			mstore(0x40, emitsig(this_emitsig_Alert_key, 0, this_emitsig_Alert_dataslot, this_emitsig_Alert_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -94,7 +94,7 @@ contract EmitLate {
     }
 
     // Get the argument count
-	function get_Alert_argc() public pure returns (uint argc) {
+	function get_Alert_is_fix() public pure returns (uint is_fix) {
        return 1;
     }
 
@@ -131,14 +131,14 @@ contract EmitLate {
         // Set the data field in the signal
         set_Alert_data(data);
         // Get the argument count
-        uint this_emitsig_Alert_argc = get_Alert_argc();
+        uint this_emitsig_Alert_is_fix = get_Alert_is_fix();
         // Get the data slot
 		bytes32 this_emitsig_Alert_dataslot = get_Alert_dataslot();
         // Get the signal key
 		bytes32 this_emitsig_Alert_key = get_Alert_key();
         // Use assembly to emit the signal and queue up slot transactions
 		assembly {
-			mstore(0x40, emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_argc))
+			mstore(0x40, emitsig(this_emitsig_Alert_key, 10, this_emitsig_Alert_dataslot, this_emitsig_Alert_is_fix))
 	    }
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
