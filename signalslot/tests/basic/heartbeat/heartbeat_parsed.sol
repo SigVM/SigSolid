@@ -14,6 +14,11 @@ contract HeartBeat {
 	uint private Heart_status;
     bytes32 private Heart_key;
 
+    // Get the argument count
+	function get_Heart_is_fix() public pure returns (uint is_fix) {
+       return 2;
+    }
+
     // Get the signal key
 	function get_Heart_key() public view returns (bytes32 key) {
        return Heart_key;

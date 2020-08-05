@@ -13,6 +13,11 @@ contract Emitter {
 	uint private Alert_status;
     bytes32 private Alert_key;
 
+    // Get the argument count
+	function get_Alert_is_fix() public pure returns (uint is_fix) {
+       return 2;
+    }
+
     // Get the signal key
 	function get_Alert_key() public view returns (bytes32 key) {
        return Alert_key;

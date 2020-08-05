@@ -35,15 +35,24 @@ while ( my $line = <$default_fh> ) {
                 if(defined $arg_arr){
                     my @arg = split /\s/, $arg_arr;
                     my $argc = 0;
+                    my $type_number = 0;
                     if($arg[0] =~ /\[\]/){#now it can accept fix and dynamic
                         $argc = 0;
-                    }elsif($arg[0] eq "bytes"){
+                    }elsif($arg[0] eq "bytes" || $arg[0] eq "string"){
                         $argc = 0;
                     }else{
                         $argc = 1;
+                        if($arg[0] eq "int" || $arg[0] eq "uint"|| $arg[0] eq "bool"){
+                            $type_number = 32;
+                        }elsif($arg[0] =~ /bytes/){
+                            $argc = 5;
+                            ($type_number) = $arg[0] =~ /bytes(\d+)/;
+                        }elsif($arg[0] =~ /int/){
+                            ($type_number) = $arg[0] =~ /int(\d+)/;
+                        }
                     }
                     my $location_declare;
-                    if($argc == 1){
+                    if($argc == 1 || $argc == 5){
                         $location_declare = "";
                     }else{
                         $location_declare = "memory";
@@ -70,7 +79,7 @@ while ( my $line = <$default_fh> ) {
 
     // Get the argument count
 	function get\_$func\_is_fix\(\) public pure returns (uint is_fix) {
-       return $argc;
+       return ${argc} + 256*${type_number};
     }
 
     // Get the signal key
@@ -107,6 +116,11 @@ END_MESSAGE
 	bytes32 private $func\_dataslot;\/\/the data pointer is NULL
 	uint private $func\_status;
     bytes32 private $func\_key;
+
+    // Get the argument count
+	function get\_$func\_is_fix\(\) public pure returns (uint is_fix) {
+       return 2;
+    }
 
     // Get the signal key
 	function get\_$func\_key\() public view returns (bytes32 key) {

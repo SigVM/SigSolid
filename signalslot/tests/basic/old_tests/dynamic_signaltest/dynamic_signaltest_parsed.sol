@@ -24,7 +24,7 @@ contract A {
 
     // Get the argument count
 	function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {
-       return 0;
+       return 0 + 256*0;
     }
 
     // Get the signal key

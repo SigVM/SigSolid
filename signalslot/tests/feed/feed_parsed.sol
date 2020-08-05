@@ -33,7 +33,7 @@ contract PriceOracleBuffer {
 
     // Get the argument count
 	function get_PriceFeedUpdate_is_fix() public pure returns (uint is_fix) {
-       return 1;
+       return 1 + 256*32;
     }
 
     // Get the signal key

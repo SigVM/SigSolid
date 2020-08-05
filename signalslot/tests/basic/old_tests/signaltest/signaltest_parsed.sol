@@ -24,7 +24,7 @@ contract A {
 
     // Get the argument count
 	function get_priceFeedUpdate_is_fix() public pure returns (uint is_fix) {
-       return 1;
+       return 5 + 256*3;
     }
 
     // Get the signal key
@@ -43,7 +43,7 @@ contract A {
     function priceFeedUpdate() private {
         priceFeedUpdate_key = keccak256("priceFeedUpdate()");
 		assembly {
-			sstore(priceFeedUpdate_status_slot, createsig(1, sload(priceFeedUpdate_key_slot)))
+			sstore(priceFeedUpdate_status_slot, createsig(5, sload(priceFeedUpdate_key_slot)))
 			sstore(priceFeedUpdate_dataslot_slot, priceFeedUpdate_data_slot)
 		}
     }

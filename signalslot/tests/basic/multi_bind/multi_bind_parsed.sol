@@ -21,7 +21,7 @@ contract EmitOnTime {
 
     // Get the argument count
 	function get_Alert_is_fix() public pure returns (uint is_fix) {
-       return 1;
+       return 5 + 256*32;
     }
 
     // Get the signal key
@@ -40,7 +40,7 @@ contract EmitOnTime {
     function Alert() private {
         Alert_key = keccak256("Alert()");
 		assembly {
-			sstore(Alert_status_slot, createsig(1, sload(Alert_key_slot)))
+			sstore(Alert_status_slot, createsig(5, sload(Alert_key_slot)))
 			sstore(Alert_dataslot_slot, Alert_data_slot)
 		}
     }
@@ -95,7 +95,7 @@ contract EmitLate {
 
     // Get the argument count
 	function get_Alert_is_fix() public pure returns (uint is_fix) {
-       return 1;
+       return 5 + 256*32;
     }
 
     // Get the signal key
@@ -114,7 +114,7 @@ contract EmitLate {
     function Alert() private {
         Alert_key = keccak256("Alert()");
 		assembly {
-			sstore(Alert_status_slot, createsig(1, sload(Alert_key_slot)))
+			sstore(Alert_status_slot, createsig(5, sload(Alert_key_slot)))
 			sstore(Alert_dataslot_slot, Alert_data_slot)
 		}
     }

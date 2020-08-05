@@ -1,6 +1,6 @@
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2789:5876  contract B {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2797:5884  contract B {... */
   mstore(0x40, 0x80)
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5831:5874  constructor() public {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5839:5882  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,20 +11,20 @@
   revert
 tag_1:
   pop
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5857:5871  priceReceive() */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5865:5879  priceReceive() */
   tag_4
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5857:5869  priceReceive */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5865:5877  priceReceive */
   shl(0x20, tag_5)
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5857:5871  priceReceive() */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5865:5879  priceReceive() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2789:5876  contract B {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2797:5884  contract B {... */
   jump(tag_6)
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3434:3669  function priceReceive() private {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3442:3677  function priceReceive() private {... */
 tag_5:
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3495:3532  keccak256("priceReceive_func(bytes)") */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3503:3540  keccak256("priceReceive_func(bytes)") */
   mload(0x40)
   dup1
   dup1
@@ -42,32 +42,32 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3476:3492  priceReceive_key */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3484:3500  priceReceive_key */
   0x03
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3476:3532  priceReceive_key = keccak256("priceReceive_func(bytes)") */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3484:3540  priceReceive_key = keccak256("priceReceive_func(bytes)") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3629:3650  priceReceive_key_slot */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3637:3658  priceReceive_key_slot */
   0x03
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3623:3651  sload(priceReceive_key_slot) */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3631:3659  sload(priceReceive_key_slot) */
   sload
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3616:3621  30000 */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3624:3629  30000 */
   0x7530
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3612:3614  10 */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3620:3622  10 */
   0x0a
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3609:3610  0 */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3617:3618  0 */
   0x00
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3598:3652  createslot(0, 10, 30000, sload(priceReceive_key_slot)) */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3606:3660  createslot(0, 10, 30000, sload(priceReceive_key_slot)) */
   createslot
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3572:3596  priceReceive_status_slot */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3580:3604  priceReceive_status_slot */
   0x02
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3565:3653  sstore(priceReceive_status_slot, createslot(0, 10, 30000, sload(priceReceive_key_slot))) */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3573:3661  sstore(priceReceive_status_slot, createslot(0, 10, 30000, sload(priceReceive_key_slot))) */
   sstore
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3551:3663  {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3559:3671  {... */
   jump	// out
-    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2789:5876  contract B {... */
+    /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2797:5884  contract B {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -79,7 +79,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2789:5876  contract B {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2797:5884  contract B {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -139,7 +139,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2843:2878  uint public constant ONE_HOUR = 180 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2851:2886  uint public constant ONE_HOUR = 180 */
     tag_3:
       tag_11
       tag_12
@@ -161,7 +161,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3232:3337  function get_priceReceive_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3240:3345  function get_priceReceive_key() public view returns (bytes32 key) {... */
     tag_4:
       tag_13
       tag_14
@@ -183,7 +183,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5745:5830  function getLocalPriceSum() public returns (bytes memory){... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5753:5838  function getLocalPriceSum() public returns (bytes memory){... */
     tag_5:
       tag_15
       tag_16
@@ -289,7 +289,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2811:2837  bytes public LocalPriceSum */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2819:2845  bytes public LocalPriceSum */
     tag_6:
       tag_21
       tag_22
@@ -395,7 +395,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3994:4902  function bindfunc(address addrA) public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4002:4910  function bindfunc(address addrA) public {... */
     tag_7:
       tag_27
       0x04
@@ -434,14 +434,14 @@ sub_0: assembly {
       jump	// in
     tag_27:
       stop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4908:5742  function detachfunc() public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4916:5750  function detachfunc() public {... */
     tag_8:
       tag_30
       tag_31
       jump	// in
     tag_30:
       stop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3903:3991  function priceReceive_func(bytes memory obj) public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3911:3999  function priceReceive_func(bytes memory obj) public {... */
     tag_9:
       tag_32
       0x04
@@ -586,32 +586,32 @@ sub_0: assembly {
       jump	// in
     tag_32:
       stop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2843:2878  uint public constant ONE_HOUR = 180 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2851:2886  uint public constant ONE_HOUR = 180 */
     tag_12:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2875:2878  180 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2883:2886  180 */
       0xb4
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2843:2878  uint public constant ONE_HOUR = 180 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2851:2886  uint public constant ONE_HOUR = 180 */
       dup2
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3232:3337  function get_priceReceive_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3240:3345  function get_priceReceive_key() public view returns (bytes32 key) {... */
     tag_14:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3285:3296  bytes32 key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3293:3304  bytes32 key */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3314:3330  priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3322:3338  priceReceive_key */
       sload(0x03)
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3307:3330  return priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3315:3338  return priceReceive_key */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3232:3337  function get_priceReceive_key() public view returns (bytes32 key) {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3240:3345  function get_priceReceive_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5745:5830  function getLocalPriceSum() public returns (bytes memory){... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5753:5838  function getLocalPriceSum() public returns (bytes memory){... */
     tag_16:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5789:5801  bytes memory */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5797:5809  bytes memory */
       0x60
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5813:5826  LocalPriceSum */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5821:5834  LocalPriceSum */
       0x01
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5806:5826  return LocalPriceSum */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5814:5834  return LocalPriceSum */
       dup1
       sload
       0x01
@@ -729,10 +729,10 @@ sub_0: assembly {
       pop
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5745:5830  function getLocalPriceSum() public returns (bytes memory){... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5753:5838  function getLocalPriceSum() public returns (bytes memory){... */
       swap1
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2811:2837  bytes public LocalPriceSum */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":2819:2845  bytes public LocalPriceSum */
     tag_22:
       0x01
       dup1
@@ -852,14 +852,14 @@ sub_0: assembly {
       pop
       dup2
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3994:4902  function bindfunc(address addrA) public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4002:4910  function bindfunc(address addrA) public {... */
     tag_29:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4046:4051  addrA */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4054:4059  addrA */
       dup1
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4038:4041  dut */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4046:4049  dut */
       0x00
       dup1
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4038:4052  dut = A(addrA) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4046:4060  dut = A(addrA) */
       0x0100
       exp
       dup2
@@ -878,9 +878,9 @@ sub_0: assembly {
       swap1
       sstore
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4313:4341  address dut_bindslot_address */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4321:4349  address dut_bindslot_address */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4352:4355  dut */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4360:4363  dut */
       dup1
       0x00
       swap1
@@ -892,12 +892,12 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4313:4356  address dut_bindslot_address = address(dut) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4321:4364  address dut_bindslot_address = address(dut) */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4408:4448  bytes32 dut_bindslot_priceFeedUpdate_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4416:4456  bytes32 dut_bindslot_priceFeedUpdate_key */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4451:4481  keccak256("priceFeedUpdate()") */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4459:4489  keccak256("priceFeedUpdate()") */
       mload(0x40)
       dup1
       dup1
@@ -915,44 +915,44 @@ sub_0: assembly {
       sub
       swap1
       keccak256
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4408:4481  bytes32 dut_bindslot_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4416:4489  bytes32 dut_bindslot_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4538:4580  bytes32 this_dut_bindslot_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4546:4588  bytes32 this_dut_bindslot_priceReceive_key */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4583:4605  get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4591:4613  get_priceReceive_key() */
       tag_47
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4583:4603  get_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4591:4611  get_priceReceive_key */
       tag_14
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4583:4605  get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4591:4613  get_priceReceive_key() */
       jump	// in
     tag_47:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4538:4605  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4546:4613  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4748:4782  this_dut_bindslot_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4756:4790  this_dut_bindslot_priceReceive_key */
       dup1
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4714:4746  dut_bindslot_priceFeedUpdate_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4722:4754  dut_bindslot_priceFeedUpdate_key */
       dup3
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4692:4712  dut_bindslot_address */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4700:4720  dut_bindslot_address */
       dup5
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4683:4783  bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4691:4791  bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
       bindslot
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4677:4681  0x40 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4685:4689  0x40 */
       0x40
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4670:4784  mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4678:4792  mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
       mstore
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4665:4791  {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4673:4799  {... */
       pop
       pop
       pop
       pop
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4908:5742  function detachfunc() public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":4916:5750  function detachfunc() public {... */
     tag_31:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5205:5243  bytes32 dut_detach_priceFeedUpdate_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5213:5251  bytes32 dut_detach_priceFeedUpdate_key */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5246:5276  keccak256("priceFeedUpdate()") */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5254:5284  keccak256("priceFeedUpdate()") */
       mload(0x40)
       dup1
       dup1
@@ -970,12 +970,12 @@ sub_0: assembly {
       sub
       swap1
       keccak256
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5205:5276  bytes32 dut_detach_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5213:5284  bytes32 dut_detach_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5307:5333  address dut_detach_address */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5315:5341  address dut_detach_address */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5344:5347  dut */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5352:5355  dut */
       dup1
       0x00
       swap1
@@ -987,45 +987,45 @@ sub_0: assembly {
       div
       0xffffffffffffffffffffffffffffffffffffffff
       and
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5307:5348  address dut_detach_address = address(dut) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5315:5356  address dut_detach_address = address(dut) */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5385:5427  bytes32 this_dut_bindslot_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5393:5435  bytes32 this_dut_bindslot_priceReceive_key */
       0x00
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5430:5452  get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5438:5460  get_priceReceive_key() */
       tag_49
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5430:5450  get_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5438:5458  get_priceReceive_key */
       tag_14
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5430:5452  get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5438:5460  get_priceReceive_key() */
       jump	// in
     tag_49:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5385:5452  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5393:5460  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
       swap1
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5588:5622  this_dut_bindslot_priceReceive_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5596:5630  this_dut_bindslot_priceReceive_key */
       dup1
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5556:5586  dut_detach_priceFeedUpdate_key */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5564:5594  dut_detach_priceFeedUpdate_key */
       dup4
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5536:5554  dut_detach_address */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5544:5562  dut_detach_address */
       dup4
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5525:5623  detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5533:5631  detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
       detachslot
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5519:5523  0x40 */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5527:5531  0x40 */
       0x40
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5512:5624  mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5520:5632  mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
       mstore
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5507:5628  {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":5515:5636  {... */
       pop
       pop
       pop
       jump	// out
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3903:3991  function priceReceive_func(bytes memory obj) public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3911:3999  function priceReceive_func(bytes memory obj) public {... */
     tag_37:
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3981:3984  obj */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3989:3992  obj */
       dup1
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3965:3978  LocalPriceSum */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3973:3986  LocalPriceSum */
       0x01
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3965:3984  LocalPriceSum = obj */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3973:3992  LocalPriceSum = obj */
       swap1
       dup1
       mload
@@ -1041,7 +1041,7 @@ sub_0: assembly {
       jump	// in
     tag_51:
       pop
-        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3903:3991  function priceReceive_func(bytes memory obj) public {... */
+        /* "basic/old_tests/dynamic_signaltest/dynamic_signaltest_parsed.sol":3911:3999  function priceReceive_func(bytes memory obj) public {... */
       pop
       jump	// out
     tag_52:
@@ -1166,5 +1166,5 @@ sub_0: assembly {
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220cf73d421af09334352b6bb792e0270e3badecb24bedc5fcd7268a5885f9aca8a64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220fd97153f1b693c13e691b4d5fcec12142ddc89a5aa2b5328e1a3c0fbcdd9fae464736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

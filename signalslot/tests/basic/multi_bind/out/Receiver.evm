@@ -1,6 +1,6 @@
-    /* "basic/multi_bind/multi_bind_parsed.sol":4790:7105  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4808:7123  contract Receiver {... */
   mstore(0x40, 0x80)
-    /* "basic/multi_bind/multi_bind_parsed.sol":7018:7103  constructor() public {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7036:7121  constructor() public {... */
   callvalue
   dup1
   iszero
@@ -11,33 +11,33 @@
   revert
 tag_1:
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7044:7053  Receive() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7062:7071  Receive() */
   tag_4
-    /* "basic/multi_bind/multi_bind_parsed.sol":7044:7051  Receive */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7062:7069  Receive */
   shl(0x20, tag_5)
-    /* "basic/multi_bind/multi_bind_parsed.sol":7044:7053  Receive() */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7062:7071  Receive() */
   0x20
   shr
   jump	// in
 tag_4:
-    /* "basic/multi_bind/multi_bind_parsed.sol":7070:7071  0 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7088:7089  0 */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7063:7071  data = 0 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7081:7089  data = 0 */
   dup1
   shl
-    /* "basic/multi_bind/multi_bind_parsed.sol":7063:7067  data */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7081:7085  data */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7063:7071  data = 0 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7081:7089  data = 0 */
   dup2
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":7095:7096  0 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7113:7114  0 */
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7081:7092  alert_count */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7099:7110  alert_count */
   0x01
   0x00
-    /* "basic/multi_bind/multi_bind_parsed.sol":7081:7096  alert_count = 0 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":7099:7114  alert_count = 0 */
   0x0100
   exp
   dup2
@@ -56,11 +56,11 @@ tag_4:
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":4790:7105  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4808:7123  contract Receiver {... */
   jump(tag_6)
-    /* "basic/multi_bind/multi_bind_parsed.sol":5376:5588  function Receive() private {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5394:5606  function Receive() private {... */
 tag_5:
-    /* "basic/multi_bind/multi_bind_parsed.sol":5427:5461  keccak256("Receive_func(bytes32)") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5445:5479  keccak256("Receive_func(bytes32)") */
   mload(0x40)
   dup1
   dup1
@@ -78,32 +78,32 @@ tag_5:
   sub
   swap1
   keccak256
-    /* "basic/multi_bind/multi_bind_parsed.sol":5413:5424  Receive_key */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5431:5442  Receive_key */
   0x03
-    /* "basic/multi_bind/multi_bind_parsed.sol":5413:5461  Receive_key = keccak256("Receive_func(bytes32)") */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5431:5479  Receive_key = keccak256("Receive_func(bytes32)") */
   dup2
   swap1
   sstore
   pop
-    /* "basic/multi_bind/multi_bind_parsed.sol":5553:5569  Receive_key_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5571:5587  Receive_key_slot */
   0x03
-    /* "basic/multi_bind/multi_bind_parsed.sol":5547:5570  sload(Receive_key_slot) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5565:5588  sload(Receive_key_slot) */
   sload
-    /* "basic/multi_bind/multi_bind_parsed.sol":5540:5545  30000 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5558:5563  30000 */
   0x7530
-    /* "basic/multi_bind/multi_bind_parsed.sol":5536:5538  10 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5554:5556  10 */
   0x0a
-    /* "basic/multi_bind/multi_bind_parsed.sol":5533:5534  1 */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5551:5552  1 */
   0x01
-    /* "basic/multi_bind/multi_bind_parsed.sol":5522:5571  createslot(1, 10, 30000, sload(Receive_key_slot)) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5540:5589  createslot(1, 10, 30000, sload(Receive_key_slot)) */
   createslot
-    /* "basic/multi_bind/multi_bind_parsed.sol":5501:5520  Receive_status_slot */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5519:5538  Receive_status_slot */
   0x02
-    /* "basic/multi_bind/multi_bind_parsed.sol":5494:5572  sstore(Receive_status_slot, createslot(1, 10, 30000, sload(Receive_key_slot))) */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5512:5590  sstore(Receive_status_slot, createslot(1, 10, 30000, sload(Receive_key_slot))) */
   sstore
-    /* "basic/multi_bind/multi_bind_parsed.sol":5480:5582  {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":5498:5600  {... */
   jump	// out
-    /* "basic/multi_bind/multi_bind_parsed.sol":4790:7105  contract Receiver {... */
+    /* "basic/multi_bind/multi_bind_parsed.sol":4808:7123  contract Receiver {... */
 tag_6:
   dataSize(sub_0)
   dup1
@@ -115,7 +115,7 @@ tag_6:
 stop
 
 sub_0: assembly {
-        /* "basic/multi_bind/multi_bind_parsed.sol":4790:7105  contract Receiver {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":4808:7123  contract Receiver {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -158,7 +158,7 @@ sub_0: assembly {
       0x00
       dup1
       revert
-        /* "basic/multi_bind/multi_bind_parsed.sol":5817:5945  function Receive_func(bytes32 incoming_data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5835:5963  function Receive_func(bytes32 incoming_data) public {... */
     tag_3:
       tag_8
       0x04
@@ -195,7 +195,7 @@ sub_0: assembly {
       jump	// in
     tag_8:
       stop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5189:5284  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5207:5302  function get_Receive_key() public view returns (bytes32 key) {... */
     tag_4:
       tag_11
       tag_12
@@ -217,7 +217,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":5950:6031  function get_data() public view returns (bytes32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5968:6049  function get_data() public view returns (bytes32 ret) {... */
     tag_5:
       tag_13
       tag_14
@@ -239,7 +239,7 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":6135:7013  function bind_to_signal(address emitter) public view {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6153:7031  function bind_to_signal(address emitter) public view {... */
     tag_6:
       tag_15
       0x04
@@ -278,7 +278,7 @@ sub_0: assembly {
       jump	// in
     tag_15:
       stop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6036:6130  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6054:6148  function get_alert_count() public view returns (uint32 ret) {... */
     tag_7:
       tag_18
       tag_19
@@ -304,20 +304,20 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "basic/multi_bind/multi_bind_parsed.sol":5817:5945  function Receive_func(bytes32 incoming_data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5835:5963  function Receive_func(bytes32 incoming_data) public {... */
     tag_10:
-        /* "basic/multi_bind/multi_bind_parsed.sol":5886:5899  incoming_data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5904:5917  incoming_data */
       dup1
-        /* "basic/multi_bind/multi_bind_parsed.sol":5879:5883  data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5897:5901  data */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":5879:5899  data = incoming_data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5897:5917  data = incoming_data */
       dup2
       swap1
       sstore
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5937:5938  1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5955:5956  1 */
       0x01
-        /* "basic/multi_bind/multi_bind_parsed.sol":5923:5934  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5941:5952  alert_count */
       dup1
       0x00
       swap1
@@ -329,12 +329,12 @@ sub_0: assembly {
       div
       0xffffffff
       and
-        /* "basic/multi_bind/multi_bind_parsed.sol":5923:5938  alert_count + 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5941:5956  alert_count + 1 */
       add
-        /* "basic/multi_bind/multi_bind_parsed.sol":5909:5920  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5927:5938  alert_count */
       0x01
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":5909:5938  alert_count = alert_count + 1 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5927:5956  alert_count = alert_count + 1 */
       0x0100
       exp
       dup2
@@ -353,46 +353,46 @@ sub_0: assembly {
       swap1
       sstore
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5817:5945  function Receive_func(bytes32 incoming_data) public {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5835:5963  function Receive_func(bytes32 incoming_data) public {... */
       pop
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":5189:5284  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5207:5302  function get_Receive_key() public view returns (bytes32 key) {... */
     tag_12:
-        /* "basic/multi_bind/multi_bind_parsed.sol":5237:5248  bytes32 key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5255:5266  bytes32 key */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":5266:5277  Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5284:5295  Receive_key */
       sload(0x03)
-        /* "basic/multi_bind/multi_bind_parsed.sol":5259:5277  return Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5277:5295  return Receive_key */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5189:5284  function get_Receive_key() public view returns (bytes32 key) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5207:5302  function get_Receive_key() public view returns (bytes32 key) {... */
       swap1
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":5950:6031  function get_data() public view returns (bytes32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5968:6049  function get_data() public view returns (bytes32 ret) {... */
     tag_14:
-        /* "basic/multi_bind/multi_bind_parsed.sol":5991:6002  bytes32 ret */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6009:6020  bytes32 ret */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6020:6024  data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6038:6042  data */
       dup1
       sload
-        /* "basic/multi_bind/multi_bind_parsed.sol":6014:6024  ret = data */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6032:6042  ret = data */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":5950:6031  function get_data() public view returns (bytes32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":5968:6049  function get_data() public view returns (bytes32 ret) {... */
       swap1
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":6135:7013  function bind_to_signal(address emitter) public view {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6153:7031  function bind_to_signal(address emitter) public view {... */
     tag_17:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6438:6470  address emitter_bindslot_address */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6456:6488  address emitter_bindslot_address */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6481:6488  emitter */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6499:6506  emitter */
       dup2
-        /* "basic/multi_bind/multi_bind_parsed.sol":6438:6489  address emitter_bindslot_address = address(emitter) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6456:6507  address emitter_bindslot_address = address(emitter) */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6541:6575  bytes32 emitter_bindslot_Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6559:6593  bytes32 emitter_bindslot_Alert_key */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6578:6598  keccak256("Alert()") */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6596:6616  keccak256("Alert()") */
       mload(0x40)
       dup1
       dup1
@@ -410,44 +410,44 @@ sub_0: assembly {
       sub
       swap1
       keccak256
-        /* "basic/multi_bind/multi_bind_parsed.sol":6541:6598  bytes32 emitter_bindslot_Alert_key = keccak256("Alert()") */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6559:6616  bytes32 emitter_bindslot_Alert_key = keccak256("Alert()") */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6655:6696  bytes32 this_emitter_bindslot_Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6673:6714  bytes32 this_emitter_bindslot_Receive_key */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6699:6716  get_Receive_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6717:6734  get_Receive_key() */
       tag_24
-        /* "basic/multi_bind/multi_bind_parsed.sol":6699:6714  get_Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6717:6732  get_Receive_key */
       tag_12
-        /* "basic/multi_bind/multi_bind_parsed.sol":6699:6716  get_Receive_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6717:6734  get_Receive_key() */
       jump	// in
     tag_24:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6655:6716  bytes32 this_emitter_bindslot_Receive_key = get_Receive_key() */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6673:6734  bytes32 this_emitter_bindslot_Receive_key = get_Receive_key() */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6857:6890  this_emitter_bindslot_Receive_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6875:6908  this_emitter_bindslot_Receive_key */
       dup1
-        /* "basic/multi_bind/multi_bind_parsed.sol":6829:6855  emitter_bindslot_Alert_key */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6847:6873  emitter_bindslot_Alert_key */
       dup3
-        /* "basic/multi_bind/multi_bind_parsed.sol":6803:6827  emitter_bindslot_address */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6821:6845  emitter_bindslot_address */
       dup5
-        /* "basic/multi_bind/multi_bind_parsed.sol":6794:6891  bindslot(emitter_bindslot_address, emitter_bindslot_Alert_key, this_emitter_bindslot_Receive_key) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6812:6909  bindslot(emitter_bindslot_address, emitter_bindslot_Alert_key, this_emitter_bindslot_Receive_key) */
       bindslot
-        /* "basic/multi_bind/multi_bind_parsed.sol":6788:6792  0x40 */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6806:6810  0x40 */
       0x40
-        /* "basic/multi_bind/multi_bind_parsed.sol":6781:6892  mstore(0x40, bindslot(emitter_bindslot_address, emitter_bindslot_Alert_key, this_emitter_bindslot_Receive_key)) */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6799:6910  mstore(0x40, bindslot(emitter_bindslot_address, emitter_bindslot_Alert_key, this_emitter_bindslot_Receive_key)) */
       mstore
-        /* "basic/multi_bind/multi_bind_parsed.sol":6776:6899  {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6794:6917  {... */
       pop
       pop
       pop
       pop
       jump	// out
-        /* "basic/multi_bind/multi_bind_parsed.sol":6036:6130  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6054:6148  function get_alert_count() public view returns (uint32 ret) {... */
     tag_19:
-        /* "basic/multi_bind/multi_bind_parsed.sol":6084:6094  uint32 ret */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6102:6112  uint32 ret */
       0x00
-        /* "basic/multi_bind/multi_bind_parsed.sol":6112:6123  alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6130:6141  alert_count */
       0x01
       0x00
       swap1
@@ -459,12 +459,12 @@ sub_0: assembly {
       div
       0xffffffff
       and
-        /* "basic/multi_bind/multi_bind_parsed.sol":6106:6123  ret = alert_count */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6124:6141  ret = alert_count */
       swap1
       pop
-        /* "basic/multi_bind/multi_bind_parsed.sol":6036:6130  function get_alert_count() public view returns (uint32 ret) {... */
+        /* "basic/multi_bind/multi_bind_parsed.sol":6054:6148  function get_alert_count() public view returns (uint32 ret) {... */
       swap1
       jump	// out
 
-    auxdata: 0xa2646970667358221220e7601dd3b0c1b0f873598679e741456fd6f3c427d5bccd682a091f48388fca0c64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+    auxdata: 0xa2646970667358221220cbd34127d382a3837a8af6f628737d024dad940dd891b6a6ca31bd491bf5e97964736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
 }

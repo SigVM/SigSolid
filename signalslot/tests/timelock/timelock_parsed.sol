@@ -37,7 +37,7 @@ contract TimeLock {
 
     // Get the argument count
 	function get_TimesUp_is_fix() public pure returns (uint is_fix) {
-       return 1;
+       return 5 + 256*32;
     }
 
     // Get the signal key
@@ -56,7 +56,7 @@ contract TimeLock {
     function TimesUp() private {
         TimesUp_key = keccak256("TimesUp()");
 		assembly {
-			sstore(TimesUp_status_slot, createsig(1, sload(TimesUp_key_slot)))
+			sstore(TimesUp_status_slot, createsig(5, sload(TimesUp_key_slot)))
 			sstore(TimesUp_dataslot_slot, TimesUp_data_slot)
 		}
     }
