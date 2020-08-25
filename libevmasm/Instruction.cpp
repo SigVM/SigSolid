@@ -95,6 +95,15 @@ std::map<std::string, Instruction> const dev::eth::c_instructions =
 	{ "MSIZE", Instruction::MSIZE },
 	{ "GAS", Instruction::GAS },
 	{ "JUMPDEST", Instruction::JUMPDEST },
+	///////////////////////////////////////////////////////////////////////////
+	// Signal and Slots begin
+	{ "CREATESIG", Instruction::CREATESIG },
+	{ "CREATESLOT", Instruction::CREATESLOT },	
+	{ "BINDSLOT", Instruction::BINDSLOT },
+	{ "DETACHSLOT", Instruction::DETACHSLOT },	
+	{ "EMITSIG", Instruction::EMITSIG },	
+	// Signal and Slots end
+	///////////////////////////////////////////////////////////////////////////
 	{ "PUSH1", Instruction::PUSH1 },
 	{ "PUSH2", Instruction::PUSH2 },
 	{ "PUSH3", Instruction::PUSH3 },
@@ -241,6 +250,15 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::MSIZE,		{ "MSIZE",			0, 0, 1, false, Tier::Base } },
 	{ Instruction::GAS,			{ "GAS",			0, 0, 1, false, Tier::Base } },
 	{ Instruction::JUMPDEST,	{ "JUMPDEST",		0, 0, 0, true, Tier::Special } },
+	///////////////////////////////////////////////////////////////////////////
+	// Signal and Slots begin
+	{ Instruction::CREATESIG,	{ "CREATESIG",		0, 2, 1, false, Tier::Special } },
+	{ Instruction::CREATESLOT,	{ "CREATESLOT",		0, 4, 1, false, Tier::Special } },
+	{ Instruction::BINDSLOT,	{ "BINDSLOT",		0, 3, 1, false, Tier::Special } },
+	{ Instruction::DETACHSLOT,	{ "DETACHSLOT",		0, 3, 1, false, Tier::Special } },
+	{ Instruction::EMITSIG,	    { "EMITSIG",		0, 4, 1, false, Tier::Special } },
+	// Signal and Slots end
+	///////////////////////////////////////////////////////////////////////////
 	{ Instruction::PUSH1,		{ "PUSH1",			1, 0, 1, false, Tier::VeryLow } },
 	{ Instruction::PUSH2,		{ "PUSH2",			2, 0, 1, false, Tier::VeryLow } },
 	{ Instruction::PUSH3,		{ "PUSH3",			3, 0, 1, false, Tier::VeryLow } },

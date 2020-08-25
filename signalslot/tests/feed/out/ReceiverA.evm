@@ -1,0 +1,470 @@
+    /* "./feed/feed_parsed.sol":5883:8930  contract ReceiverA {... */
+  mstore(0x40, 0x80)
+    /* "./feed/feed_parsed.sol":7079:8064  constructor(address oracle_addr) public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  mload(0x40)
+  sub(codesize, bytecodeSize)
+  dup1
+  bytecodeSize
+  dup4
+  codecopy
+  dup2
+  dup2
+  add
+  0x40
+  mstore
+  0x20
+  dup2
+  lt
+  iszero
+  tag_2
+  jumpi
+  0x00
+  dup1
+  revert
+tag_2:
+  dup2
+  add
+  swap1
+  dup1
+  dup1
+  mload
+  swap1
+  0x20
+  add
+  swap1
+  swap3
+  swap2
+  swap1
+  pop
+  pop
+  pop
+    /* "./feed/feed_parsed.sol":7124:7138  RecievePrice() */
+  tag_5
+    /* "./feed/feed_parsed.sol":7124:7136  RecievePrice */
+  shl(0x20, tag_6)
+    /* "./feed/feed_parsed.sol":7124:7138  RecievePrice() */
+  0x20
+  shr
+  jump	// in
+tag_5:
+    /* "./feed/feed_parsed.sol":7175:7186  oracle_addr */
+  dup1
+    /* "./feed/feed_parsed.sol":7148:7154  oracle */
+  0x00
+  dup1
+    /* "./feed/feed_parsed.sol":7148:7187  oracle = PriceOracleBuffer(oracle_addr) */
+  0x0100
+  exp
+  dup2
+  sload
+  dup2
+  0xffffffffffffffffffffffffffffffffffffffff
+  mul
+  not
+  and
+  swap1
+  dup4
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+  mul
+  or
+  swap1
+  sstore
+  pop
+    /* "./feed/feed_parsed.sol":7451:7482  address oracle_bindslot_address */
+  0x00
+    /* "./feed/feed_parsed.sol":7493:7499  oracle */
+  dup1
+  0x00
+  swap1
+  sload
+  swap1
+  0x0100
+  exp
+  swap1
+  div
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+    /* "./feed/feed_parsed.sol":7451:7500  address oracle_bindslot_address = address(oracle) */
+  swap1
+  pop
+    /* "./feed/feed_parsed.sol":7552:7595  bytes32 oracle_bindslot_PriceFeedUpdate_key */
+  0x00
+    /* "./feed/feed_parsed.sol":7598:7628  keccak256("PriceFeedUpdate()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x5072696365466565645570646174652829000000000000000000000000000000
+  dup2
+  mstore
+  pop
+  0x11
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "./feed/feed_parsed.sol":7552:7628  bytes32 oracle_bindslot_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()") */
+  swap1
+  pop
+    /* "./feed/feed_parsed.sol":7685:7730  bytes32 this_oracle_bindslot_RecievePrice_key */
+  0x00
+    /* "./feed/feed_parsed.sol":7733:7755  get_RecievePrice_key() */
+  tag_7
+    /* "./feed/feed_parsed.sol":7733:7753  get_RecievePrice_key */
+  shl(0x20, tag_8)
+    /* "./feed/feed_parsed.sol":7733:7755  get_RecievePrice_key() */
+  0x20
+  shr
+  jump	// in
+tag_7:
+    /* "./feed/feed_parsed.sol":7685:7755  bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key() */
+  swap1
+  pop
+    /* "./feed/feed_parsed.sol":7904:7941  this_oracle_bindslot_RecievePrice_key */
+  dup1
+    /* "./feed/feed_parsed.sol":7867:7902  oracle_bindslot_PriceFeedUpdate_key */
+  dup3
+    /* "./feed/feed_parsed.sol":7842:7865  oracle_bindslot_address */
+  dup5
+    /* "./feed/feed_parsed.sol":7833:7942  bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key) */
+  bindslot
+    /* "./feed/feed_parsed.sol":7827:7831  0x40 */
+  0x40
+    /* "./feed/feed_parsed.sol":7820:7943  mstore(0x40, bindslot(oracle_bindslot_address, oracle_bindslot_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key)) */
+  mstore
+    /* "./feed/feed_parsed.sol":7815:7950  {... */
+  pop
+  pop
+  pop
+  pop
+    /* "./feed/feed_parsed.sol":5883:8930  contract ReceiverA {... */
+  jump(tag_9)
+    /* "./feed/feed_parsed.sol":6521:6755  function RecievePrice() private {... */
+tag_6:
+    /* "./feed/feed_parsed.sol":6582:6618  keccak256("RecievePrice_func(uint)") */
+  mload(0x40)
+  dup1
+  dup1
+  0x5265636965766550726963655f66756e632875696e7429000000000000000000
+  dup2
+  mstore
+  pop
+  0x17
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "./feed/feed_parsed.sol":6563:6579  RecievePrice_key */
+  0x03
+    /* "./feed/feed_parsed.sol":6563:6618  RecievePrice_key = keccak256("RecievePrice_func(uint)") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./feed/feed_parsed.sol":6715:6736  RecievePrice_key_slot */
+  0x03
+    /* "./feed/feed_parsed.sol":6709:6737  sload(RecievePrice_key_slot) */
+  sload
+    /* "./feed/feed_parsed.sol":6702:6707  30000 */
+  0x7530
+    /* "./feed/feed_parsed.sol":6698:6700  10 */
+  0x0a
+    /* "./feed/feed_parsed.sol":6695:6696  1 */
+  0x01
+    /* "./feed/feed_parsed.sol":6684:6738  createslot(1, 10, 30000, sload(RecievePrice_key_slot)) */
+  createslot
+    /* "./feed/feed_parsed.sol":6658:6682  RecievePrice_status_slot */
+  0x02
+    /* "./feed/feed_parsed.sol":6651:6739  sstore(RecievePrice_status_slot, createslot(1, 10, 30000, sload(RecievePrice_key_slot))) */
+  sstore
+    /* "./feed/feed_parsed.sol":6637:6749  {... */
+  jump	// out
+    /* "./feed/feed_parsed.sol":6319:6424  function get_RecievePrice_key() public view returns (bytes32 key) {... */
+tag_8:
+    /* "./feed/feed_parsed.sol":6372:6383  bytes32 key */
+  0x00
+    /* "./feed/feed_parsed.sol":6401:6417  RecievePrice_key */
+  sload(0x03)
+    /* "./feed/feed_parsed.sol":6394:6417  return RecievePrice_key */
+  swap1
+  pop
+    /* "./feed/feed_parsed.sol":6319:6424  function get_RecievePrice_key() public view returns (bytes32 key) {... */
+  swap1
+  jump	// out
+    /* "./feed/feed_parsed.sol":5883:8930  contract ReceiverA {... */
+tag_9:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "./feed/feed_parsed.sol":5883:8930  contract ReceiverA {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0df5f14a
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x1b4fe37b
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x225435c0
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x7dc0d1d0
+      eq
+      tag_6
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "./feed/feed_parsed.sol":6989:7073  function RecievePrice_func(uint new_price) public {... */
+    tag_3:
+      tag_7
+      0x04
+      dup1
+      calldatasize
+      sub
+      0x20
+      dup2
+      lt
+      iszero
+      tag_8
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_8:
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_9
+      jump	// in
+    tag_7:
+      stop
+        /* "./feed/feed_parsed.sol":6319:6424  function get_RecievePrice_key() public view returns (bytes32 key) {... */
+    tag_4:
+      tag_10
+      tag_11
+      jump	// in
+    tag_10:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./feed/feed_parsed.sol":8074:8928  function detach() public {... */
+    tag_5:
+      tag_12
+      tag_13
+      jump	// in
+    tag_12:
+      stop
+        /* "./feed/feed_parsed.sol":5913:5944  PriceOracleBuffer public oracle */
+    tag_6:
+      tag_14
+      tag_15
+      jump	// in
+    tag_14:
+      mload(0x40)
+      dup1
+      dup3
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./feed/feed_parsed.sol":6989:7073  function RecievePrice_func(uint new_price) public {... */
+    tag_9:
+        /* "./feed/feed_parsed.sol":7057:7066  new_price */
+      dup1
+        /* "./feed/feed_parsed.sol":7049:7054  price */
+      0x01
+        /* "./feed/feed_parsed.sol":7049:7066  price = new_price */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "./feed/feed_parsed.sol":6989:7073  function RecievePrice_func(uint new_price) public {... */
+      pop
+      jump	// out
+        /* "./feed/feed_parsed.sol":6319:6424  function get_RecievePrice_key() public view returns (bytes32 key) {... */
+    tag_11:
+        /* "./feed/feed_parsed.sol":6372:6383  bytes32 key */
+      0x00
+        /* "./feed/feed_parsed.sol":6401:6417  RecievePrice_key */
+      sload(0x03)
+        /* "./feed/feed_parsed.sol":6394:6417  return RecievePrice_key */
+      swap1
+      pop
+        /* "./feed/feed_parsed.sol":6319:6424  function get_RecievePrice_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "./feed/feed_parsed.sol":8074:8928  function detach() public {... */
+    tag_13:
+        /* "./feed/feed_parsed.sol":8370:8411  bytes32 oracle_detach_PriceFeedUpdate_key */
+      0x00
+        /* "./feed/feed_parsed.sol":8414:8444  keccak256("PriceFeedUpdate()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x5072696365466565645570646174652829000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      0x11
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "./feed/feed_parsed.sol":8370:8444  bytes32 oracle_detach_PriceFeedUpdate_key = keccak256("PriceFeedUpdate()") */
+      swap1
+      pop
+        /* "./feed/feed_parsed.sol":8475:8504  address oracle_detach_address */
+      0x00
+        /* "./feed/feed_parsed.sol":8515:8521  oracle */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./feed/feed_parsed.sol":8475:8522  address oracle_detach_address = address(oracle) */
+      swap1
+      pop
+        /* "./feed/feed_parsed.sol":8559:8604  bytes32 this_oracle_bindslot_RecievePrice_key */
+      0x00
+        /* "./feed/feed_parsed.sol":8607:8629  get_RecievePrice_key() */
+      tag_19
+        /* "./feed/feed_parsed.sol":8607:8627  get_RecievePrice_key */
+      tag_11
+        /* "./feed/feed_parsed.sol":8607:8629  get_RecievePrice_key() */
+      jump	// in
+    tag_19:
+        /* "./feed/feed_parsed.sol":8559:8629  bytes32 this_oracle_bindslot_RecievePrice_key = get_RecievePrice_key() */
+      swap1
+      pop
+        /* "./feed/feed_parsed.sol":8771:8808  this_oracle_bindslot_RecievePrice_key */
+      dup1
+        /* "./feed/feed_parsed.sol":8736:8769  oracle_detach_PriceFeedUpdate_key */
+      dup4
+        /* "./feed/feed_parsed.sol":8713:8734  oracle_detach_address */
+      dup4
+        /* "./feed/feed_parsed.sol":8702:8809  detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key) */
+      detachslot
+        /* "./feed/feed_parsed.sol":8696:8700  0x40 */
+      0x40
+        /* "./feed/feed_parsed.sol":8689:8810  mstore(0x40, detachslot(oracle_detach_address, oracle_detach_PriceFeedUpdate_key, this_oracle_bindslot_RecievePrice_key)) */
+      mstore
+        /* "./feed/feed_parsed.sol":8684:8814  {... */
+      pop
+      pop
+      pop
+      jump	// out
+        /* "./feed/feed_parsed.sol":5913:5944  PriceOracleBuffer public oracle */
+    tag_15:
+      0x00
+      dup1
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      dup2
+      jump	// out
+
+    auxdata: 0xa2646970667358221220d345d9529a203975c909ab56a4b92ad33ef9a515c960a5489147c4df91476c8b64736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+}

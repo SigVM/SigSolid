@@ -1,0 +1,409 @@
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2545:5532  contract B {... */
+  mstore(0x40, 0x80)
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5468:5530  constructor() public {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5494:5508  priceReceive() */
+  tag_4
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5494:5506  priceReceive */
+  shl(0x20, tag_5)
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5494:5508  priceReceive() */
+  0x20
+  shr
+  jump	// in
+tag_4:
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5512:5526  priceReceive() */
+  tag_6
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5512:5524  priceReceive */
+  shl(0x20, tag_5)
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":5512:5526  priceReceive() */
+  0x20
+  shr
+  jump	// in
+tag_6:
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2545:5532  contract B {... */
+  jump(tag_7)
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3191:3421  function priceReceive() private {... */
+tag_5:
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3252:3284  keccak256("priceReceive_func()") */
+  mload(0x40)
+  dup1
+  dup1
+  0x7072696365526563656976655f66756e63282900000000000000000000000000
+  dup2
+  mstore
+  pop
+  0x13
+  add
+  swap1
+  pop
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  keccak256
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3233:3249  priceReceive_key */
+  0x03
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3233:3284  priceReceive_key = keccak256("priceReceive_func()") */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3381:3402  priceReceive_key_slot */
+  0x03
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3375:3403  sload(priceReceive_key_slot) */
+  sload
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3368:3373  30000 */
+  0x7530
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3364:3366  10 */
+  0x0a
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3361:3362  0 */
+  0x00
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3350:3404  createslot(0, 10, 30000, sload(priceReceive_key_slot)) */
+  createslot
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3324:3348  priceReceive_status_slot */
+  0x02
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3317:3405  sstore(priceReceive_status_slot, createslot(0, 10, 30000, sload(priceReceive_key_slot))) */
+  sstore
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":3303:3415  {... */
+  jump	// out
+    /* "basic/old_tests/blank_data/blank_data_parsed.sol":2545:5532  contract B {... */
+tag_7:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2545:5532  contract B {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x165035e2
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x238227d9
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x395f9b8d
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x68c0b038
+      eq
+      tag_6
+      jumpi
+      dup1
+      0x81b28b60
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xf035ccc1
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2601:2636  uint public constant ONE_HOUR = 180 */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2989:3094  function get_priceReceive_key() public view returns (bytes32 key) {... */
+    tag_4:
+      tag_11
+      tag_12
+      jump	// in
+    tag_11:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3740:4622  function bindfunc() public view {... */
+    tag_5:
+      tag_13
+      tag_14
+      jump	// in
+    tag_13:
+      stop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2567:2595  bytes32 public LocalPriceSum */
+    tag_6:
+      tag_15
+      tag_16
+      jump	// in
+    tag_15:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4627:5466  function detachfunc() public view {... */
+    tag_7:
+      tag_17
+      tag_18
+      jump	// in
+    tag_17:
+      stop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3655:3738  function priceReceive_func() public {... */
+    tag_8:
+      tag_19
+      tag_20
+      jump	// in
+    tag_19:
+      stop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2601:2636  uint public constant ONE_HOUR = 180 */
+    tag_10:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2633:2636  180 */
+      0xb4
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2601:2636  uint public constant ONE_HOUR = 180 */
+      dup2
+      jump	// out
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2989:3094  function get_priceReceive_key() public view returns (bytes32 key) {... */
+    tag_12:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3042:3053  bytes32 key */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3071:3087  priceReceive_key */
+      sload(0x03)
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3064:3087  return priceReceive_key */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2989:3094  function get_priceReceive_key() public view returns (bytes32 key) {... */
+      swap1
+      jump	// out
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3740:4622  function bindfunc() public view {... */
+    tag_14:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4033:4061  address dut_bindslot_address */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4072:4075  dut */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4033:4076  address dut_bindslot_address = address(dut) */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4128:4168  bytes32 dut_bindslot_priceFeedUpdate_key */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4171:4201  keccak256("priceFeedUpdate()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x7072696365466565645570646174652829000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      0x11
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4128:4201  bytes32 dut_bindslot_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4258:4300  bytes32 this_dut_bindslot_priceReceive_key */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4303:4325  get_priceReceive_key() */
+      tag_23
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4303:4323  get_priceReceive_key */
+      tag_12
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4303:4325  get_priceReceive_key() */
+      jump	// in
+    tag_23:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4258:4325  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4468:4502  this_dut_bindslot_priceReceive_key */
+      dup1
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4434:4466  dut_bindslot_priceFeedUpdate_key */
+      dup3
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4412:4432  dut_bindslot_address */
+      dup5
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4403:4503  bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
+      bindslot
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4397:4401  0x40 */
+      0x40
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4390:4504  mstore(0x40, bindslot(dut_bindslot_address, dut_bindslot_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
+      mstore
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4385:4511  {... */
+      pop
+      pop
+      pop
+      jump	// out
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":2567:2595  bytes32 public LocalPriceSum */
+    tag_16:
+      sload(0x01)
+      dup2
+      jump	// out
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4627:5466  function detachfunc() public view {... */
+    tag_18:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4929:4967  bytes32 dut_detach_priceFeedUpdate_key */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4970:5000  keccak256("priceFeedUpdate()") */
+      mload(0x40)
+      dup1
+      dup1
+      0x7072696365466565645570646174652829000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      0x11
+      add
+      swap1
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      keccak256
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":4929:5000  bytes32 dut_detach_priceFeedUpdate_key = keccak256("priceFeedUpdate()") */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5031:5057  address dut_detach_address */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5068:5071  dut */
+      dup1
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5031:5072  address dut_detach_address = address(dut) */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5109:5151  bytes32 this_dut_bindslot_priceReceive_key */
+      0x00
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5154:5176  get_priceReceive_key() */
+      tag_25
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5154:5174  get_priceReceive_key */
+      tag_12
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5154:5176  get_priceReceive_key() */
+      jump	// in
+    tag_25:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5109:5176  bytes32 this_dut_bindslot_priceReceive_key = get_priceReceive_key() */
+      swap1
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5312:5346  this_dut_bindslot_priceReceive_key */
+      dup1
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5280:5310  dut_detach_priceFeedUpdate_key */
+      dup4
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5260:5278  dut_detach_address */
+      dup4
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5249:5347  detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key) */
+      detachslot
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5243:5247  0x40 */
+      0x40
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5236:5348  mstore(0x40, detachslot(dut_detach_address, dut_detach_priceFeedUpdate_key, this_dut_bindslot_priceReceive_key)) */
+      mstore
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":5231:5352  {... */
+      pop
+      pop
+      pop
+      jump	// out
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3655:3738  function priceReceive_func() public {... */
+    tag_20:
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3718:3731  LocalPriceSum */
+      sload(0x01)
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3717:3731  ~LocalPriceSum */
+      not
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3701:3714  LocalPriceSum */
+      0x01
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3701:3731  LocalPriceSum = ~LocalPriceSum */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "basic/old_tests/blank_data/blank_data_parsed.sol":3655:3738  function priceReceive_func() public {... */
+      jump	// out
+
+    auxdata: 0xa26469706673582212208202383e413002f5aaf5d9dcf7404e33c7c635ab7043b34b671c73a7fe2f538764736f6c63782c302e362e31312d646576656c6f702e323032302e372e32322b636f6d6d69742e36646666643637632e6d6f64005d
+}

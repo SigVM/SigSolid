@@ -1,0 +1,2 @@
+# Basic functionality test contracts
+The following set of contracts are meant to be used to test the basic functionality of signal and slots on the network. These tests are not designed designed with the intention of testing the parser or compiler, but rather if the blockchain implementation of signals and slots is correct or not.

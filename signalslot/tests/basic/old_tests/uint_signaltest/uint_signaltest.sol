@@ -1,0 +1,42 @@
+pragma solidity ^0.6.9;
+
+contract A {
+	uint data;
+    uint public constant ONE_HOUR = 180;
+	signal priceFeedUpdate(uint32 data);
+    function emitfunc(uint32 DataSent) public {
+		emitsig priceFeedUpdate(DataSent).delay(0);
+    }
+}
+
+contract B {
+	A dut;
+	uint32 public LocalPriceSum;
+    uint public constant ONE_HOUR = 180;
+
+	slot priceReceive(uint32 obj){
+        LocalPriceSum = ~ obj;
+    }
+
+	function bindfunc(address addrA) public {
+		dut = A(addrA);
+		priceReceive.bind(dut.priceFeedUpdate);
+	}
+
+    function detachfunc() public {
+		priceReceive.detach(dut.priceFeedUpdate);
+    }
+
+	function getLocalPriceSum() public returns (uint32){
+		return LocalPriceSum;
+	}
+}
+
+//../../../../parse.pl signaltest.sol signaltest_parsed.sol
+//../../../../../build/solc/solc --overwrite -o out --asm --bin --abi signaltest_parsed.sol
+// cp out/A.bin ../../../../js_tests/tb_with_uint_sigslt/contract/A-bytecode.json
+// cp out/A.abi ../../../../js_tests/tb_with_uint_sigslt/contract/A-abi.json
+// cp out/B.bin ../../../../js_tests/tb_with_uint_sigslt/contract/B-bytecode.json
+// cp out/B.abi ../../../../js_tests/tb_with_uint_sigslt/contract/B-abi.json
+// cp uint_signaltest_parsed.sol ../../../../js_tests/tb_with_uint_sigslt/contract/uint_signaltest_parsed.sol
+
