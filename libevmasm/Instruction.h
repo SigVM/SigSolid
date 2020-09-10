@@ -185,15 +185,15 @@ enum class Instruction: uint8_t
 	GETLOCAL,           ///< push local variable to top of stack -- not part of Instructions.cpp
 
 	///////////////////////////////////////////////////////////////////////////
-	// Signal and Slots begin
-	// These constants must match the constants found in the EVM interpreter.
-	// For the conflux chain, that would be /core/src/evm/instructions.rs.
-	CREATESIG  = 0xc0,	///< Create a new signal
-	CREATESLOT = 0xc1, 	///< Create a new slot
-	BINDSLOT   = 0xc2,	///< Bind a slot to a signal 
-	DETACHSLOT = 0xc3,	///< Detach a slot from a signal
-	EMITSIG    = 0xc4,	///< Emit a signal to all listening slots
-	// Signal and Slots end
+	// Signal and Handlers begin
+	CREATESIGNAL  = 0xc0,	///< Create a new signal
+	CREATEHANDLER = 0xc1, 	///< Create a new slot
+	SIGBIND    	  = 0xc2,	///< Bind a slot to a signal 
+	SIGDETACH	  = 0xc3,	///< Detach a slot from a signal
+	SIGEMIT       = 0xc4,	///< Emit a signal to all listening slots
+	DELETESIGNAL  = 0xc5, 	///< Delete a signal
+	DELETEHANDLER = 0xc6,   ///< Delete a handler
+	// Signal and Handlers end
 	///////////////////////////////////////////////////////////////////////////
 
 	CREATE = 0xf0,		///< create a new account with associated code

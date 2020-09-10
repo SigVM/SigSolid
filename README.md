@@ -1,82 +1,33 @@
-# The Solidity Contract-Oriented Programming Language
-You can talk to us on [![solidity at https://gitter.im/ethereum/solidity](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ethereum/solidity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge). Questions, feedback and suggestions are welcome!
+# Signal and Handler Compiler Modifications
+This repository provides a parser as well as a slightly modified compiler to help compile smart contracts utilizing signals and handlers. Example contracts can be found in `.signalhandler/examples/`. The parser implementation can be found in `./signalhandler/parser/`. 
 
-Solidity is a statically typed, contract-oriented, high-level language for implementing smart contracts on the Ethereum platform.
+To build and install the compiler from source, enter the root directory and do the following.
+```
+sudo sh ./scripts/install_deps.sh 
+mkdir -p build
+cd build
+cmake ..
+make
+```
+Visit [solidity](https://solidity.readthedocs.io/en/latest/installing-solidity) for more information. Once compiled, the solc executable can be found in the `./build/solc/` directory. 
 
-## Table of Contents
-
-- [Background](#background)
-- [Build and Install](#build-and-install)
-- [Example](#example)
-- [Documentation](#documentation)
-- [Development](#development)
-- [Maintainers](#maintainers)
-- [License](#license)
-- [Security](#security)
-
-## Background
-
-Solidity is a statically-typed curly-braces programming language designed for developing smart contracts
-that run on the Ethereum Virtual Machine. Smart contracts are programs that are executed inside a peer-to-peer
-network where nobody has special authority over the execution, and thus they allow to implement tokens of value,
-ownership, voting and other kinds of logics.
-
-When deploying contracts, you should use the latest released version of
-Solidity. This is because breaking changes as well as new features and bug fixes are
-introduced regularly. We currently use a 0.x version
-number [to indicate this fast pace of change](https://semver.org/#spec-item-4).
-
-## Build and Install
-
-Instructions about how to build and install the Solidity compiler can be
-found in the [Solidity documentation](https://solidity.readthedocs.io/en/latest/installing-solidity.html#building-from-source).
-
-
-## Example
-
-A "Hello World" program in Solidity is of even less use than in other languages, but still:
-
-```solidity
-pragma solidity ^0.6.0;
-
-contract HelloWorld {
-  function helloWorld() external pure returns (string memory) {
-    return "Hello, World!";
-  }
-}
+# Parsing and Compiling a Contract
+To parse the script, install perl and run parse.pl.
+```
+parse.pl <contract to be parsed> <parsed contract>
+```
+To compile a contract, use the solc executable located at `./build/solc/solc`. From the root directory, run:
+```
+./build/solc/solc --overwrite -o <output dir> --asm --bin --abi <parsed contract>
 ```
 
-To get started with Solidity, you can use [Remix](https://remix.ethereum.org/), which is an
-browser-based IDE. Here are some example contracts:
+# Signal and Handler Syntax
+Signals and handlers are declared with the `signal` and `handler` keywords. Signals have a list of methods associated included with it which are: `create_signal`, `delete_signal`, `emit`, and `delay`. Handlers also have a list of methods which are: `create_handler`, `delete_handler`, `bind`, and `detach`. For examples on what each method is parsed into, check out the example solidity file found in `./signalhandler/parser/example_parsed.sol`.
 
-1. [Voting](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#voting)
-2. [Blind Auction](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#blind-auction)
-3. [Safe remote purchase](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#safe-remote-purchase)
-4. [Micropayment Channel](https://solidity.readthedocs.io/en/latest/solidity-by-example.html#micropayment-channel)
+... document syntax here ...
 
-## Documentation
+# Compiler Modifications
+Not much was changed to the compiler. New opcodes are added to `./libevasm/instruction.h` and `./libevasm/instruction.cpp` so that a modified version of a EVM (Ethereum Virtual Machine) which can execute the new bytecodes. An implementation of a blockchain which supports signal and handler opcodes can be found [here](https://github.com/R-Song/conflux-rust). In this blockchain there is an implementation of an EVM capable of executing the new signal and handler opcodes.
 
-The Solidity documentation is hosted at [Read the docs](https://solidity.readthedocs.io).
-
-## Development
-
-Solidity is still under development. Contributions are always welcome!
-Please follow the
-[Developers Guide](https://solidity.readthedocs.io/en/latest/contributing.html)
-if you want to help.
-
-You can find our current feature and bug priorities for forthcoming
-releases [in the projects section](https://github.com/ethereum/solidity/projects).
-
-## Maintainers
-* [@axic](https://github.com/axic)
-* [@chriseth](https://github.com/chriseth)
-
-## License
-Solidity is licensed under [GNU General Public License v3.0](LICENSE.txt).
-
-Some third-party code has its [own licensing terms](cmake/templates/license.h.in).
-
-## Security
-
-The security policy may be [found here](SECURITY.md).
+# More Information
+This project was forked off of the main solidity repository (obviously). Check out the original github repository [here](https://github.com/ethereum/solidity).
