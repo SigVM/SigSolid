@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Lefteris <lefteris@ethdev.com>
  * @author Gav Wood <g@ethdev.com>
@@ -59,6 +60,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/adaptor/filtered.hpp>
 #include <boost/algorithm/string.hpp>
 
 #ifdef _WIN32 // windows
@@ -440,7 +442,7 @@ void CommandLineInterface::handleABI(string const& _contract)
 	if (!m_args.count(g_argAbi))
 		return;
 
-	string data = jsonCompactPrint(m_compiler->contractABI(_contract));
+	string data = jsonCompactPrint(removeNullMembers(m_compiler->contractABI(_contract)));
 	if (m_args.count(g_argOutputDir))
 		createFile(m_compiler->filesystemFriendlyName(_contract) + ".abi", data);
 	else
@@ -452,7 +454,7 @@ void CommandLineInterface::handleStorageLayout(string const& _contract)
 	if (!m_args.count(g_argStorageLayout))
 		return;
 
-	string data = jsonCompactPrint(m_compiler->storageLayout(_contract));
+	string data = jsonCompactPrint(removeNullMembers(m_compiler->storageLayout(_contract)));
 	if (m_args.count(g_argOutputDir))
 		createFile(m_compiler->filesystemFriendlyName(_contract) + "_storage.json", data);
 	else
@@ -481,9 +483,11 @@ void CommandLineInterface::handleNatspec(bool _natspecDev, string const& _contra
 	if (m_args.count(argName))
 	{
 		std::string output = jsonPrettyPrint(
-			_natspecDev ?
-			m_compiler->natspecDev(_contract) :
-			m_compiler->natspecUser(_contract)
+			removeNullMembers(
+				_natspecDev ?
+				m_compiler->natspecDev(_contract) :
+				m_compiler->natspecUser(_contract)
+			)
 		);
 
 		if (m_args.count(g_argOutputDir))
@@ -1200,9 +1204,14 @@ bool CommandLineInterface::processInput()
 		};
 		if (countEnabledOptions(nonAssemblyModeOptions) >= 1)
 		{
+			auto optionEnabled = [&](string const& name){ return m_args.count(name) > 0; };
+			auto enabledOptions = boost::copy_range<vector<string>>(nonAssemblyModeOptions | boost::adaptors::filtered(optionEnabled));
+
 			serr() << "The following options are invalid in assembly mode: ";
-			serr() << joinOptionNames(nonAssemblyModeOptions) << ". ";
-			serr() << "Optimization is disabled by default and can be enabled with --" << g_argOptimize << "." << endl;
+			serr() << joinOptionNames(enabledOptions) << ".";
+			if (m_args.count(g_strOptimizeYul) || m_args.count(g_strNoOptimizeYul))
+				serr() << " Optimization is disabled by default and can be enabled with --" << g_argOptimize << "." << endl;
+			serr() << endl;
 			return false;
 		}
 
@@ -1554,7 +1563,8 @@ void CommandLineInterface::handleCombinedJSON()
 		}
 	}
 
-	string json = m_args.count(g_argPrettyJson) ? jsonPrettyPrint(output) : jsonCompactPrint(output);
+	string json = m_args.count(g_argPrettyJson) ? jsonPrettyPrint(removeNullMembers(std::move(output))) :
+		jsonCompactPrint(removeNullMembers(std::move(output)));
 
 	if (m_args.count(g_argOutputDir))
 		createJson("combined", json);
@@ -1870,7 +1880,7 @@ void CommandLineInterface::outputCompilationResults()
 		{
 			string ret;
 			if (m_args.count(g_argAsmJson))
-				ret = jsonPrettyPrint(m_compiler->assemblyJSON(contract));
+				ret = jsonPrettyPrint(removeNullMembers(m_compiler->assemblyJSON(contract)));
 			else
 				ret = m_compiler->assemblyString(contract, m_sourceCodes);
 

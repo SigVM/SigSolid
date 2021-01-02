@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
@@ -52,6 +53,57 @@ using namespace solidity::frontend;
 
 namespace
 {
+
+struct TypeComp
+{
+	bool operator()(Type const* lhs, Type const* rhs) const
+	{
+		solAssert(lhs && rhs, "");
+		return lhs->richIdentifier() < rhs->richIdentifier();
+	}
+};
+using TypeSet = std::set<Type const*, TypeComp>;
+
+void oversizedSubtypesInner(
+	Type const& _type,
+	bool _includeType,
+	set<StructDefinition const*>& _structsSeen,
+	TypeSet& _oversizedSubtypes
+)
+{
+	switch (_type.category())
+	{
+	case Type::Category::Array:
+	{
+		auto const& t = dynamic_cast<ArrayType const&>(_type);
+		if (_includeType && t.storageSizeUpperBound() >= bigint(1) << 64)
+			_oversizedSubtypes.insert(&t);
+		oversizedSubtypesInner(*t.baseType(), t.isDynamicallySized(), _structsSeen, _oversizedSubtypes);
+		break;
+	}
+	case Type::Category::Struct:
+	{
+		auto const& t = dynamic_cast<StructType const&>(_type);
+		if (_structsSeen.count(&t.structDefinition()))
+			return;
+		if (_includeType && t.storageSizeUpperBound() >= bigint(1) << 64)
+			_oversizedSubtypes.insert(&t);
+		_structsSeen.insert(&t.structDefinition());
+		for (auto const& m: t.members(nullptr))
+			oversizedSubtypesInner(*m.type, false, _structsSeen, _oversizedSubtypes);
+		_structsSeen.erase(&t.structDefinition());
+		break;
+	}
+	case Type::Category::Mapping:
+	{
+		auto const* valueType = dynamic_cast<MappingType const&>(_type).valueType();
+		oversizedSubtypesInner(*valueType, true, _structsSeen, _oversizedSubtypes);
+		break;
+	}
+	default:
+		break;
+	}
+}
 
 /// Check whether (_base ** _exp) fits into 4096 bits.
 bool fitsPrecisionExp(bigint const& _base, bigint const& _exp)
@@ -147,6 +199,16 @@ util::Result<TypePointers> transformParametersToExternal(TypePointers const& _pa
 	return transformed;
 }
 
+}
+
+vector<frontend::Type const*> solidity::frontend::oversizedSubtypes(frontend::Type const& _type)
+{
+	set<StructDefinition const*> structsSeen;
+	TypeSet oversized;
+	oversizedSubtypesInner(_type, false, structsSeen, oversized);
+	vector<frontend::Type const*> res;
+	copy(oversized.cbegin(), oversized.cend(), back_inserter(res));
+	return res;
 }
 
 void Type::clearCache() const
@@ -355,11 +417,9 @@ MemberList::MemberMap Type::boundFunctions(Type const& _type, ASTNode const& _sc
 	if (auto const* sourceUnit = dynamic_cast<SourceUnit const*>(&_scope))
 		usingForDirectives += ASTNode::filteredNodes<UsingForDirective>(sourceUnit->nodes());
 	else if (auto const* contract = dynamic_cast<ContractDefinition const*>(&_scope))
-	{
-		for (ContractDefinition const* contract: contract->annotation().linearizedBaseContracts)
-			usingForDirectives += contract->usingForDirectives();
-		usingForDirectives += ASTNode::filteredNodes<UsingForDirective>(contract->sourceUnit().nodes());
-	}
+		usingForDirectives +=
+			contract->usingForDirectives() +
+			ASTNode::filteredNodes<UsingForDirective>(contract->sourceUnit().nodes());
 	else
 		solAssert(false, "");
 
@@ -391,7 +451,7 @@ MemberList::MemberMap Type::boundFunctions(Type const& _type, ASTNode const& _sc
 		);
 		for (FunctionDefinition const* function: library.definedFunctions())
 		{
-			if (!function->isVisibleAsLibraryMember() || seenFunctions.count(function))
+			if (!function->isOrdinary() || !function->isVisibleAsLibraryMember() || seenFunctions.count(function))
 				continue;
 			seenFunctions.insert(function);
 			if (function->parameters().empty())
@@ -508,7 +568,7 @@ bool isValidShiftAndAmountType(Token _operator, Type const& _shiftAmountType)
 	if (_operator == Token::SHR)
 		return false;
 	else if (IntegerType const* otherInt = dynamic_cast<decltype(otherInt)>(&_shiftAmountType))
-		return true;
+		return !otherInt->isSigned();
 	else if (RationalNumberType const* otherRat = dynamic_cast<decltype(otherRat)>(&_shiftAmountType))
 		return !otherRat->isFractional() && otherRat->integerType() && !otherRat->integerType()->isSigned();
 	else
@@ -889,11 +949,8 @@ tuple<bool, rational> RationalNumberType::isValidLiteral(Literal const& _literal
 		case Literal::SubDenomination::Wei:
 		case Literal::SubDenomination::Second:
 			break;
-		case Literal::SubDenomination::Szabo:
-			value *= bigint("1000000000000");
-			break;
-		case Literal::SubDenomination::Finney:
-			value *= bigint("1000000000000000");
+		case Literal::SubDenomination::Gwei:
+			value *= bigint("1000000000");
 			break;
 		case Literal::SubDenomination::Ether:
 			value *= bigint("1000000000000000000");
@@ -992,10 +1049,38 @@ TypeResult RationalNumberType::binaryOperatorResult(Token _operator, Type const*
 {
 	if (_other->category() == Category::Integer || _other->category() == Category::FixedPoint)
 	{
-		auto commonType = Type::commonType(this, _other);
-		if (!commonType)
-			return nullptr;
-		return commonType->binaryOperatorResult(_operator, _other);
+		if (isFractional())
+			return TypeResult::err("Fractional literals not supported.");
+		else if (!integerType())
+			return TypeResult::err("Literal too large.");
+
+		// Shift and exp are not symmetric, so it does not make sense to swap
+		// the types as below. As an exception, we always use uint here.
+		if (TokenTraits::isShiftOp(_operator))
+		{
+			if (!isValidShiftAndAmountType(_operator, *_other))
+				return nullptr;
+			return isNegative() ? TypeProvider::int256() : TypeProvider::uint256();
+		}
+		else if (Token::Exp == _operator)
+		{
+			if (auto const* otherIntType = dynamic_cast<IntegerType const*>(_other))
+			{
+				if (otherIntType->isSigned())
+					return TypeResult::err("Exponentiation power is not allowed to be a signed integer type.");
+			}
+			else if (dynamic_cast<FixedPointType const*>(_other))
+				return TypeResult::err("Exponent is fractional.");
+
+			return isNegative() ? TypeProvider::int256() : TypeProvider::uint256();
+		}
+		else
+		{
+			auto commonType = Type::commonType(this, _other);
+			if (!commonType)
+				return nullptr;
+			return commonType->binaryOperatorResult(_operator, _other);
+		}
 	}
 	else if (_other->category() != category())
 		return nullptr;
@@ -1323,7 +1408,7 @@ BoolResult StringLiteralType::isImplicitlyConvertibleTo(Type const& _convertTo) 
 		return
 			arrayType->isByteArray() &&
 			!(arrayType->dataStoredIn(DataLocation::Storage) && arrayType->isPointer()) &&
-			!(arrayType->isString() && !isValidUTF8());
+			!(arrayType->isString() && !util::validateUTF8(value()));
 	else
 		return false;
 }
@@ -1355,11 +1440,6 @@ std::string StringLiteralType::toString(bool) const
 TypePointer StringLiteralType::mobileType() const
 {
 	return TypeProvider::stringMemory();
-}
-
-bool StringLiteralType::isValidUTF8() const
-{
-	return util::validateUTF8(m_value);
 }
 
 FixedBytesType::FixedBytesType(unsigned _bytes): m_bytes(_bytes)
@@ -1746,6 +1826,8 @@ BoolResult ArrayType::validForLocation(DataLocation _loc) const
 			break;
 		}
 		case DataLocation::Storage:
+			if (storageSizeUpperBound() >= bigint(1) << 256)
+				return BoolResult::err("Type too large for storage.");
 			break;
 	}
 	return true;
@@ -1783,6 +1865,14 @@ unsigned ArrayType::calldataEncodedTailSize() const
 bool ArrayType::isDynamicallyEncoded() const
 {
 	return isDynamicallySized() || baseType()->isDynamicallyEncoded();
+}
+
+bigint ArrayType::storageSizeUpperBound() const
+{
+	if (isDynamicallySized())
+		return 1;
+	else
+		return length() * baseType()->storageSizeUpperBound();
 }
 
 u256 ArrayType::storageSize() const
@@ -1955,6 +2045,20 @@ TypeResult ArrayType::interfaceType(bool _inLibrary) const
 		m_interfaceType = result;
 
 	return result;
+}
+
+Type const* ArrayType::finalBaseType(bool _breakIfDynamicArrayType) const
+{
+	Type const* finalBaseType = this;
+
+	while (auto arrayType = dynamic_cast<ArrayType const*>(finalBaseType))
+	{
+		if (_breakIfDynamicArrayType && arrayType->isDynamicallySized())
+			break;
+		finalBaseType = arrayType->baseType();
+	}
+
+	return finalBaseType;
 }
 
 u256 ArrayType::memoryDataSize() const
@@ -2185,7 +2289,7 @@ unsigned StructType::calldataEncodedSize(bool) const
 	unsigned size = 0;
 	for (auto const& member: members(nullptr))
 	{
-		solAssert(member.type->canLiveOutsideStorage(), "");
+		solAssert(!member.type->containsNestedMapping(), "");
 		// Struct members are always padded.
 		size += member.type->calldataEncodedSize();
 	}
@@ -2200,7 +2304,7 @@ unsigned StructType::calldataEncodedTailSize() const
 	unsigned size = 0;
 	for (auto const& member: members(nullptr))
 	{
-		solAssert(member.type->canLiveOutsideStorage(), "");
+		solAssert(!member.type->containsNestedMapping(), "");
 		// Struct members are always padded.
 		size += member.type->calldataHeadSize();
 	}
@@ -2212,7 +2316,7 @@ unsigned StructType::calldataOffsetOfMember(std::string const& _member) const
 	unsigned offset = 0;
 	for (auto const& member: members(nullptr))
 	{
-		solAssert(member.type->canLiveOutsideStorage(), "");
+		solAssert(!member.type->containsNestedMapping(), "");
 		if (member.name == _member)
 			return offset;
 		// Struct members are always padded.
@@ -2244,9 +2348,53 @@ u256 StructType::memoryDataSize() const
 	return size;
 }
 
+bigint StructType::storageSizeUpperBound() const
+{
+	bigint size = 1;
+	for (auto const& member: members(nullptr))
+		size += member.type->storageSizeUpperBound();
+	return size;
+}
+
 u256 StructType::storageSize() const
 {
 	return max<u256>(1, members(nullptr).storageSize());
+}
+
+bool StructType::containsNestedMapping() const
+{
+	if (!m_struct.annotation().containsNestedMapping.has_value())
+	{
+		bool hasNestedMapping = false;
+
+		util::BreadthFirstSearch<StructDefinition const*> breadthFirstSearch{{&m_struct}};
+
+		breadthFirstSearch.run(
+			[&](StructDefinition const* _struct, auto&& _addChild)
+			{
+				for (auto const& member: _struct->members())
+				{
+					TypePointer memberType = member->annotation().type;
+					solAssert(memberType, "");
+
+					if (auto arrayType = dynamic_cast<ArrayType const*>(memberType))
+						memberType = arrayType->finalBaseType(false);
+
+					if (dynamic_cast<MappingType const*>(memberType))
+					{
+						hasNestedMapping = true;
+						breadthFirstSearch.abort();
+					}
+					else if (auto structType = dynamic_cast<StructType const*>(memberType))
+						_addChild(&structType->structDefinition());
+				}
+
+			});
+
+		m_struct.annotation().containsNestedMapping = hasNestedMapping;
+	}
+
+	return m_struct.annotation().containsNestedMapping.value();
 }
 
 string StructType::toString(bool _short) const
@@ -2264,10 +2412,7 @@ MemberList::MemberMap StructType::nativeMembers(ASTNode const*) const
 	{
 		TypePointer type = variable->annotation().type;
 		solAssert(type, "");
-		// If we are not in storage, skip all members that cannot live outside of storage,
-		// ex. mappings and array of mappings
-		if (location() != DataLocation::Storage && !type->canLiveOutsideStorage())
-			continue;
+		solAssert(!(location() != DataLocation::Storage && type->containsNestedMapping()), "");
 		members.emplace_back(
 			variable->name(),
 			copyForLocationIfReference(type),
@@ -2385,6 +2530,13 @@ BoolResult StructType::validForLocation(DataLocation _loc) const
 			if (!result)
 				return result;
 		}
+
+	if (
+		_loc == DataLocation::Storage &&
+		storageSizeUpperBound() >= bigint(1) << 256
+	)
+		return BoolResult::err("Type too large for storage.");
+
 	return true;
 }
 
@@ -2429,10 +2581,9 @@ FunctionTypePointer StructType::constructorType() const
 {
 	TypePointers paramTypes;
 	strings paramNames;
+	solAssert(!containsNestedMapping(), "");
 	for (auto const& member: members(nullptr))
 	{
-		if (!member.type->canLiveOutsideStorage())
-			continue;
 		paramNames.push_back(member.name);
 		paramTypes.push_back(TypeProvider::withLocationIfReference(DataLocation::Memory, member.type));
 	}
@@ -2466,20 +2617,12 @@ u256 StructType::memoryOffsetOfMember(string const& _name) const
 
 TypePointers StructType::memoryMemberTypes() const
 {
+	solAssert(!containsNestedMapping(), "");
 	TypePointers types;
 	for (ASTPointer<VariableDeclaration> const& variable: m_struct.members())
-		if (variable->annotation().type->canLiveOutsideStorage())
-			types.push_back(TypeProvider::withLocationIfReference(DataLocation::Memory, variable->annotation().type));
-	return types;
-}
+		types.push_back(TypeProvider::withLocationIfReference(DataLocation::Memory, variable->annotation().type));
 
-set<string> StructType::membersMissingInMemory() const
-{
-	set<string> missing;
-	for (ASTPointer<VariableDeclaration> const& variable: m_struct.members())
-		if (!variable->annotation().type->canLiveOutsideStorage())
-			missing.insert(variable->name());
-	return missing;
+	return types;
 }
 
 vector<tuple<string, TypePointer>> StructType::makeStackItems() const
@@ -3093,7 +3236,7 @@ vector<tuple<string, TypePointer>> FunctionType::makeStackItems() const
 	case Kind::DelegateCall:
 		slots = {
 			make_tuple("address", TypeProvider::address()),
-			make_tuple("functionIdentifier", TypeProvider::uint(32))
+			make_tuple("functionSelector", TypeProvider::uint(32))
 		};
 		break;
 	case Kind::BareCall:
@@ -3275,6 +3418,28 @@ TypeResult FunctionType::interfaceType(bool /*_inLibrary*/) const
 		return this;
 	else
 		return TypeResult::err("Internal type is not allowed for public or external functions.");
+}
+
+TypePointer FunctionType::mobileType() const
+{
+	if (m_valueSet || m_gasSet || m_saltSet || m_bound)
+		return nullptr;
+
+	// return function without parameter names
+	return TypeProvider::function(
+		m_parameterTypes,
+		m_returnParameterTypes,
+		strings(m_parameterTypes.size()),
+		strings(m_returnParameterNames.size()),
+		m_kind,
+		m_arbitraryParameters,
+		m_stateMutability,
+		m_declaration,
+		m_gasSet,
+		m_valueSet,
+		m_bound,
+		m_saltSet
+	);
 }
 
 bool FunctionType::canTakeArguments(
@@ -3626,7 +3791,10 @@ TypeResult MappingType::interfaceType(bool _inLibrary) const
 		}
 	}
 	else
-		return TypeResult::err("Only libraries are allowed to use the mapping type in public or external functions.");
+		return TypeResult::err(
+			"Types containing (nested) mappings can only be parameters or "
+			"return variables of internal or library functions."
+		);
 
 	return this;
 }
@@ -3669,6 +3837,8 @@ MemberList::MemberMap TypeType::nativeMembers(ASTNode const* _currentScope) cons
 		for (auto const* declaration: contract.declarations())
 		{
 			if (dynamic_cast<ModifierDefinition const*>(declaration))
+				continue;
+			if (declaration->name().empty())
 				continue;
 
 			if (!contract.isLibrary() && inDerivingScope && declaration->isVisibleInDerivedContracts())

@@ -1,15 +1,122 @@
-### 0.6.11 (unreleased)
+### 0.7.1 (unreleased)
 
 Language Features:
 
 
 Compiler Features:
- * NatSpec: Add fields "kind" and "version" to the JSON output.
+ * Standard JSON Interface: Do not run EVM bytecode code generation, if only Yul IR or EWasm output is requested.
+ * Yul: Report error when using non-string literals for ``datasize()``, ``dataoffset()``, ``linkersymbol()``, ``loadimmutable()``, ``setimmutable()``.
+
+Bugfixes:
+ * Optimizer: Keep side-effects of ``x`` in ``byte(a, shr(b, x))`` even if the constants ``a`` and ``b`` would make the expression zero unconditionally. This optimizer rule is very hard if not impossible to trigger in a way that it can result in invalid code, though.
+ * SMTChecker: Fix internal error in BMC function inlining.
+ * SMTChecker: Fix internal error on fixed bytes index access.
+ * References Resolver: Fix internal bug when using constructor for library.
+
+
+### 0.7.0 (2020-07-28)
+
+Breaking changes:
+ * Inline Assembly: Disallow ``.`` in user-defined function and variable names.
+ * Inline Assembly: Slot and offset of storage pointer variable ``x`` are accessed via ``x.slot`` and ``x.offset`` instead of ``x_slot`` and ``x_offset``.
+ * JSON AST: Mark hex string literals with ``kind: "hexString"``.
+ * JSON AST: Remove members with ``null`` value from JSON output.
+ * Parser: Disallow ``gwei`` as identifier.
+ * Parser: Disallow dot syntax for ``value`` and ``gas``.
+ * Parser: Disallow non-printable characters in string literals.
+ * Parser: Introduce Unicode string literals: ``unicode"😃"``.
+ * Parser: NatSpec comments on variables are only allowed for public state variables.
+ * Parser: Remove the ``finney`` and ``szabo`` denominations.
+ * Parser: Remove the identifier ``now`` (replaced by ``block.timestamp``).
+ * Reference Resolver: ``using A for B`` only affects the contract it is mentioned in and not all derived contracts
+ * Type Checker: Disallow ``virtual`` for library functions.
+ * Type Checker: Disallow assignments to state variables that contain nested mappings.
+ * Type checker: Disallow events with same name and parameter types in inheritance hierarchy.
+ * Type Checker: Disallow shifts by signed types.
+ * Type Checker: Disallow structs and arrays in memory or calldata if they contain nested mappings.
+ * Type Checker: Exponentiation and shifts of literals by non-literals will always use ``uint256`` or ``int256`` as a type.
+ * Yul: Disallow consecutive and trailing dots in identifiers. Leading dots were already disallowed.
+ * Yul: Disallow EVM instruction `pc()`.
+
+
+Language Features:
+ * Inheritance: Allow overrides to have stricter state mutability: ``view`` can override ``nonpayable`` and ``pure`` can override ``view``.
+ * Parser: Deprecate visibility for constructors.
+ * State mutability: Do not issue recommendation for stricter mutability for virtual functions but do issue it for functions that override.
+
+
+Compiler Features:
+ * SMTChecker: Report multi-transaction counterexamples including the function calls that initiate the transactions. This does not include concrete values for reference types and reentrant calls.
+ * Variable declarations using the ``var`` keyword are not recognized anymore.
+
+
+Bugfixes:
+ * Immutables: Fix internal compiler error when immutables are not assigned.
+ * Inheritance: Disallow public state variables overwriting ``pure`` functions.
+ * NatSpec: Constructors and functions have consistent userdoc output.
+ * SMTChecker: Fix internal error when assigning to a 1-tuple.
+ * SMTChecker: Fix internal error when tuples have extra effectless parenthesis.
+ * State Mutability: Constant public state variables are considered ``pure`` functions.
+ * Type Checker: Fixing deduction issues on function types when function call has named arguments.
+
+
+### 0.6.12 (2020-07-22)
+
+Language Features:
+ * NatSpec: Implement tag ``@inheritdoc`` to copy documentation from a specific base contract.
+ * Wasm backend: Add ``i32.ctz``, ``i64.ctz``, ``i32.popcnt``, and ``i64.popcnt``.
+
+
+Compiler Features:
+ * Code Generator: Avoid double cleanup when copying to memory.
+ * Code Generator: Evaluate ``keccak256`` of string literals at compile-time.
+ * Optimizer: Add rule to remove shifts inside the byte opcode.
+ * Peephole Optimizer: Add rule to remove swap after dup.
+ * Peephole Optimizer: Remove unnecessary masking of tags.
+ * Yul EVM Code Transform: Free stack slots directly after visiting the right-hand-side of variable declarations instead of at the end of the statement only.
+
+
+Bugfixes:
+ * SMTChecker: Fix error in events with indices of type static array.
+ * SMTChecker: Fix internal error in sequential storage array pushes (``push().push()``).
+ * SMTChecker: Fix internal error when using bitwise operators on fixed bytes type.
+ * SMTChecker: Fix internal error when using compound bitwise operator assignments on array indices inside branches.
+ * Type Checker: Fix internal compiler error related to oversized types.
+ * Type Checker: Fix overload resolution in combination with ``{value: ...}``.
+
+
+Build System:
+ * Update internal dependency of jsoncpp to 1.9.3.
+
+
+### 0.6.11 (2020-07-07)
+
+
+Language Features:
+ * General: Add unit denomination ``gwei``
+ * Yul: Support ``linkersymbol`` builtin in standalone assembly mode to refer to library addresses.
+ * Yul: Support using string literals exceeding 32 bytes as literal arguments for builtins.
+
+
+Compiler Features:
+ * NatSpec: Add fields ``kind`` and ``version`` to the JSON output.
+ * NatSpec: Inherit tags from unique base functions if derived function does not provide any.
  * Commandline Interface: Prevent some incompatible commandline options from being used together.
+ * NatSpec: Support NatSpec comments on events.
+ * Yul Optimizer: Store knowledge about storage / memory after ``a := sload(x)`` / ``a := mload(x)``.
+ * SMTChecker: Support external calls to unknown code.
+ * Source Maps: Also tag jumps into and out of Yul functions as jumps into and out of functions.
 
 
 Bugfixes:
  * NatSpec: Do not consider ``////`` and ``/***`` as NatSpec comments.
+ * Type Checker: Disallow constructor parameters with ``calldata`` data location.
+ * Type Checker: Do not disallow assigning to calldata variables.
+ * Type Checker: Fix internal error related to ``using for`` applied to non-libraries.
+ * Wasm backend: Fix code generation for for-loops with pre statements.
+ * Wasm backend: Properly support both ``i32.drop`` and ``i64.drop``, and remove ``drop``.
+ * Yul: Disallow the same variable to occur multiple times on the left-hand side of an assignment.
+ * Yul: Fix source location of variable multi-assignment.
 
 
 ### 0.6.10 (2020-06-11)

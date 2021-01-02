@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
 * Common code generator for translating Yul / inline assembly to Wasm.
 */
@@ -139,22 +140,20 @@ wasm::Expression WasmCodeTransform::operator()(FunctionCall const& _call)
 				m_functionsToImport[builtin->name] = std::move(imp);
 			}
 		}
-		else if (builtin->literalArguments && contains(builtin->literalArguments.value(), true))
-		{
-			vector<wasm::Expression> literals;
-			for (size_t i = 0; i < _call.arguments.size(); i++)
-				if (builtin->literalArguments.value()[i])
-					literals.emplace_back(wasm::StringLiteral{std::get<Literal>(_call.arguments[i]).value.str()});
-				else
-					literals.emplace_back(visitReturnByValue(_call.arguments[i]));
-
-			return wasm::BuiltinCall{_call.functionName.name.str(), std::move(literals)};
-		}
 		else
-			return wasm::BuiltinCall{
-				_call.functionName.name.str(),
-				visit(_call.arguments)
-			};
+		{
+			vector<wasm::Expression> arguments;
+			for (size_t i = 0; i < _call.arguments.size(); i++)
+				if (builtin->literalArgument(i))
+				{
+					yulAssert(builtin->literalArgument(i) == LiteralKind::String, "");
+					arguments.emplace_back(wasm::StringLiteral{std::get<Literal>(_call.arguments[i]).value.str()});
+				}
+				else
+					arguments.emplace_back(visitReturnByValue(_call.arguments[i]));
+
+			return wasm::BuiltinCall{_call.functionName.name.str(), std::move(arguments)};
+		}
 	}
 
 	// If this function returns multiple values, then the first one will
@@ -257,9 +256,10 @@ wasm::Expression WasmCodeTransform::operator()(ForLoop const& _for)
 	YulString eqz_instruction = YulString(conditionType.str() + ".eqz");
 	yulAssert(WasmDialect::instance().builtin(eqz_instruction), "");
 
+	std::vector<wasm::Expression> statements = visit(_for.pre.statements);
+
 	wasm::Loop loop;
 	loop.labelName = newLabel();
-	loop.statements = visit(_for.pre.statements);
 	loop.statements.emplace_back(wasm::BranchIf{wasm::Label{breakLabel}, make_unique<wasm::Expression>(
 		wasm::BuiltinCall{eqz_instruction.str(), make_vector<wasm::Expression>(
 			visitReturnByValue(*_for.condition)
@@ -269,7 +269,8 @@ wasm::Expression WasmCodeTransform::operator()(ForLoop const& _for)
 	loop.statements += visit(_for.post.statements);
 	loop.statements.emplace_back(wasm::Branch{wasm::Label{loop.labelName}});
 
-	return { wasm::Block{breakLabel, make_vector<wasm::Expression>(move(loop))} };
+	statements += make_vector<wasm::Expression>(move(loop));
+	return wasm::Block{breakLabel, move(statements)};
 }
 
 wasm::Expression WasmCodeTransform::operator()(Break const&)

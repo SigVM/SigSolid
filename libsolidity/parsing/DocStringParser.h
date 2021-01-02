@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Lefteris <lefteris@ethdev.com>
  * @date 2014, 2015
@@ -50,7 +51,6 @@ private:
 	iter parseDocTagParam(iter _pos, iter _end);
 	iter appendDocTagParam(iter _pos, iter _end);
 	void parseDocString(std::string const& _string);
-	iter appendDocTag(iter _pos, iter _end);
 	/// Parses the doc tag named @a _tag, adds it to m_docTags and returns the position
 	/// after the tag.
 	iter parseDocTag(iter _pos, iter _end, std::string const& _tag);

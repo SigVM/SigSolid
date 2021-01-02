@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
@@ -38,6 +39,7 @@ class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
 
 struct CompilerError: virtual util::Exception {};
+struct StackTooDeepError: virtual CompilerError {};
 struct InternalCompilerError: virtual util::Exception {};
 struct FatalError: virtual util::Exception {};
 struct UnimplementedFeatureError: virtual util::Exception {};
@@ -61,10 +63,14 @@ struct InvalidAstError: virtual util::Exception {};
  * They are passed as the first parameter of error reporting functions.
  * Suffix _error helps to find them in the sources.
  * The struct ErrorId prevents incidental calls like typeError(3141) instead of typeError(3141_error).
- * To create a new ID, one can add 0000_error and then run "python ./scripts/fix_error_ids.py"
+ * To create a new ID, one can add 0000_error and then run "python ./scripts/error_codes.py --fix"
  * from the root of the repo.
  */
-struct ErrorId { unsigned long long error = 0; };
+struct ErrorId
+{
+	unsigned long long error = 0;
+	bool operator==(ErrorId const& _rhs) const { return error == _rhs.error; }
+};
 constexpr ErrorId operator"" _error(unsigned long long _error) { return ErrorId{ _error }; }
 
 class Error: virtual public util::Exception
@@ -72,6 +78,7 @@ class Error: virtual public util::Exception
 public:
 	enum class Type
 	{
+		CodeGenerationError,
 		DeclarationError,
 		DocstringParsingError,
 		ParserError,

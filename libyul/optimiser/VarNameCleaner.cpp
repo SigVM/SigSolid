@@ -14,12 +14,12 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <libyul/optimiser/VarNameCleaner.h>
 #include <libyul/AsmData.h>
 #include <libyul/Dialect.h>
-#include <libyul/AsmParser.h>
-#include <libyul/backends/evm/EVMDialect.h>
+
 #include <algorithm>
 #include <cctype>
 #include <climits>
@@ -112,8 +112,6 @@ bool VarNameCleaner::isUsedName(YulString const& _name) const
 {
 	if (_name.empty() || m_dialect.builtin(_name) || m_usedNames.count(_name))
 		return true;
-	if (dynamic_cast<EVMDialect const*>(&m_dialect))
-		return Parser::instructions().count(_name.str());
 	return false;
 }
 

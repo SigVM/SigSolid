@@ -19,16 +19,16 @@ contract A {
         AlertUpdate.delete_handler();
     }
 
-    function binding() public view {
+    function binding() public {
         address this_address = address(this);
         AlertUpdate.bind(this_address, "Alert(bool,bytes32,address)", 0.46);
     }
     
-    function emitting() public view {
+    function emitting(address data3) public view {
         bool xfoo = true;
         bytes32 xbar = 0;
-        address xbaz = 0xDEADBEEF;
-        Alert.emit(foo, bar, baz).delay(5);
+        address xbaz = data3;
+        Alert.emit(xfoo, xbar, xbaz).delay(5);
     }
 
     function detaching() public view {
@@ -36,7 +36,7 @@ contract A {
         AlertUpdate.detach(this_address, "Alert(bool,bytes32,address)");
     }
 
-    constructor () public{
+    constructor () {
         address this_address = address(this);
         AlertUpdate.bind(this_address, "Alert(bool,bytes32,address)", 0.3);
     }

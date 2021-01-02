@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Lefteris Karapetsas <lefteris@ethdev.com>
  * @date 2015
@@ -181,6 +182,30 @@ BOOST_AUTO_TEST_CASE(location_test)
 			vector<SourceLocation>(2, SourceLocation{20, 79, sourceCode});
 	checkAssemblyLocations(items, locations);
 }
+
+
+BOOST_AUTO_TEST_CASE(jump_type)
+{
+	auto sourceCode = make_shared<CharStream>(R"(
+	contract C {
+		function f(uint a) public pure returns (uint t) {
+			assembly {
+				function g(x) -> y { if x { leave } y := 8 }
+				t := g(a)
+			}
+		}
+	}
+	)", "");
+	AssemblyItems items = compileContract(sourceCode);
+
+	string jumpTypes;
+	for (AssemblyItem const& item: items)
+		if (item.getJumpType() != AssemblyItem::JumpType::Ordinary)
+			jumpTypes += item.getJumpTypeAsString() + "\n";
+
+	BOOST_CHECK_EQUAL(jumpTypes, "[in]\n[out]\n[in]\n[out]\n");
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 

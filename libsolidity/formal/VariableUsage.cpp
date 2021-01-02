@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <libsolidity/formal/VariableUsage.h>
 
@@ -59,8 +60,8 @@ void VariableUsage::endVisit(IndexAccess const& _indexAccess)
 
 void VariableUsage::endVisit(FunctionCall const& _funCall)
 {
-	if (m_inlineFunctionCalls)
-		if (auto const& funDef = SMTEncoder::functionCallToDefinition(_funCall))
+	if (m_inlineFunctionCalls(_funCall))
+		if (auto funDef = SMTEncoder::functionCallToDefinition(_funCall))
 		{
 			solAssert(funDef, "");
 			if (find(m_callStack.begin(), m_callStack.end(), funDef) == m_callStack.end())

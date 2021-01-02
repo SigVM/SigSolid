@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2016
@@ -28,8 +29,6 @@
 #include <liblangutil/SourceLocation.h>
 #include <liblangutil/Scanner.h>
 #include <liblangutil/ParserBase.h>
-
-#include <libevmasm/Instruction.h>
 
 #include <memory>
 #include <variant>
@@ -61,9 +60,6 @@ public:
 	/// @returns an empty shared pointer on error.
 	std::unique_ptr<Block> parse(std::shared_ptr<langutil::Scanner> const& _scanner, bool _reuseScanner);
 
-	/// @returns a map of all EVM instructions available to assembly.
-	static std::map<std::string, evmasm::Instruction> const& instructions();
-
 protected:
 	using ElementaryOperation = std::variant<Literal, Identifier, FunctionCall>;
 
@@ -86,7 +82,6 @@ protected:
 	ForLoop parseForLoop();
 	/// Parses a functional expression that has to push exactly one stack element
 	Expression parseExpression();
-	static std::map<evmasm::Instruction, std::string> const& instructionNames();
 	/// Parses an elementary operation, i.e. a literal, identifier, instruction or
 	/// builtin functian call (only the name).
 	ElementaryOperation parseElementaryOperation();

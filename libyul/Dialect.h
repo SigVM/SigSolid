@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Yul dialect.
  */
@@ -47,8 +48,13 @@ struct BuiltinFunction
 	ControlFlowSideEffects controlFlowSideEffects;
 	/// If true, this is the msize instruction.
 	bool isMSize = false;
-	/// If set, same length as the arguments, if true at index i, the i'th argument has to be a literal which means it can't be moved to variables.
-	std::optional<std::vector<bool>> literalArguments;
+	/// Must be empty or the same length as the arguments.
+	/// If set at index i, the i'th argument has to be a literal which means it can't be moved to variables.
+	std::vector<std::optional<LiteralKind>> literalArguments{};
+	std::optional<LiteralKind> literalArgument(size_t i) const
+	{
+		return literalArguments.empty() ? std::nullopt : literalArguments.at(i);
+	}
 };
 
 struct Dialect: boost::noncopyable

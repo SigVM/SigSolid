@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Component that translates Solidity code into Yul at statement level and below.
  */
@@ -310,7 +311,31 @@ bool IRGeneratorForStatements::visit(Assignment const& _assignment)
 bool IRGeneratorForStatements::visit(TupleExpression const& _tuple)
 {
 	if (_tuple.isInlineArray())
-		solUnimplementedAssert(false, "");
+	{
+		auto const& arrayType = dynamic_cast<ArrayType const&>(*_tuple.annotation().type);
+		solAssert(!arrayType.isDynamicallySized(), "Cannot create dynamically sized inline array.");
+		define(_tuple) <<
+			m_utils.allocateMemoryArrayFunction(arrayType) <<
+			"(" <<
+			_tuple.components().size() <<
+			")\n";
+
+		string mpos = IRVariable(_tuple).part("mpos").name();
+		Type const& baseType = *arrayType.baseType();
+		for (size_t i = 0; i < _tuple.components().size(); i++)
+		{
+			Expression const& component = *_tuple.components()[i];
+			component.accept(*this);
+			IRVariable converted = convert(component, baseType);
+			m_code <<
+				m_utils.writeToMemoryFunction(baseType) <<
+				"(" <<
+				("add(" + mpos + ", " + to_string(i * arrayType.memoryStride()) + ")") <<
+				", " <<
+				converted.name() <<
+				")\n";
+		}
+	}
 	else
 	{
 		bool willBeWrittenTo = _tuple.annotation().willBeWrittenTo;
@@ -600,22 +625,30 @@ bool IRGeneratorForStatements::visit(FunctionCall const& _functionCall)
 void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 {
 	solUnimplementedAssert(
-		_functionCall.annotation().kind == FunctionCallKind::FunctionCall ||
-		_functionCall.annotation().kind == FunctionCallKind::TypeConversion,
+		_functionCall.annotation().kind != FunctionCallKind::Unset,
 		"This type of function call is not yet implemented"
 	);
 
-	Type const& funcType = type(_functionCall.expression());
-
 	if (_functionCall.annotation().kind == FunctionCallKind::TypeConversion)
 	{
-		solAssert(funcType.category() == Type::Category::TypeType, "Expected category to be TypeType");
+		solAssert(
+			_functionCall.expression().annotation().type->category() == Type::Category::TypeType,
+			"Expected category to be TypeType"
+		);
 		solAssert(_functionCall.arguments().size() == 1, "Expected one argument for type conversion");
 		define(_functionCall, *_functionCall.arguments().front());
 		return;
 	}
 
-	FunctionTypePointer functionType = dynamic_cast<FunctionType const*>(&funcType);
+	FunctionTypePointer functionType = nullptr;
+	if (_functionCall.annotation().kind == FunctionCallKind::StructConstructorCall)
+	{
+		auto const& type = dynamic_cast<TypeType const&>(*_functionCall.expression().annotation().type);
+		auto const& structType = dynamic_cast<StructType const&>(*type.actualType());
+		functionType = structType.constructorType();
+	}
+	else
+		functionType = dynamic_cast<FunctionType const*>(_functionCall.expression().annotation().type);
 
 	TypePointers parameterTypes = functionType->parameterTypes();
 	vector<ASTPointer<Expression const>> const& callArguments = _functionCall.arguments();
@@ -638,6 +671,34 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 			solAssert(it != callArgumentNames.cend(), "");
 			arguments.push_back(callArguments[static_cast<size_t>(std::distance(callArgumentNames.begin(), it))]);
 		}
+
+	if (_functionCall.annotation().kind == FunctionCallKind::StructConstructorCall)
+	{
+		TypeType const& type = dynamic_cast<TypeType const&>(*_functionCall.expression().annotation().type);
+		auto const& structType = dynamic_cast<StructType const&>(*type.actualType());
+
+		define(_functionCall) << m_utils.allocateMemoryStructFunction(structType) << "()\n";
+
+		MemberList::MemberMap members = structType.nativeMembers(nullptr);
+
+		solAssert(members.size() == arguments.size(), "Struct parameter mismatch.");
+
+		for (size_t i = 0; i < arguments.size(); i++)
+		{
+			IRVariable converted = convert(*arguments[i], *parameterTypes[i]);
+			m_code <<
+				m_utils.writeToMemoryFunction(*functionType->parameterTypes()[i]) <<
+				"(add(" <<
+				IRVariable(_functionCall).part("mpos").name() <<
+				", " <<
+				structType.memoryOffsetOfMember(members[i].name) <<
+				"), " <<
+				converted.commaSeparatedList() <<
+				")\n";
+		}
+
+		return;
+	}
 
 	auto memberAccess = dynamic_cast<MemberAccess const*>(&_functionCall.expression());
 	if (memberAccess)
@@ -984,18 +1045,28 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 
 		ArrayType const* arrayType = TypeProvider::bytesMemory();
 
-		auto array = convert(*arguments[0], *arrayType);
+		if (auto const* stringLiteral = dynamic_cast<StringLiteralType const*>(arguments.front()->annotation().type))
+		{
+			// Optimization: Compute keccak256 on string literals at compile-time.
+			define(_functionCall) <<
+				("0x" + keccak256(stringLiteral->value()).hex()) <<
+				"\n";
+		}
+		else
+		{
+			auto array = convert(*arguments[0], *arrayType);
 
-		define(_functionCall) <<
-			"keccak256(" <<
-			m_utils.arrayDataAreaFunction(*arrayType) <<
-			"(" <<
-			array.commaSeparatedList() <<
-			"), " <<
-			m_utils.arrayLengthFunction(*arrayType) <<
-			"(" <<
-			array.commaSeparatedList() <<
-			"))\n";
+			define(_functionCall) <<
+				"keccak256(" <<
+				m_utils.arrayDataAreaFunction(*arrayType) <<
+				"(" <<
+				array.commaSeparatedList() <<
+				"), " <<
+				m_utils.arrayLengthFunction(*arrayType) <<
+				"(" <<
+				array.commaSeparatedList() <<
+				"))\n";
+		}
 		break;
 	}
 	case FunctionType::Kind::ArrayPop:
@@ -1324,7 +1395,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 				solAssert(false, "Contract member is neither variable nor function.");
 
 			define(IRVariable(_memberAccess).part("address"), _memberAccess.expression());
-			define(IRVariable(_memberAccess).part("functionIdentifier")) << formatNumber(identifier) << "\n";
+			define(IRVariable(_memberAccess).part("functionSelector")) << formatNumber(identifier) << "\n";
 		}
 		else
 			solAssert(false, "Invalid member access in contract");
@@ -1360,7 +1431,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 				*_memberAccess.expression().annotation().type
 			);
 			if (functionType.kind() == FunctionType::Kind::External)
-				define(IRVariable{_memberAccess}, IRVariable(_memberAccess.expression()).part("functionIdentifier"));
+				define(IRVariable{_memberAccess}, IRVariable(_memberAccess.expression()).part("functionSelector"));
 			else if (functionType.kind() == FunctionType::Kind::Declaration)
 			{
 				solAssert(functionType.hasDeclaration(), "");
@@ -1420,7 +1491,6 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 			solAssert(false, "Blockhash has been removed.");
 		else if (member == "creationCode" || member == "runtimeCode")
 		{
-			solUnimplementedAssert(member != "runtimeCode", "");
 			TypePointer arg = dynamic_cast<MagicType const&>(*_memberAccess.expression().annotation().type).typeArgument();
 			ContractDefinition const& contract = dynamic_cast<ContractType const&>(*arg).contractDefinition();
 			m_context.subObjectsCreated().insert(&contract);
@@ -1432,7 +1502,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 			)")
 			("allocationFunction", m_utils.allocationFunction())
 			("size", m_context.newYulVariable())
-			("objectName", IRNames::creationObject(contract))
+			("objectName", IRNames::creationObject(contract) + (member == "runtimeCode" ? "." + IRNames::runtimeObject(contract) : ""))
 			("result", IRVariable(_memberAccess).commaSeparatedList()).render();
 		}
 		else if (member == "name")
@@ -1613,7 +1683,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 					break;
 				case FunctionType::Kind::DelegateCall:
 					define(IRVariable(_memberAccess).part("address"), _memberAccess.expression());
-					define(IRVariable(_memberAccess).part("functionIdentifier")) << formatNumber(memberFunctionType->externalIdentifier()) << "\n";
+					define(IRVariable(_memberAccess).part("functionSelector")) << formatNumber(memberFunctionType->externalIdentifier()) << "\n";
 					break;
 				case FunctionType::Kind::External:
 				case FunctionType::Kind::Creation:
@@ -2007,7 +2077,7 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 
 		// storage for arguments and returned data
 		let <pos> := <freeMemory>
-		mstore(<pos>, <shl28>(<funId>))
+		mstore(<pos>, <shl28>(<funSel>))
 		let <end> := <encodeArgs>(add(<pos>, 4) <argumentString>)
 
 		let <success> := <call>(<gas>, <address>, <?hasValue> <value>, </hasValue> <pos>, sub(<end>, <pos>), <pos>, <reservedReturnSize>)
@@ -2037,7 +2107,7 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 	templ("freeMemory", freeMemory());
 	templ("shl28", m_utils.shiftLeftFunction(8 * (32 - 4)));
 
-	templ("funId", IRVariable(_functionCall.expression()).part("functionIdentifier").name());
+	templ("funSel", IRVariable(_functionCall.expression()).part("functionSelector").name());
 	templ("address", IRVariable(_functionCall.expression()).part("address").name());
 
 	// Always use the actual return length, and not our calculated expected length, if returndatacopy is supported.

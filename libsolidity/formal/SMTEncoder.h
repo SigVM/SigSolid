@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Encodes Solidity into SMT expressions without creating
  * any verification targets.
@@ -52,6 +53,9 @@ public:
 
 	/// @returns the leftmost identifier in a multi-d IndexAccess.
 	static Expression const* leftmostBase(IndexAccess const& _indexAccess);
+
+	/// @returns the innermost element in a chain of 1-tuples.
+	static Expression const* innermostTuple(TupleExpression const& _tuple);
 
 	/// @returns the FunctionDefinition of a FunctionCall
 	/// if possible or nullptr.

@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <libsolidity/formal/SMTEncoder.h>
 
@@ -363,8 +364,12 @@ void SMTEncoder::endVisit(Assignment const& _assignment)
 	Token op = _assignment.assignmentOperator();
 	if (op != Token::Assign && !compoundOps.count(op))
 	{
+		Expression const* identifier = &_assignment.leftHandSide();
+		if (auto const* indexAccess = dynamic_cast<IndexAccess const*>(identifier))
+			identifier = leftmostBase(*indexAccess);
 		// Give it a new index anyway to keep the SSA scheme sound.
-		if (auto varDecl = identifierToVariable(_assignment.leftHandSide()))
+		solAssert(identifier, "");
+		if (auto varDecl = identifierToVariable(*identifier))
 			m_context.newValue(*varDecl);
 
 		m_errorReporter.warning(
@@ -420,17 +425,13 @@ void SMTEncoder::endVisit(TupleExpression const& _tuple)
 		auto const& symbTuple = dynamic_pointer_cast<smt::SymbolicTupleVariable>(m_context.expression(_tuple));
 		solAssert(symbTuple, "");
 		auto const& symbComponents = symbTuple->components();
-		auto const* tupleComponents = &_tuple.components();
-		while (tupleComponents->size() == 1)
-		{
-			auto innerTuple = dynamic_pointer_cast<TupleExpression>(tupleComponents->front());
-			solAssert(innerTuple, "");
-			tupleComponents = &innerTuple->components();
-		}
-		solAssert(symbComponents.size() == tupleComponents->size(), "");
+		auto const* tuple = dynamic_cast<TupleExpression const*>(innermostTuple(_tuple));
+		solAssert(tuple, "");
+		auto const& tupleComponents = tuple->components();
+		solAssert(symbComponents.size() == tupleComponents.size(), "");
 		for (unsigned i = 0; i < symbComponents.size(); ++i)
 		{
-			auto tComponent = tupleComponents->at(i);
+			auto tComponent = tupleComponents.at(i);
 			if (tComponent)
 			{
 				if (auto varDecl = identifierToVariable(*tComponent))
@@ -449,8 +450,7 @@ void SMTEncoder::endVisit(TupleExpression const& _tuple)
 		/// Parenthesized expressions are also TupleExpression regardless their type.
 		auto const& components = _tuple.components();
 		solAssert(components.size() == 1, "");
-		if (smt::isSupportedType(components.front()->annotation().type->category()))
-			defineExpr(_tuple, expr(*components.front()));
+		defineExpr(_tuple, expr(*components.front()));
 	}
 }
 
@@ -724,11 +724,7 @@ void SMTEncoder::visitGasLeft(FunctionCall const& _funCall)
 
 void SMTEncoder::endVisit(Identifier const& _identifier)
 {
-	if (_identifier.annotation().willBeWrittenTo)
-	{
-		// Will be translated as part of the node that requested the lvalue.
-	}
-	else if (auto decl = identifierToVariable(_identifier))
+	if (auto decl = identifierToVariable(_identifier))
 		defineExpr(_identifier, currentValue(*decl));
 	else if (_identifier.annotation().type->category() == Type::Category::Function)
 		visitFunctionIdentifier(_identifier);
@@ -927,6 +923,15 @@ void SMTEncoder::endVisit(IndexAccess const& _indexAccess)
 
 	if (_indexAccess.annotation().type->category() == Type::Category::TypeType)
 		return;
+	if (_indexAccess.baseExpression().annotation().type->category() == Type::Category::FixedBytes)
+	{
+		m_errorReporter.warning(
+			7989_error,
+			_indexAccess.location(),
+			"Assertion checker does not yet support index accessing fixed bytes."
+		);
+		return;
+	}
 
 	shared_ptr<smt::SymbolicVariable> array;
 	if (auto const* id = dynamic_cast<Identifier const*>(&_indexAccess.baseExpression()))
@@ -934,16 +939,6 @@ void SMTEncoder::endVisit(IndexAccess const& _indexAccess)
 		auto varDecl = identifierToVariable(*id);
 		solAssert(varDecl, "");
 		array = m_context.variable(*varDecl);
-
-		if (varDecl->type()->category() == Type::Category::FixedBytes)
-		{
-			m_errorReporter.warning(
-				7989_error,
-				_indexAccess.location(),
-				"Assertion checker does not yet support index accessing fixed bytes."
-			);
-			return;
-		}
 	}
 	else if (auto const* innerAccess = dynamic_cast<IndexAccess const*>(&_indexAccess.baseExpression()))
 	{
@@ -1072,7 +1067,7 @@ void SMTEncoder::arrayPush(FunctionCall const& _funCall)
 	m_context.addAssertion(symbArray->length() == oldLength + 1);
 
 	if (arguments.empty())
-		defineExpr(_funCall, element);
+		defineExpr(_funCall, smtutil::Expression::select(symbArray->elements(), oldLength));
 
 	arrayPushPopAssign(memberAccess->expression(), symbArray->currentValue());
 }
@@ -1104,7 +1099,11 @@ void SMTEncoder::arrayPop(FunctionCall const& _funCall)
 
 void SMTEncoder::arrayPushPopAssign(Expression const& _expr, smtutil::Expression const& _array)
 {
-	if (auto const* id = dynamic_cast<Identifier const*>(&_expr))
+	Expression const* expr = &_expr;
+	if (auto const* tupleExpr = dynamic_cast<TupleExpression const*>(expr))
+		expr = innermostTuple(*tupleExpr);
+
+	if (auto const* id = dynamic_cast<Identifier const*>(expr))
 	{
 		auto varDecl = identifierToVariable(*id);
 		solAssert(varDecl, "");
@@ -1112,9 +1111,31 @@ void SMTEncoder::arrayPushPopAssign(Expression const& _expr, smtutil::Expression
 			resetReferences(*varDecl);
 		m_context.addAssertion(m_context.newValue(*varDecl) == _array);
 	}
-	else if (auto const* indexAccess = dynamic_cast<IndexAccess const*>(&_expr))
+	else if (auto const* indexAccess = dynamic_cast<IndexAccess const*>(expr))
 		arrayIndexAssignment(*indexAccess, _array);
-	else if (dynamic_cast<MemberAccess const*>(&_expr))
+	else if (auto const* funCall = dynamic_cast<FunctionCall const*>(expr))
+	{
+		FunctionType const& funType = dynamic_cast<FunctionType const&>(*funCall->expression().annotation().type);
+		if (funType.kind() == FunctionType::Kind::ArrayPush)
+		{
+			auto memberAccess = dynamic_cast<MemberAccess const*>(&funCall->expression());
+			solAssert(memberAccess, "");
+			auto symbArray = dynamic_pointer_cast<smt::SymbolicArrayVariable>(m_context.expression(memberAccess->expression()));
+			solAssert(symbArray, "");
+
+			auto oldLength = symbArray->length();
+			auto store = smtutil::Expression::store(
+				symbArray->elements(),
+				symbArray->length() - 1,
+				_array
+			);
+			symbArray->increaseIndex();
+			m_context.addAssertion(symbArray->elements() == store);
+			m_context.addAssertion(symbArray->length() == oldLength);
+			arrayPushPopAssign(memberAccess->expression(), symbArray->currentValue());
+		}
+	}
+	else if (dynamic_cast<MemberAccess const*>(expr))
 		m_errorReporter.warning(
 			9599_error,
 			_expr.location(),
@@ -1253,7 +1274,7 @@ pair<smtutil::Expression, smtutil::Expression> SMTEncoder::arithmeticOperation(
 		// - RHS is -1
 		// the result is then -(type.min), which wraps back to type.min
 		smtutil::Expression maxLeft = _left == smt::minValue(*intType);
-		smtutil::Expression minusOneRight = _right == -1;
+		smtutil::Expression minusOneRight = _right == numeric_limits<size_t >::max();
 		smtutil::Expression wrap = smtutil::Expression::ite(maxLeft && minusOneRight, smt::minValue(*intType), valueUnbounded);
 		return {wrap, valueUnbounded};
 	}
@@ -1262,7 +1283,7 @@ pair<smtutil::Expression, smtutil::Expression> SMTEncoder::arithmeticOperation(
 	auto symbMax = smt::maxValue(*intType);
 
 	smtutil::Expression intValueRange = (0 - symbMin) + symbMax + 1;
-	string suffix = to_string(_operation.id()) + "_" + to_string(m_context.newSlackId());
+	string suffix = to_string(_operation.id()) + "_" + to_string(m_context.newUniqueId());
 	smt::SymbolicIntVariable k(intType, intType, "k_" + suffix, m_context);
 	smt::SymbolicIntVariable m(intType, intType, "m_" + suffix, m_context);
 
@@ -1376,9 +1397,11 @@ void SMTEncoder::bitwiseOperation(BinaryOperation const& _op)
 		bvSize = fixedType->numBits();
 		isSigned = fixedType->isSigned();
 	}
+	else if (auto const* fixedBytesType = dynamic_cast<FixedBytesType const*>(commonType))
+		bvSize = fixedBytesType->numBytes() * 8;
 
-	auto bvLeft = smtutil::Expression::int2bv(expr(_op.leftExpression()), bvSize);
-	auto bvRight = smtutil::Expression::int2bv(expr(_op.rightExpression()), bvSize);
+	auto bvLeft = smtutil::Expression::int2bv(expr(_op.leftExpression(), commonType), bvSize);
+	auto bvRight = smtutil::Expression::int2bv(expr(_op.rightExpression(), commonType), bvSize);
 
 	optional<smtutil::Expression> result;
 	if (_op.getOperator() == Token::BitAnd)
@@ -1420,10 +1443,14 @@ void SMTEncoder::assignment(
 		"Tuple assignments should be handled by tupleAssignment."
 	);
 
+	Expression const* left = &_left;
+	if (auto const* tuple = dynamic_cast<TupleExpression const*>(left))
+		left = innermostTuple(*tuple);
+
 	if (!smt::isSupportedType(_type->category()))
 	{
 		// Give it a new index anyway to keep the SSA scheme sound.
-		if (auto varDecl = identifierToVariable(_left))
+		if (auto varDecl = identifierToVariable(*left))
 			m_context.newValue(*varDecl);
 
 		m_errorReporter.warning(
@@ -1432,10 +1459,10 @@ void SMTEncoder::assignment(
 			"Assertion checker does not yet implement type " + _type->toString()
 		);
 	}
-	else if (auto varDecl = identifierToVariable(_left))
+	else if (auto varDecl = identifierToVariable(*left))
 		assignment(*varDecl, _right);
-	else if (dynamic_cast<IndexAccess const*>(&_left))
-		arrayIndexAssignment(_left, _right);
+	else if (dynamic_cast<IndexAccess const*>(left))
+		arrayIndexAssignment(*left, _right);
 	else
 		m_errorReporter.warning(
 			8182_error,
@@ -1446,7 +1473,7 @@ void SMTEncoder::assignment(
 
 void SMTEncoder::tupleAssignment(Expression const& _left, Expression const& _right)
 {
-	auto lTuple = dynamic_cast<TupleExpression const*>(&_left);
+	auto lTuple = dynamic_cast<TupleExpression const*>(innermostTuple(dynamic_cast<TupleExpression const&>(_left)));
 	solAssert(lTuple, "");
 
 	auto const& lComponents = lTuple->components();
@@ -1870,6 +1897,20 @@ Expression const* SMTEncoder::leftmostBase(IndexAccess const& _indexAccess)
 	while (auto access = dynamic_cast<IndexAccess const*>(base))
 		base = &access->baseExpression();
 	return base;
+}
+
+Expression const* SMTEncoder::innermostTuple(TupleExpression const& _tuple)
+{
+	solAssert(!_tuple.isInlineArray(), "");
+	TupleExpression const* tuple = &_tuple;
+	Expression const* expr = tuple;
+	while (tuple && !tuple->isInlineArray() && tuple->components().size() == 1)
+	{
+		expr = tuple->components().front().get();
+		tuple = dynamic_cast<TupleExpression const*>(expr);
+	}
+	solAssert(expr, "");
+	return expr;
 }
 
 set<VariableDeclaration const*> SMTEncoder::touchedVariables(ASTNode const& _node)

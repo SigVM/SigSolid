@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Component that can generate various useful Yul functions.
  */
@@ -346,20 +347,17 @@ string YulUtilFunctions::typedShiftLeftFunction(Type const& _type, Type const& _
 {
 	solAssert(_type.category() == Type::Category::FixedBytes || _type.category() == Type::Category::Integer, "");
 	solAssert(_amountType.category() == Type::Category::Integer, "");
+	solAssert(!dynamic_cast<IntegerType const&>(_amountType).isSigned(), "");
 	string const functionName = "shift_left_" + _type.identifier() + "_" + _amountType.identifier();
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return
 			Whiskers(R"(
 			function <functionName>(value, bits) -> result {
 				bits := <cleanAmount>(bits)
-				<?amountSigned>
-					if slt(bits, 0) { invalid() }
-				</amountSigned>
 				result := <cleanup>(<shift>(bits, value))
 			}
 			)")
 			("functionName", functionName)
-			("amountSigned", dynamic_cast<IntegerType const&>(_amountType).isSigned())
 			("cleanAmount", cleanupFunction(_amountType))
 			("shift", shiftLeftFunctionDynamic())
 			("cleanup", cleanupFunction(_type))
@@ -371,6 +369,7 @@ string YulUtilFunctions::typedShiftRightFunction(Type const& _type, Type const& 
 {
 	solAssert(_type.category() == Type::Category::FixedBytes || _type.category() == Type::Category::Integer, "");
 	solAssert(_amountType.category() == Type::Category::Integer, "");
+	solAssert(!dynamic_cast<IntegerType const&>(_amountType).isSigned(), "");
 	IntegerType const* integerType = dynamic_cast<IntegerType const*>(&_type);
 	bool valueSigned = integerType && integerType->isSigned();
 
@@ -380,14 +379,10 @@ string YulUtilFunctions::typedShiftRightFunction(Type const& _type, Type const& 
 			Whiskers(R"(
 			function <functionName>(value, bits) -> result {
 				bits := <cleanAmount>(bits)
-				<?amountSigned>
-					if slt(bits, 0) { invalid() }
-				</amountSigned>
 				result := <cleanup>(<shift>(bits, <cleanup>(value)))
 			}
 			)")
 			("functionName", functionName)
-			("amountSigned", dynamic_cast<IntegerType const&>(_amountType).isSigned())
 			("cleanAmount", cleanupFunction(_amountType))
 			("shift", valueSigned ? shiftRightSignedFunctionDynamic() : shiftRightFunctionDynamic())
 			("cleanup", cleanupFunction(_type))
@@ -1619,26 +1614,45 @@ string YulUtilFunctions::zeroComplexMemoryArrayFunction(ArrayType const& _type)
 	});
 }
 
+string YulUtilFunctions::allocateMemoryArrayFunction(ArrayType const& _type)
+{
+	string functionName = "allocate_memory_array_" + _type.identifier();
+	return m_functionCollector.createFunction(functionName, [&]() {
+		return Whiskers(R"(
+				function <functionName>(length) -> memPtr {
+					let allocSize := <allocSize>(length)
+					memPtr := <alloc>(allocSize)
+					<?dynamic>
+					mstore(memPtr, length)
+					</dynamic>
+				}
+			)")
+			("functionName", functionName)
+			("alloc", allocationFunction())
+			("allocSize", arrayAllocationSizeFunction(_type))
+			("dynamic", _type.isDynamicallySized())
+			.render();
+	});
+}
+
 string YulUtilFunctions::allocateAndInitializeMemoryArrayFunction(ArrayType const& _type)
 {
 	string functionName = "allocate_and_zero_memory_array_" + _type.identifier();
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return Whiskers(R"(
 				function <functionName>(length) -> memPtr {
-					let allocSize := <allocSize>(length)
-					memPtr := <alloc>(allocSize)
+					memPtr := <allocArray>(length)
 					let dataStart := memPtr
-					let dataSize := allocSize
+					let dataSize := <allocSize>(length)
 					<?dynamic>
 					dataStart := add(dataStart, 32)
 					dataSize := sub(dataSize, 32)
-					mstore(memPtr, length)
 					</dynamic>
 					<zeroArrayFunction>(dataStart, dataSize)
 				}
 			)")
 			("functionName", functionName)
-			("alloc", allocationFunction())
+			("allocArray", allocateMemoryArrayFunction(_type))
 			("allocSize", arrayAllocationSizeFunction(_type))
 			("zeroArrayFunction", zeroMemoryArrayFunction(_type))
 			("dynamic", _type.isDynamicallySized())
@@ -1646,13 +1660,30 @@ string YulUtilFunctions::allocateAndInitializeMemoryArrayFunction(ArrayType cons
 	});
 }
 
-string YulUtilFunctions::allocateAndInitializeMemoryStructFunction(StructType const& _type)
+string YulUtilFunctions::allocateMemoryStructFunction(StructType const& _type)
 {
-	string functionName = "allocate_and_initialize_memory_struct_" + _type.identifier();
+	string functionName = "allocate_memory_struct_" + _type.identifier();
 	return m_functionCollector.createFunction(functionName, [&]() {
 		Whiskers templ(R"(
 		function <functionName>() -> memPtr {
 			memPtr := <alloc>(<allocSize>)
+		}
+		)");
+		templ("functionName", functionName);
+		templ("alloc", allocationFunction());
+		templ("allocSize", _type.memoryDataSize().str());
+
+		return templ.render();
+	});
+}
+
+string YulUtilFunctions::allocateAndInitializeMemoryStructFunction(StructType const& _type)
+{
+	string functionName = "allocate_and_zero_memory_struct_" + _type.identifier();
+	return m_functionCollector.createFunction(functionName, [&]() {
+		Whiskers templ(R"(
+		function <functionName>() -> memPtr {
+			memPtr := <allocStruct>()
 			let offset := memPtr
 			<#member>
 				mstore(offset, <zeroValue>())
@@ -1661,10 +1692,9 @@ string YulUtilFunctions::allocateAndInitializeMemoryStructFunction(StructType co
 		}
 		)");
 		templ("functionName", functionName);
-		templ("alloc", allocationFunction());
+		templ("allocStruct", allocateMemoryStructFunction(_type));
 
 		TypePointers const& members = _type.memoryMemberTypes();
-		templ("allocSize", _type.memoryDataSize().str());
 
 		vector<map<string, string>> memberParams(members.size());
 		for (size_t i = 0; i < members.size(); ++i)
@@ -2374,6 +2404,29 @@ string YulUtilFunctions::conversionFunctionSpecial(Type const& _from, Type const
 			("converted", suffixedVariableNameList("converted", 0, destStackSize))
 			("conversions", conversions)
 			.render();
+		}
+
+		if (_from.category() == Type::Category::Array && _to.category() == Type::Category::Array)
+		{
+			auto const& fromArrayType = dynamic_cast<ArrayType const&>(_from);
+			auto const& toArrayType = dynamic_cast<ArrayType const&>(_to);
+
+			solAssert(!fromArrayType.baseType()->isDynamicallyEncoded(), "");
+			solUnimplementedAssert(fromArrayType.isByteArray() && toArrayType.isByteArray(), "");
+			solUnimplementedAssert(toArrayType.location() == DataLocation::Memory, "");
+			solUnimplementedAssert(fromArrayType.location() == DataLocation::CallData, "");
+			solUnimplementedAssert(toArrayType.isDynamicallySized(), "");
+
+			Whiskers templ(R"(
+				function <functionName>(offset, length) -> converted {
+					converted := <allocateMemoryArray>(length)
+					<copyToMemory>(offset, add(converted, 0x20), length)
+				}
+			)");
+			templ("functionName", functionName);
+			templ("allocateMemoryArray", allocateMemoryArrayFunction(toArrayType));
+			templ("copyToMemory", copyToMemoryFunction(fromArrayType.location() == DataLocation::CallData));
+			return templ.render();
 		}
 
 		solUnimplementedAssert(

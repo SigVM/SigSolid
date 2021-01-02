@@ -30,9 +30,8 @@ not possible to destroy a library.
 Libraries can be seen as implicit base contracts of the contracts that use them.
 They will not be explicitly visible in the inheritance hierarchy, but calls
 to library functions look just like calls to functions of explicit base
-contracts (``L.f()`` if ``L`` is the name of the library). Furthermore,
-``internal`` functions of libraries are visible in all contracts, just as
-if the library were a base contract. Of course, calls to internal functions
+contracts (using qualified access like ``L.f()``).
+Of course, calls to internal functions
 use the internal calling convention, which means that all internal types
 can be passed and types :ref:`stored in memory <data-location>` will be passed by reference and not copied.
 To realize this in the EVM, code of internal library functions
@@ -48,7 +47,7 @@ more advanced example to implement a set).
 ::
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.7.0;
+    pragma solidity >=0.6.0 <0.8.0;
 
 
     // We define a new struct datatype that will be used to
@@ -127,7 +126,7 @@ custom types without the overhead of external function calls:
 ::
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.7.0;
+    pragma solidity >=0.6.0 <0.8.0;
 
     struct bigint {
         uint[] limbs;
@@ -230,7 +229,9 @@ The following identifiers are used for the types in the signatures:
  - Non-storage array types follow the same convention as in the contract ABI, i.e. ``<type>[]`` for dynamic arrays and
    ``<type>[M]`` for fixed-size arrays of ``M`` elements.
  - Non-storage structs are referred to by their fully qualified name, i.e. ``C.S`` for ``contract C { struct S { ... } }``.
- - Storage pointer types use the type identifier of their corresponding non-storage type, but append a single space
+ - Storage pointer mappings use ``mapping(<keyType> => <valueType>) storage`` where ``<keyType>`` and ``<valueType>`` are
+   the identifiers for the key and value types of the mapping, respectively.
+ - Other storage pointer types use the type identifier of their corresponding non-storage type, but append a single space
    followed by ``storage`` to it.
 
 The argument encoding is the same as for the regular contract ABI, except for storage pointers, which are encoded as a
@@ -242,7 +243,7 @@ Its value can be obtained from Solidity using the ``.selector`` member as follow
 ::
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.14 <0.7.0;
+    pragma solidity >=0.5.14 <0.8.0;
 
     library L {
         function f(uint256) external {}

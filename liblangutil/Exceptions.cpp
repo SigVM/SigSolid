@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Liana <liana@ethdev.com>
  * @date 2015
@@ -32,6 +33,9 @@ Error::Error(ErrorId _errorId, Type _type, SourceLocation const& _location, stri
 {
 	switch (m_type)
 	{
+	case Type::CodeGenerationError:
+		m_typeName = "CodeGenerationError";
+		break;
 	case Type::DeclarationError:
 		m_typeName = "DeclarationError";
 		break;

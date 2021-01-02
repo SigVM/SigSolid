@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Yul interpreter module that evaluates Ewasm builtins.
  */
@@ -68,7 +69,11 @@ public:
 		m_state(_state)
 	{}
 	/// Evaluate builtin function
-	u256 evalBuiltin(YulString _fun, std::vector<u256> const& _arguments);
+	u256 evalBuiltin(
+		YulString _functionName,
+		std::vector<Expression> const& _arguments,
+		std::vector<u256> const& _evaluatedArguments
+	);
 
 private:
 	template <typename Word>

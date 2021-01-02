@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <libsolidity/analysis/ViewPureChecker.h>
 #include <libsolidity/ast/ExperimentalFeatures.h>
@@ -168,7 +169,7 @@ void ViewPureChecker::endVisit(FunctionDefinition const& _funDef)
 		!_funDef.isConstructor() &&
 		!_funDef.isFallback() &&
 		!_funDef.isReceive() &&
-		!_funDef.overrides()
+		!_funDef.virtualSemantics()
 	)
 		m_errorReporter.warning(
 			2018_error,

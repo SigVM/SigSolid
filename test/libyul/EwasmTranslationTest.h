@@ -14,17 +14,22 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #pragma once
 
 #include <test/TestCase.h>
-#include <libyul/Object.h>
 
 namespace solidity::langutil
 {
 class Scanner;
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
+}
+
+namespace solidity::yul
+{
+struct Object;
 }
 
 namespace solidity::yul::test

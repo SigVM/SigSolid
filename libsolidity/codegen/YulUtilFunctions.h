@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Component that can generate various useful Yul functions.
  */
@@ -281,13 +282,24 @@ public:
 	/// signature: (dataStart, dataSizeInBytes) ->
 	std::string zeroComplexMemoryArrayFunction(ArrayType const& _type);
 
+	/// @returns the name of a function that allocates a memory array.
+	/// For dynamic arrays it adds space for length and stores it.
+	/// The contents of the data area are unspecified.
+	/// signature: (length) -> memPtr
+	std::string allocateMemoryArrayFunction(ArrayType const& _type);
+
 	/// @returns the name of a function that allocates and zeroes a memory array.
 	/// For dynamic arrays it adds space for length and stores it.
 	/// signature: (length) -> memPtr
 	std::string allocateAndInitializeMemoryArrayFunction(ArrayType const& _type);
 
+	/// @returns the name of a function that allocates a memory struct (no
+	/// initialization takes place).
+	/// signature: () -> memPtr
+	std::string allocateMemoryStructFunction(StructType const& _type);
+
 	/// @returns the name of a function that allocates and zeroes a memory struct.
-	/// signature: (members) -> memPtr
+	/// signature: () -> memPtr
 	std::string allocateAndInitializeMemoryStructFunction(StructType const& _type);
 
 	/// @returns the name of the function that converts a value of type @a _from

@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <test/libsolidity/SMTCheckerJSONTest.h>
 #include <test/Common.h>
@@ -127,6 +128,7 @@ TestCase::TestResult SMTCheckerJSONTest::run(ostream& _stream, string const& _li
 				end -= preamble.size();
 			m_errorList.emplace_back(SyntaxTestError{
 				error["type"].asString(),
+				error["errorId"].isNull() ?  nullopt : optional<langutil::ErrorId>(langutil::ErrorId{error["errorId"].asUInt()}),
 				error["message"].asString(),
 				sourceName,
 				static_cast<int>(start),

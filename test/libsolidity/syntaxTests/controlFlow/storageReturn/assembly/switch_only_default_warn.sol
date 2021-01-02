@@ -4,9 +4,9 @@ contract C {
     function f(uint256 a) internal pure returns (S storage c) {
         assembly {
             switch a
-                default { c_slot := s_slot }
+                default { c.slot := s.slot }
         }
     }
 }
 // ----
-// Warning: (142-195): "switch" statement with only a default case.
+// Warning 9592: (142-195): "switch" statement with only a default case.

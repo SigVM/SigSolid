@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
@@ -226,7 +227,7 @@ void ExpressionCompiler::appendStateVariableAccessor(VariableDeclaration const& 
 	solAssert(retSizeOnStack == utils().sizeOnStack(returnTypes), "");
 	if (retSizeOnStack > 15)
 		BOOST_THROW_EXCEPTION(
-			CompilerError() <<
+			StackTooDeepError() <<
 			errinfo_sourceLocation(_varDecl.location()) <<
 			errinfo_comment("Stack too deep.")
 		);
@@ -285,6 +286,7 @@ bool ExpressionCompiler::visit(Assignment const& _assignment)
 		m_currentLValue->storeValue(*rightIntermediateType, _assignment.location());
 	else  // compound assignment
 	{
+		solAssert(binOp != Token::Exp, "Compound exp is not possible.");
 		solAssert(leftType.isValueType(), "Compound operators only available for value types.");
 		unsigned lvalueSize = m_currentLValue->sizeOnStack();
 		unsigned itemSize = _assignment.annotation().type->sizeOnStack();
@@ -308,7 +310,7 @@ bool ExpressionCompiler::visit(Assignment const& _assignment)
 		{
 			if (itemSize + lvalueSize > 16)
 				BOOST_THROW_EXCEPTION(
-					CompilerError() <<
+					StackTooDeepError() <<
 					errinfo_sourceLocation(_assignment.location()) <<
 					errinfo_comment("Stack too deep, try removing local variables.")
 				);
@@ -451,7 +453,10 @@ bool ExpressionCompiler::visit(BinaryOperation const& _binaryOperation)
 		bool cleanupNeeded = cleanupNeededForOp(commonType->category(), c_op);
 
 		TypePointer leftTargetType = commonType;
-		TypePointer rightTargetType = TokenTraits::isShiftOp(c_op) ? rightExpression.annotation().type->mobileType() : commonType;
+		TypePointer rightTargetType =
+			TokenTraits::isShiftOp(c_op) || c_op == Token::Exp ?
+			rightExpression.annotation().type->mobileType() :
+			commonType;
 		solAssert(rightTargetType, "");
 
 		// for commutative operators, push the literal as late as possible to allow improved optimization
@@ -473,6 +478,8 @@ bool ExpressionCompiler::visit(BinaryOperation const& _binaryOperation)
 		if (TokenTraits::isShiftOp(c_op))
 			// shift only cares about the signedness of both sides
 			appendShiftOperatorCode(c_op, *leftTargetType, *rightTargetType);
+		else if (c_op == Token::Exp)
+			appendExpOperatorCode(*leftTargetType, *rightTargetType);
 		else if (TokenTraits::isCompareOp(c_op))
 			appendCompareOperatorCode(c_op, *commonType);
 		else
@@ -792,20 +799,24 @@ bool ExpressionCompiler::visit(FunctionCall const& _functionCall)
 			TypePointer const& argType = arguments.front()->annotation().type;
 			solAssert(argType, "");
 			arguments.front()->accept(*this);
-			// Optimization: If type is bytes or string, then do not encode,
-			// but directly compute keccak256 on memory.
-			if (*argType == *TypeProvider::bytesMemory() || *argType == *TypeProvider::stringMemory())
+			if (auto const* stringLiteral = dynamic_cast<StringLiteralType const*>(argType))
+				// Optimization: Compute keccak256 on string literals at compile-time.
+				m_context << u256(keccak256(stringLiteral->value()));
+			else if (*argType == *TypeProvider::bytesMemory() || *argType == *TypeProvider::stringMemory())
 			{
+				// Optimization: If type is bytes or string, then do not encode,
+				// but directly compute keccak256 on memory.
 				ArrayUtils(m_context).retrieveLength(*TypeProvider::bytesMemory());
 				m_context << Instruction::SWAP1 << u256(0x20) << Instruction::ADD;
+				m_context << Instruction::KECCAK256;
 			}
 			else
 			{
 				utils().fetchFreeMemoryPointer();
 				utils().packedEncode({argType}, TypePointers());
 				utils().toSizeAfterFreeMemoryPointer();
+				m_context << Instruction::KECCAK256;
 			}
-			m_context << Instruction::KECCAK256;
 			break;
 		}
 		case FunctionType::Kind::Log0:
@@ -1718,6 +1729,16 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 			solAssert(false, "Illegal fixed bytes member.");
 		break;
 	}
+	case Type::Category::Module:
+	{
+		Type::Category category = _memberAccess.annotation().type->category();
+		solAssert(
+			category == Type::Category::TypeType ||
+			category == Type::Category::Module,
+			""
+		);
+		break;
+	}
 	default:
 		solAssert(false, "Member access to unknown type.");
 	}
@@ -1900,10 +1921,6 @@ void ExpressionCompiler::endVisit(Identifier const& _identifier)
 			if (!dynamic_cast<ContractType const&>(*magicVar->type()).isSuper())
 				m_context << Instruction::ADDRESS;
 			break;
-		case Type::Category::Integer:
-			// "now"
-			m_context << Instruction::TIMESTAMP;
-			break;
 		default:
 			break;
 		}
@@ -1930,6 +1947,10 @@ void ExpressionCompiler::endVisit(Identifier const& _identifier)
 		// no-op
 	}
 	else if (dynamic_cast<StructDefinition const*>(declaration))
+	{
+		// no-op
+	}
+	else if (dynamic_cast<ImportDirective const*>(declaration))
 	{
 		// no-op
 	}
@@ -2065,9 +2086,6 @@ void ExpressionCompiler::appendArithmeticOperatorCode(Token _operator, Type cons
 			m_context << (c_isSigned ? Instruction::SMOD : Instruction::MOD);
 		break;
 	}
-	case Token::Exp:
-		m_context << Instruction::EXP;
-		break;
 	default:
 		solAssert(false, "Unknown arithmetic operator.");
 	}
@@ -2102,7 +2120,6 @@ void ExpressionCompiler::appendShiftOperatorCode(Token _operator, Type const& _v
 		solAssert(dynamic_cast<FixedBytesType const*>(&_valueType), "Only integer and fixed bytes type supported for shifts.");
 
 	// The amount can be a RationalNumberType too.
-	bool c_amountSigned = false;
 	if (auto amountType = dynamic_cast<RationalNumberType const*>(&_shiftAmountType))
 	{
 		// This should be handled by the type checker.
@@ -2110,16 +2127,9 @@ void ExpressionCompiler::appendShiftOperatorCode(Token _operator, Type const& _v
 		solAssert(!amountType->integerType()->isSigned(), "");
 	}
 	else if (auto amountType = dynamic_cast<IntegerType const*>(&_shiftAmountType))
-		c_amountSigned = amountType->isSigned();
+		solAssert(!amountType->isSigned(), "");
 	else
 		solAssert(false, "Invalid shift amount type.");
-
-	// shift by negative amount throws exception
-	if (c_amountSigned)
-	{
-		m_context << u256(0) << Instruction::DUP3 << Instruction::SLT;
-		m_context.appendConditionalInvalid();
-	}
 
 	m_context << Instruction::SWAP1;
 	// stack: value_to_shift shift_amount
@@ -2168,6 +2178,14 @@ void ExpressionCompiler::appendShiftOperatorCode(Token _operator, Type const& _v
 	default:
 		solAssert(false, "Unknown shift operator.");
 	}
+}
+
+void ExpressionCompiler::appendExpOperatorCode(Type const& _valueType, Type const& _exponentType)
+{
+	solAssert(_valueType.category() == Type::Category::Integer, "");
+	solAssert(!dynamic_cast<IntegerType const&>(_exponentType).isSigned(), "");
+
+	m_context << Instruction::EXP;
 }
 
 void ExpressionCompiler::appendExternalFunctionCall(

@@ -11,22 +11,10 @@ sourceUnit
   : (pragmaDirective | importDirective | structDefinition | enumDefinition | contractDefinition)* EOF ;
 
 pragmaDirective
-  : 'pragma' pragmaName pragmaValue ';' ;
+  : 'pragma' pragmaName ( ~';' )* ';' ;
 
 pragmaName
   : identifier ;
-
-pragmaValue
-  : version | expression ;
-
-version
-  : versionConstraint versionConstraint? ;
-
-versionConstraint
-  : versionOperator? VersionLiteral ;
-
-versionOperator
-  : '^' | '~' | '>=' | '>' | '<' | '<=' | '=' ;
 
 importDirective
   : 'import' StringLiteralFragment ('as' identifier)? ';'
@@ -265,6 +253,7 @@ primaryExpression
   | numberLiteral
   | hexLiteral
   | stringLiteral
+  | unicodeStringLiteral
   | identifier ('[' ']')?
   | TypeKeyword
   | tupleExpression
@@ -318,7 +307,7 @@ assemblyBlock
   : '{' assemblyItem* '}' ;
 
 assemblyExpression
-  : assemblyCall | assemblyLiteral ;
+  : assemblyCall | assemblyLiteral | assemblyIdentifier ;
 
 assemblyCall
   : ( 'return' | 'address' | 'byte' | identifier ) ( '(' assemblyExpression? ( ',' assemblyExpression )* ')' )? ;
@@ -330,7 +319,10 @@ assemblyAssignment
   : assemblyIdentifierList ':=' assemblyExpression ;
 
 assemblyIdentifierList
-  : identifier ( ',' identifier )* ;
+  : assemblyIdentifier ( ',' assemblyIdentifier )* ;
+
+assemblyIdentifier
+  : identifier ( '.' identifier )* ;
 
 assemblyStackAssignment
   : '=:' identifier ;
@@ -370,11 +362,12 @@ assemblyType
 subAssembly
   : 'assembly' identifier assemblyBlock ;
 
+// 'finney' and 'szabo' are no longer supported as denominations by latest Solidity.
 numberLiteral
-  : (DecimalNumber | HexNumber) NumberUnit? ;
+  : (DecimalNumber | HexNumber) (NumberUnit | Gwei | Finney | Szabo)?;
 
 identifier
-  : ('from' | 'calldata' | 'address' | Identifier) ;
+  : (Gwei | Finney | Szabo | 'from' | 'calldata' | 'address' | Identifier) ;
 
 BooleanLiteral
   : 'true' | 'false' ;
@@ -394,8 +387,12 @@ HexDigits
   : HexCharacter ( '_'? HexCharacter )* ;
 
 NumberUnit
-  : 'wei' | 'szabo' | 'finney' | 'ether'
+  : 'wei' | 'ether'
   | 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'years' ;
+
+Gwei: 'gwei' ;
+Szabo: 'szabo' ;
+Finney: 'finney' ;
 
 HexLiteralFragment
   : 'hex' (('"' HexDigits? '"') | ('\'' HexDigits? '\'')) ;
@@ -465,6 +462,13 @@ StringLiteralFragment
   : '"' DoubleQuotedStringCharacter* '"'
   | '\'' SingleQuotedStringCharacter* '\'' ;
 
+unicodeStringLiteral
+  : UnicodeStringLiteralFragment+ ;
+
+UnicodeStringLiteralFragment
+  : 'unicode"' DoubleQuotedStringCharacter* '"'
+  | 'unicode\'' SingleQuotedStringCharacter* '\'' ;
+
 fragment
 DoubleQuotedStringCharacter
   : ~["\r\n\\] | ('\\' .) ;
@@ -472,9 +476,6 @@ DoubleQuotedStringCharacter
 fragment
 SingleQuotedStringCharacter
   : ~['\r\n\\] | ('\\' .) ;
-
-VersionLiteral
-  : [0-9]+ ( '.' [0-9]+ ('.' [0-9]+)? )? ;
 
 WS
   : [ \t\r\n\u000C]+ -> skip ;

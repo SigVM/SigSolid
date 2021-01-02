@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Full assembly stack that can support EVM-assembly and Yul as input and EVM, EVM1.5 and
  * Ewasm as output.
@@ -108,7 +109,7 @@ void AssemblyStack::translate(AssemblyStack::Language _targetLanguage)
 	if (m_language == _targetLanguage)
 		return;
 
-	solAssert(
+	yulAssert(
 		m_language == Language::StrictAssembly && _targetLanguage == Language::Ewasm,
 		"Invalid language combination"
 	);
@@ -137,7 +138,7 @@ bool AssemblyStack::analyzeParsed(Object& _object)
 		m_errorReporter,
 		languageToDialect(m_language, m_evmVersion),
 		{},
-		_object.dataNames()
+		_object.qualifiedDataNames()
 	);
 	bool success = analyzer.analyze(*_object.code);
 	for (auto& subNode: _object.subObjects)
@@ -160,7 +161,7 @@ void AssemblyStack::compileEVM(AbstractAssembly& _assembly, bool _evm15, bool _o
 			dialect = &EVMDialectTyped::instance(m_evmVersion);
 			break;
 		default:
-			solAssert(false, "Invalid language.");
+			yulAssert(false, "Invalid language.");
 			break;
 	}
 

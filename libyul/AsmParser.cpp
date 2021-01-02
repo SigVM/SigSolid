@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2016
@@ -41,8 +42,8 @@ unique_ptr<Block> Parser::parse(std::shared_ptr<Scanner> const& _scanner, bool _
 {
 	m_recursionDepth = 0;
 
-	_scanner->supportPeriodInIdentifier(true);
-	ScopeGuard resetScanner([&]{ _scanner->supportPeriodInIdentifier(false); });
+	_scanner->setScannerMode(ScannerKind::Yul);
+	ScopeGuard resetScanner([&]{ _scanner->setScannerMode(ScannerKind::Solidity); });
 
 	try
 	{
@@ -58,27 +59,6 @@ unique_ptr<Block> Parser::parse(std::shared_ptr<Scanner> const& _scanner, bool _
 	}
 
 	return nullptr;
-}
-
-std::map<string, evmasm::Instruction> const& Parser::instructions()
-{
-	// Allowed instructions, lowercase names.
-	static map<string, evmasm::Instruction> s_instructions;
-	if (s_instructions.empty())
-	{
-		for (auto const& instruction: evmasm::c_instructions)
-		{
-			if (
-				instruction.second == evmasm::Instruction::JUMPDEST ||
-				evmasm::isPushInstruction(instruction.second)
-			)
-				continue;
-			string name = instruction.first;
-			transform(name.begin(), name.end(), name.begin(), [](unsigned char _c) { return tolower(_c); });
-			s_instructions[name] = instruction.second;
-		}
-	}
-	return s_instructions;
 }
 
 Block Parser::parseBlock()
@@ -175,7 +155,8 @@ Statement Parser::parseStatement()
 	case Token::Comma:
 	case Token::AssemblyAssign:
 	{
-		std::vector<Identifier> variableNames;
+		Assignment assignment;
+		assignment.location = locationOf(elementary);
 
 		while (true)
 		{
@@ -197,7 +178,7 @@ Statement Parser::parseStatement()
 			if (m_dialect.builtin(identifier.name))
 				fatalParserError(6272_error, "Cannot assign to builtin function \"" + identifier.name.str() + "\".");
 
-			variableNames.emplace_back(identifier);
+			assignment.variableNames.emplace_back(identifier);
 
 			if (currentToken() != Token::Comma)
 				break;
@@ -206,10 +187,6 @@ Statement Parser::parseStatement()
 
 			elementary = parseElementaryOperation();
 		}
-
-		Assignment assignment;
-		assignment.location = std::get<Identifier>(elementary).location;
-		assignment.variableNames = std::move(variableNames);
 
 		expectToken(Token::AssemblyAssign);
 
@@ -298,20 +275,6 @@ Expression Parser::parseExpression()
 		yulAssert(holds_alternative<Literal>(operation), "");
 		return std::get<Literal>(operation);
 	}
-}
-
-std::map<evmasm::Instruction, string> const& Parser::instructionNames()
-{
-	static map<evmasm::Instruction, string> s_instructionNames;
-	if (s_instructionNames.empty())
-	{
-		for (auto const& instr: instructions())
-			s_instructionNames[instr.second] = instr.first;
-		// set the ambiguous instructions to a clear default
-		s_instructionNames[evmasm::Instruction::SELFDESTRUCT] = "selfdestruct";
-		s_instructionNames[evmasm::Instruction::KECCAK256] = "keccak256";
-	}
-	return s_instructionNames;
 }
 
 Parser::ElementaryOperation Parser::parseElementaryOperation()

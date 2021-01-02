@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /** @file Instruction.cpp
  * @author Gav Wood <i@gavwood.com>
  * @date 2014
@@ -212,13 +213,13 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::OR,			{ "OR",				0, 2, 1, false, Tier::VeryLow } },
 	{ Instruction::XOR,			{ "XOR",			0, 2, 1, false, Tier::VeryLow } },
 	{ Instruction::BYTE,		{ "BYTE",			0, 2, 1, false, Tier::VeryLow } },
-	{ Instruction::SHL,			{ "SHL",			0, 2, 1, false, Tier::VeryLow } },
-	{ Instruction::SHR,			{ "SHR",			0, 2, 1, false, Tier::VeryLow } },
-	{ Instruction::SAR,			{ "SAR",			0, 2, 1, false, Tier::VeryLow } },
+	{ Instruction::SHL,		{ "SHL",			0, 2, 1, false, Tier::VeryLow } },
+	{ Instruction::SHR,		{ "SHR",			0, 2, 1, false, Tier::VeryLow } },
+	{ Instruction::SAR,		{ "SAR",			0, 2, 1, false, Tier::VeryLow } },
 	{ Instruction::ADDMOD,		{ "ADDMOD",			0, 3, 1, false, Tier::Mid } },
 	{ Instruction::MULMOD,		{ "MULMOD",			0, 3, 1, false, Tier::Mid } },
 	{ Instruction::SIGNEXTEND,	{ "SIGNEXTEND",		0, 2, 1, false, Tier::Low } },
-	{ Instruction::KECCAK256,	{ "KECCAK256",		0, 2, 1, true, Tier::Special } },
+	{ Instruction::KECCAK256,	{ "KECCAK256",			0, 2, 1, true, Tier::Special } },
 	{ Instruction::ADDRESS,		{ "ADDRESS",		0, 0, 1, false, Tier::Base } },
 	{ Instruction::BALANCE,		{ "BALANCE",		0, 1, 1, false, Tier::Balance } },
 	{ Instruction::ORIGIN,		{ "ORIGIN",			0, 0, 1, false, Tier::Base } },
@@ -339,12 +340,12 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::CALL,		{ "CALL",			0, 7, 1, true, Tier::Special } },
 	{ Instruction::CALLCODE,	{ "CALLCODE",		0, 7, 1, true, Tier::Special } },
 	{ Instruction::RETURN,		{ "RETURN",			0, 2, 0, true, Tier::Zero } },
-	{ Instruction::DELEGATECALL,{ "DELEGATECALL",	0, 6, 1, true, Tier::Special } },
+	{ Instruction::DELEGATECALL,	{ "DELEGATECALL",	0, 6, 1, true, Tier::Special } },
 	{ Instruction::STATICCALL,	{ "STATICCALL",		0, 6, 1, true, Tier::Special } },
 	{ Instruction::CREATE2,		{ "CREATE2",		0, 4, 1, true, Tier::Special } },
-	{ Instruction::REVERT,		{ "REVERT",			0, 2, 0, true, Tier::Zero } },
+	{ Instruction::REVERT,		{ "REVERT",		0, 2, 0, true, Tier::Zero } },
 	{ Instruction::INVALID,		{ "INVALID",		0, 0, 0, true, Tier::Zero } },
-	{ Instruction::SELFDESTRUCT,{ "SELFDESTRUCT",	0, 1, 0, true, Tier::Special } }
+	{ Instruction::SELFDESTRUCT,	{ "SELFDESTRUCT",		0, 1, 0, true, Tier::Special } }
 };
 
 void solidity::evmasm::eachInstruction(

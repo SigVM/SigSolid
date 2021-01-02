@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * Yul interpreter module that evaluates EVM instructions.
  */
@@ -193,7 +194,10 @@ u256 EVMInstructionInterpreter::eval(
 	case Instruction::ADDRESS:
 		return m_state.address;
 	case Instruction::BALANCE:
-		return m_state.balance;
+		if (arg[0] == m_state.address)
+			return m_state.selfbalance;
+		else
+			return m_state.balance;
 	case Instruction::SELFBALANCE:
 		return m_state.selfbalance;
 	case Instruction::ORIGIN:
@@ -311,11 +315,11 @@ u256 EVMInstructionInterpreter::eval(
 	case Instruction::CREATE:
 		accessMemory(arg[1], arg[2]);
 		logTrace(_instruction, arg);
-		return 0xcccccc + arg[1];
+		return u160(0xcccccc + arg[1]);
 	case Instruction::CREATE2:
 		accessMemory(arg[2], arg[3]);
 		logTrace(_instruction, arg);
-		return 0xdddddd + arg[1];
+		return u160(0xdddddd + arg[1]);
 	case Instruction::CALL:
 	case Instruction::CALLCODE:
 		// TODO assign returndata
@@ -417,17 +421,17 @@ u256 EVMInstructionInterpreter::eval(
 	case Instruction::SWAP14:
 	case Instruction::SWAP15:
 	case Instruction::SWAP16:
-	// --------------- EVM 2.0 ---------------
-	case Instruction::JUMPTO:
-	case Instruction::JUMPIF:
-	case Instruction::JUMPV:
-	case Instruction::JUMPSUB:
-	case Instruction::JUMPSUBV:
-	case Instruction::BEGINSUB:
-	case Instruction::BEGINDATA:
-	case Instruction::RETURNSUB:
-	case Instruction::PUTLOCAL:
-	case Instruction::GETLOCAL:
+	// --------------- EIP-615 ---------------
+	case Instruction::EIP615_JUMPTO:
+	case Instruction::EIP615_JUMPIF:
+	case Instruction::EIP615_JUMPV:
+	case Instruction::EIP615_JUMPSUB:
+	case Instruction::EIP615_JUMPSUBV:
+	case Instruction::EIP615_BEGINSUB:
+	case Instruction::EIP615_BEGINDATA:
+	case Instruction::EIP615_RETURNSUB:
+	case Instruction::EIP615_PUTLOCAL:
+	case Instruction::EIP615_GETLOCAL:
 	{
 		yulAssert(false, "");
 		return 0;
@@ -437,28 +441,46 @@ u256 EVMInstructionInterpreter::eval(
 	return 0;
 }
 
-u256 EVMInstructionInterpreter::evalBuiltin(BuiltinFunctionForEVM const& _fun, const std::vector<u256>& _arguments)
+u256 EVMInstructionInterpreter::evalBuiltin(
+	BuiltinFunctionForEVM const& _fun,
+	vector<Expression> const& _arguments,
+	vector<u256> const& _evaluatedArguments
+)
 {
 	if (_fun.instruction)
-		return eval(*_fun.instruction, _arguments);
-	else if (_fun.name == "datasize"_yulstring)
-		return u256(keccak256(h256(_arguments.at(0)))) & 0xfff;
-	else if (_fun.name == "dataoffset"_yulstring)
-		return u256(keccak256(h256(_arguments.at(0) + 2))) & 0xfff;
-	else if (_fun.name == "datacopy"_yulstring)
+		return eval(*_fun.instruction, _evaluatedArguments);
+
+	string fun = _fun.name.str();
+	// Evaluate datasize/offset/copy instructions
+	if (fun == "datasize" || fun == "dataoffset")
+	{
+		string arg = std::get<Literal>(_arguments.at(0)).value.str();
+		if (arg.length() < 32)
+			arg.resize(32, 0);
+		if (fun == "datasize")
+			return u256(keccak256(arg)) & 0xfff;
+		else
+		{
+			// Force different value than for datasize
+			arg[31] += 2;
+			return u256(keccak256(arg)) & 0xfff;
+		}
+	}
+	else if (fun == "datacopy")
 	{
 		// This is identical to codecopy.
-		if (accessMemory(_arguments.at(0), _arguments.at(2)))
+		if (accessMemory(_evaluatedArguments.at(0), _evaluatedArguments.at(2)))
 			copyZeroExtended(
 				m_state.memory,
 				m_state.code,
-				size_t(_arguments.at(0)),
-				size_t(_arguments.at(1) & numeric_limits<size_t>::max()),
-				size_t(_arguments.at(2))
+				size_t(_evaluatedArguments.at(0)),
+				size_t(_evaluatedArguments.at(1) & numeric_limits<size_t>::max()),
+				size_t(_evaluatedArguments.at(2))
 			);
+		return 0;
 	}
 	else
-		yulAssert(false, "Unknown builtin: " + _fun.name.str());
+		yulAssert(false, "Unknown builtin: " + fun);
 	return 0;
 }
 

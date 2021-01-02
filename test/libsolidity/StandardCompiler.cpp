@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @date 2017
  * Unit tests for interface/StandardCompiler.h.
@@ -1242,7 +1243,7 @@ BOOST_AUTO_TEST_CASE(use_stack_optimization)
 	BOOST_CHECK(result["errors"][0]["severity"] == "error");
 	BOOST_REQUIRE(result["errors"][0]["message"].isString());
 	BOOST_CHECK(result["errors"][0]["message"].asString().find("Stack too deep when compiling inline assembly") != std::string::npos);
-	BOOST_CHECK(result["errors"][0]["type"] == "YulException");
+	BOOST_CHECK(result["errors"][0]["type"] == "CompilerError");
 }
 
 BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard)

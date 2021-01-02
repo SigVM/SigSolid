@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <tools/yulPhaser/Program.h>
 
@@ -119,7 +120,7 @@ ostream& phaser::operator<<(ostream& _stream, Program const& _program)
 string Program::toJson() const
 {
 	Json::Value serializedAst = AsmJsonConverter(0)(*m_ast);
-	return jsonPrettyPrint(serializedAst);
+	return jsonPrettyPrint(removeNullMembers(std::move(serializedAst)));
 }
 
 variant<unique_ptr<Block>, ErrorList> Program::parseObject(Dialect const& _dialect, CharStream _source)

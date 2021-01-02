@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
@@ -634,7 +635,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 
 	if (stackLayout.size() > 17)
 		BOOST_THROW_EXCEPTION(
-			CompilerError() <<
+			StackTooDeepError() <<
 			errinfo_sourceLocation(_function.location()) <<
 			errinfo_comment("Stack too deep, try removing local variables.")
 		);
@@ -646,7 +647,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 		}
 		else
 		{
-			m_context << swapInstruction(stackLayout.size() - static_cast<size_t>(stackLayout.back()) - 1);
+			m_context << swapInstruction(stackLayout.size() - static_cast<unsigned>(stackLayout.back()) - 1u);
 			swap(stackLayout[static_cast<size_t>(stackLayout.back())], stackLayout.back());
 		}
 	for (size_t i = 0; i < stackLayout.size(); ++i)
@@ -798,7 +799,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 						solAssert(variable->type()->sizeOnStack() == 1, "");
 					if (stackDiff < 1 || stackDiff > 16)
 						BOOST_THROW_EXCEPTION(
-							CompilerError() <<
+							StackTooDeepError() <<
 							errinfo_sourceLocation(_inlineAssembly.location()) <<
 							errinfo_comment("Stack too deep, try removing local variables.")
 						);
@@ -831,7 +832,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 			unsigned stackDiff = static_cast<unsigned>(_assembly.stackHeight()) - m_context.baseStackOffsetOfVariable(*variable) - 1;
 			if (stackDiff > 16 || stackDiff < 1)
 				BOOST_THROW_EXCEPTION(
-					CompilerError() <<
+					StackTooDeepError() <<
 					errinfo_sourceLocation(_inlineAssembly.location()) <<
 					errinfo_comment("Stack too deep(" + to_string(stackDiff) + "), try removing local variables.")
 				);

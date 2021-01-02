@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 /**
  * Interface for constrained Horn solvers.
@@ -22,6 +23,9 @@
 #pragma once
 
 #include <libsmtutil/SolverInterface.h>
+
+#include <map>
+#include <vector>
 
 namespace solidity::smtutil
 {
@@ -40,9 +44,18 @@ public:
 	/// Needs to bound all vars as universally quantified.
 	virtual void addRule(Expression const& _expr, std::string const& _name) = 0;
 
-	/// Takes a function application and checks
-	/// for reachability.
-	virtual std::pair<CheckResult, std::vector<std::string>> query(
+	/// first: predicate name
+	/// second: predicate arguments
+	using CexNode = std::pair<std::string, std::vector<std::string>>;
+	struct CexGraph
+	{
+		std::map<unsigned, CexNode> nodes;
+		std::map<unsigned, std::vector<unsigned>> edges;
+	};
+
+	/// Takes a function application _expr and checks for reachability.
+	/// @returns solving result and a counterexample graph, if possible.
+	virtual std::pair<CheckResult, CexGraph> query(
 		Expression const& _expr
 	) = 0;
 };

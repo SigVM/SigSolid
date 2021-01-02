@@ -14,6 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
+// SPDX-License-Identifier: GPL-3.0
 
 #include <libsolidity/analysis/DeclarationTypeChecker.h>
 
@@ -112,18 +113,16 @@ bool DeclarationTypeChecker::visit(StructDefinition const& _struct)
 		for (ASTPointer<VariableDeclaration> const& member: _struct.members())
 		{
 			Type const* memberType = member->annotation().type;
-			while (auto arrayType = dynamic_cast<ArrayType const*>(memberType))
-			{
-				if (arrayType->isDynamicallySized())
-					break;
-				memberType = arrayType->baseType();
-			}
+
+			if (auto arrayType = dynamic_cast<ArrayType const*>(memberType))
+				memberType = arrayType->finalBaseType(true);
+
 			if (auto structType = dynamic_cast<StructType const*>(memberType))
 				if (_cycleDetector.run(structType->structDefinition()))
 					return;
 		}
 	};
-	if (util::CycleDetector<StructDefinition>(visitor).run(_struct) != nullptr)
+	if (util::CycleDetector<StructDefinition>(visitor).run(_struct))
 		m_errorReporter.fatalTypeError(2046_error, _struct.location(), "Recursive struct definition.");
 
 	return false;
@@ -244,12 +243,7 @@ void DeclarationTypeChecker::endVisit(ArrayTypeName const& _typeName)
 		solAssert(!m_errorReporter.errors().empty(), "");
 		return;
 	}
-	if (baseType->storageBytes() == 0)
-		m_errorReporter.fatalTypeError(
-			6493_error,
-			_typeName.baseType().location(),
-			"Illegal base type of storage size zero for array."
-		);
+	solAssert(baseType->storageBytes() != 0, "Illegal base type of storage size zero for array.");
 	if (Expression const* length = _typeName.length())
 	{
 		TypePointer& lengthTypeGeneric = length->annotation().type;
@@ -295,15 +289,6 @@ void DeclarationTypeChecker::endVisit(VariableDeclaration const& _variable)
 			"The \"immutable\" keyword can only be used for state variables."
 		);
 
-	if (!_variable.typeName())
-	{
-		// This can still happen in very unusual cases where a developer uses constructs, such as
-		// `var a;`, however, such code will have generated errors already.
-		// However, we cannot blindingly solAssert() for that here, as the TypeChecker (which is
-		// invoking ReferencesResolver) is generating it, so the error is most likely(!) generated
-		// after this step.
-		return;
-	}
 	using Location = VariableDeclaration::Location;
 	Location varLoc = _variable.referenceLocation();
 	DataLocation typeLoc = DataLocation::Memory;
@@ -334,7 +319,9 @@ void DeclarationTypeChecker::endVisit(VariableDeclaration const& _variable)
 					", ",
 					" or "
 				);
-			if (_variable.isCallableOrCatchParameter())
+			if (_variable.isConstructorParameter())
+				errorString += " for constructor parameter";
+			else if (_variable.isCallableOrCatchParameter())
 				errorString +=
 					" for " +
 					string(_variable.isReturnParameter() ? "return " : "") +
@@ -384,7 +371,7 @@ void DeclarationTypeChecker::endVisit(VariableDeclaration const& _variable)
 				solAssert(!_variable.hasReferenceOrMappingType(), "Data location not properly set.");
 		}
 
-	TypePointer type = _variable.typeName()->annotation().type;
+	TypePointer type = _variable.typeName().annotation().type;
 	if (auto ref = dynamic_cast<ReferenceType const*>(type))
 	{
 		bool isPointer = !_variable.isStateVariable();
@@ -393,6 +380,15 @@ void DeclarationTypeChecker::endVisit(VariableDeclaration const& _variable)
 
 	_variable.annotation().type = type;
 
+}
+
+void DeclarationTypeChecker::endVisit(UsingForDirective const& _usingFor)
+{
+	ContractDefinition const* library = dynamic_cast<ContractDefinition const*>(
+		_usingFor.libraryName().annotation().referencedDeclaration
+	);
+	if (!library || !library->isLibrary())
+		m_errorReporter.fatalTypeError(4357_error, _usingFor.libraryName().location(), "Library name expected.");
 }
 
 bool DeclarationTypeChecker::check(ASTNode const& _node)
