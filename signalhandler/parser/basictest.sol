@@ -21,7 +21,7 @@ contract A {
 
     function binding() public view {
         address this_address = address(this);
-        AlertUpdate.bind(this_address, "Alert(bool,bytes32,address)");
+        AlertUpdate.bind(this_address, "Alert(bool,bytes32,address)", 0.46);
     }
     
     function emitting() public view {

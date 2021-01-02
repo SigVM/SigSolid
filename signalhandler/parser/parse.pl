@@ -13,6 +13,9 @@ use warnings;
 # Get file handles for input and output
 my $input_file = $ARGV[0];
 my $output_file = $ARGV[1];
+my @signal_array = ();
+my @handler_name_array = ();
+my @handler_types_array = ();
 open(my $read_fh,  "<", $input_file) or die $!;
 open(my $write_fh, ">", "$output_file\.temp") or die $!;
 
@@ -32,6 +35,8 @@ while (my $line = <$read_fh>) {
         $signal_prototype =~ s/\s+//g;
         # Get signal name.
         my ($signal_name) = $line =~ /signal\s+(.+)\(/;
+        # Save signal name.
+        push(@signal_array, ($signal_name));
         # Code snippet that represents the signal.
         my $code_snippet = 
 <<"CODE_SNIPPET";
@@ -39,29 +44,6 @@ while (my $line = <$read_fh>) {
 bytes32 private ${signal_name}_key;
 function set_${signal_name}_key() private {
     ${signal_name}_key = keccak256("${signal_prototype}");
-}
-////////////////////
-CODE_SNIPPET
-        print {$write_fh} $code_snippet;
-        next;
-    }
-
-    #################################################################################
-    #################################################################################
-    # Handler declaration
-    if ($line =~ /handler\s/) {
-        # Get handler prototype and remove spaces.
-        my ($handler_prototype) = $line =~ /handler\s+(.+)\;/;
-        $handler_prototype =~ s/\s+//g;
-        # Get handler name.
-        my ($handler_name) = $line =~ /handler\s+(.+)\(/;
-        # Code snippet that represents the handler.
-        my $code_snippet = 
-<<"CODE_SNIPPET";
-// Original code: handler ${handler_name};
-bytes32 private ${handler_name}_key;
-function set_${handler_name}_key() private {
-    ${handler_name}_key = keccak256("${handler_prototype}");
 }
 ////////////////////
 CODE_SNIPPET
@@ -215,22 +197,46 @@ CODE_SNIPPET
     #################################################################################
     # Bind
     if ($line =~ /\.bind\(/) {
-        my ($handler_name) = $line =~ /\s*(.+)\./;
-        my ($signal_prototype) = $line =~ /"(.+)"/;
-        my ($arg_string) = $line =~ /bind\((.+)\)/;
-        $arg_string =~ s/\s+//g;
-        $arg_string =~ s/"(.+)"//g;
-        my @arg_arr = split(',', $arg_string);
+        # Get handler name.
+        my ($handler_name) = $line =~ /\s*(.+)\.bind/;
+        # delete line space
+        $line =~ s/\s+//g;
+        # Get handler parameters.
+        my ($address_parameter) = $line =~ /bind\((.+)\,"/;
+        my ($signal_parameter) = $line =~ /"(.+)"/;
+        my ($ratio_parameter) = $line =~ /"\,(.+)\)\;/;
+        my ($ratio) = $ratio_parameter * 100 + 100;
+        my ($method_prototype);
+        for (my $i = 0; $i <= $#handler_name_array; $i = $i + 1){
+            if($handler_name eq $handler_name_array[$i]){
+                $method_prototype = $handler_name_array[$i]."(".$handler_types_array[$i].")";
+            }
+        }
         my $code_snippet = 
 <<"CODE_SNIPPET";
-// Original code: ${handler_name}.bind(${arg_string}"$signal_prototype");
-bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_prototype}");
+// Original code: ${line}
+set_${handler_name}_key();
+bytes32 ${handler_name}_method_hash = keccak256("$method_prototype");
+uint ${handler_name}_gas_limit = 100000000;
+uint ${handler_name}_gas_ratio = $ratio;
+assembly {
+    mstore(
+        0x00, 
+        createhandler(
+            sload(${handler_name}_key.slot), 
+            ${handler_name}_method_hash, 
+            ${handler_name}_gas_limit, 
+            ${handler_name}_gas_ratio
+        )
+    )
+}
+bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_parameter}");
 assembly {
     mstore(
         0x00,
         sigbind(
             sload(${handler_name}_key.slot),
-            $arg_arr[0],
+            ${address_parameter},
             ${handler_name}_signal_prototype_hash
         )
     )
@@ -273,6 +279,82 @@ CODE_SNIPPET
 
     #################################################################################
     #################################################################################
+    # Handler declaration
+    if ($line =~ /handler/) {
+        # Original code
+        my ($original_code) = $line;
+        # delete left space
+        $original_code =~ s/^\s+//;
+        # delete enter
+        chomp($original_code);
+        # Save original function.
+        my ($handler_function) = $line =~ /function(.+)handler/;
+        # Get handler name.
+        my ($handler_name) = $handler_function =~ /(.+)\(/;
+        $handler_name =~ s/\s+//g;
+        # save name to the global array
+        push(@handler_name_array, ($handler_name));
+        # Get handler parameters.
+        my ($handler_parameters) = $handler_function =~ /\((.+)\)/;
+        # Split parameter
+        my @handler_parameter_arr = split(',', $handler_parameters);
+        # Final string types only
+        my $final_parameters = "";
+        for (my $i = 0; $i <= $#handler_parameter_arr; $i = $i + 1){
+            # delete left space
+            $handler_parameter_arr[$i] =~ s/^\s+//;
+            # delete right space
+            $handler_parameter_arr[$i] =~ s/\s+$//;
+            # get the type
+            my ($temp) = $handler_parameter_arr[$i] =~ /^(.*?)\s/;
+            $handler_parameter_arr[$i] = $temp;
+            # append types
+            $final_parameters = $final_parameters." ".$handler_parameter_arr[$i];
+        }
+        # delete left space
+        $final_parameters =~ s/^\s+//;
+        # replace space with comma
+        $final_parameters =~ s/ /,/g;
+        # save types to the global array
+        push(@handler_types_array, ($final_parameters));
+        # Code snippet
+        my $code_snippet = 
+<<"CODE_SNIPPET";
+// Original code: ${original_code}
+bytes32 private ${handler_name}_key;
+function set_${handler_name}_key() private {
+    ${handler_name}_key = keccak256("${handler_name}(${final_parameters})");
+}
+function${handler_function}public {
+////////////////////
+CODE_SNIPPET
+        print {$write_fh} $code_snippet;
+        next;        
+    }
+    #################################################################################
+    #################################################################################    
+    # Constructor & Signal
+    if ($line =~ /constructor/) {
+        print {$write_fh} $line;
+        for (my $i = 0; $i <= $#signal_array; $i = $i + 1){
+            my ($signal_name) = $signal_array[$i];
+            my $code_snippet = 
+<<"CODE_SNIPPET";
+// Auto create signal
+set_${signal_name}_key();
+assembly {
+    mstore(0x00, createsignal(sload(${signal_name}_key.slot)))
+}
+////////////////////
+CODE_SNIPPET
+            print {$write_fh} $code_snippet;        
+        }
+        next;    
+    }
+
+    #################################################################################
+    #################################################################################
+    
     # Regular line of code
     print {$write_fh} $line;
 }
