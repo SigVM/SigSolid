@@ -82,14 +82,14 @@ assembly {
     function detaching() public view {
         address this_address = address(this);
 // Original code: AlertUpdate.detach(this_address,this.Alert(bool,bytes32,address));
-bytes32 AlertUpdate.detach(this_address, this_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
+bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
 assembly {
     mstore(
         0x00,
         sigdetach(
-            sload(AlertUpdate.detach(this_address, this_key.slot),
+            sload(AlertUpdate_key.slot),
             this_address,
-            AlertUpdate.detach(this_address, this_signal_prototype_hash
+            AlertUpdate_signal_prototype_hash
         )
     )
 }

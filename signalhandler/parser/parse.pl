@@ -252,7 +252,7 @@ CODE_SNIPPET
     if ($line =~ /\.detach\(/) {
         my $original_code = $line;
         $original_code =~ s/\s+//g;
-        my ($handler_name) = $line =~ /\s*(.+)\./;
+        my ($handler_name) = $line =~ /\s*(.+)\.detach/;
         my ($signal_prototype) = "";
         my ($arg_string) = $line =~ /detach\((.+)\)/;
         $arg_string =~ s/\s+//g;
