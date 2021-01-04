@@ -31,38 +31,24 @@ assembly {
     mstore(0x00, deletesignal(sload(Alert_key.slot)))
 }
 ////////////////////
-// Original code: AlertUpdate.delete_handler();
-AlertUpdate_key = 0;
-assembly {
-    mstore(0x00, deletehandler(sload(AlertUpdate_key.slot)))
-}
-////////////////////
     }
 
     function binding() public {
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,"Alert(bool,bytes32,address)",0.46);
+// Original code: AlertUpdate.bind(this_address,this.Alert(bool,bytes32,address),0.46);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
 uint AlertUpdate_gas_ratio = 146;
-assembly {
-    mstore(
-        0x00, 
-        createhandler(
-            sload(AlertUpdate_key.slot), 
-            AlertUpdate_method_hash, 
-            AlertUpdate_gas_limit, 
-            AlertUpdate_gas_ratio
-        )
-    )
-}
 bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
 assembly {
     mstore(
         0x00,
         sigbind(
             sload(AlertUpdate_key.slot),
+            AlertUpdate_method_hash, 
+            AlertUpdate_gas_limit, 
+            AlertUpdate_gas_ratio,
             this_address,
             AlertUpdate_signal_prototype_hash
         )
@@ -95,15 +81,15 @@ assembly {
 
     function detaching() public view {
         address this_address = address(this);
-// Original code: AlertUpdate.detach(this_address,"Alert(bool,bytes32,address)");
-bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
+// Original code: AlertUpdate.detach(this_address,this.Alert(bool,bytes32,address));
+bytes32 AlertUpdate.detach(this_address, this_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
 assembly {
     mstore(
         0x00,
         sigdetach(
-            sload(AlertUpdate_key.slot),
+            sload(AlertUpdate.detach(this_address, this_key.slot),
             this_address,
-            AlertUpdate_signal_prototype_hash
+            AlertUpdate.detach(this_address, this_signal_prototype_hash
         )
     )
 }
@@ -118,28 +104,20 @@ assembly {
 }
 ////////////////////
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,"Alert(bool,bytes32,address)",0.3);
+// Original code: AlertUpdate.bind(this_address,this.Alert(bool,bytes32,address),0.3);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
 uint AlertUpdate_gas_ratio = 130;
-assembly {
-    mstore(
-        0x00, 
-        createhandler(
-            sload(AlertUpdate_key.slot), 
-            AlertUpdate_method_hash, 
-            AlertUpdate_gas_limit, 
-            AlertUpdate_gas_ratio
-        )
-    )
-}
 bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
 assembly {
     mstore(
         0x00,
         sigbind(
             sload(AlertUpdate_key.slot),
+            AlertUpdate_method_hash, 
+            AlertUpdate_gas_limit, 
+            AlertUpdate_gas_ratio,
             this_address,
             AlertUpdate_signal_prototype_hash
         )

@@ -202,9 +202,16 @@ CODE_SNIPPET
         # delete line space
         $line =~ s/\s+//g;
         # Get handler parameters.
-        my ($address_parameter) = $line =~ /bind\((.+)\,"/;
-        my ($signal_parameter) = $line =~ /"(.+)"/;
-        my ($ratio_parameter) = $line =~ /"\,(.+)\)\;/;
+        my ($arg_string) = $line =~ /bind\((.+)\)/;
+        my @arg_arr = split(',', $arg_string);
+        my ($address_parameter) = $arg_arr[0];
+        my ($signal_parameter) = "";
+        for (my $i = 1; $i < $#arg_arr-1; $i = $i + 1){
+            $signal_parameter = $signal_parameter.$arg_arr[$i].",";
+        }
+        $signal_parameter = $signal_parameter.$arg_arr[$#arg_arr-1];
+        $signal_parameter = substr($signal_parameter, index($signal_parameter, ".")+1);
+        my ($ratio_parameter) = $arg_arr[$#arg_arr];     
         my ($ratio) = $ratio_parameter * 100 + 100;
         my ($method_prototype);
         for (my $i = 0; $i <= $#handler_name_array; $i = $i + 1){
@@ -216,26 +223,18 @@ CODE_SNIPPET
 <<"CODE_SNIPPET";
 // Original code: ${line}
 set_${handler_name}_key();
-bytes32 ${handler_name}_method_hash = keccak256("$method_prototype");
+bytes32 ${handler_name}_method_hash = keccak256("${method_prototype}");
 uint ${handler_name}_gas_limit = 100000000;
 uint ${handler_name}_gas_ratio = $ratio;
-assembly {
-    mstore(
-        0x00, 
-        createhandler(
-            sload(${handler_name}_key.slot), 
-            ${handler_name}_method_hash, 
-            ${handler_name}_gas_limit, 
-            ${handler_name}_gas_ratio
-        )
-    )
-}
 bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_parameter}");
 assembly {
     mstore(
         0x00,
         sigbind(
             sload(${handler_name}_key.slot),
+            ${handler_name}_method_hash, 
+            ${handler_name}_gas_limit, 
+            ${handler_name}_gas_ratio,
             ${address_parameter},
             ${handler_name}_signal_prototype_hash
         )
@@ -251,15 +250,22 @@ CODE_SNIPPET
     #################################################################################
     # Detach
     if ($line =~ /\.detach\(/) {
+        my $original_code = $line;
+        $original_code =~ s/\s+//g;
         my ($handler_name) = $line =~ /\s*(.+)\./;
-        my ($signal_prototype) = $line =~ /"(.+)"/;
+        my ($signal_prototype) = "";
         my ($arg_string) = $line =~ /detach\((.+)\)/;
         $arg_string =~ s/\s+//g;
         $arg_string =~ s/"(.+)"//g;
         my @arg_arr = split(',', $arg_string);
+        for (my $i = 1; $i < $#arg_arr; $i = $i + 1){
+            $signal_prototype = $signal_prototype.$arg_arr[$i].",";
+        }
+        $signal_prototype = $signal_prototype.$arg_arr[$#arg_arr];
+        $signal_prototype = substr($signal_prototype, index($signal_prototype, ".")+1);
         my $code_snippet = 
 <<"CODE_SNIPPET";
-// Original code: ${handler_name}.detach(${arg_string}"$signal_prototype");
+// Original code: ${original_code}
 bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_prototype}");
 assembly {
     mstore(
