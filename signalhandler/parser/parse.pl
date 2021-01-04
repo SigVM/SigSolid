@@ -71,41 +71,7 @@ CODE_SNIPPET
 
     #################################################################################
     #################################################################################
-    # Create handler
-    if ($line =~ /\.create_handler\(/) {
-        my ($handler_name) = $line =~ /\s*(.+)\./;
-        my ($method_prototype) = $line =~ /"(.+)"/;
-        my ($arg_string) = $line =~ /create_handler\((.+)\)/;
-        $arg_string =~ s/\s+//g;
-        $arg_string =~ s/"(.+)"//g;
-        my @arg_arr = split(',', $arg_string);
-        my $code_snippet = 
-<<"CODE_SNIPPET";
-// Original code: ${handler_name}.create_handler("$method_prototype"$arg_string);
-set_${handler_name}_key();
-bytes32 ${handler_name}_method_hash = keccak256("$method_prototype");
-uint ${handler_name}_gas_limit = $arg_arr[1];
-uint ${handler_name}_gas_ratio = $arg_arr[2];
-assembly {
-    mstore(
-        0x00, 
-        createhandler(
-            sload(${handler_name}_key.slot), 
-            ${handler_name}_method_hash, 
-            ${handler_name}_gas_limit, 
-            ${handler_name}_gas_ratio
-        )
-    )
-}
-////////////////////
-CODE_SNIPPET
-        print {$write_fh} $code_snippet;
-        next;
-    }
-
-    #################################################################################
-    #################################################################################
-    # Delete signal
+     # Delete signal
     if ($line =~ /\.delete_signal\(/) {
         my ($signal_name) = $line =~ /\s+(.+)\./;
         my $code_snippet = 
@@ -121,24 +87,6 @@ CODE_SNIPPET
         next;
     }
     
-    #################################################################################
-    #################################################################################
-    # Delete handler
-    if ($line =~ /\.delete_handler\(/) {
-        my ($handler_name) = $line =~ /\s+(.+)\./;
-        my $code_snippet = 
-<<"CODE_SNIPPET";
-// Original code: ${handler_name}.delete_handler();
-${handler_name}_key = 0;
-assembly {
-    mstore(0x00, deletehandler(sload(${handler_name}_key.slot)))
-}
-////////////////////
-CODE_SNIPPET
-        print {$write_fh} $code_snippet;
-        next;
-    }
-
     #################################################################################
     #################################################################################
     # Emit
@@ -205,12 +153,13 @@ CODE_SNIPPET
         my ($arg_string) = $line =~ /bind\((.+)\)/;
         my @arg_arr = split(',', $arg_string);
         my ($address_parameter) = $arg_arr[0];
-        my ($signal_parameter) = "";
-        for (my $i = 1; $i < $#arg_arr-1; $i = $i + 1){
-            $signal_parameter = $signal_parameter.$arg_arr[$i].",";
-        }
-        $signal_parameter = $signal_parameter.$arg_arr[$#arg_arr-1];
+        my ($signal_parameter) = $arg_arr[1];
         $signal_parameter = substr($signal_parameter, index($signal_parameter, ".")+1);
+        for (my $i = 0; $i <= $#handler_name_array; $i = $i + 1){
+            if($handler_name eq $handler_name_array[$i]){
+                $signal_parameter = $signal_parameter."(".$handler_types_array[$i].")";
+            }
+        }
         my ($ratio_parameter) = $arg_arr[$#arg_arr];     
         my ($ratio) = $ratio_parameter * 100 + 100;
         my ($method_prototype);
@@ -258,11 +207,12 @@ CODE_SNIPPET
         $arg_string =~ s/\s+//g;
         $arg_string =~ s/"(.+)"//g;
         my @arg_arr = split(',', $arg_string);
-        for (my $i = 1; $i < $#arg_arr; $i = $i + 1){
-            $signal_prototype = $signal_prototype.$arg_arr[$i].",";
+        $signal_prototype = substr($arg_arr[1], index($arg_arr[1], ".")+1);
+        for (my $i = 0; $i <= $#handler_name_array; $i = $i + 1){
+            if($handler_name eq $handler_name_array[$i]){
+                $signal_prototype = $signal_prototype."(".$handler_types_array[$i].")";
+            }
         }
-        $signal_prototype = $signal_prototype.$arg_arr[$#arg_arr];
-        $signal_prototype = substr($signal_prototype, index($signal_prototype, ".")+1);
         my $code_snippet = 
 <<"CODE_SNIPPET";
 // Original code: ${original_code}

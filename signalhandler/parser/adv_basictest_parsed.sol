@@ -59,7 +59,7 @@ assembly {
 
     function binding() public {
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,this_address.Alert1(bool,bytes32,address),0.46);
+// Original code: AlertUpdate.bind(this_address,this_address.Alert1,0.46);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
@@ -121,7 +121,7 @@ assembly {
 
     function detaching() public view {
         address this_address = address(this);
-// Original code: AlertUpdate.detach(this_address,anything.Alert1(bool,bytes32,address));
+// Original code: AlertUpdate.detach(this_address,anything.Alert1);
 bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert1(bool,bytes32,address)");
 assembly {
     mstore(
@@ -150,7 +150,7 @@ assembly {
 }
 ////////////////////
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,idontknow.Alert1(bool,bytes32,address),0.3);
+// Original code: AlertUpdate.bind(this_address,idontknow.Alert1,0.3);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
@@ -170,7 +170,7 @@ assembly {
     )
 }
 ////////////////////
-// Original code: AdvAlertUpdate.bind(this_address,this_address.Alert2(bool,bytes32,address),0.78);
+// Original code: AdvAlertUpdate.bind(this_address,this_address.Alert2,0.78);
 set_AdvAlertUpdate_key();
 bytes32 AdvAlertUpdate_method_hash = keccak256("AdvAlertUpdate(bool,bytes32,address)");
 uint AdvAlertUpdate_gas_limit = 100000000;

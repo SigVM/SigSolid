@@ -28,7 +28,7 @@ contract A {
 
     function binding() public {
         address this_address = address(this);
-        AlertUpdate.bind(this_address, this_address.Alert1(bool,bytes32,address), 0.46);
+        AlertUpdate.bind(this_address, this_address.Alert1, 0.46);
     }
     
     function emitting(address data3) public view {
@@ -41,12 +41,12 @@ contract A {
 
     function detaching() public view {
         address this_address = address(this);
-        AlertUpdate.detach(this_address, anything.Alert1(bool,bytes32,address));
+        AlertUpdate.detach(this_address, anything.Alert1);
     }
 
     constructor () {
         address this_address = address(this);
-        AlertUpdate.bind(this_address, idontknow.Alert1(bool,bytes32,address), 0.3);
-        AdvAlertUpdate.bind(this_address, this_address.Alert2(bool,bytes32,address), 0.78);
+        AlertUpdate.bind(this_address, idontknow.Alert1, 0.3);
+        AdvAlertUpdate.bind(this_address, this_address.Alert2, 0.78);
     }
 }

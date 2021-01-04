@@ -35,7 +35,7 @@ assembly {
 
     function binding() public {
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,this.Alert(bool,bytes32,address),0.46);
+// Original code: AlertUpdate.bind(this_address,this.Alert,0.46);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
@@ -81,7 +81,7 @@ assembly {
 
     function detaching() public view {
         address this_address = address(this);
-// Original code: AlertUpdate.detach(this_address,this.Alert(bool,bytes32,address));
+// Original code: AlertUpdate.detach(this_address,this.Alert);
 bytes32 AlertUpdate_signal_prototype_hash = keccak256("Alert(bool,bytes32,address)");
 assembly {
     mstore(
@@ -104,7 +104,7 @@ assembly {
 }
 ////////////////////
         address this_address = address(this);
-// Original code: AlertUpdate.bind(this_address,this.Alert(bool,bytes32,address),0.3);
+// Original code: AlertUpdate.bind(this_address,this.Alert,0.3);
 set_AlertUpdate_key();
 bytes32 AlertUpdate_method_hash = keccak256("AlertUpdate(bool,bytes32,address)");
 uint AlertUpdate_gas_limit = 100000000;
