@@ -169,13 +169,11 @@ std::map<std::string, Instruction> const solidity::evmasm::c_instructions =
 
 	///////////////////////////////////////////////////////////////////////////
 	// Signal and Handlers begin
-	{ "CREATESIGNAL", Instruction::CREATESIGNAL },
-	{ "CREATEHANDLER", Instruction::CREATEHANDLER },	
+	{ "CREATESIGNAL", Instruction::CREATESIGNAL },	
 	{ "SIGBIND", Instruction::SIGBIND },
 	{ "SIGDETACH", Instruction::SIGDETACH },	
 	{ "SIGEMIT", Instruction::SIGEMIT },
-	{ "DELETESIGNAL", Instruction::DELETESIGNAL },
-	{ "DELETEHANDLER", Instruction::DELETEHANDLER },	
+	{ "DELETESIGNAL", Instruction::DELETESIGNAL },	
 	// Signal and Handlers end
 	///////////////////////////////////////////////////////////////////////////
 
@@ -328,12 +326,10 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	///////////////////////////////////////////////////////////////////////////
 	// Signal and Slots begin
 	{ Instruction::CREATESIGNAL,	{ "CREATESIGNAL",	0, 1, 1, false, Tier::Special } },
-	{ Instruction::CREATEHANDLER,	{ "CREATEHANDLER",	0, 4, 1, false, Tier::Special } },
 	{ Instruction::SIGBIND,			{ "SIGBIND",		0, 6, 1, false, Tier::Special } },
 	{ Instruction::SIGDETACH,		{ "SIGDETACH",		0, 3, 1, false, Tier::Special } },
 	{ Instruction::SIGEMIT,	    	{ "SIGEMIT",		0, 4, 1, false, Tier::Special } },
 	{ Instruction::DELETESIGNAL,	{ "DELETESIGNAL",	0, 1, 1, false, Tier::Special } },
-	{ Instruction::DELETEHANDLER,	{ "DELETEHANDLER",	0, 1, 1, false, Tier::Special } },
 	// Signal and Slots end
 	///////////////////////////////////////////////////////////////////////////
 	{ Instruction::CREATE,		{ "CREATE",			0, 3, 1, true, Tier::Special } },

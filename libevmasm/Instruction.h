@@ -189,12 +189,10 @@ enum class Instruction: uint8_t
 	///////////////////////////////////////////////////////////////////////////
 	// Signal and Handlers begin
 	CREATESIGNAL  = 0xc0,	///< Create a new signal
-	CREATEHANDLER = 0xc1, 	///< Create a new slot
 	SIGBIND    	  = 0xc2,	///< Bind a slot to a signal 
 	SIGDETACH	  = 0xc3,	///< Detach a slot from a signal
 	SIGEMIT       = 0xc4,	///< Emit a signal to all listening slots
 	DELETESIGNAL  = 0xc5, 	///< Delete a signal
-	DELETEHANDLER = 0xc6,   ///< Delete a handler
 	// Signal and Handlers end
 	///////////////////////////////////////////////////////////////////////////
 
