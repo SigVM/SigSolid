@@ -160,7 +160,7 @@ CODE_SNIPPET
                 $signal_parameter = $signal_parameter."(".$handler_types_array[$i].")";
             }
         }
-        my ($ratio_parameter) = $arg_arr[$#arg_arr];     
+        my ($ratio_parameter) = $arg_arr[2];
         my ($ratio) = $ratio_parameter * 100 + 100;
         my ($method_prototype);
         for (my $i = 0; $i <= $#handler_name_array; $i = $i + 1){
@@ -168,24 +168,36 @@ CODE_SNIPPET
                 $method_prototype = $handler_name_array[$i]."(".$handler_types_array[$i].")";
             }
         }
+        my ($blk) = $arg_arr[3];
+        if ($blk =~ "true") {$blk = 1} else {$blk = 0}
+        my ($sigRoles) = $arg_arr[4];
+        my ($sigMethods) = $arg_arr[5];
         my $code_snippet = 
 <<"CODE_SNIPPET";
 // Original code: ${line}
 set_${handler_name}_key();
 bytes32 ${handler_name}_method_hash = keccak256("${method_prototype}");
-uint ${handler_name}_gas_limit = 100000000;
-uint ${handler_name}_gas_ratio = $ratio;
 bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_parameter}");
+bytes memory abi_encoded_${handler_name}_sigRoles = abi.encode($sigRoles);
+uint abi_encoded_${handler_name}_sigRoles_length = abi_encoded_${handler_name}_sigRoles.length;
+bytes memory abi_encoded_${handler_name}_sigMethods = abi.encode($sigMethods);
+uint abi_encoded_${handler_name}_sigMethods_length = abi_encoded_${handler_name}_sigMethods.length;
+
 assembly {
     mstore(
         0x00,
         sigbind(
             sload(${handler_name}_key.slot),
             ${handler_name}_method_hash, 
-            ${handler_name}_gas_limit, 
-            ${handler_name}_gas_ratio,
+            100000000, 
+            $ratio,
             ${address_parameter},
-            ${handler_name}_signal_prototype_hash
+            ${handler_name}_signal_prototype_hash,
+            $blk,
+            abi_encoded_${handler_name}_sigRoles,
+            abi_encoded_${handler_name}_sigRoles_length,
+            abi_encoded_${handler_name}_sigMethods,
+            abi_encoded_${handler_name}_sigMethods_length
         )
     )
 }
@@ -253,7 +265,10 @@ CODE_SNIPPET
         # Get handler parameters.
         my ($handler_parameters) = $handler_function =~ /\((.+)\)/;
         # Split parameter
-        my @handler_parameter_arr = split(',', $handler_parameters);
+        my @handler_parameter_arr;
+        if (defined $handler_parameters) {	
+                @handler_parameter_arr = split(',', $handler_parameters);
+        }
         # Final string types only
         my $final_parameters = "";
         for (my $i = 0; $i <= $#handler_parameter_arr; $i = $i + 1){
