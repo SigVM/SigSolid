@@ -179,9 +179,9 @@ set_${handler_name}_key();
 bytes32 ${handler_name}_method_hash = keccak256("${method_prototype}");
 bytes32 ${handler_name}_signal_prototype_hash = keccak256("${signal_parameter}");
 bytes memory abi_encoded_${handler_name}_sigRoles = abi.encode($sigRoles);
-uint abi_encoded_${handler_name}_sigRoles_length = abi_encoded_${handler_name}_sigRoles.length;
+uint abi_encoded_${handler_name}_sigRoles_length = abi_encoded_${handler_name}_sigRoles.length - 64;
 bytes memory abi_encoded_${handler_name}_sigMethods = abi.encode($sigMethods);
-uint abi_encoded_${handler_name}_sigMethods_length = abi_encoded_${handler_name}_sigMethods.length;
+uint abi_encoded_${handler_name}_sigMethods_length = abi_encoded_${handler_name}_sigMethods.length - 64;
 
 assembly {
     mstore(
@@ -189,7 +189,7 @@ assembly {
         sigbind(
             sload(${handler_name}_key.slot),
             ${handler_name}_method_hash, 
-            100000000, 
+            10000000, 
             $ratio,
             ${address_parameter},
             ${handler_name}_signal_prototype_hash,
