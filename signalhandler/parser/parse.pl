@@ -93,17 +93,20 @@ CODE_SNIPPET
     if ($line =~ /\.emit\(/) {
         my ($signal_name) = $line =~ /\s*(.+)\./;
         $signal_name =~ s/\.(.+)//g;
-        my ($arg_string) = $line =~ /emit\((.+)\)/;
+        my ($arg_string) = $line =~ /emit\((.+)\).target/;
         $arg_string =~ s/\s+//g;
         $arg_string =~ s/\)\.(.+)//g;
         my @arg_arr = split(',', $arg_string);
         my ($delay_value) = $line =~ /delay\((.+)\)/;
+        my ($handler_array) = $line =~ /target\((.+)\).delay/;
         my $code_snippet_with_args = 
 <<"CODE_SNIPPET";
-// Original code: ${signal_name}.emit(${arg_string}).delay($delay_value);
+// Original code: ${signal_name}.emit(${arg_string}).target($handler_array).delay($delay_value);
 bytes memory abi_encoded_${signal_name}_data = abi.encode($arg_string);
 // This length is measured in bytes and is always a multiple of 32.
 uint abi_encoded_${signal_name}_length = abi_encoded_${signal_name}_data.length;
+bytes memory abi_encoded_${signal_name}_handlers = abi.encode($handler_array);
+uint abi_encoded_${signal_name}_handlers_length = abi_encoded_${signal_name}_handlers.length - 64;
 assembly {
     mstore(
         0x00,
@@ -111,7 +114,9 @@ assembly {
             sload(${signal_name}_key.slot), 
             abi_encoded_${signal_name}_data,
             abi_encoded_${signal_name}_length,
-            $delay_value
+            $delay_value,
+            abi_encoded_${signal_name}_handlers,
+            abi_encoded_${signal_name}_handlers_length
         )
     )
 }
@@ -119,7 +124,9 @@ assembly {
 CODE_SNIPPET
         my $code_snippet_wo_args = 
 <<"CODE_SNIPPET";
-// Original code: ${signal_name}.emit().delay($delay_value);
+// Original code: ${signal_name}.emit().target($handler_array).delay($delay_value);
+bytes memory abi_encoded_${signal_name}_handlers = abi.encode($handler_array);
+uint abi_encoded_${signal_name}_handlers_length = abi_encoded_${signal_name}_handlers.length - 64;
 assembly {
     mstore(
         0x00,
@@ -127,7 +134,9 @@ assembly {
             sload(${signal_name}_key.slot), 
             0,
             0,
-            $delay_value
+            $delay_value,
+            abi_encoded_${signal_name}_handlers,
+            abi_encoded_${signal_name}_handlers_length
         )
     )
 }

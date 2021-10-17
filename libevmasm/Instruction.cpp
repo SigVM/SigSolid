@@ -328,7 +328,7 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::CREATESIGNAL,	{ "CREATESIGNAL",	0, 1, 1, false, Tier::Special } },
 	{ Instruction::SIGBIND,			{ "SIGBIND",		0, 11, 1, false, Tier::Special } },
 	{ Instruction::SIGDETACH,		{ "SIGDETACH",		0, 3, 1, false, Tier::Special } },
-	{ Instruction::SIGEMIT,	    	{ "SIGEMIT",		0, 4, 1, false, Tier::Special } },
+	{ Instruction::SIGEMIT,	    	{ "SIGEMIT",		0, 6, 1, false, Tier::Special } },
 	{ Instruction::DELETESIGNAL,	{ "DELETESIGNAL",	0, 1, 1, false, Tier::Special } },
 	// Signal and Slots end
 	///////////////////////////////////////////////////////////////////////////
